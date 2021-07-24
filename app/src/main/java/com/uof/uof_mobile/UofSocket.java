@@ -16,6 +16,10 @@ public class UofSocket {
     private InputStream inputStream;
     private byte[] recvData;
 
+    public UofSocket(){
+
+    }
+
     public UofSocket(String targetIp, int targetPort) {
         socket = new Socket();
         socketAddress = new InetSocketAddress(targetIp, targetPort);
