@@ -77,7 +77,7 @@ public class SocketTestActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    if (uofSocket.send(sendData.toString())) {
+                    if (uofSocket.send(sendData.toString() + "\n")) {
                         // 메세지 전송 성공 시
                         runOnUiThread(() -> {
                             tvSocketTestSendLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 완료: " + sendData.toString() + "\n");
