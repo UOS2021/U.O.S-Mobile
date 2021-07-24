@@ -1,8 +1,5 @@
 package com.uof.uof_mobile;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -16,6 +13,10 @@ public class UofSocket {
     private InputStream inputStream;
     private byte[] recvData;
 
+    public UofSocket(){
+
+    }
+
     public UofSocket(String targetIp, int targetPort) {
         socket = new Socket();
         socketAddress = new InetSocketAddress(targetIp, targetPort);
@@ -23,7 +24,7 @@ public class UofSocket {
 
     // Set socket information
     public boolean setSocket(String targetIp, int targetPort) {
-        if (isSocketConnected())
+        if (socket != null && isSocketConnected())
             return false;
 
         socket = new Socket();
