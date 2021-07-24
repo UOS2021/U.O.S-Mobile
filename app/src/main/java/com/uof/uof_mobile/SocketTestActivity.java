@@ -48,16 +48,25 @@ public class SocketTestActivity extends AppCompatActivity {
         tvSocketTestSendLog.setMovementMethod(new ScrollingMovementMethod());
         tvSocketTestRecvLog.setMovementMethod(new ScrollingMovementMethod());
 
+        String targetIp = getIntent().getStringExtra("targetIp");
+        int targetPort = getIntent().getIntExtra("targetPort", -1);
+        if(targetIp != null){
+            tiedtSocketTestServerIp.setText(targetIp);
+        }
+        if(targetPort != -1){
+            tiedtSocketTestServerPort.setText(String.valueOf(targetPort));
+        }
+
         uofSocket = new UofSocket();
 
         btnSocketTestSend.setOnClickListener((v) -> {
             setInputAreaEnable(false);
-            uofSocket.setSocket(tiedtSocketTestServerIp.getText().toString(), Integer.parseInt(tiedtSocketTestServerPort.getText().toString()));
             new Thread(() -> {
+                uofSocket.setSocket(tiedtSocketTestServerIp.getText().toString(), Integer.parseInt(tiedtSocketTestServerPort.getText().toString()));
                 if (uofSocket.connect(2000)) {
                     // 소켓 연결 성공 시
                     runOnUiThread(() -> {
-                        tvSocketTestLog.append(new SimpleDateFormat("[hh:mm:ss] ").format(new Date(System.currentTimeMillis())) + "소켓 연결 성공\n");
+                        tvSocketTestLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "소켓 연결 성공\n");
                     });
 
                     JSONObject sendData = new JSONObject();
@@ -71,30 +80,30 @@ public class SocketTestActivity extends AppCompatActivity {
                     if (uofSocket.send(sendData.toString())) {
                         // 메세지 전송 성공 시
                         runOnUiThread(() -> {
-                            tvSocketTestSendLog.append(new SimpleDateFormat("[hh:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 완료: " + sendData.toString() + "\n");
+                            tvSocketTestSendLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 완료: " + sendData.toString() + "\n");
 
                             String recvData = uofSocket.recv();
                             if (recvData == null) {
-                                tvSocketTestRecvLog.append(new SimpleDateFormat("[hh:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 실패" + "\n");
+                                tvSocketTestRecvLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 실패" + "\n");
                             } else {
-                                tvSocketTestRecvLog.append(new SimpleDateFormat("[hh:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 완료: " + uofSocket.recv() + "\n");
+                                tvSocketTestRecvLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 완료: " + uofSocket.recv() + "\n");
                             }
                         });
                     }else {
                         runOnUiThread(() -> {
-                            tvSocketTestSendLog.setText(new SimpleDateFormat("[hh:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 실패: " + sendData.toString() + "\n");
+                            tvSocketTestSendLog.setText(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 실패: " + sendData.toString() + "\n");
                         });
                     }
 
                     uofSocket.disconnect();
 
                     runOnUiThread(() -> {
-                        tvSocketTestLog.append(new SimpleDateFormat("[hh:mm:ss] ").format(new Date(System.currentTimeMillis())) + "소켓 연결 종료\n");
+                        tvSocketTestLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "소켓 연결 종료\n");
                         setInputAreaEnable(true);
                     });
                 } else {
                     runOnUiThread(() -> {
-                        tvSocketTestLog.append(new SimpleDateFormat("[hh:mm:ss] ").format(new Date(System.currentTimeMillis())) + "소켓 연결 실패\n");
+                        tvSocketTestLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "소켓 연결 실패\n");
                         setInputAreaEnable(true);
                     });
                 }
