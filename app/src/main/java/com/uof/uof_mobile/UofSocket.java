@@ -35,7 +35,7 @@ public class UofSocket {
 
     // Return socket connected state
     public boolean isSocketConnected() {
-        return !(socket.isClosed() || (!socket.isClosed() && !socket.isConnected()));
+        return (socket.isConnected() && !socket.isClosed());
     }
 
     // Connect socket
