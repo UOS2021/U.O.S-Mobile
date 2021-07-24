@@ -50,10 +50,10 @@ public class SocketTestActivity extends AppCompatActivity {
 
         String targetIp = getIntent().getStringExtra("targetIp");
         int targetPort = getIntent().getIntExtra("targetPort", -1);
-        if(targetIp != null){
+        if (targetIp != null) {
             tiedtSocketTestServerIp.setText(targetIp);
         }
-        if(targetPort != -1){
+        if (targetPort != -1) {
             tiedtSocketTestServerPort.setText(String.valueOf(targetPort));
         }
 
@@ -81,15 +81,19 @@ public class SocketTestActivity extends AppCompatActivity {
                         // 메세지 전송 성공 시
                         runOnUiThread(() -> {
                             tvSocketTestSendLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 완료: " + sendData.toString() + "\n");
-
-                            String recvData = uofSocket.recv();
-                            if (recvData == null) {
-                                tvSocketTestRecvLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 실패" + "\n");
-                            } else {
-                                tvSocketTestRecvLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 완료: " + uofSocket.recv() + "\n");
-                            }
                         });
-                    }else {
+                        String recvData = uofSocket.recv();
+                        if (recvData == null) {
+                            runOnUiThread(() -> {
+                                tvSocketTestRecvLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 실패" + "\n");
+
+                            });
+                        } else {
+                            runOnUiThread(() -> {
+                                tvSocketTestRecvLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 완료: " + recvData + "\n");
+                            });
+                        }
+                    } else {
                         runOnUiThread(() -> {
                             tvSocketTestSendLog.setText(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 실패: " + sendData.toString() + "\n");
                         });
@@ -111,7 +115,7 @@ public class SocketTestActivity extends AppCompatActivity {
         });
     }
 
-    private void setInputAreaEnable(boolean enable){
+    private void setInputAreaEnable(boolean enable) {
         edtSocketTestType.setEnabled(enable);
         edtSocketTestMessage.setEnabled(enable);
         btnSocketTestSend.setEnabled(enable);
