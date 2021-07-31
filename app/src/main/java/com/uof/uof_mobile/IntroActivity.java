@@ -6,18 +6,22 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class IntroActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_intro);
 
         init();
     }
 
     private void init(){
-        Intent socketTestActivity = new Intent(MainActivity.this, SocketTestActivity.class);
+        Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+        startActivity(intent);
+
+        /* QR 실행 및 소켓 통신 테스트
+        Intent socketTestActivity = new Intent(LoginActivity.this, SocketTestActivity.class);
 
         if(Intent.ACTION_VIEW.equals(getIntent().getAction())){
             Uri uri = getIntent().getData();
@@ -31,5 +35,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         startActivity(socketTestActivity);
+         */
     }
 }
