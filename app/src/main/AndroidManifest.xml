@@ -11,21 +11,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UOFMobile">
-        <activity android:name=".SocketTestActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".PayActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OrderingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CardActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SettingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OrderListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LobbyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".QRRecognitionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".IntroActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <data android:host="action" android:scheme="uofmobile"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="action"
+                    android:scheme="uofmobile" />
             </intent-filter>
         </activity>
+        <activity android:name=".SocketTestActivity" />
     </application>
 
 </manifest>
