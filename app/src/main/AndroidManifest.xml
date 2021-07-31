@@ -33,7 +33,7 @@
             android:name=".QRRecognitionActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true" />
         <activity
             android:name=".IntroActivity"
