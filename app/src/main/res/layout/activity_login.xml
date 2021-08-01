@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:layout_weight="5">
         <ImageView
-            android:id="@+id/iv_login"
+            android:id="@+id/iv_login_recognizeqr"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -33,23 +33,13 @@
             android:id="@+id/tv_login_name1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="나만의 키오스크"
-            android:layout_gravity="center"
+            android:text="나만의 키오스크\nUOF"
+            android:textAlignment="center"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_login_name1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="UOF"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
