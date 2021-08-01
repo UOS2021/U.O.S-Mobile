@@ -7,9 +7,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -17,12 +19,16 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView ivLoginRecognizeQR;
     private TextInputLayout tilLoginId;
     private TextInputLayout tilLoginPw;
-    private TextInputLayout tilRegisterId;
-    private TextInputLayout tilRegisterPw;
-    private TextInputLayout tilRegisterName;
+    private TextInputLayout tilLoginRegisterId;
+    private TextInputLayout tilLoginRegisterPw;
+    private TextInputLayout tilLoginRegisterName;
     private TextInputLayout tilRegisterPhoneNumber;
+    private TextInputLayout tilLoginRegisterPhoneNumber;
     private Button btnLoginLogin;
     private TextView tvLoginRegister;
+    private TextView tvLoginReturnLogin;
+    private LinearLayoutCompat llLoginLoginLayout;
+    private LinearLayoutCompat llLoginRegisterLayout;
 
     private boolean isLoginSelected;
 
@@ -38,14 +44,25 @@ public class LoginActivity extends AppCompatActivity {
         ivLoginRecognizeQR = findViewById(R.id.iv_login_recognizeqr);
         tilLoginId = findViewById(R.id.til_login_id);
         tilLoginPw = findViewById(R.id.til_login_pw);
+        tilLoginRegisterId = findViewById(R.id.til_login_registerid);
+        tilLoginRegisterPw = findViewById(R.id.til_login_registerpw);
+        tilLoginRegisterName = findViewById(R.id.til_login_registername);
+        tilLoginRegisterPhoneNumber = findViewById(R.id.til_login_registerphone1);
         btnLoginLogin = findViewById(R.id.btn_login_login);
         tvLoginRegister = findViewById(R.id.tv_login_register);
+        tvLoginReturnLogin = findViewById(R.id.tv_login_returnlogin);
+        llLoginLoginLayout = findViewById(R.id.ll_login_loginlayout);
+        llLoginRegisterLayout = findViewById(R.id.ll_login_registerlayout);
+
+
 
         // 기본 데이터 설정
         isLoginSelected = true;
 
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
+        llLoginLoginLayout.setVisibility(View.VISIBLE);
+        llLoginRegisterLayout.setVisibility(View.GONE);
 
         // QR 코드 인식하기 ImageView가 눌렸을 경우
         ivLoginRecognizeQR.setOnClickListener(view -> {
@@ -85,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 회원가입 - 아이디 입력란이 수정되었을 경우
-        tilRegisterId.getEditText().addTextChangedListener(new TextWatcher() {
+        tilLoginRegisterId.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -101,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 회원가입 - 비밀번호 입력란이 수정되었을 경우
-        tilRegisterPw.getEditText().addTextChangedListener(new TextWatcher() {
+        tilLoginRegisterPw.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -117,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 회원가입 - 이름 입력란이 수정되었을 경우
-        tilRegisterName.getEditText().addTextChangedListener(new TextWatcher() {
+        tilLoginRegisterName.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -133,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 회원가입 - 전화번호 입력란이 수정되었을 경우
-        tilRegisterPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
+        tilLoginRegisterPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -176,8 +193,14 @@ public class LoginActivity extends AppCompatActivity {
 
         // 회원가입 TextView가 눌렸을 경우
         tvLoginRegister.setOnClickListener(view -> {
-            isLoginSelected = false;
-            tvLoginRegister.setVisibility(View.INVISIBLE);
+            isLoginSelected = !isLoginSelected;
+            llLoginLoginLayout.setVisibility(View.GONE);
+            llLoginRegisterLayout.setVisibility(View.VISIBLE);
+        });
+        tvLoginReturnLogin.setOnClickListener(view -> {
+            isLoginSelected = !isLoginSelected;
+            llLoginLoginLayout.setVisibility(View.VISIBLE);
+            llLoginRegisterLayout.setVisibility(View.GONE);
         });
     }
 
@@ -190,7 +213,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean checkRegister() {
         return checkRegisterId(tilLoginId.getEditText().getText().toString())
                 && checkRegisterPw(tilLoginPw.getEditText().getText().toString())
-                && checkRegisterName(tilRegisterName.getEditText().getText().toString())
+                && checkRegisterName(tilLoginRegisterName.getEditText().getText().toString())
                 && checkRegisterPhoneNumber(tilRegisterPhoneNumber.getEditText().getText().toString());
     }
 
