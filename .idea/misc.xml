@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Projects/U.O.F-Mobile/app/src/main/res/layout/activity_intro.xml" value="0.2318840579710145" />
+        <entry key="..\:/Android Projects/U.O.F-Mobile/app/src/main/res/layout/activity_lobby.xml" value="0.246875" />
+        <entry key="..\:/Android Projects/U.O.F-Mobile/app/src/main/res/layout/activity_login.xml" value="0.2318840579710145" />
+        <entry key="..\:/Android Projects/U.O.F-Mobile/app/src/main/res/layout/activity_sockettest.xml" value="0.246875" />
         <entry key="..\:/Project/U.O.F-Mobile/app/src/main/res/layout/activity_main.xml" value="0.20516304347826086" />
         <entry key="..\:/Project/U.O.F-Mobile/app/src/main/res/layout/activity_sockettest.xml" value="0.20516304347826086" />
       </map>

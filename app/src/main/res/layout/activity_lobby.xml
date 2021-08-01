@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".LobbyActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_lobby"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/qrcode"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_lobby_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="현재 매장의 QR코드를 인식해주세요!"
+            android:textColor="#ff0000"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_lobby_left"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:text="Button" />
+        <Button
+            android:id="@+id/btn_lobby_center"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:text="Button" />
+        <Button
+            android:id="@+id/btn_lobby_right"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:text="Button" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>
