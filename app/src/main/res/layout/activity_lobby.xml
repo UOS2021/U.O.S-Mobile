@@ -47,19 +47,19 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_lobby_left"
+            android:id="@+id/btn_lobby_card"
             android:layout_width="120dp"
             android:layout_height="100dp"
             android:layout_weight="1"
             android:text="Button" />
         <Button
-            android:id="@+id/btn_lobby_center"
+            android:id="@+id/btn_lobby_orderlist"
             android:layout_width="120dp"
             android:layout_height="100dp"
             android:layout_weight="1"
             android:text="Button" />
         <Button
-            android:id="@+id/btn_lobby_right"
+            android:id="@+id/btn_lobby_setting"
             android:layout_width="120dp"
             android:layout_height="100dp"
             android:layout_weight="1"
