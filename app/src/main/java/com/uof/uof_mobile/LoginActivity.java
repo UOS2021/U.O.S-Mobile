@@ -21,9 +21,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tilLoginPw;
     private TextInputLayout tilLoginRegisterId;
     private TextInputLayout tilLoginRegisterPw;
+    private TextInputLayout tilLoginRegisterPwChk;
     private TextInputLayout tilLoginRegisterName;
-    private TextInputLayout tilRegisterPhoneNumber;
-    private TextInputLayout tilLoginRegisterPhoneNumber;
+    private TextInputLayout tilLoginRegisterPhone1;
     private Button btnLoginLogin;
     private TextView tvLoginRegister;
     private TextView tvLoginReturnLogin;
@@ -46,8 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         tilLoginPw = findViewById(R.id.til_login_pw);
         tilLoginRegisterId = findViewById(R.id.til_login_registerid);
         tilLoginRegisterPw = findViewById(R.id.til_login_registerpw);
+        tilLoginRegisterPwChk = findViewById(R.id.til_login_registerpwchk);
         tilLoginRegisterName = findViewById(R.id.til_login_registername);
-        tilLoginRegisterPhoneNumber = findViewById(R.id.til_login_registerphone1);
+        tilLoginRegisterPhone1 = findViewById(R.id.til_login_registerphone1);
         btnLoginLogin = findViewById(R.id.btn_login_login);
         tvLoginRegister = findViewById(R.id.tv_login_register);
         tvLoginReturnLogin = findViewById(R.id.tv_login_returnlogin);
@@ -150,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 회원가입 - 전화번호 입력란이 수정되었을 경우
-        tilLoginRegisterPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
+        tilLoginRegisterPhone1.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -211,10 +212,10 @@ public class LoginActivity extends AppCompatActivity {
 
     // 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인
     private boolean checkRegister() {
-        return checkRegisterId(tilLoginId.getEditText().getText().toString())
-                && checkRegisterPw(tilLoginPw.getEditText().getText().toString())
+        return checkRegisterId(tilLoginRegisterId.getEditText().getText().toString())
+                && checkRegisterPw(tilLoginRegisterPw.getEditText().getText().toString())
                 && checkRegisterName(tilLoginRegisterName.getEditText().getText().toString())
-                && checkRegisterPhoneNumber(tilRegisterPhoneNumber.getEditText().getText().toString());
+                && checkRegisterPhoneNumber(tilLoginRegisterPhone1.getEditText().getText().toString());
     }
 
     // 회원가입 - 아이디 패턴 및 보안 확인
