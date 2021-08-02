@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tilLoginPw;
     private TextInputLayout tilLoginRegisterId;
     private TextInputLayout tilLoginRegisterPw;
+    private TextInputLayout tilLoginRegisterPwChk;
     private TextInputLayout tilLoginRegisterName;
     private TextInputLayout tilLoginRegisterPhoneNumber;
     private Button btnLoginLogin;
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         tilLoginPw = findViewById(R.id.til_login_pw);
         tilLoginRegisterId = findViewById(R.id.til_login_registerid);
         tilLoginRegisterPw = findViewById(R.id.til_login_registerpw);
+        tilLoginRegisterPwChk = findViewById(R.id.til_login_registerpwchk);
         tilLoginRegisterName = findViewById(R.id.til_login_registername);
         tilLoginRegisterPhoneNumber = findViewById(R.id.til_login_registerphone1);
         btnLoginLogin = findViewById(R.id.btn_login_login);
@@ -264,8 +266,8 @@ public class LoginActivity extends AppCompatActivity {
 
     // 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인
     private boolean checkRegister() {
-        return checkRegisterId(tilLoginId.getEditText().getText().toString())
-                && checkRegisterPw(tilLoginPw.getEditText().getText().toString())
+        return checkRegisterId(tilLoginRegisterId.getEditText().getText().toString())
+                && checkRegisterPw(tilLoginRegisterPw.getEditText().getText().toString())
                 && checkRegisterName(tilLoginRegisterName.getEditText().getText().toString())
                 && checkRegisterPhoneNumber(tilLoginRegisterPhoneNumber.getEditText().getText().toString());
     }
