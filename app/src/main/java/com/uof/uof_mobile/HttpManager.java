@@ -20,15 +20,16 @@ import java.util.Map;
 public class HttpManager extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
-        try{
+        try {
             URL url = new URL(strings[0]);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setRequestProperty("Cache-Control", "no-cache");
-            httpURLConnection.setRequestProperty("Content-Type", "application/json");
-            httpURLConnection.setRequestProperty("Accept", "application/json");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setRequestProperty("Accept", "application/json");
+            httpURLConnection.setConnectTimeout(2000);
+            httpURLConnection.setReadTimeout(2000);
             httpURLConnection.connect();
 
             OutputStream outputStream = httpURLConnection.getOutputStream();
@@ -43,14 +44,21 @@ public class HttpManager extends AsyncTask<String, String, String> {
             StringBuffer stringBuffer = new StringBuffer();
             String line = "";
 
-            while((line = bufferedReader.readLine()) != null){
+            while ((line = bufferedReader.readLine()) != null) {
                 stringBuffer.append(line);
             }
 
-            return stringBuffer.toString();
-        } catch (Exception e){
+            httpURLConnection.disconnect();
+
+            String result = stringBuffer.toString();
+
+            result = result.substring(1, result.length() - 1).replace("\\", "");
+
+            return result;
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
+
+            return "{ request_code: \"-1\", message: \"" + e.toString() + "\" }";
         }
     }
 }
