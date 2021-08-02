@@ -13,7 +13,7 @@ public class UofSocket {
     private InputStream inputStream;
     private byte[] recvData;
 
-    public UofSocket(){
+    public UofSocket() {
 
     }
 
@@ -74,7 +74,7 @@ public class UofSocket {
 
     // Send data to connected socket
     public boolean send(String sendData) {
-        if(!isSocketConnected())
+        if (!isSocketConnected())
             return false;
 
         try {
@@ -95,7 +95,7 @@ public class UofSocket {
             recvData = new byte[Constants.SOCKET_MAX_RECV_SIZE];
 
             // If received data size is 0 => means that an error occurred in the data transmission/reception process
-            if(inputStream.read(recvData) == 0)
+            if (inputStream.read(recvData) == 0)
                 return null;
 
             return new String(recvData, "euc-kr");

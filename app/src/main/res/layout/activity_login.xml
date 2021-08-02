@@ -76,6 +76,7 @@
                         android:hint="아이디"
                         android:inputType="textUri" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_pw"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -99,6 +100,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+
             <TextView
                 android:id="@+id/tv_login_register"
                 android:layout_width="wrap_content"
@@ -165,6 +167,7 @@
                         android:hint="이름"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_registerid"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -178,6 +181,7 @@
                         android:hint="아이디"
                         android:inputType="textUri" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_registerpw"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -207,6 +211,7 @@
                         android:hint="비밀번호확인"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <TextView
                     android:id="@+id/tv_login_plzphone"
                     android:layout_width="wrap_content"
@@ -216,6 +221,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textSize="15sp"
                     android:textStyle="bold" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_registerphone1"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -229,6 +235,7 @@
                         android:hint="ex)01012345678"
                         android:inputType="phone"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <Button
                     android:id="@+id/btn_login_register"
                     android:layout_width="300dp"
