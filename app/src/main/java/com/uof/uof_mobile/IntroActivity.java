@@ -1,10 +1,9 @@
 package com.uof.uof_mobile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -16,7 +15,7 @@ public class IntroActivity extends AppCompatActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
         startActivity(intent);
 
