@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         tilLoginRegisterPw = findViewById(R.id.til_login_registerpw);
         tilLoginRegisterPwChk = findViewById(R.id.til_login_registerpwchk);
         tilLoginRegisterName = findViewById(R.id.til_login_registername);
-        tilLoginRegisterPhoneNumber = findViewById(R.id.til_login_registerphone1);
+        tilLoginRegisterPhoneNumber = findViewById(R.id.til_login_registerphonenumber);
         btnLoginLogin = findViewById(R.id.btn_login_login);
         btnLoginRegister = findViewById(R.id.btn_login_register);
         tvLoginRegister = findViewById(R.id.tv_login_register);
@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
+        btnLoginRegister.setEnabled(false);
         llLoginLoginLayout.setVisibility(View.VISIBLE);
         llLoginRegisterLayout.setVisibility(View.GONE);
 
@@ -82,6 +83,10 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                tilLoginId.setErrorEnabled(false);
+                tilLoginPw.setErrorEnabled(false);
+                tilLoginId.setError(null);
+                tilLoginPw.setError(null);
                 btnLoginLogin.setEnabled(checkLogin());
             }
         });
@@ -98,39 +103,11 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                tilLoginId.setErrorEnabled(false);
+                tilLoginPw.setErrorEnabled(false);
+                tilLoginId.setError(null);
+                tilLoginPw.setError(null);
                 btnLoginLogin.setEnabled(checkLogin());
-            }
-        });
-
-        // 회원가입 - 아이디 입력란이 수정되었을 경우
-        tilLoginRegisterId.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                btnLoginLogin.setEnabled(checkRegister());
-            }
-        });
-
-        // 회원가입 - 비밀번호 입력란이 수정되었을 경우
-        tilLoginRegisterPw.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                btnLoginLogin.setEnabled(checkRegister());
             }
         });
 
@@ -146,7 +123,107 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                btnLoginLogin.setEnabled(checkRegister());
+                int result = checkRegisterName(editable.toString());
+
+                if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                    tilLoginRegisterName.setErrorEnabled(true);
+                    tilLoginRegisterName.setError("이름은 한글만 가능합니다");
+                } else {
+                    tilLoginRegisterName.setErrorEnabled(false);
+                    tilLoginRegisterName.setError(null);
+                }
+
+                btnLoginRegister.setEnabled(checkRegister());
+            }
+        });
+
+        // 회원가입 - 아이디 입력란이 수정되었을 경우
+        tilLoginRegisterId.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int result = checkRegisterId(editable.toString());
+
+                if (result == Constants.Pattern.LENGTH_SHORT) {
+                    tilLoginRegisterId.setErrorEnabled(true);
+                    tilLoginRegisterId.setError("아이디는 8자리 이상이어야 합니다");
+                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                    tilLoginRegisterId.setErrorEnabled(true);
+                    tilLoginRegisterId.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
+                } else {
+                    tilLoginRegisterId.setErrorEnabled(false);
+                    tilLoginRegisterId.setError(null);
+                }
+
+                btnLoginRegister.setEnabled(checkRegister());
+            }
+        });
+
+        // 회원가입 - 비밀번호 입력란이 수정되었을 경우
+        tilLoginRegisterPw.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int result = checkRegisterPw(editable.toString());
+
+                if (result == Constants.Pattern.LENGTH_SHORT) {
+                    tilLoginRegisterPw.setErrorEnabled(true);
+                    tilLoginRegisterPw.setError("비밀번호는 8자리 이상이어야 합니다");
+                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                    tilLoginRegisterPw.setErrorEnabled(true);
+                    tilLoginRegisterPw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
+                } else {
+                    tilLoginRegisterPw.setErrorEnabled(false);
+                    tilLoginRegisterPw.setError(null);
+                }
+
+                if (!editable.toString().equals(tilLoginRegisterPwChk.getEditText().getText().toString())) {
+                    tilLoginRegisterPw.setErrorEnabled(true);
+                    tilLoginRegisterPwChk.setError("비밀번호가 일치하지 않습니다");
+                } else {
+                    tilLoginRegisterPw.setErrorEnabled(false);
+                    tilLoginRegisterPwChk.setError(null);
+                }
+
+                btnLoginRegister.setEnabled(checkRegister());
+            }
+        });
+
+        // 회원가입 - 비밀번호 재확인 입력란이 수정되었을 경우
+        tilLoginRegisterPwChk.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!editable.toString().equals(tilLoginRegisterPw.getEditText().getText().toString())) {
+                    tilLoginRegisterPwChk.setErrorEnabled(true);
+                    tilLoginRegisterPwChk.setError("비밀번호가 일치하지 않습니다");
+                    btnLoginRegister.setEnabled(false);
+                } else {
+                    tilLoginRegisterPwChk.setErrorEnabled(false);
+                    tilLoginRegisterPwChk.setError(null);
+                    btnLoginRegister.setEnabled(checkRegister());
+                }
             }
         });
 
@@ -162,7 +239,17 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                btnLoginLogin.setEnabled(checkRegister());
+                int result = checkRegisterPhoneNumber(editable.toString());
+
+                if(result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER){
+                    tilLoginRegisterPhoneNumber.setErrorEnabled(true);
+                    tilLoginRegisterPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
+                } else{
+                    tilLoginRegisterPhoneNumber.setErrorEnabled(false);
+                    tilLoginRegisterPhoneNumber.setError(null);
+                }
+
+                btnLoginRegister.setEnabled(checkRegister());
             }
         });
 
@@ -187,16 +274,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (requestCode.equals("0003")) {
                     // 로그인 성공 - LobbyActivity로 이동
-                    Toast.makeText(LoginActivity.this, "로그인 성공: " + recvData.toString(), Toast.LENGTH_SHORT).show();
-
                     Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
                     startActivity(intent);
                 } else if (requestCode.equals("0004")) {
                     // 로그인 실패 - 아이디 없음
-                    Toast.makeText(LoginActivity.this, "로그인 실패(아이디 없음): " + recvData.toString(), Toast.LENGTH_SHORT).show();
+                    tilLoginId.setErrorEnabled(true);
+                    tilLoginId.setError("아이디가 존재하지 않습니다");
                 } else if (requestCode.equals("0005")) {
                     // 로그인 실패 - 비밀번호 틀림
-                    Toast.makeText(LoginActivity.this, "로그인 실패(비밀번호 틀림): " + recvData.toString(), Toast.LENGTH_SHORT).show();
+                    tilLoginId.setErrorEnabled(true);
+                    tilLoginId.setError("비밀번호가 일치하지 않습니다");
                 } else {
                     // 로그인 실패 - 기타 오류
                     Toast.makeText(LoginActivity.this, "로그인 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
@@ -223,19 +310,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 sendData.putOpt("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080", sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://" + Constants.Network.EXTERNAL_SERVER_IP + ":" + Constants.Network.EXTERNAL_SERVER_PORT, sendData.toString()}).get());
 
                 String requestCode = recvData.getString("request_code");
 
                 if (requestCode.equals("0001")) {
                     // 회원가입 성공 - 로그인창 표시
-                    Toast.makeText(LoginActivity.this, "회원가입 성공: " + recvData.toString(), Toast.LENGTH_SHORT).show();
-
                     llLoginLoginLayout.setVisibility(View.VISIBLE);
                     llLoginRegisterLayout.setVisibility(View.GONE);
                 } else if (requestCode.equals("0002")) {
                     // 회원가입 실패 - 아이디 중복
-                    Toast.makeText(LoginActivity.this, "회원가입 실패(아이디 중복): " + recvData.toString(), Toast.LENGTH_SHORT).show();
+                    tilLoginRegisterId.setErrorEnabled(true);
+                    tilLoginRegisterId.setError("해당 아이디는 이미 사용중입니다");
                 } else {
                     // 회원가입 실패 - 기타 오류
                     Toast.makeText(LoginActivity.this, "회원가입 실패: " + recvData.toString(), Toast.LENGTH_SHORT).show();
@@ -266,29 +352,53 @@ public class LoginActivity extends AppCompatActivity {
 
     // 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인
     private boolean checkRegister() {
-        return checkRegisterId(tilLoginRegisterId.getEditText().getText().toString())
-                && checkRegisterPw(tilLoginRegisterPw.getEditText().getText().toString())
-                && checkRegisterName(tilLoginRegisterName.getEditText().getText().toString())
-                && checkRegisterPhoneNumber(tilLoginRegisterPhoneNumber.getEditText().getText().toString());
+        return checkRegisterId(tilLoginRegisterId.getEditText().getText().toString()) == Constants.Pattern.OK
+                && checkRegisterPw(tilLoginRegisterPw.getEditText().getText().toString()) == Constants.Pattern.OK
+                && checkRegisterName(tilLoginRegisterName.getEditText().getText().toString()) == Constants.Pattern.OK
+                && checkRegisterPhoneNumber(tilLoginRegisterPhoneNumber.getEditText().getText().toString()) == Constants.Pattern.OK;
     }
 
     // 회원가입 - 아이디 패턴 및 보안 확인
-    private boolean checkRegisterId(String id) {
-        return false;
+    private int checkRegisterId(String id) {
+        if (id.length() < 8) {
+            return Constants.Pattern.LENGTH_SHORT;
+        } else if (!java.util.regex.Pattern.matches("^[a-zA-Z0-9@!*#]+$", id)) {
+            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
+        } else {
+            return Constants.Pattern.OK;
+        }
     }
 
     // 회원가입 - 비밀번호 패턴 및 보안 확인
-    private boolean checkRegisterPw(String pw) {
-        return false;
+    private int checkRegisterPw(String pw) {
+        if (pw.length() < 8) {
+            return Constants.Pattern.LENGTH_SHORT;
+        } else if (!java.util.regex.Pattern.matches("^[a-zA-Z0-9@!*#]+$", pw)) {
+            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
+        } else {
+            return Constants.Pattern.OK;
+        }
     }
 
     // 회원가입 - 이름 패턴 확인
-    private boolean checkRegisterName(String nick) {
-        return false;
+    private int checkRegisterName(String name) {
+        if (name.length() == 0) {
+            return Constants.Pattern.LENGTH_SHORT;
+        } else if (!java.util.regex.Pattern.matches("^[ㄱ-ㅎ가-힣]+$", name)) {
+            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
+        } else {
+            return Constants.Pattern.OK;
+        }
     }
 
     // 회원가입 - 전화번호 패턴 확인
-    private boolean checkRegisterPhoneNumber(String phoneNumber) {
-        return false;
+    private int checkRegisterPhoneNumber(String phoneNumber) {
+        if (phoneNumber.length() < 11) {
+            return Constants.Pattern.LENGTH_SHORT;
+        } else if (!java.util.regex.Pattern.matches("^[0-9]+$", phoneNumber)) {
+            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
+        } else {
+            return Constants.Pattern.OK;
+        }
     }
 }

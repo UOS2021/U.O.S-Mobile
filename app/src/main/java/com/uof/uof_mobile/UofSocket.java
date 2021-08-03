@@ -92,7 +92,7 @@ public class UofSocket {
             return null;
 
         try {
-            recvData = new byte[Constants.SOCKET_MAX_RECV_SIZE];
+            recvData = new byte[Constants.Network.SOCKET_MAX_RECV_SIZE];
 
             // If received data size is 0 => means that an error occurred in the data transmission/reception process
             if (inputStream.read(recvData) == 0)
