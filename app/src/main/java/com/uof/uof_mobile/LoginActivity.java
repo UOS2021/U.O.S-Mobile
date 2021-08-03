@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
+        btnLoginRegister.setEnabled(false);
         llLoginLoginLayout.setVisibility(View.VISIBLE);
         llLoginRegisterLayout.setVisibility(View.GONE);
 
