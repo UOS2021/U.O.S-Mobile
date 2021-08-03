@@ -223,7 +223,7 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_login_registerphone1"
+                    android:id="@+id/til_login_registerphonenumber"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -233,7 +233,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="ex)01012345678"
-                        android:inputType="phone"/>
+                        android:inputType="phone"
+                        android:maxLength="11" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
