@@ -21,17 +21,9 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView ivLoginRecognizeQR;
     private TextInputLayout tilLoginId;
     private TextInputLayout tilLoginPw;
-    private TextInputLayout tilLoginRegisterId;
-    private TextInputLayout tilLoginRegisterPw;
-    private TextInputLayout tilLoginRegisterPwChk;
-    private TextInputLayout tilLoginRegisterName;
-    private TextInputLayout tilLoginRegisterPhoneNumber;
     private Button btnLoginLogin;
-    private Button btnLoginRegister;
     private TextView tvLoginRegister;
-    private TextView tvLoginReturnLogin;
     private LinearLayoutCompat llLoginLoginLayout;
-    private LinearLayoutCompat llLoginRegisterLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,26 +37,16 @@ public class LoginActivity extends AppCompatActivity {
         ivLoginRecognizeQR = findViewById(R.id.iv_login_recognizeqr);
         tilLoginId = findViewById(R.id.til_login_id);
         tilLoginPw = findViewById(R.id.til_login_pw);
-        tilLoginRegisterId = findViewById(R.id.til_login_registerid);
-        tilLoginRegisterPw = findViewById(R.id.til_login_registerpw);
-        tilLoginRegisterPwChk = findViewById(R.id.til_login_registerpwchk);
-        tilLoginRegisterName = findViewById(R.id.til_login_registername);
-        tilLoginRegisterPhoneNumber = findViewById(R.id.til_login_registerphonenumber);
         btnLoginLogin = findViewById(R.id.btn_login_login);
-        btnLoginRegister = findViewById(R.id.btn_login_register);
         tvLoginRegister = findViewById(R.id.tv_login_register);
-        tvLoginReturnLogin = findViewById(R.id.tv_login_returnlogin);
         llLoginLoginLayout = findViewById(R.id.ll_login_loginlayout);
-        llLoginRegisterLayout = findViewById(R.id.ll_login_registerlayout);
 
         // 기본 데이터 설정
 
 
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
-        btnLoginRegister.setEnabled(false);
         llLoginLoginLayout.setVisibility(View.VISIBLE);
-        llLoginRegisterLayout.setVisibility(View.GONE);
 
         // QR 코드 인식하기 ImageView가 눌렸을 경우
         ivLoginRecognizeQR.setOnClickListener(view -> {
@@ -111,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        /*
         // 회원가입 - 이름 입력란이 수정되었을 경우
         tilLoginRegisterName.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -252,6 +235,7 @@ public class LoginActivity extends AppCompatActivity {
                 btnLoginRegister.setEnabled(checkRegister());
             }
         });
+        */
 
         // 로그인 버튼이 눌렸을 경우
         btnLoginLogin.setOnClickListener(view -> {
@@ -295,6 +279,7 @@ public class LoginActivity extends AppCompatActivity {
             btnLoginLogin.setEnabled(true);
         });
 
+        /*
         // 회원가입 버튼이 눌렸을 경우
         btnLoginRegister.setOnClickListener(view -> {
             // 회원가입 창일 경우
@@ -331,17 +316,27 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
             }
         });
+        */
 
         // 회원가입 TextView가 눌렸을 경우
         tvLoginRegister.setOnClickListener(view -> {
-            llLoginLoginLayout.setVisibility(View.GONE);
-            llLoginRegisterLayout.setVisibility(View.VISIBLE);
-        });
+            new RegisterTypeDialog(LoginActivity.this, true, true,
+                    new RegisterTypeDialogListener() {
+                @Override
+                public void onCustomerClick() {
+                    Toast.makeText(LoginActivity.this, "일반 고객", Toast.LENGTH_SHORT).show();
+                }
 
-        // 로그인 창 돌아가기 TextView가 눌렸을 경우
-        tvLoginReturnLogin.setOnClickListener(view -> {
-            llLoginLoginLayout.setVisibility(View.VISIBLE);
-            llLoginRegisterLayout.setVisibility(View.GONE);
+                @Override
+                public void onUofPartnerClick() {
+                    Toast.makeText(LoginActivity.this, "U.O.F 파트너", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelClick() {
+
+                }
+            }).show();
         });
     }
 
@@ -350,6 +345,7 @@ public class LoginActivity extends AppCompatActivity {
         return tilLoginId.getEditText().getText().toString().length() > 0 && tilLoginPw.getEditText().getText().toString().length() > 0;
     }
 
+    /*
     // 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인
     private boolean checkRegister() {
         return checkRegisterId(tilLoginRegisterId.getEditText().getText().toString()) == Constants.Pattern.OK
@@ -401,4 +397,5 @@ public class LoginActivity extends AppCompatActivity {
             return Constants.Pattern.OK;
         }
     }
+    */
 }
