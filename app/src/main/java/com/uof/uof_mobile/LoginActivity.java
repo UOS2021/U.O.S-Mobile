@@ -325,11 +325,17 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onCustomerClick() {
                     Toast.makeText(LoginActivity.this, "일반 고객", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    intent.putExtra("RegisterType", 1);    //고객
+                    startActivity(intent);  //다음 activity로 넘어가기
                 }
 
                 @Override
                 public void onUofPartnerClick() {
                     Toast.makeText(LoginActivity.this, "U.O.F 파트너", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    intent.putExtra("RegisterType", 2);    //파트너
+                    startActivity(intent);  //다음 activity로 넘어가기
                 }
 
                 @Override
