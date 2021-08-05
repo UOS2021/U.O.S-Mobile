@@ -10,8 +10,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 public class RegisterTypeDialog extends Dialog {
-    private Context context;
-    private RegisterTypeDialogListener registerTypeDialogListener;
+    private final Context context;
+    private final RegisterTypeDialogListener registerTypeDialogListener;
     private AppCompatImageButton btnRegisterTypeCustomer;
     private AppCompatImageButton btnRegisterTypeUofPartner;
     private AppCompatButton btnRegisterTypeCancel;

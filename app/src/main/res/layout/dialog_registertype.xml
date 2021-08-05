@@ -3,8 +3,8 @@
     android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    android:background="@drawable/border_registertypedialog">
+    android:background="@drawable/border_registertypedialog"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -14,8 +14,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="가입 유형을 선택해주세요"
-            android:padding="16dp"/>
+            android:padding="16dp"
+            android:text="가입 유형을 선택해주세요" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
