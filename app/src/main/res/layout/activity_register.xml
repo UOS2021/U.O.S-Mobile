@@ -62,7 +62,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="영문,숫자만 가능"
+                        android:hint="아이디를 입력해주세요"
                         android:inputType="textUri" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,7 +83,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="영문,숫자,특수문자 포함하여 10자리 이상"
+                        android:hint="비밀번호를 입력해주세요"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,6 +104,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
+                        android:hint="비밀번호를 입력해주세요"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +112,7 @@
                     android:id="@+id/tv_register_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="성명"
+                    android:text="이름"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -123,7 +124,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="실명으로 입력"
+                        android:hint="이름을 입력해주세요"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,12 +138,13 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_customerphone"
+                    android:id="@+id/til_register_customerphonenumber"
                     style="@style/TextInputLayout_Register">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="'-'없이 숫자 11자리"
+                        android:maxLength="11"
+                        android:hint="전화번호를 입력해주세요"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,7 +216,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="영문,숫자만 가능"
+                        android:hint="아이디를 입력해주세요"
                         android:inputType="textUri" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -234,7 +236,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="영문,숫자,특수문자 포함하여 10자리 이상"
+                        android:hint="비밀번호를 입력해주세요"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -254,13 +256,14 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
+                        android:hint="비밀번호를 입력해주세요"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="성명"
+                    android:text="이름"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -272,7 +275,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="실명으로 입력"
+                        android:hint="이름을 입력해주세요"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -285,13 +288,14 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_uofpartnerphone"
+                    android:id="@+id/til_register_uofpartnerphonenumber"
                     style="@style/TextInputLayout_Register"
                     android:layout_marginBottom="30dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="'-'없이 숫자 11자리"
+                        android:maxLength="11"
+                        android:hint="전화번호를 입력해주세요"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -321,6 +325,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
+                        android:hint="회사명을 입력해주세요"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -339,7 +344,8 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:hint="'-'없이 숫자 9자리"
+                        android:maxLength="9"
+                        android:hint="사업자번호를 입력해주세요"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -375,6 +381,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
+                        android:hint="회사 주소를 입력해주세요"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -408,8 +415,8 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_register_licenseimage"
-                        android:layout_width="250dp"
-                        android:layout_height="370dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="480dp"
                         android:background="@drawable/border_licenseimage"
                         android:scaleType="fitXY" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
