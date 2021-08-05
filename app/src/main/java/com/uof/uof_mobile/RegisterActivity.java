@@ -426,7 +426,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterLicenseNumber.setErrorEnabled(true);
-                    tilRegisterLicenseNumber.setError("사업자번호는 9자리의 숫자입니다");
+                    tilRegisterLicenseNumber.setError("사업자번호는 10자리 숫자입니다");
                 } else {
                     tilRegisterLicenseNumber.setErrorEnabled(false);
                     tilRegisterLicenseNumber.setError(null);
@@ -478,7 +478,7 @@ public class RegisterActivity extends AppCompatActivity {
             // 회원가입 창일 경우
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", "0001");
+                sendData.put("request_code", Constants.Network.Request.REGISTER_CUSTOMER);
 
                 JSONObject message = new JSONObject();
                 message.put("id", tilRegisterCustomerId.getEditText().getText().toString());
@@ -490,13 +490,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
 
-                String requestCode = recvData.getString("request_code");
+                String requestCode = recvData.getString("response_code");
 
-                if (requestCode.equals("0001")) {
+                if (requestCode.equals(Constants.Network.Response.REGISTER_SUCCESS)) {
                     // 회원가입 성공 - 로그인창 표시
                     Toast.makeText(RegisterActivity.this, "가입되었습니다. 해당 계정으로 로그인해주세요.", Toast.LENGTH_SHORT).show();
                     finish();
-                } else if (requestCode.equals("0002")) {
+                } else if (requestCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
                     // 회원가입 실패 - 아이디 중복
                     tilRegisterCustomerId.setErrorEnabled(true);
                     tilRegisterCustomerId.setError("해당 아이디는 이미 사용중입니다");
@@ -517,7 +517,7 @@ public class RegisterActivity extends AppCompatActivity {
             // 회원가입 창일 경우
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", "0002");
+                sendData.put("request_code", Constants.Network.Request.REGISTER_UOFPARTNER);
 
                 JSONObject message = new JSONObject();
                 message.put("id", tilRegisterUofPartnerId.getEditText().getText().toString());
@@ -537,13 +537,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
 
-                String requestCode = recvData.getString("request_code");
+                String requestCode = recvData.getString("response_code");
 
-                if (requestCode.equals("0001")) {
+                if (requestCode.equals(Constants.Network.Response.REGISTER_SUCCESS)) {
                     // 회원가입 성공 - 로그인창 표시
                     Toast.makeText(RegisterActivity.this, "가입되었습니다. 해당 계정으로 로그인해주세요.", Toast.LENGTH_SHORT).show();
                     finish();
-                } else if (requestCode.equals("0002")) {
+                } else if (requestCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
                     // 회원가입 실패 - 아이디 중복
                     tilRegisterUofPartnerId.setErrorEnabled(true);
                     tilRegisterUofPartnerId.setError("해당 아이디는 이미 사용중입니다");
@@ -639,7 +639,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     // 회원가입 - 사업자번호 패턴 확인
     private int checkRegisterLicenseNumber(String licenseNumber) {
-        if (licenseNumber.length() < 9) {
+        if (licenseNumber.length() < 10) {
             return Constants.Pattern.LENGTH_SHORT;
         } else if (!java.util.regex.Pattern.matches("^[0-9]+$", licenseNumber)) {
             return Constants.Pattern.NOT_ALLOWED_CHARACTER;
