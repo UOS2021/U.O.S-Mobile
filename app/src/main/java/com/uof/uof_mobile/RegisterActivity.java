@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -239,10 +238,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = checkRegisterPhoneNumber(editable.toString());
 
-                if(result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER){
+                if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerPhoneNumber.setErrorEnabled(true);
                     tilRegisterCustomerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
-                } else{
+                } else {
                     tilRegisterCustomerPhoneNumber.setErrorEnabled(false);
                     tilRegisterCustomerPhoneNumber.setError(null);
                 }
@@ -250,7 +249,7 @@ public class RegisterActivity extends AppCompatActivity {
                 btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
             }
         });
-        
+
         //// U.O.F 파트너
         // 회원가입 - 아이디 입력란이 수정되었을 경우
         tilRegisterUofPartnerId.getEditText().addTextChangedListener(new TextWatcher() {
@@ -383,10 +382,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = checkRegisterPhoneNumber(editable.toString());
 
-                if(result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER){
+                if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerPhoneNumber.setErrorEnabled(true);
                     tilRegisterUofPartnerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
-                } else{
+                } else {
                     tilRegisterUofPartnerPhoneNumber.setErrorEnabled(false);
                     tilRegisterUofPartnerPhoneNumber.setError(null);
                 }
@@ -425,10 +424,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = checkRegisterLicenseNumber(editable.toString());
 
-                if(result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER){
+                if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterLicenseNumber.setErrorEnabled(true);
                     tilRegisterLicenseNumber.setError("사업자번호는 9자리의 숫자입니다");
-                } else{
+                } else {
                     tilRegisterLicenseNumber.setErrorEnabled(false);
                     tilRegisterLicenseNumber.setError(null);
                 }
@@ -457,7 +456,7 @@ public class RegisterActivity extends AppCompatActivity {
         spRegisterCompanyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), (String) spRegisterCompanyType.getItemAtPosition(position) + "이 선택되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), spRegisterCompanyType.getItemAtPosition(position) + "이 선택되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -586,7 +585,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     // U.O.F 파트너 회원가입 시 아이디, 비밀번호, 이름 , 전화번호, 회사정보 입력 확인
-    private boolean checkUofPartnerRegister(){
+    private boolean checkUofPartnerRegister() {
         return checkRegisterId(tilRegisterUofPartnerId.getEditText().getText().toString()) == Constants.Pattern.OK
                 && checkRegisterPw(tilRegisterUofPartnerPw.getEditText().getText().toString()) == Constants.Pattern.OK
                 && tilRegisterUofPartnerPw.getEditText().getText().toString().equals(tilRegisterUofPartnerPwChk.getEditText().getText().toString())
@@ -643,23 +642,23 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     // 회원가입 - 사업자번호 패턴 확인
-    private int checkRegisterLicenseNumber(String licenseNumber){
-        if(licenseNumber.length() < 9){
+    private int checkRegisterLicenseNumber(String licenseNumber) {
+        if (licenseNumber.length() < 9) {
             return Constants.Pattern.LENGTH_SHORT;
-        }else if(!java.util.regex.Pattern.matches("^[0-9]+$", licenseNumber)){
+        } else if (!java.util.regex.Pattern.matches("^[0-9]+$", licenseNumber)) {
             return Constants.Pattern.NOT_ALLOWED_CHARACTER;
-        }else{
+        } else {
             return Constants.Pattern.OK;
         }
     }
 
     // 회원가입 - 사업자등록증 첨부 확인
-    private boolean checkRegisterLicenseImage(ImageView ivLicenseImage){
+    private boolean checkRegisterLicenseImage(ImageView ivLicenseImage) {
         Drawable drawable = ivLicenseImage.getDrawable();
         boolean result = (drawable != null);
 
-        if(result && (drawable instanceof BitmapDrawable)){
-            result = ((BitmapDrawable)drawable).getBitmap() != null;
+        if (result && (drawable instanceof BitmapDrawable)) {
+            result = ((BitmapDrawable) drawable).getBitmap() != null;
         }
 
         return result;
@@ -668,7 +667,7 @@ public class RegisterActivity extends AppCompatActivity {
     // 이미지를 문자열로 변경
     private String convertImageToString(ImageView imageView) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ((BitmapDrawable)imageView.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        ((BitmapDrawable) imageView.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         return Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.NO_WRAP);
     }
 }

@@ -139,25 +139,25 @@ public class LoginActivity extends AppCompatActivity {
         tvLoginRegister.setOnClickListener(view -> {
             new RegisterTypeDialog(LoginActivity.this, true, true,
                     new RegisterTypeDialogListener() {
-                @Override
-                public void onCustomerClick() {
-                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                    intent.putExtra("RegisterType", 0);    //고객
-                    startActivity(intent);  //다음 activity로 넘어가기
-                }
+                        @Override
+                        public void onCustomerClick() {
+                            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                            intent.putExtra("RegisterType", 0);    //고객
+                            startActivity(intent);  //다음 activity로 넘어가기
+                        }
 
-                @Override
-                public void onUofPartnerClick() {
-                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                    intent.putExtra("RegisterType", 1);    //파트너
-                    startActivity(intent);  //다음 activity로 넘어가기
-                }
+                        @Override
+                        public void onUofPartnerClick() {
+                            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                            intent.putExtra("RegisterType", 1);    //파트너
+                            startActivity(intent);  //다음 activity로 넘어가기
+                        }
 
-                @Override
-                public void onCancelClick() {
+                        @Override
+                        public void onCancelClick() {
 
-                }
-            }).show();
+                        }
+                    }).show();
         });
     }
 

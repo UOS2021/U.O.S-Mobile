@@ -2,8 +2,9 @@ package com.uof.uof_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LobbyActivity extends AppCompatActivity {

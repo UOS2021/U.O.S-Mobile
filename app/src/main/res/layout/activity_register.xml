@@ -143,9 +143,9 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:maxLength="11"
                         android:hint="전화번호를 입력해주세요"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:maxLength="11" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -294,9 +294,9 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:maxLength="11"
                         android:hint="전화번호를 입력해주세요"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:maxLength="11" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -344,9 +344,9 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
-                        android:maxLength="9"
                         android:hint="사업자번호를 입력해주세요"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:maxLength="9" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView

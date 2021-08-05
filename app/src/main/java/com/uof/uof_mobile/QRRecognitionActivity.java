@@ -11,6 +11,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class QRRecognitionActivity extends AppCompatActivity {
     private IntentIntegrator QRscan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +27,8 @@ public class QRRecognitionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
+        if (result != null) {
+            if (result.getContents() == null) {
                 Toast.makeText(this, "실패", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "성공: " + result.getContents(), Toast.LENGTH_LONG).show();
