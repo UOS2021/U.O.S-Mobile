@@ -516,25 +516,25 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegisterUofPartnerRegister.setOnClickListener(view -> {
             // 회원가입 창일 경우
             try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", "0002");
+                    JSONObject sendData = new JSONObject();
+                    sendData.put("request_code", "0002");
 
-                JSONObject message = new JSONObject();
-                message.put("id", tilRegisterUofPartnerId.getEditText().getText().toString());
-                message.put("pw", tilRegisterUofPartnerPw.getEditText().getText().toString());
-                message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
-                message.put("phone_number", tilRegisterUofPartnerPhoneNumber.getEditText().getText().toString());
-                message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
-                message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
-                message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
-                message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
+                    JSONObject message = new JSONObject();
+                    message.put("id", tilRegisterUofPartnerId.getEditText().getText().toString());
+                    message.put("pw", tilRegisterUofPartnerPw.getEditText().getText().toString());
+                    message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
+                    message.put("phone_number", tilRegisterUofPartnerPhoneNumber.getEditText().getText().toString());
+                    message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
+                    message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
+                    message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
+                    message.put("name", tilRegisterUofPartnerName.getEditText().getText().toString());
 
-                JSONObject company = new JSONObject();
-                company.put("company_name", tilRegisterCompanyName.getEditText().getText().toString());
-                company.put("license_number", tilRegisterCompanyName.getEditText().getText().toString());
-                company.put("company_type", spRegisterCompanyType.getSelectedItem().toString());
-                company.put("company_address", tilRegisterCompanyAddress.getEditText().getText().toString());
-                company.put("license_image", convertImageToString(ivRegisterLicenseImage));
+                    JSONObject company = new JSONObject();
+                    company.put("name", tilRegisterCompanyName.getEditText().getText().toString());
+                    company.put("license_number", tilRegisterCompanyName.getEditText().getText().toString());
+                    company.put("type", spRegisterCompanyType.getSelectedItem().toString());
+                    company.put("address", tilRegisterCompanyAddress.getEditText().getText().toString());
+                    company.put("license_img", convertImageToString(ivRegisterLicenseImage));
 
                 message.putOpt("company", company);
                 sendData.putOpt("message", message);
