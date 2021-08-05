@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="companytype_array">
+    <string-array name="array_companytype">
         <item>선택</item>
         <item>패스트푸드/프랜차이즈</item>
         <item>영화관</item>
         <item>피시방</item>
-    </string-array>
-    <string-array name="local_array">
-        <item>선택</item>
-        <item>서울</item>
-        <item>경기/인천</item>
-        <item>충청/대전</item>
-        <item>강원</item>
-        <item>전라/광주</item>
-        <item>경상/부산/대구/울산</item>
-        <item>제주</item>
     </string-array>
 </resources>
