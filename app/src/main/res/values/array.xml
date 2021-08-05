@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="array_companytype">
-        <item>선택</item>
         <item>패스트푸드/프랜차이즈</item>
         <item>영화관</item>
         <item>피시방</item>
