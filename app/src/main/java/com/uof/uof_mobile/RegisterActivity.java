@@ -122,14 +122,14 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterId(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT) {
-                    tilRegisterCustomerId.setErrorEnabled(true);
                     tilRegisterCustomerId.setError("아이디는 8자리 이상이어야 합니다");
-                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerId.setErrorEnabled(true);
+                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerId.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
+                    tilRegisterCustomerId.setErrorEnabled(true);
                 } else {
-                    tilRegisterCustomerId.setErrorEnabled(false);
                     tilRegisterCustomerId.setError(null);
+                    tilRegisterCustomerId.setErrorEnabled(false);
                 }
 
                 btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
@@ -151,22 +151,22 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterPw(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT) {
-                    tilRegisterCustomerPw.setErrorEnabled(true);
                     tilRegisterCustomerPw.setError("비밀번호는 8자리 이상이어야 합니다");
-                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerPw.setErrorEnabled(true);
+                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerPw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
+                    tilRegisterCustomerPw.setErrorEnabled(true);
                 } else {
-                    tilRegisterCustomerPw.setErrorEnabled(false);
                     tilRegisterCustomerPw.setError(null);
+                    tilRegisterCustomerPw.setErrorEnabled(false);
                 }
 
                 if (!editable.toString().equals(tilRegisterCustomerPwChk.getEditText().getText().toString())) {
-                    tilRegisterCustomerPw.setErrorEnabled(true);
                     tilRegisterCustomerPwChk.setError("비밀번호가 일치하지 않습니다");
+                    tilRegisterUofPartnerPwChk.setErrorEnabled(true);
                 } else {
-                    tilRegisterCustomerPw.setErrorEnabled(false);
                     tilRegisterCustomerPwChk.setError(null);
+                    tilRegisterUofPartnerPwChk.setErrorEnabled(false);
                 }
 
                 btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
@@ -186,12 +186,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!editable.toString().equals(tilRegisterCustomerPw.getEditText().getText().toString())) {
-                    tilRegisterCustomerPwChk.setErrorEnabled(true);
                     tilRegisterCustomerPwChk.setError("비밀번호가 일치하지 않습니다");
+                    tilRegisterCustomerPwChk.setErrorEnabled(true);
                     btnRegisterCustomerRegister.setEnabled(false);
                 } else {
-                    tilRegisterCustomerPwChk.setErrorEnabled(false);
                     tilRegisterCustomerPwChk.setError(null);
+                    tilRegisterCustomerPwChk.setErrorEnabled(false);
                     btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
                 }
             }
@@ -213,11 +213,11 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterName(editable.toString());
 
                 if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
-                    tilRegisterCustomerName.setErrorEnabled(true);
                     tilRegisterCustomerName.setError("이름은 한글만 가능합니다");
+                    tilRegisterCustomerName.setErrorEnabled(true);
                 } else {
-                    tilRegisterCustomerName.setErrorEnabled(false);
                     tilRegisterCustomerName.setError(null);
+                    tilRegisterCustomerName.setErrorEnabled(false);
                 }
 
                 btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
@@ -239,11 +239,11 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterPhoneNumber(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
-                    tilRegisterCustomerPhoneNumber.setErrorEnabled(true);
                     tilRegisterCustomerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
+                    tilRegisterCustomerPhoneNumber.setErrorEnabled(true);
                 } else {
-                    tilRegisterCustomerPhoneNumber.setErrorEnabled(false);
                     tilRegisterCustomerPhoneNumber.setError(null);
+                    tilRegisterCustomerPhoneNumber.setErrorEnabled(false);
                 }
 
                 btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
@@ -266,14 +266,14 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterId(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT) {
-                    tilRegisterUofPartnerId.setErrorEnabled(true);
                     tilRegisterUofPartnerId.setError("아이디는 8자리 이상이어야 합니다");
-                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerId.setErrorEnabled(true);
+                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerId.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
+                    tilRegisterUofPartnerId.setErrorEnabled(true);
                 } else {
-                    tilRegisterUofPartnerId.setErrorEnabled(false);
                     tilRegisterUofPartnerId.setError(null);
+                    tilRegisterUofPartnerId.setErrorEnabled(false);
                 }
 
                 btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
@@ -295,22 +295,22 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterPw(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT) {
-                    tilRegisterUofPartnerPw.setErrorEnabled(true);
                     tilRegisterUofPartnerPw.setError("비밀번호는 8자리 이상이어야 합니다");
-                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerPw.setErrorEnabled(true);
+                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerPw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
+                    tilRegisterUofPartnerPw.setErrorEnabled(true);
                 } else {
-                    tilRegisterUofPartnerPw.setErrorEnabled(false);
                     tilRegisterUofPartnerPw.setError(null);
+                    tilRegisterUofPartnerPw.setErrorEnabled(false);
                 }
 
                 if (!editable.toString().equals(tilRegisterUofPartnerPwChk.getEditText().getText().toString())) {
-                    tilRegisterUofPartnerPw.setErrorEnabled(true);
                     tilRegisterUofPartnerPwChk.setError("비밀번호가 일치하지 않습니다");
+                    tilRegisterUofPartnerPwChk.setErrorEnabled(true);
                 } else {
-                    tilRegisterUofPartnerPw.setErrorEnabled(false);
                     tilRegisterUofPartnerPwChk.setError(null);
+                    tilRegisterUofPartnerPwChk.setErrorEnabled(false);
                 }
 
                 btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
@@ -330,12 +330,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!editable.toString().equals(tilRegisterUofPartnerPw.getEditText().getText().toString())) {
-                    tilRegisterUofPartnerPwChk.setErrorEnabled(true);
                     tilRegisterUofPartnerPwChk.setError("비밀번호가 일치하지 않습니다");
+                    tilRegisterUofPartnerPwChk.setErrorEnabled(true);
                     btnRegisterUofPartnerRegister.setEnabled(false);
                 } else {
-                    tilRegisterUofPartnerPwChk.setErrorEnabled(false);
                     tilRegisterUofPartnerPwChk.setError(null);
+                    tilRegisterUofPartnerPwChk.setErrorEnabled(false);
                     btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
                 }
             }
@@ -357,11 +357,11 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterName(editable.toString());
 
                 if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
-                    tilRegisterUofPartnerName.setErrorEnabled(true);
                     tilRegisterUofPartnerName.setError("이름은 한글만 가능합니다");
+                    tilRegisterUofPartnerName.setErrorEnabled(true);
                 } else {
-                    tilRegisterUofPartnerName.setErrorEnabled(false);
                     tilRegisterUofPartnerName.setError(null);
+                    tilRegisterUofPartnerName.setErrorEnabled(false);
                 }
 
                 btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
@@ -383,11 +383,11 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterPhoneNumber(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
-                    tilRegisterUofPartnerPhoneNumber.setErrorEnabled(true);
                     tilRegisterUofPartnerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
+                    tilRegisterUofPartnerPhoneNumber.setErrorEnabled(true);
                 } else {
-                    tilRegisterUofPartnerPhoneNumber.setErrorEnabled(false);
                     tilRegisterUofPartnerPhoneNumber.setError(null);
+                    tilRegisterUofPartnerPhoneNumber.setErrorEnabled(false);
                 }
 
                 btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
@@ -425,11 +425,11 @@ public class RegisterActivity extends AppCompatActivity {
                 int result = checkRegisterLicenseNumber(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
-                    tilRegisterLicenseNumber.setErrorEnabled(true);
                     tilRegisterLicenseNumber.setError("사업자번호는 10자리 숫자입니다");
+                    tilRegisterLicenseNumber.setErrorEnabled(true);
                 } else {
-                    tilRegisterLicenseNumber.setErrorEnabled(false);
                     tilRegisterLicenseNumber.setError(null);
+                    tilRegisterLicenseNumber.setErrorEnabled(false);
                 }
 
                 btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
@@ -498,8 +498,8 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                 } else if (requestCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
                     // 회원가입 실패 - 아이디 중복
-                    tilRegisterCustomerId.setErrorEnabled(true);
                     tilRegisterCustomerId.setError("해당 아이디는 이미 사용중입니다");
+                    tilRegisterCustomerId.setErrorEnabled(true);
                     tilRegisterCustomerId.getEditText().setFocusableInTouchMode(true);
                     tilRegisterCustomerId.getEditText().requestFocus();
                 } else {
@@ -545,8 +545,8 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                 } else if (requestCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
                     // 회원가입 실패 - 아이디 중복
-                    tilRegisterUofPartnerId.setErrorEnabled(true);
                     tilRegisterUofPartnerId.setError("해당 아이디는 이미 사용중입니다");
+                    tilRegisterUofPartnerId.setErrorEnabled(true);
                     tilRegisterUofPartnerId.getEditText().setFocusableInTouchMode(true);
                     tilRegisterUofPartnerId.getEditText().requestFocus();
                 } else {

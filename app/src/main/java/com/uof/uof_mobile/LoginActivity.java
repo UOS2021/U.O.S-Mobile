@@ -112,12 +112,12 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
                     // 로그인 실패 - 아이디 없음
-                    tilLoginId.setErrorEnabled(true);
                     tilLoginId.setError("아이디가 존재하지 않습니다");
+                    tilLoginId.setErrorEnabled(true);
                 } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_PW_NOT_CORRECT)) {
                     // 로그인 실패 - 비밀번호 틀림
-                    tilLoginPw.setErrorEnabled(true);
                     tilLoginPw.setError("비밀번호가 일치하지 않습니다");
+                    tilLoginPw.setErrorEnabled(true);
                 } else {
                     // 로그인 실패 - 기타 오류
                     Toast.makeText(LoginActivity.this, "로그인 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
