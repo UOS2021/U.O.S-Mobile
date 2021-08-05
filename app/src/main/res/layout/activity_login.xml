@@ -17,24 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iv_login_recognizeqr"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:src="@drawable/qrcode" />
-
-            <TextView
-                android:id="@+id/tv_login_notify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="비 회원은 위 버튼을 눌러 QR코드를 인식해주세요!"
-                android:textColor="#ff0000"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tv_login_name1"
@@ -42,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:text="나만의 키오스크\nUOF"
+                android:text="나만의 키오스크\nU.O.F"
                 android:textAlignment="center"
                 android:textSize="32sp"
                 android:textStyle="bold"

@@ -18,7 +18,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
-    private ImageView ivLoginRecognizeQR;
     private TextInputLayout tilLoginId;
     private TextInputLayout tilLoginPw;
     private Button btnLoginLogin;
@@ -34,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        ivLoginRecognizeQR = findViewById(R.id.iv_login_recognizeqr);
         tilLoginId = findViewById(R.id.til_login_id);
         tilLoginPw = findViewById(R.id.til_login_pw);
         btnLoginLogin = findViewById(R.id.btn_login_login);
@@ -47,11 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
         llLoginLoginLayout.setVisibility(View.VISIBLE);
-
-        // QR 코드 인식하기 ImageView가 눌렸을 경우
-        ivLoginRecognizeQR.setOnClickListener(view -> {
-            startActivity(new Intent(LoginActivity.this, QRRecognitionActivity.class));
-        });
 
         // 로그인 - 아이디 입력란이 수정되었을 경우
         tilLoginId.getEditText().addTextChangedListener(new TextWatcher() {
@@ -100,30 +93,31 @@ public class LoginActivity extends AppCompatActivity {
             // 로그인 창일 경우
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", "1002");
+                sendData.put("request_code", Constants.Network.Request.LOGIN);
 
                 JSONObject message = new JSONObject();
                 message.accumulate("id", tilLoginId.getEditText().getText().toString());
                 message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
+                message.accumulate("type", "customer");
 
                 sendData.accumulate("message", message);
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
 
-                String requestCode = recvData.getString("request_code");
+                String responseCode = recvData.getString("response_code");
 
-                if (requestCode.equals("0003")) {
+                if (responseCode.equals(Constants.Network.Response.LOGIN_SUCCESS)) {
                     // 로그인 성공 - LobbyActivity로 이동
                     Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
                     startActivity(intent);
-                } else if (requestCode.equals("0004")) {
+                } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
                     // 로그인 실패 - 아이디 없음
-                    tilLoginId.setErrorEnabled(true);
                     tilLoginId.setError("아이디가 존재하지 않습니다");
-                } else if (requestCode.equals("0005")) {
-                    // 로그인 실패 - 비밀번호 틀림
                     tilLoginId.setErrorEnabled(true);
-                    tilLoginId.setError("비밀번호가 일치하지 않습니다");
+                } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_PW_NOT_CORRECT)) {
+                    // 로그인 실패 - 비밀번호 틀림
+                    tilLoginPw.setError("비밀번호가 일치하지 않습니다");
+                    tilLoginPw.setErrorEnabled(true);
                 } else {
                     // 로그인 실패 - 기타 오류
                     Toast.makeText(LoginActivity.this, "로그인 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
