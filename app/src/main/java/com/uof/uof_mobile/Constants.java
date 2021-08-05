@@ -8,7 +8,7 @@ public class Constants {
 
         public class Request {
             public final static String REGISTER_CUSTOMER = "0001";
-            public final static String REGISTER_OWNER = "0002";
+            public final static String REGISTER_UOFPARTNER = "0002";
             public final static String LOGIN = "0003";
             public final static String CHANGE_PW = "0004";
             public final static String CHANGE_PHONE_NUMBER = "0005";
