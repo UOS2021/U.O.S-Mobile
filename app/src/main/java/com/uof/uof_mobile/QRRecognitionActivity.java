@@ -11,7 +11,6 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class QRRecognitionActivity extends AppCompatActivity {
     private IntentIntegrator QRscan;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +26,14 @@ public class QRRecognitionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() == null) {
+        String targetIp = result.getContents().substring(result.getContents().indexOf("Ip")+3, result.getContents().indexOf("&"));
+        String Port = result.getContents().substring(result.getContents().indexOf("Port") + 5);
+        int targetPort = Integer.parseInt(Port);
+        if(result != null) {
+            if(result.getContents() == null) {
                 Toast.makeText(this, "실패", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "성공: " + result.getContents(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "성공: " + targetIp + " " + targetPort, Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
