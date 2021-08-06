@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLoginLogin;
     private TextView tvLoginRegister;
     private LinearLayoutCompat llLoginLoginLayout;
+    private CheckBox cbloginispartner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLoginLogin = findViewById(R.id.btn_login_login);
         tvLoginRegister = findViewById(R.id.tv_login_register);
         llLoginLoginLayout = findViewById(R.id.ll_login_loginlayout);
+        cbloginispartner = findViewById(R.id.cb_login_ispartner);
 
         // 기본 데이터 설정
 
