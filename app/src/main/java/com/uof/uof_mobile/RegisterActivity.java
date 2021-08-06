@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
@@ -49,6 +52,9 @@ public class RegisterActivity extends AppCompatActivity {
     private AppCompatButton btnRegisterUofPartnerRegister;
     private AppCompatImageView ivRegisterLicenseImage;
     private AppCompatButton btnRegisterLicenseImage;
+    private ExtendedFloatingActionButton efRegisterGotoCompanyInfo;
+    private ScrollView svRegisterScrollView;
+    private TextView tvRegisterCompanyInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,17 +92,24 @@ public class RegisterActivity extends AppCompatActivity {
         spRegisterCompanyType = findViewById(R.id.sp_register_companytype);
         tilRegisterCompanyAddress = findViewById(R.id.til_register_companyaddress);
 
+        efRegisterGotoCompanyInfo = findViewById(R.id.ef_register_gotocompanyinfo);
+        svRegisterScrollView = findViewById(R.id.sv_register_scrollview);
+        tvRegisterCompanyInfo = findViewById(R.id.tv_register_companyinfo);
+
         // UI 초기 상태 설정
         // 회원가입 유형 확인
         if (registerType == 0) {
             // 일반 고객
             llRegisterCustomer.setVisibility(View.VISIBLE);
             llRegisterUofPartner.setVisibility(View.GONE);
+            efRegisterGotoCompanyInfo.setVisibility(View.GONE);
         } else {
             // U.O.F 파트너
             llRegisterUofPartner.setVisibility(View.VISIBLE);
             llRegisterCustomer.setVisibility(View.GONE);
+            efRegisterGotoCompanyInfo.setVisibility(View.VISIBLE);
         }
+
 
         spRegisterCompanyType.setPrompt("회사 유형");
         ArrayAdapter companyType = ArrayAdapter.createFromResource(getApplicationContext(), R.array.array_companytype, android.R.layout.simple_spinner_dropdown_item);
@@ -512,6 +525,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // U.O.F 파트너 회사 정보 입력 버튼이 눌렀을 경우
+        efRegisterGotoCompanyInfo.setOnClickListener(view -> {
+            svRegisterScrollView.scrollTo(0,tvRegisterCompanyInfo.getTop());
+
+        });
         // U.O.F 파트너 회원가입 버튼이 눌렸을 경우
         btnRegisterUofPartnerRegister.setOnClickListener(view -> {
             // 회원가입 창일 경우

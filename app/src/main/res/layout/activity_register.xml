@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -190,8 +191,8 @@
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
-
         <ScrollView
+            android:id="@+id/sv_register_scrollview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -303,6 +304,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_register_companyinfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
@@ -426,6 +428,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
 
+
         <!-- 하단 고정 -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_register_uofpartnerregister"
@@ -437,4 +440,17 @@
             android:textStyle="bold" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/ef_register_gotocompanyinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_gravity="bottom|center"
+        android:textColor="@color/white"
+        app:icon="@drawable/arrow_drop_down"
+        app:iconPadding="0dp"
+        app:backgroundTint="#3F51B5"
+        app:iconTint="@color/white"
+        app:elevation="0dp"
+        android:text="회사 정보 입력"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
