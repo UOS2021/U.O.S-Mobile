@@ -16,7 +16,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="6"
             android:orientation="vertical"
             android:gravity="center">
 
@@ -30,6 +30,7 @@
                 android:textAlignment="center"
                 android:textSize="32sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -38,7 +39,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -46,6 +47,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/cb_login_ispartner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="U.O.F 파트너 이신가요?"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_id"
