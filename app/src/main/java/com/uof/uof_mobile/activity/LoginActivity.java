@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvLoginRegister;
     private LinearLayoutCompat llLoginLoginLayout;
     private CheckBox cbloginispartner;
+    private Button btnLoginPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         tvLoginRegister = findViewById(R.id.tv_login_register);
         llLoginLoginLayout = findViewById(R.id.ll_login_loginlayout);
         cbloginispartner = findViewById(R.id.cb_login_ispartner);
+        btnLoginPass = findViewById(R.id.btn_login_pass);
 
         // 기본 데이터 설정
 
@@ -53,6 +55,13 @@ public class LoginActivity extends AppCompatActivity {
         btnLoginLogin.setEnabled(false);
         llLoginLoginLayout.setVisibility(View.VISIBLE);
 
+
+        // 프리패스
+
+        btnLoginPass.setOnClickListener(view ->{
+            Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
+            startActivity(intent);
+        });
         // 로그인 - 아이디 입력란이 수정되었을 경우
         tilLoginId.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
