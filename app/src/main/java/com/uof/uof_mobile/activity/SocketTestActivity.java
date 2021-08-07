@@ -1,4 +1,4 @@
-package com.uof.uof_mobile;
+package com.uof.uof_mobile.activity;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.manager.SocketManager;
 
 import org.json.JSONObject;
 
@@ -24,7 +26,7 @@ public class SocketTestActivity extends AppCompatActivity {
     private EditText edtSocketTestType;
     private EditText edtSocketTestMessage;
     private Button btnSocketTestSend;
-    private UofSocket uofSocket;
+    private SocketManager socketManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +59,13 @@ public class SocketTestActivity extends AppCompatActivity {
             tiedtSocketTestServerPort.setText(String.valueOf(targetPort));
         }
 
-        uofSocket = new UofSocket();
+        socketManager = new SocketManager();
 
         btnSocketTestSend.setOnClickListener((v) -> {
             setInputAreaEnable(false);
             new Thread(() -> {
-                uofSocket.setSocket(tiedtSocketTestServerIp.getText().toString(), Integer.parseInt(tiedtSocketTestServerPort.getText().toString()));
-                if (uofSocket.connect(2000)) {
+                socketManager.setSocket(tiedtSocketTestServerIp.getText().toString(), Integer.parseInt(tiedtSocketTestServerPort.getText().toString()));
+                if (socketManager.connect(2000)) {
                     // 소켓 연결 성공 시
                     runOnUiThread(() -> {
                         tvSocketTestLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "소켓 연결 성공\n");
@@ -77,12 +79,12 @@ public class SocketTestActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    if (uofSocket.send(sendData.toString() + "\n")) {
+                    if (socketManager.send(sendData.toString() + "\n")) {
                         // 메세지 전송 성공 시
                         runOnUiThread(() -> {
                             tvSocketTestSendLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 완료: " + sendData.toString() + "\n");
                         });
-                        String recvData = uofSocket.recv();
+                        String recvData = socketManager.recv();
                         if (recvData == null) {
                             runOnUiThread(() -> {
                                 tvSocketTestRecvLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "수신 실패" + "\n");
@@ -99,7 +101,7 @@ public class SocketTestActivity extends AppCompatActivity {
                         });
                     }
 
-                    uofSocket.disconnect();
+                    socketManager.disconnect();
 
                     runOnUiThread(() -> {
                         tvSocketTestLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "소켓 연결 종료\n");

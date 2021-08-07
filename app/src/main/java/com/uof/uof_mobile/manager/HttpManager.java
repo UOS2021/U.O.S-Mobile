@@ -1,4 +1,4 @@
-package com.uof.uof_mobile;
+package com.uof.uof_mobile.manager;
 
 import android.os.AsyncTask;
 

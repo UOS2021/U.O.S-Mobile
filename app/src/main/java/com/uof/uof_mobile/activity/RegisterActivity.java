@@ -1,4 +1,4 @@
-package com.uof.uof_mobile;
+package com.uof.uof_mobile.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +25,9 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.R;
 
 import org.json.JSONObject;
 
