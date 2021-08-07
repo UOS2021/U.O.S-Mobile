@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">U.O.F-Mobile</string>
+
+
+    <!-- Preference Key Name -->
+    <string name="setting_alarm">alarm</string>
+    <string name="setting_sound">sound</string>
+    <string name="setting_alarm_bell">alarm_bell</string>
+    <string name="setting_vibration">vibration</string>
+    <string name="setting_popup">popup</string>
+    <string name="setting_account">account</string>
+    <string name="setting_change_pw">change_pw</string>
+    <string name="setting_change_phone">change_phone</string>
+    <string name="setting_logout">logout</string>
+    <string name="setting_withdrawal">withdrawal</string>
 </resources>

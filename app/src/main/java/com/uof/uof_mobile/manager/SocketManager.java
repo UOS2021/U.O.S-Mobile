@@ -1,4 +1,6 @@
-package com.uof.uof_mobile;
+package com.uof.uof_mobile.manager;
+
+import com.uof.uof_mobile.Constants;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -6,18 +8,18 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-public class UofSocket {
+public class SocketManager {
     private Socket socket;
     private SocketAddress socketAddress;
     private OutputStream outputStream;
     private InputStream inputStream;
     private byte[] recvData;
 
-    public UofSocket() {
+    public SocketManager() {
 
     }
 
-    public UofSocket(String targetIp, int targetPort) {
+    public SocketManager(String targetIp, int targetPort) {
         socket = new Socket();
         socketAddress = new InetSocketAddress(targetIp, targetPort);
     }

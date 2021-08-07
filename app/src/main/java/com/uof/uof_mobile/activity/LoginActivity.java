@@ -1,4 +1,4 @@
-package com.uof.uof_mobile;
+package com.uof.uof_mobile.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.dialog.RegisterTypeDialog;
+import com.uof.uof_mobile.dialog.RegisterTypeDialogListener;
 
 import org.json.JSONObject;
 

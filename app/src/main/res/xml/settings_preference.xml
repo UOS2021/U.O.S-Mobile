@@ -2,45 +2,45 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="설정">
         <PreferenceScreen
-            android:key="alarm"
+            android:key="@string/setting_alarm"
             android:title="알림 설정"
             >
             <PreferenceCategory android:title="알림 설정">
             <SwitchPreference
-                android:key="sound"
+                android:key="@string/setting_sound"
                 android:title="소리"
                 android:defaultValue="true"/>
             <RingtonePreference
-                android:key="alarmbell"
+                android:key="@string/setting_alarm_bell"
                 android:title="알림음"
                 android:summary="알림음을 선택하세요"
                 android:dependency="sound"/>
             <SwitchPreference
-                android:key="vibration"
+                android:key="@string/setting_vibration"
                 android:title="진동"
                 android:defaultValue="true"/>
             <SwitchPreference
-                android:key="popup"
+                android:key="@string/setting_popup"
                 android:title="팝업 표시"
                 android:defaultValue="true"/>
             </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen
-            android:key="account"
+            android:key="@string/setting_account"
             android:title="계정 관리"
             >
             <PreferenceCategory android:title="계정 관리">
             <Preference
-                android:key="changepw"
+                android:key="@string/setting_change_pw"
                 android:title="비밀번호 변경"/>
             <Preference
-                android:key="changephone"
+                android:key="@string/setting_change_phone"
                 android:title="휴대폰 번호 수정"/>
             <Preference
-                android:key="logout"
+                android:key="@string/setting_logout"
                 android:title="로그아웃"/>
             <Preference
-                android:key="secession"
+                android:key="@string/setting_withdrawal"
                 android:title="탈퇴"/>
             </PreferenceCategory>
         </PreferenceScreen>
