@@ -55,6 +55,8 @@ public class RegisterActivity extends AppCompatActivity {
     private ExtendedFloatingActionButton efRegisterGotoCompanyInfo;
     private ScrollView svRegisterScrollView;
     private TextView tvRegisterCompanyInfo;
+    private LinearLayoutCompat llRegisterCompany;
+    private int Topx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
         efRegisterGotoCompanyInfo = findViewById(R.id.ef_register_gotocompanyinfo);
         svRegisterScrollView = findViewById(R.id.sv_register_scrollview);
         tvRegisterCompanyInfo = findViewById(R.id.tv_register_companyinfo);
+        llRegisterCompany = findViewById(R.id.ll_register_company);
 
         // UI 초기 상태 설정
         // 회원가입 유형 확인
@@ -108,6 +111,8 @@ public class RegisterActivity extends AppCompatActivity {
             llRegisterUofPartner.setVisibility(View.VISIBLE);
             llRegisterCustomer.setVisibility(View.GONE);
             efRegisterGotoCompanyInfo.setVisibility(View.VISIBLE);
+            llRegisterCompany.setVisibility(View.GONE);
+            //btnRegisterUofPartnerRegister.setVisibility(View.GONE);
         }
 
 
@@ -527,7 +532,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         // U.O.F 파트너 회사 정보 입력 버튼이 눌렀을 경우
         efRegisterGotoCompanyInfo.setOnClickListener(view -> {
-            svRegisterScrollView.scrollTo(0,tvRegisterCompanyInfo.getTop());
+            llRegisterCompany.setVisibility(View.VISIBLE);
+            //btnRegisterUofPartnerRegister.setVisibility(View.VISIBLE);
+            svRegisterScrollView.smoothScrollTo(0,tvRegisterCompanyInfo.getTop());
 
         });
         // U.O.F 파트너 회원가입 버튼이 눌렸을 경우
