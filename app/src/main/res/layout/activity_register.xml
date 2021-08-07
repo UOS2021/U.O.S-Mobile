@@ -302,12 +302,11 @@
                         android:inputType="phone"
                         android:maxLength="11" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/ll_register_company"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/ll_register_company"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_register_companyinfo"
                     android:layout_width="wrap_content"
@@ -415,6 +414,7 @@
                         android:text="이미지 선택"
                         android:textSize="10sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
