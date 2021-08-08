@@ -9,8 +9,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
@@ -18,7 +17,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/qrcode" />
 
         <TextView
@@ -26,45 +25,90 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="1dp"
             android:text="현재 매장의 QR코드를 인식해주세요!"
             android:textColor="#ff0000"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
+    <TextView
+        android:id="@+id/tv_lobby_shownoworderlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="현재 주문 내역"
+        android:textSize="30sp"
+        android:textColor="#000" />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.5"
         android:orientation="vertical">
-
+        <ListView
+            android:id="@+id/lv_lobby_noworderlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/listview_border">
+        </ListView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2.5"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_lobby_card"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_lobby_orderlist"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:text="Button" />
+            <ImageButton
+                android:id="@+id/btn_lobby_card"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ff0000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/card_icon" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <Button
-            android:id="@+id/btn_lobby_setting"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_lobby_orderlist"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ff0000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/orderlist_icon" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_lobby_setting"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ff0000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_icon" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>
