@@ -15,6 +15,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.dialog.ChangePwDialog;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
@@ -114,7 +115,11 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject message = new JSONObject();
                 message.accumulate("id", tilLoginId.getEditText().getText().toString());
                 message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
-                message.accumulate("type", "customer");
+                if(cbloginispartner.isChecked()){
+                    message.accumulate("type", "uofpartner");
+                }else{
+                    message.accumulate("type", "customer");
+                }
 
                 sendData.accumulate("message", message);
 
