@@ -3,5 +3,4 @@
     android:id="@+id/settings_fragment"
     android:name="com.uof.uof_mobile.fragment.SettingPreferenceFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    />
+    android:layout_height="match_parent" />

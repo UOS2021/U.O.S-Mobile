@@ -1,6 +1,13 @@
 package com.uof.uof_mobile;
 
 public class Constants {
+    public static class User {
+        public static String id = "";
+        public static String name = "";
+        public static String phone = "";
+        public static String type = "";
+    }
+
     public class Network {
         public final static int SOCKET_MAX_RECV_SIZE = 1000;
         public final static String EXTERNAL_SERVER_IP = "211.217.202.157";
@@ -56,12 +63,5 @@ public class Constants {
         public final static int LENGTH_SHORT = 1;
         public final static int LENGTH_LONG = 2;
         public final static int NOT_ALLOWED_CHARACTER = 3;
-    }
-
-    public static class User {
-        public static String id = "";
-        public static String name = "";
-        public static String phone = "";
-        public static String type = "";
     }
 }

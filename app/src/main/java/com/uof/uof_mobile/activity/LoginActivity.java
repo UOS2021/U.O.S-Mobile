@@ -15,11 +15,10 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
-import com.uof.uof_mobile.dialog.ChangePwDialog;
-import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
 import com.uof.uof_mobile.dialog.RegisterTypeDialogListener;
+import com.uof.uof_mobile.manager.HttpManager;
 
 import org.json.JSONObject;
 
@@ -59,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // 프리패스
 
-        btnLoginPass.setOnClickListener(view ->{
+        btnLoginPass.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
             startActivity(intent);
         });
@@ -115,9 +114,9 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject message = new JSONObject();
                 message.accumulate("id", tilLoginId.getEditText().getText().toString());
                 message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
-                if(cbloginispartner.isChecked()){
+                if (cbloginispartner.isChecked()) {
                     message.accumulate("type", "uofpartner");
-                }else{
+                } else {
                     message.accumulate("type", "customer");
                 }
 

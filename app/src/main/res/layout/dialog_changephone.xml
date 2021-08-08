@@ -37,8 +37,8 @@
             android:id="@+id/tv_dlgchangephone_currentphone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_marginBottom="16dp"
+            android:text="TextView"
             android:textColor="?android:attr/textColorPrimary" />
 
         <androidx.appcompat.widget.AppCompatTextView

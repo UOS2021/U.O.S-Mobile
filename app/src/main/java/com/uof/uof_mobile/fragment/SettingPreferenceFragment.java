@@ -2,7 +2,6 @@ package com.uof.uof_mobile.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -120,7 +119,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if(preference.getKey().equals(getString(R.string.setting_account))){
+        if (preference.getKey().equals(getString(R.string.setting_account))) {
             return false;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="6"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_login_name1"
@@ -29,9 +29,9 @@
                 android:layout_marginTop="16dp"
                 android:text="나만의 키오스크\nU.O.F"
                 android:textAlignment="center"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="32sp"
                 android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical">
+
                 <Button
                     android:id="@+id/btn_login_pass"
                     android:layout_width="wrap_content"
@@ -56,12 +57,13 @@
                     android:text="프리패스버튼">
 
                 </Button>
-                    <CheckBox
-                        android:id="@+id/cb_login_ispartner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:text="U.O.F 파트너 이신가요?"/>
+
+                <CheckBox
+                    android:id="@+id/cb_login_ispartner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="U.O.F 파트너 이신가요?" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_id"
@@ -96,8 +98,8 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
-                style="@style/colorRegisterText"
                 android:id="@+id/tv_login_register"
+                style="@style/colorRegisterText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

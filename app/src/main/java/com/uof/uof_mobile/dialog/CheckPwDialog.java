@@ -4,19 +4,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.activity.LobbyActivity;
 import com.uof.uof_mobile.activity.SettingActivity;
 import com.uof.uof_mobile.manager.HttpManager;
 
