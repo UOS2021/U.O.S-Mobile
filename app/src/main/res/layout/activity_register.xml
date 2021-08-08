@@ -4,199 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical"
     tools:context=".activity.RegisterActivity">
 
-    <!-- 일반유저 회원가입 -->
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_register_customer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:visibility="gone"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="UOF\n일반고객 회원가입"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibtn_dlgchangephone_close"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ripple_btnclose" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <!-- 일반유저 회원가입 -->
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_register_customer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="vertical">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_register_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="아이디"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_customerid"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="아이디를 입력해주세요"
-                        android:inputType="textUri" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_register_pw"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="비밀번호"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_customerpw"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="#000000">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="비밀번호를 입력해주세요"
-                        android:inputType="textPassword" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="비밀번호 확인"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_customerpwchk"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="#000000">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="비밀번호를 입력해주세요"
-                        android:inputType="textPassword" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_register_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="이름"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_customername"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="이름을 입력해주세요"
-                        android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_register_customerphone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전화번호"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_customerphonenumber"
-                    style="@style/TextInputLayout_Register">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="전화번호를 입력해주세요"
-                        android:inputType="phone"
-                        android:maxLength="11" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_register_customerregister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="회원가입"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <!-- U.O.F 파트너 회원가입 -->
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_register_uofpartner"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical">
-        <!-- 상단 고정 -->
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="UOF\n파트너 회원가입"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" />
-        <ScrollView
-            android:id="@+id/sv_register_scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="16dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -204,260 +42,447 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="아이디"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
+                    android:layout_gravity="center"
+                    android:text="UOF\n일반고객 회원가입"
+                    android:textAlignment="center"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_register_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아이디"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_customerid"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="아이디를 입력해주세요"
+                            android:inputType="textUri" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_register_pw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="비밀번호"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_customerpw"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="8dp"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="?android:attr/textColorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="비밀번호를 입력해주세요"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="비밀번호 확인"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_customerpwchk"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="8dp"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="?android:attr/textColorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="비밀번호를 입력해주세요"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_register_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이름"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_customername"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="이름을 입력해주세요"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_register_customerphone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전화번호"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_customerphonenumber"
+                        style="@style/TextInputLayout_Register">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="전화번호를 입력해주세요"
+                            android:inputType="phone"
+                            android:maxLength="11" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_register_customerregister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="회원가입"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_uofpartnerid"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp">
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="아이디를 입력해주세요"
-                        android:inputType="textUri" />
-                </com.google.android.material.textfield.TextInputLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+        <!-- U.O.F 파트너 회원가입 -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_register_uofpartner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- 상단 고정 -->
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="UOF\n파트너 회원가입"
+                android:textAlignment="center"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ScrollView
+                android:id="@+id/sv_register_scrollview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="16dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="비밀번호"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_uofpartnerpw"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="#000000">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아이디"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="비밀번호를 입력해주세요"
-                        android:inputType="textPassword" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_uofpartnerid"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="8dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="비밀번호 확인"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="아이디를 입력해주세요"
+                            android:inputType="textUri" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_uofpartnerpwchk"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="#000000">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="비밀번호"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="비밀번호를 입력해주세요"
-                        android:inputType="textPassword" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_uofpartnerpw"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="8dp"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="?android:attr/textColorPrimary">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="이름"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="비밀번호를 입력해주세요"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_uofpartnername"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="비밀번호 확인"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="이름을 입력해주세요"
-                        android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_uofpartnerpwchk"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="8dp"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="?android:attr/textColorPrimary">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전화번호"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="비밀번호를 입력해주세요"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_uofpartnerphonenumber"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="30dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이름"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="전화번호를 입력해주세요"
-                        android:inputType="phone"
-                        android:maxLength="11" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_uofpartnername"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="이름을 입력해주세요"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전화번호"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_register_uofpartnerphonenumber"
+                        style="@style/TextInputLayout_Register"
+                        android:layout_marginBottom="30dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText_Register"
+                            android:hint="전화번호를 입력해주세요"
+                            android:inputType="phone"
+                            android:maxLength="11" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/ll_register_company"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_register_companyinfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="회사 정보"
-                    android:textColor="#000000"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="회사명"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_register_companyinfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:text="회사 정보"
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_companyname"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="회사명"
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="회사명을 입력해주세요"
-                        android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_register_companyname"
+                            style="@style/TextInputLayout_Register"
+                            android:layout_marginBottom="8dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="사업자번호"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/TextInputEditText_Register"
+                                android:hint="회사명을 입력해주세요"
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_licensenumber"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="사업자번호"
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="사업자번호를 입력해주세요"
-                        android:inputType="phone"
-                        android:maxLength="10" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_register_licensenumber"
+                            style="@style/TextInputLayout_Register"
+                            android:layout_marginBottom="8dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="회사 유형"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:layout_marginBottom="8dp"
-                    android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/TextInputEditText_Register"
+                                android:hint="사업자번호를 입력해주세요"
+                                android:inputType="phone"
+                                android:maxLength="10" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/sp_register_companytype"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/background_registertypespinner"
-                    android:spinnerMode="dialog"
-                    android:textColor="#000000" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="회사 유형"
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="주소"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_register_companytype"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/background_registertypespinner"
+                            android:spinnerMode="dialog"
+                            android:textColor="?android:attr/textColorPrimary" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_register_companyaddress"
-                    style="@style/TextInputLayout_Register"
-                    android:layout_marginBottom="8dp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="주소"
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText_Register"
-                        android:hint="회사 주소를 입력해주세요"
-                        android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_register_companyaddress"
+                            style="@style/TextInputLayout_Register"
+                            android:layout_marginBottom="8dp">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/TextInputEditText_Register"
+                                android:hint="회사 주소를 입력해주세요"
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="사업자등록증"
-                        android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_register_licenseimage"
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/image"
-                        android:layout_centerHorizontal="true"
-                        android:text="이미지 선택"
-                        android:textSize="10sp" />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="사업자등록증"
+                                android:textColor="?android:attr/textColorPrimary"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_register_licenseimage"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/image"
+                                android:layout_centerHorizontal="true"
+                                android:text="이미지 선택"
+                                android:textSize="10sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_register_licenseimage"
+                                android:layout_width="match_parent"
+                                android:layout_height="480dp"
+                                android:background="@drawable/border_licenseimage"
+                                android:scaleType="fitXY" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
+            </ScrollView>
 
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+            <!-- 하단 고정 -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_register_uofpartnerregister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="회원가입"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_register_licenseimage"
-                        android:layout_width="match_parent"
-                        android:layout_height="480dp"
-                        android:background="@drawable/border_licenseimage"
-                        android:scaleType="fitXY" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </ScrollView>
-
-
-        <!-- 하단 고정 -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_register_uofpartnerregister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="회원가입"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/ef_register_gotocompanyinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
         android:layout_gravity="bottom|center"
+        android:layout_margin="50dp"
+        android:text="회사 정보 입력"
         android:textColor="@color/white"
+        app:backgroundTint="#3F51B5"
+        app:elevation="0dp"
         app:icon="@drawable/arrow_drop_down"
         app:iconPadding="0dp"
-        app:backgroundTint="#3F51B5"
-        app:iconTint="@color/white"
-        app:elevation="0dp"
-        android:text="회사 정보 입력"/>
+        app:iconTint="@color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -26,8 +26,8 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
-import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.manager.HttpManager;
 
 import org.json.JSONObject;
 
@@ -536,7 +536,7 @@ public class RegisterActivity extends AppCompatActivity {
         efRegisterGotoCompanyInfo.setOnClickListener(view -> {
             llRegisterCompany.setVisibility(View.VISIBLE);
             //btnRegisterUofPartnerRegister.setVisibility(View.VISIBLE);
-            svRegisterScrollView.smoothScrollTo(0,llRegisterCompany.getTop());
+            svRegisterScrollView.smoothScrollTo(0, llRegisterCompany.getTop());
 
         });
         // U.O.F 파트너 회원가입 버튼이 눌렸을 경우

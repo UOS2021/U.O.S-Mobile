@@ -15,10 +15,10 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
-import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
 import com.uof.uof_mobile.dialog.RegisterTypeDialogListener;
+import com.uof.uof_mobile.manager.HttpManager;
 
 import org.json.JSONObject;
 
@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // 프리패스
 
-        btnLoginPass.setOnClickListener(view ->{
+        btnLoginPass.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
             startActivity(intent);
         });
@@ -114,7 +114,11 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject message = new JSONObject();
                 message.accumulate("id", tilLoginId.getEditText().getText().toString());
                 message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
-                message.accumulate("type", "customer");
+                if (cbloginispartner.isChecked()) {
+                    message.accumulate("type", "uofpartner");
+                } else {
+                    message.accumulate("type", "customer");
+                }
 
                 sendData.accumulate("message", message);
 
@@ -124,13 +128,19 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (responseCode.equals(Constants.Network.Response.LOGIN_SUCCESS)) {
                     // 로그인 성공 - LobbyActivity로 이동
+                    JSONObject userData = recvData.getJSONObject("message");
+                    Constants.User.id = tilLoginId.getEditText().getText().toString();
+                    Constants.User.name = userData.getString("name");
+                    Constants.User.phone = userData.getString("phone");
+                    Constants.User.type = userData.getString("type");
+
                     Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
                     startActivity(intent);
                 } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
                     // 로그인 실패 - 아이디 없음
                     tilLoginId.setError("아이디가 존재하지 않습니다");
                     tilLoginId.setErrorEnabled(true);
-                } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_PW_NOT_CORRECT)) {
+                } else if (responseCode.equals(Constants.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
                     // 로그인 실패 - 비밀번호 틀림
                     tilLoginPw.setError("비밀번호가 일치하지 않습니다");
                     tilLoginPw.setErrorEnabled(true);

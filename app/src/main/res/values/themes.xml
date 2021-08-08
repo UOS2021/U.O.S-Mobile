@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.UOFMobile" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.UOFMobile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,19 +14,30 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- TextInputLayuout Style -->
     <style name="TextInputLayout_Register" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#000000</item>
-        <item name="android:textColorHint">#6C6C6C</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textColorHint">?android:attr/textColorHint</item>
         <item name="boxStrokeColor">@color/selector_textinputlayout_register</item>
-        <item name="hintTextColor">#000000</item> <!-- border에 표시되는 힌트 색깔 -->
+        <item name="hintTextColor">?android:attr/textColorHint</item> <!-- border에 표시되는 힌트 색깔 -->
     </style>
 
+    <color name="TextInputLayout_Selector_Enable">#232323</color>
+    <color name="TextInputLayout_Selector_Disable">#6A6A6A</color>
+    <color name="TextInputLayout_Selector_Focus">#000000</color>
+
+    <!-- TextInputEditText Style -->
     <style name="TextInputEditText_Register">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Go to register screen text style -->
+    <style name="colorRegisterText">
+        <item name="android:textColor">@android:color/holo_blue_light</item>
     </style>
 </resources>

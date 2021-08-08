@@ -2,15 +2,14 @@ package com.uof.uof_mobile.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.dialog.CheckPwDialog;
 import com.uof.uof_mobile.listview.LobbyListViewItem;
 import com.uof.uof_mobile.listview.LobbyListViewItemAdapter;
 
@@ -44,8 +43,7 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         btn_setting.setOnClickListener(view -> {
-            Intent intent = new Intent(LobbyActivity.this, SettingActivity.class);
-            startActivity(intent);
+            new CheckPwDialog(LobbyActivity.this, true, true).show();
         });
 
         ivLobbyRecognizeQR.setOnClickListener(view -> {
@@ -53,12 +51,12 @@ public class LobbyActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        try{
+        try {
             adapter = new LobbyListViewItemAdapter();
             JSONArray menulist = new JSONArray("[{name : \"홍익수제비\", count : 3},{name : \"쉑섹버거\", count : 3}]");
-            adapter.addItem(new LobbyListViewItem(1002,menulist));
-            adapter.addItem(new LobbyListViewItem(1003,menulist));
-        }catch(Exception e){
+            adapter.addItem(new LobbyListViewItem(1002, menulist));
+            adapter.addItem(new LobbyListViewItem(1003, menulist));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         lvLobbyNowOrderList.setAdapter(adapter);
