@@ -25,19 +25,19 @@ public class ChangePwDialog extends Dialog {
     private AppCompatButton btnDlgChangePwApply;
 
     public ChangePwDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
-        super(context);
+        super(context,R.style.dialog_theme);
         this.context = context;
-
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_changepw);
+
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         init();

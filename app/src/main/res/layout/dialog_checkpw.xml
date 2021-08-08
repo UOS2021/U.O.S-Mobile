@@ -22,6 +22,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
+                android:inputType="textPassword"
                 android:hint="비밀번호를 입력해주세요" />
         </com.google.android.material.textfield.TextInputLayout>
 
