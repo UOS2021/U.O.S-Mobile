@@ -12,6 +12,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -34,6 +35,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 
 public class RegisterActivity extends AppCompatActivity {
+    private ImageButton ibtnRegisterClose;
     private LinearLayoutCompat llRegisterCustomer;
     private LinearLayoutCompat llRegisterUofPartner;
     private TextInputLayout tilRegisterCustomerId;
@@ -72,6 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
         //데이터 받아오기
         Intent loadIntent = getIntent();
         int registerType = loadIntent.getExtras().getInt("RegisterType");
+
+        ibtnRegisterClose = findViewById(R.id.ibtn_register_close);
 
         llRegisterCustomer = findViewById(R.id.ll_register_customer);
         llRegisterUofPartner = findViewById(R.id.ll_register_uofpartner);
@@ -125,6 +129,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnRegisterCustomerRegister.setEnabled(false);
         btnRegisterUofPartnerRegister.setEnabled(false);
+
+        ibtnRegisterClose.setOnClickListener(view -> {
+            finish();
+        });
 
         //// 일반 고객
         // 회원가입 - 아이디 입력란이 수정되었을 경우
