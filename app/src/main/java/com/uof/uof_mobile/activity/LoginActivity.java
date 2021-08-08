@@ -124,13 +124,19 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (responseCode.equals(Constants.Network.Response.LOGIN_SUCCESS)) {
                     // 로그인 성공 - LobbyActivity로 이동
+                    JSONObject userData = recvData.getJSONObject("message");
+                    Constants.User.id = tilLoginId.getEditText().getText().toString();
+                    Constants.User.name = userData.getString("name");
+                    Constants.User.phone = userData.getString("phone");
+                    Constants.User.type = userData.getString("type");
+
                     Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
                     startActivity(intent);
                 } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
                     // 로그인 실패 - 아이디 없음
                     tilLoginId.setError("아이디가 존재하지 않습니다");
                     tilLoginId.setErrorEnabled(true);
-                } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_PW_NOT_CORRECT)) {
+                } else if (responseCode.equals(Constants.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
                     // 로그인 실패 - 비밀번호 틀림
                     tilLoginPw.setError("비밀번호가 일치하지 않습니다");
                     tilLoginPw.setErrorEnabled(true);
