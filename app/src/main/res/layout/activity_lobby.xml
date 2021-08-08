@@ -46,25 +46,74 @@
         android:layout_weight="2.5"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_lobby_card"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_lobby_orderlist"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:text="Button" />
+            <ImageButton
+                android:id="@+id/btn_lobby_card"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ff0000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/card_icon" />
 
-        <Button
-            android:id="@+id/btn_lobby_setting"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="결제정보"
+                android:textSize="18sp"></TextView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_lobby_orderlist"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ff0000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/orderList_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="주문내역"
+                android:textSize="18sp"></TextView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_lobby_setting"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ff0000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="설정"
+                android:textSize="18sp"></TextView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>
