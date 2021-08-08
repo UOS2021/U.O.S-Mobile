@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- TextInputLayuout Style -->
     <style name="TextInputLayout_Register" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -23,10 +24,20 @@
         <item name="hintTextColor">?android:attr/textColorHint</item> <!-- border에 표시되는 힌트 색깔 -->
     </style>
 
+    <color name="TextInputLayout_Selector_Enable">#232323</color>
+    <color name="TextInputLayout_Selector_Disable">#6A6A6A</color>
+    <color name="TextInputLayout_Selector_Focus">#000000</color>
+
+    <!-- TextInputEditText Style -->
     <style name="TextInputEditText_Register">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Go to register screen text style -->
+    <style name="colorRegisterText">
+        <item name="android:textColor">@android:color/holo_blue_light</item>
     </style>
 </resources>

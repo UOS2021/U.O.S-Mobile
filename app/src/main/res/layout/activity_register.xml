@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?android:attr/colorBackground"
     tools:context=".activity.RegisterActivity">
 
     <!-- 일반유저 회원가입 -->
@@ -12,7 +13,6 @@
         android:id="@+id/ll_register_customer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
         android:visibility="gone"
         android:orientation="vertical">
 
@@ -27,7 +27,7 @@
                 android:layout_gravity="center"
                 android:text="UOF\n일반고객 회원가입"
                 android:textAlignment="center"
-                android:textColor="#000000"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아이디"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="비밀번호"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -81,7 +81,7 @@
                     style="@style/TextInputLayout_Register"
                     android:layout_marginBottom="8dp"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="#000000">
+                    app:passwordToggleTint="?android:attr/textColorPrimary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="비밀번호 확인"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -102,7 +102,7 @@
                     style="@style/TextInputLayout_Register"
                     android:layout_marginBottom="8dp"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="#000000">
+                    app:passwordToggleTint="?android:attr/textColorPrimary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이름"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -135,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="전화번호"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -177,7 +177,6 @@
         android:id="@+id/ll_register_uofpartner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
         android:orientation="vertical">
         <!-- 상단 고정 -->
 
@@ -187,7 +186,7 @@
             android:layout_gravity="center"
             android:text="UOF\n파트너 회원가입"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
@@ -207,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아이디"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -226,7 +225,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="비밀번호"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -235,7 +234,7 @@
                     style="@style/TextInputLayout_Register"
                     android:layout_marginBottom="8dp"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="#000000">
+                    app:passwordToggleTint="?android:attr/textColorPrimary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
@@ -247,7 +246,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="비밀번호 확인"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -256,7 +255,7 @@
                     style="@style/TextInputLayout_Register"
                     android:layout_marginBottom="8dp"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="#000000">
+                    app:passwordToggleTint="?android:attr/textColorPrimary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
@@ -268,7 +267,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이름"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -287,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="전화번호"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -313,7 +312,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:text="회사 정보"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -321,7 +320,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="회사명"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -340,7 +339,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="사업자번호"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -360,7 +359,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="회사 유형"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:layout_marginBottom="8dp"
                     android:textStyle="bold" />
@@ -372,13 +371,13 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/background_registertypespinner"
                     android:spinnerMode="dialog"
-                    android:textColor="#000000" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="주소"
-                    android:textColor="#000000"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -401,7 +400,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="사업자등록증"
-                        android:textColor="#000000"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 

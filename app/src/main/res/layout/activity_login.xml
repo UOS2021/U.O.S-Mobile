@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical"
     tools:context=".activity.LoginActivity">
 
@@ -30,7 +31,7 @@
                 android:textAlignment="center"
                 android:textSize="32sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -64,29 +65,23 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_id"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
+                    style="@style/TextInputLayout_Register"
                     android:layout_marginBottom="30dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/TextInputEditText_Register"
                         android:hint="아이디"
                         android:inputType="textUri" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_pw"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
+                    style="@style/TextInputLayout_Register"
                     android:layout_marginBottom="30dp"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/TextInputEditText_Register"
                         android:hint="비밀번호"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -101,6 +96,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
+                style="@style/colorRegisterText"
                 android:id="@+id/tv_login_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +105,6 @@
                 android:fontFamily="serif"
                 android:text="처음이시라면 UOF의 가족이 되어보세요"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/holo_blue_dark"
                 android:textSize="15sp"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.LinearLayoutCompat>
