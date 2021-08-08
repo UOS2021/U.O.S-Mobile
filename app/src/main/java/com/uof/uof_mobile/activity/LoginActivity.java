@@ -16,6 +16,8 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.dialog.ChangePwDialog;
+import com.uof.uof_mobile.dialog.CheckPwDialog;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
 import com.uof.uof_mobile.dialog.RegisterTypeDialogListener;
 import com.uof.uof_mobile.manager.HttpManager;
@@ -179,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }).show();
         });
+//        new CheckPwDialog(LoginActivity.this,true,true).show();
     }
 
     // 로그인 시 아이디, 비밀번호 입력란 확인

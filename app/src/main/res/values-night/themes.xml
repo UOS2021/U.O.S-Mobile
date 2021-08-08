@@ -40,4 +40,6 @@
     <style name="colorRegisterText">
         <item name="android:textColor">@android:color/holo_blue_light</item>
     </style>
+    <drawable name="icon_btnclose">@drawable/icon_btnclose_night</drawable>
+    <drawable name="icon_btnback">@drawable/icon_btnback_night</drawable>
 </resources>
