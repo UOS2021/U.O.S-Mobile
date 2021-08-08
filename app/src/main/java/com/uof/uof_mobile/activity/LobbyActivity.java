@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.dialog.CheckPwDialog;
 
 public class LobbyActivity extends AppCompatActivity {
     Button btn_card, btn_orderlist, btn_setting;
@@ -34,8 +35,7 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         btn_setting.setOnClickListener(view -> {
-            Intent intent = new Intent(LobbyActivity.this, SettingActivity.class);
-            startActivity(intent);
+            new CheckPwDialog(LobbyActivity.this, true, true).show();
         });
 
         ivLobbyRecognizeQR.setOnClickListener(view -> {
