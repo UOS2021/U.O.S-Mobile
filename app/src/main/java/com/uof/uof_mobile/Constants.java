@@ -21,11 +21,12 @@ public class Constants {
             public final static String CHANGE_PW = "0005";
             public final static String CHANGE_PHONE = "0006";
             public final static String WITHDRAWAL = "0007";
-            public final static String CARD_ADD = "0008";
-            public final static String CARD_REMOVE = "0009";
-            public final static String ORDER = "0010";
-            public final static String ORDER_CANCEL = "0011";
-            public final static String ORDER_LIST = "0012";
+            public final static String CARD_INFO = "0008";
+            public final static String CARD_ADD = "0009";
+            public final static String CARD_REMOVE = "0010";
+            public final static String ORDER = "0011";
+            public final static String ORDER_CANCEL = "0012";
+            public final static String ORDER_LIST = "0013";
         }
 
         public class Response {
@@ -50,11 +51,12 @@ public class Constants {
             public final static String CARD_ADD_FAILED = "0019";
             public final static String CARD_REMOVE_SUCCESS = "0020";
             public final static String CARD_REMOVE_FAILED = "0021";
-            public final static String CARD_INFORMATION = "0022";
-            public final static String ORDER_CANCEL_SUCCESS = "0023";
-            public final static String ORDER_CANCEL_FAILED = "0024";
-            public final static String ORDER_SUCCESS = "0025";
-            public final static String ORDER_FAILED = "0026";
+            public final static String CARD_INFO = "0022";
+            public final static String CARD_NOINFO = "0023";
+            public final static String ORDER_CANCEL_SUCCESS = "0024";
+            public final static String ORDER_CANCEL_FAILED = "0025";
+            public final static String ORDER_SUCCESS = "0026";
+            public final static String ORDER_FAILED = "0027";
         }
     }
 
