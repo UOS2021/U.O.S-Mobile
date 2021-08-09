@@ -40,6 +40,20 @@
     <style name="colorRegisterText">
         <item name="android:textColor">@android:color/holo_blue_light</item>
     </style>
+
+    <!-- Dialog Theme: FullScreenDialog -->
+    <style name="DialogTheme_FullScreenDialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+    </style>
+
+    <!-- Icons -->
     <drawable name="icon_btnclose">@drawable/icon_btnclose_night</drawable>
     <drawable name="icon_btnback">@drawable/icon_btnback_night</drawable>
+    <drawable name="icon_btndelete">@drawable/icon_btndelete_day</drawable>
 </resources>

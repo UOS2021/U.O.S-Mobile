@@ -3,7 +3,6 @@ package com.uof.uof_mobile.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -27,7 +26,7 @@ public class ChangePhoneDialog extends Dialog {
     private AppCompatButton btnDlgChangePhoneApply;
 
     public ChangePhoneDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
-        super(context,R.style.dialog_theme);
+        super(context,R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
