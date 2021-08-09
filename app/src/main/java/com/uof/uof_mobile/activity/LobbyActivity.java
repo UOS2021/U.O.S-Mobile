@@ -33,7 +33,7 @@ public class LobbyActivity extends AppCompatActivity {
         lvLobbyNowOrderList = findViewById(R.id.lv_lobby_noworderlist);
 
         btn_card.setOnClickListener(view -> {
-            Intent intent = new Intent(LobbyActivity.this, PayActivity.class);
+            Intent intent = new Intent(LobbyActivity.this, CardActivity.class);
             startActivity(intent);
         });
 
