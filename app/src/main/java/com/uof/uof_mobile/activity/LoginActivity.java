@@ -16,8 +16,6 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.dialog.ChangePwDialog;
-import com.uof.uof_mobile.dialog.CheckPwDialog;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
 import com.uof.uof_mobile.dialog.RegisterTypeDialogListener;
 import com.uof.uof_mobile.manager.HttpManager;
@@ -146,6 +144,9 @@ public class LoginActivity extends AppCompatActivity {
                     // 로그인 실패 - 비밀번호 틀림
                     tilLoginPw.setError("비밀번호가 일치하지 않습니다");
                     tilLoginPw.setErrorEnabled(true);
+                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                    // 서버 연결 실패
+                    Toast.makeText(LoginActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
                     // 로그인 실패 - 기타 오류
                     Toast.makeText(LoginActivity.this, "로그인 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
@@ -181,7 +182,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }).show();
         });
-//        new CheckPwDialog(LoginActivity.this,true,true).show();
     }
 
     // 로그인 시 아이디, 비밀번호 입력란 확인

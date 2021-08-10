@@ -55,5 +55,5 @@
     <!-- Icons -->
     <drawable name="icon_btnclose">@drawable/icon_btnclose_night</drawable>
     <drawable name="icon_btnback">@drawable/icon_btnback_night</drawable>
-    <drawable name="icon_btndelete">@drawable/icon_btndelete_day</drawable>
+    <drawable name="icon_btndelete">@drawable/icon_btndelete_night</drawable>
 </resources>

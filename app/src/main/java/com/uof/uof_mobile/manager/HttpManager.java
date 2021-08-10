@@ -2,6 +2,8 @@ package com.uof.uof_mobile.manager;
 
 import android.os.AsyncTask;
 
+import com.uof.uof_mobile.Constants;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStream;
@@ -9,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class HttpManager extends AsyncTask<String, String, String> {
@@ -49,10 +52,14 @@ public class HttpManager extends AsyncTask<String, String, String> {
             result = result.substring(1, result.length() - 1).replace("\\", "");
 
             return result;
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+
+            return "{ response_code: \"" + Constants.Network.Response.SERVER_NOT_ONLINE + "\" }";
         } catch (Exception e) {
             e.printStackTrace();
 
-            return "{ request_code: \"-1\", message: \"" + e.toString() + "\" }";
+            return "{ response_code: \"-1\", message: \"" + e.toString() + "\" }";
         }
     }
 }

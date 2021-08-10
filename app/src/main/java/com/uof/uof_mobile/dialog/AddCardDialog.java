@@ -81,8 +81,13 @@ public class AddCardDialog extends AppCompatDialog {
 
                 if (responseCode.equals(Constants.Network.Response.CARD_ADD_SUCCESS)) {
                     // 카드등록 성공
+                    Toast.makeText(context, "카드가 등록되었습니다", Toast.LENGTH_SHORT).show();
                 } else if (responseCode.equals(Constants.Network.Response.CARD_ADD_FAILED)) {
                     // 카드등록 실패
+                    Toast.makeText(context, "카드등록 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
+                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                    // 서버 연결 실패
+                    Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
                     // 카드등록 실패 - 기타 오류
                     Toast.makeText(context, "카드등록 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
@@ -91,6 +96,7 @@ public class AddCardDialog extends AppCompatDialog {
                 e.printStackTrace();
                 Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
             }
+            dismiss();
         });
     }
 }

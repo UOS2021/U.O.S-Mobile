@@ -518,18 +518,21 @@ public class RegisterActivity extends AppCompatActivity {
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
 
-                String requestCode = recvData.getString("response_code");
+                String responseCode = recvData.getString("response_code");
 
-                if (requestCode.equals(Constants.Network.Response.REGISTER_SUCCESS)) {
+                if (responseCode.equals(Constants.Network.Response.REGISTER_SUCCESS)) {
                     // 회원가입 성공 - 로그인창 표시
                     Toast.makeText(RegisterActivity.this, "가입되었습니다. 해당 계정으로 로그인해주세요.", Toast.LENGTH_SHORT).show();
                     finish();
-                } else if (requestCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
+                } else if (responseCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
                     // 회원가입 실패 - 아이디 중복
                     tilRegisterCustomerId.setError("해당 아이디는 이미 사용중입니다");
                     tilRegisterCustomerId.setErrorEnabled(true);
                     tilRegisterCustomerId.getEditText().setFocusableInTouchMode(true);
                     tilRegisterCustomerId.getEditText().requestFocus();
+                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                    // 서버 연결 실패
+                    Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
                     // 회원가입 실패 - 기타 오류
                     Toast.makeText(RegisterActivity.this, "회원가입 실패: " + recvData.toString(), Toast.LENGTH_SHORT).show();
@@ -572,18 +575,21 @@ public class RegisterActivity extends AppCompatActivity {
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
 
-                String requestCode = recvData.getString("response_code");
+                String responseCode = recvData.getString("response_code");
 
-                if (requestCode.equals(Constants.Network.Response.REGISTER_SUCCESS)) {
+                if (responseCode.equals(Constants.Network.Response.REGISTER_SUCCESS)) {
                     // 회원가입 성공 - 로그인창 표시
                     Toast.makeText(RegisterActivity.this, "가입되었습니다. 해당 계정으로 로그인해주세요.", Toast.LENGTH_SHORT).show();
                     finish();
-                } else if (requestCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
+                } else if (responseCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
                     // 회원가입 실패 - 아이디 중복
                     tilRegisterUofPartnerId.setError("해당 아이디는 이미 사용중입니다");
                     tilRegisterUofPartnerId.setErrorEnabled(true);
                     tilRegisterUofPartnerId.getEditText().setFocusableInTouchMode(true);
                     tilRegisterUofPartnerId.getEditText().requestFocus();
+                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                    // 서버 연결 실패
+                    Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
                     // 회원가입 실패 - 기타 오류
                     Toast.makeText(RegisterActivity.this, "회원가입 실패: " + recvData.toString(), Toast.LENGTH_SHORT).show();

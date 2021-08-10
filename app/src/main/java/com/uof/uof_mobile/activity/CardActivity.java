@@ -59,7 +59,7 @@ public class CardActivity extends AppCompatActivity {
                     .setTitle("카드 제거")
                     .setMessage("카드를 제거하시겠습니까?")
                     .setPositiveButton("제거", (dialogInterface, i) -> {
-
+                        new RemoveCard().start();
                     })
                     .setNegativeButton("취소", null)
                     .show();
@@ -92,22 +92,30 @@ public class CardActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
+                String temp = new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get();
 
-                String requestCode = recvData.getString("response_code");
-                String cardNum = recvData.getJSONObject("message").getString("num");
+                JSONObject recvData = new JSONObject(temp);
+
+                String responseCode = recvData.getString("response_code");
                 
-                if (requestCode.equals(Constants.Network.Response.CARD_INFO)) {
+                if (responseCode.equals(Constants.Network.Response.CARD_INFO)) {
                     // 카드 불러오기 성공
+                    String cardNum = recvData.getJSONObject("message").getString("num");
                     runOnUiThread(() -> {
                         setCardData(cardNum);
                     });
-                } else if (requestCode.equals(Constants.Network.Response.CARD_NOINFO)) {
+                } else if (responseCode.equals(Constants.Network.Response.CARD_NOINFO)) {
                     // 카드 없음
                     runOnUiThread(() -> {
                         removeCardData();
                     });
-                }else{
+                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                    // 서버 연결 실패
+                    runOnUiThread(() -> {
+                        removeCardData();
+                        Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                    });
+                } else{
                     // 카드 불러오기 실패
                     runOnUiThread(() -> {
                         removeCardData();
@@ -143,19 +151,25 @@ public class CardActivity extends AppCompatActivity {
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
 
-                String requestCode = recvData.getString("response_code");
+                String responseCode = recvData.getString("response_code");
                 
-                if (requestCode.equals(Constants.Network.Response.CARD_REMOVE_SUCCESS)) {
+                if (responseCode.equals(Constants.Network.Response.CARD_REMOVE_SUCCESS)) {
                     // 카드 제거 성공
                     runOnUiThread(() -> {
                         removeCardData();
                     });
-                } else if (requestCode.equals(Constants.Network.Response.CARD_REMOVE_FAILED)) {
+                } else if (responseCode.equals(Constants.Network.Response.CARD_REMOVE_FAILED)) {
                     // 카드 제거 실패
                     runOnUiThread(() -> {
                         new GetCard().start();
                     });
-                } else{
+                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                    // 서버 연결 실패
+                    runOnUiThread(() -> {
+                        removeCardData();
+                        Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                    });
+                }  else{
                     // 카드 제거 실패 - 기타
                     runOnUiThread(() -> {
                         new GetCard().start();

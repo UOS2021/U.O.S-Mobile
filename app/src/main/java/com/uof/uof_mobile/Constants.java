@@ -30,6 +30,8 @@ public class Constants {
         }
 
         public class Response {
+            public final static String UNKNOWN_ERROR = "-1";
+            public final static String SERVER_NOT_ONLINE = "-2";
             public final static String REGISTER_SUCCESS = "0001";
             public final static String REGISTER_FAILED_ID_DUPLICATE = "0002";
             public final static String LOGIN_SUCCESS = "0003";
