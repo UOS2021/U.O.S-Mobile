@@ -82,7 +82,8 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
                     android:text="U.O.F"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
