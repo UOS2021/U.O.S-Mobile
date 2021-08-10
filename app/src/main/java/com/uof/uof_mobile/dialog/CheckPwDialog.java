@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.activity.RegisterActivity;
 import com.uof.uof_mobile.activity.SettingActivity;
 import com.uof.uof_mobile.manager.HttpManager;
 
@@ -65,11 +66,15 @@ public class CheckPwDialog extends Dialog {
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Constants.Network.Response.CHECKPW_SUCCESS)) {
+                    // 비밀번호 확인 성공
                     context.startActivity(new Intent(context, SettingActivity.class));
                 } else if (responseCode.equals(Constants.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
                     // 비밀번호 확인 실패
                     Toast.makeText(context, "비밀번호 틀림", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                    // 서버 연결 실패
+                    Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                }  else {
                     // 비밀번호 확인 실패 - 기타 오류
                     Toast.makeText(context, "비밀번호 확인 실패(기타)", Toast.LENGTH_SHORT).show();
                 }

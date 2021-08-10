@@ -13,6 +13,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.activity.RegisterActivity;
 import com.uof.uof_mobile.manager.HttpManager;
 
 import org.json.JSONObject;
@@ -68,10 +69,14 @@ public class ChangePwDialog extends Dialog {
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Constants.Network.Response.CHANGE_PW_SUCCESS)) {
+                    // 비밀번호 변경 성공
                     Toast.makeText(context, "변경되었습니다", Toast.LENGTH_SHORT).show();
                 } else if (responseCode.equals(Constants.Network.Response.CHANGE_PW_FAILED)) {
                     // 비밀번호 변경 실패
                     Toast.makeText(context, "비밀번호 변경 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
+                }  else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                    // 서버 연결 실패
+                    Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
                     // 비밀번호 변경 실패 - 기타 오류
                     Toast.makeText(context, "비밀번호 변경 실패(기타): " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
