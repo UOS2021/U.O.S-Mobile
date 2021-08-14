@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UOFMobile">
         <activity
+            android:name=".activity.PcOrderingActivity"
+            android:exported="true" />
+        <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
@@ -35,7 +38,7 @@
             android:name=".activity.PayActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.OrderingActivity"
+            android:name=".activity.RestaurantOrderingActivity"
             android:exported="true" />
         <activity
             android:name=".activity.CardActivity"

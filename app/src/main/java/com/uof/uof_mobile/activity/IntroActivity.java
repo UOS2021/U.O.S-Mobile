@@ -26,7 +26,7 @@ public class IntroActivity extends AppCompatActivity {
                 Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(IntroActivity.this, OrderingActivity.class);
+                Intent intent = new Intent(IntroActivity.this, RestaurantOrderingActivity.class);
                 intent.putExtra("targetIp", ((Uri) uri).getQueryParameter("targetIp"));
                 intent.putExtra("targetPort", Integer.parseInt(uri.getQueryParameter("targetPort")));
                 startActivity(intent);

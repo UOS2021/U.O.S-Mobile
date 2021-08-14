@@ -16,7 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class OrderingActivity extends AppCompatActivity {
+public class RestaurantOrderingActivity extends AppCompatActivity {
     private String targetIp;
     private int targetPort;
     private SocketManager socketManager;
@@ -28,7 +28,7 @@ public class OrderingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ordering);
+        setContentView(R.layout.activity_restaurantordering);
 
         init();
     }
@@ -57,13 +57,13 @@ public class OrderingActivity extends AppCompatActivity {
                     String recvData = socketManager.recv();
 
                     if (recvData == null) {
-                        Toast.makeText(OrderingActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RestaurantOrderingActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
                     } else {
                         JSONObject data = new JSONObject(recvData);
                         String responseCode = data.getString("response_code");
 
                         if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
-                            Toast.makeText(OrderingActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RestaurantOrderingActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
                         } else {
                             JSONObject companyData = data.getJSONObject("message").getJSONObject("company");
                             JSONArray productData = data.getJSONObject("message").getJSONArray("product_list");
@@ -76,12 +76,12 @@ public class OrderingActivity extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     runOnUiThread(() -> {
-                        Toast.makeText(OrderingActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RestaurantOrderingActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
                     });
                 }
             } else {
                 runOnUiThread(() -> {
-                    Toast.makeText(OrderingActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RestaurantOrderingActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
                 });
             }
             finish();
