@@ -1,11 +1,24 @@
 package com.uof.uof_mobile;
 
+import com.uof.uof_mobile.manager.SocketManager;
+
 public class Constants {
+    public static SocketManager socketManager;
+
     public static class User {
         public static String id = "";
         public static String name = "";
         public static String phone = "";
         public static String type = "";
+    }
+
+    public static class SharedPreference{
+        public static String APP_DATA = "APP_DATA";
+        public static String IS_FIRST = "IS_FIRST";
+        public static String IS_LOGINED = "IS_LOGINED";
+        public static String USER_ID = "USER_ID";
+        public static String USER_PW = "USER_PW";
+        public static String USER_TYPE = "USER_TYPE";
     }
 
     public class Network {
