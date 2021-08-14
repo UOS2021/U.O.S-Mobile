@@ -46,10 +46,8 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowTitleStyle">@null</item>
         <item name="android:windowFrame">@null</item>
-        <item name="android:windowBackground">?android:attr/colorBackground</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:background">?android:attr/colorBackground</item>
     </style>
 
     <!-- Icons -->

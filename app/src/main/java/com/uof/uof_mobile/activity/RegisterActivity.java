@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.manager.PatternManager;
 
 import org.json.JSONObject;
 
@@ -147,7 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterId(editable.toString());
+                int result = PatternManager.checkId(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT) {
                     tilRegisterCustomerId.setError("아이디는 8자리 이상이어야 합니다");
@@ -176,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterPw(editable.toString());
+                int result = PatternManager.checkPw(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT) {
                     tilRegisterCustomerPw.setError("비밀번호는 8자리 이상이어야 합니다");
@@ -238,7 +239,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterName(editable.toString());
+                int result = PatternManager.checkName(editable.toString());
 
                 if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerName.setError("이름은 한글만 가능합니다");
@@ -264,7 +265,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterPhoneNumber(editable.toString());
+                int result = PatternManager.checkPhoneNumber(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
@@ -291,7 +292,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterId(editable.toString());
+                int result = PatternManager.checkId(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT) {
                     tilRegisterUofPartnerId.setError("아이디는 8자리 이상이어야 합니다");
@@ -320,7 +321,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterPw(editable.toString());
+                int result = PatternManager.checkPw(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT) {
                     tilRegisterUofPartnerPw.setError("비밀번호는 8자리 이상이어야 합니다");
@@ -382,7 +383,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterName(editable.toString());
+                int result = PatternManager.checkName(editable.toString());
 
                 if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerName.setError("이름은 한글만 가능합니다");
@@ -408,7 +409,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterPhoneNumber(editable.toString());
+                int result = PatternManager.checkPhoneNumber(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
@@ -450,7 +451,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = checkRegisterLicenseNumber(editable.toString());
+                int result = PatternManager.checkLicenseNumber(editable.toString());
 
                 if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterLicenseNumber.setError("사업자번호는 10자리 숫자입니다");
@@ -614,79 +615,24 @@ public class RegisterActivity extends AppCompatActivity {
 
     // 일반 고객 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인
     private boolean checkCustomerRegister() {
-        return checkRegisterId(tilRegisterCustomerId.getEditText().getText().toString()) == Constants.Pattern.OK
-                && checkRegisterPw(tilRegisterCustomerPw.getEditText().getText().toString()) == Constants.Pattern.OK
+        return PatternManager.checkId(tilRegisterCustomerId.getEditText().getText().toString()) == Constants.Pattern.OK
+                && PatternManager.checkPw(tilRegisterCustomerPw.getEditText().getText().toString()) == Constants.Pattern.OK
                 && tilRegisterCustomerPw.getEditText().getText().toString().equals(tilRegisterCustomerPwChk.getEditText().getText().toString())
-                && checkRegisterName(tilRegisterCustomerName.getEditText().getText().toString()) == Constants.Pattern.OK
-                && checkRegisterPhoneNumber(tilRegisterCustomerPhoneNumber.getEditText().getText().toString()) == Constants.Pattern.OK;
+                && PatternManager.checkName(tilRegisterCustomerName.getEditText().getText().toString()) == Constants.Pattern.OK
+                && PatternManager.checkPhoneNumber(tilRegisterCustomerPhoneNumber.getEditText().getText().toString()) == Constants.Pattern.OK;
     }
 
     // U.O.F 파트너 회원가입 시 아이디, 비밀번호, 이름 , 전화번호, 회사정보 입력 확인
     private boolean checkUofPartnerRegister() {
-        return checkRegisterId(tilRegisterUofPartnerId.getEditText().getText().toString()) == Constants.Pattern.OK
-                && checkRegisterPw(tilRegisterUofPartnerPw.getEditText().getText().toString()) == Constants.Pattern.OK
+        return PatternManager.checkId(tilRegisterUofPartnerId.getEditText().getText().toString()) == Constants.Pattern.OK
+                && PatternManager.checkPw(tilRegisterUofPartnerPw.getEditText().getText().toString()) == Constants.Pattern.OK
                 && tilRegisterUofPartnerPw.getEditText().getText().toString().equals(tilRegisterUofPartnerPwChk.getEditText().getText().toString())
-                && checkRegisterName(tilRegisterUofPartnerName.getEditText().getText().toString()) == Constants.Pattern.OK
-                && checkRegisterPhoneNumber(tilRegisterUofPartnerPhoneNumber.getEditText().getText().toString()) == Constants.Pattern.OK
+                && PatternManager.checkName(tilRegisterUofPartnerName.getEditText().getText().toString()) == Constants.Pattern.OK
+                && PatternManager.checkPhoneNumber(tilRegisterUofPartnerPhoneNumber.getEditText().getText().toString()) == Constants.Pattern.OK
                 && tilRegisterCompanyName.getEditText().getText().toString().length() > 0
-                && checkRegisterLicenseNumber(tilRegisterLicenseNumber.getEditText().getText().toString()) == Constants.Pattern.OK
+                && PatternManager.checkLicenseNumber(tilRegisterLicenseNumber.getEditText().getText().toString()) == Constants.Pattern.OK
                 && tilRegisterCompanyAddress.getEditText().getText().toString().length() > 0
                 && checkRegisterLicenseImage(ivRegisterLicenseImage);
-    }
-
-    // 회원가입 - 아이디 패턴 및 보안 확인
-    private int checkRegisterId(String id) {
-        if (id.length() < 8) {
-            return Constants.Pattern.LENGTH_SHORT;
-        } else if (!java.util.regex.Pattern.matches("^[a-zA-Z0-9@!*#]+$", id)) {
-            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
-        } else {
-            return Constants.Pattern.OK;
-        }
-    }
-
-    // 회원가입 - 비밀번호 패턴 및 보안 확인
-    private int checkRegisterPw(String pw) {
-        if (pw.length() < 8) {
-            return Constants.Pattern.LENGTH_SHORT;
-        } else if (!java.util.regex.Pattern.matches("^[a-zA-Z0-9@!*#]+$", pw)) {
-            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
-        } else {
-            return Constants.Pattern.OK;
-        }
-    }
-
-    // 회원가입 - 이름 패턴 확인
-    private int checkRegisterName(String name) {
-        if (name.length() == 0) {
-            return Constants.Pattern.LENGTH_SHORT;
-        } else if (!java.util.regex.Pattern.matches("^[ㄱ-ㅎ가-힣]+$", name)) {
-            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
-        } else {
-            return Constants.Pattern.OK;
-        }
-    }
-
-    // 회원가입 - 전화번호 패턴 확인
-    private int checkRegisterPhoneNumber(String phoneNumber) {
-        if (phoneNumber.length() < 11) {
-            return Constants.Pattern.LENGTH_SHORT;
-        } else if (!java.util.regex.Pattern.matches("^[0-9]+$", phoneNumber)) {
-            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
-        } else {
-            return Constants.Pattern.OK;
-        }
-    }
-
-    // 회원가입 - 사업자번호 패턴 확인
-    private int checkRegisterLicenseNumber(String licenseNumber) {
-        if (licenseNumber.length() < 10) {
-            return Constants.Pattern.LENGTH_SHORT;
-        } else if (!java.util.regex.Pattern.matches("^[0-9]+$", licenseNumber)) {
-            return Constants.Pattern.NOT_ALLOWED_CHARACTER;
-        } else {
-            return Constants.Pattern.OK;
-        }
     }
 
     // 회원가입 - 사업자등록증 첨부 확인
