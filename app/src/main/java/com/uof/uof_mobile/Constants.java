@@ -27,6 +27,7 @@ public class Constants {
             public final static String ORDER = "0011";
             public final static String ORDER_CANCEL = "0012";
             public final static String ORDER_LIST = "0013";
+            public final static String STORE_PRODUCT_INFO = "0014";
         }
 
         public class Response {
@@ -38,7 +39,7 @@ public class Constants {
             public final static String CHECKPW_SUCCESS = "0004";
             public final static String LOGIN_FAILED_ID_NOT_EXIST = "0005";
             public final static String LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT = "0006";
-            public final static String STORE_PRODUCT_LIST = "0007";
+            public final static String STORE_PRODUCT_INFO = "0007";
             public final static String ORDER_NOTHING = "0008";
             public final static String ORDER_WAITING = "0009";
             public final static String ORDER_ACCEPTED = "0010";
