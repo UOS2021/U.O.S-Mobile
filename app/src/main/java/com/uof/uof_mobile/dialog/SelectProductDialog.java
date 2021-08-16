@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -20,10 +21,12 @@ public class SelectProductDialog extends Dialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgSelectProductClose;
     private AppCompatTextView tvDlgSelectProductName;
-    private AppCompatButton btnDlgSelectProductAddProduct;
+    private AppCompatImageView ivDlgSelectProductImage;
+    private AppCompatTextView tvDlgSelectProductDesc;
     private AppCompatImageButton ibtnDlgSelectProductCountDown;
     private TextInputLayout tilDlgSelectProductProductCount;
     private AppCompatImageButton ibtnDlgSelectProductCountUp;
+    private AppCompatButton btnDlgSelectProductAdd;
     private final SelectProductDialogListener selectProductDialogListener;
     private RestaurantOrderingProductItem restaurantOrderingProduct;
 
@@ -49,13 +52,17 @@ public class SelectProductDialog extends Dialog {
 
     private void init() {
         ibtnDlgSelectProductClose = findViewById(R.id.ibtn_dlgselectproduct_close);
-        tvDlgSelectProductName = findViewById(R.id.tv_dlgselectproduct_productname);
-        btnDlgSelectProductAddProduct = findViewById(R.id.btn_dlgselectproduct_addproduct);
+        tvDlgSelectProductName = findViewById(R.id.tv_dlgselectproduct_name);
+        ivDlgSelectProductImage = findViewById(R.id.iv_dlgselectproduct_image);
+        tvDlgSelectProductDesc = findViewById(R.id.tv_dlgselectproduct_desc);
+        btnDlgSelectProductAdd = findViewById(R.id.btn_dlgselectproduct_add);
         ibtnDlgSelectProductCountDown = findViewById(R.id.ibtn_dlgselectproduct_countdown);
         tilDlgSelectProductProductCount = findViewById(R.id.til_dlgselectproduct_productcount);
         ibtnDlgSelectProductCountUp = findViewById(R.id.ibtn_dlgselectproduct_countup);
 
         tvDlgSelectProductName.setText(restaurantOrderingProduct.getName());
+        ivDlgSelectProductImage.setImageBitmap(restaurantOrderingProduct.getImage());
+        tvDlgSelectProductDesc.setText(restaurantOrderingProduct.getDesc());
         tilDlgSelectProductProductCount.getEditText().setText("1");
 
         // 다이얼로그 종료 버튼 클릭 시
@@ -102,7 +109,7 @@ public class SelectProductDialog extends Dialog {
         });
 
         // 상품 추가 버튼 클릭 시
-        btnDlgSelectProductAddProduct.setOnClickListener(view -> {
+        btnDlgSelectProductAdd.setOnClickListener(view -> {
             this.selectProductDialogListener.onAddProductClicked(Integer.parseInt(tilDlgSelectProductProductCount.getEditText().getText().toString()));
             dismiss();
         });

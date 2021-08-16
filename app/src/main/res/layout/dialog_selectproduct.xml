@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dlgselectproduct_productname"
+            android:id="@+id/tv_dlgselectproduct_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -46,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@id/cl_dlgselectproduct_1">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_dlgselectproduct_image"
             android:layout_width="192dp"
             android:layout_height="192dp"
             android:layout_margin="16dp"
@@ -56,12 +57,34 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_dlgselectproduct_3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_dlgselectproduct_addproduct"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/cl_dlgselectproduct_2">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dlgselectproduct_desc"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="상품 설명"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/cl_dlgselectproduct_4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_dlgselectproduct_add"
+        app:layout_constraintTop_toBottomOf="@id/cl_dlgselectproduct_3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -116,7 +139,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_dlgselectproduct_addproduct"
+        android:id="@+id/btn_dlgselectproduct_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="구매목록에 추가"
