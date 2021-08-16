@@ -16,9 +16,9 @@ public class UsefulFuncManager {
     }
 
     // 이미지를 문자열로 변경
-    public static String convertBitmapToString(ImageView imageView) {
+    public static String convertBitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ((BitmapDrawable) imageView.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         return Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.NO_WRAP);
     }
 }

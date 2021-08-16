@@ -1,14 +1,12 @@
 package com.uof.uof_mobile.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,8 +31,6 @@ import com.uof.uof_mobile.manager.PatternManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
 
 public class RegisterActivity extends AppCompatActivity {
     private ImageButton ibtnRegisterClose;
@@ -570,7 +566,7 @@ public class RegisterActivity extends AppCompatActivity {
                 company.put("license_num", tilRegisterCompanyName.getEditText().getText().toString());
                 company.put("type", spRegisterCompanyType.getSelectedItem().toString());
                 company.put("address", tilRegisterCompanyAddress.getEditText().getText().toString());
-                company.put("license_img", UsefulFuncManager.convertBitmapToString(ivRegisterLicenseImage));
+                company.put("license_img", UsefulFuncManager.convertBitmapToString(((BitmapDrawable) ivRegisterLicenseImage.getDrawable()).getBitmap()));
 
                 message.putOpt("company", company);
                 sendData.putOpt("message", message);
