@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:background="?android:attr/colorBackground"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -41,6 +42,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        style="@style/OrderingActivity_Background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -59,8 +61,6 @@
                     android:id="@+id/cg_restaurantordering_categorylist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
-                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     app:selectionRequired="true"
                     app:singleLine="true"
