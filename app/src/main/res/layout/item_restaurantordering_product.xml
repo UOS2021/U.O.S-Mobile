@@ -4,34 +4,43 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="?attr/selectableItemBackground"
+    android:background="?android:attr/colorBackground"
     android:clickable="true"
     android:gravity="center"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_restaurantordering_productname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="음식명"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_restaurantordering_productimage"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
-        android:layout_marginBottom="8dp"
-        android:scaleType="fitCenter" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_restaurantordering_productname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="음식명"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_restaurantordering_productprice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="가격"
-        android:textColor="?android:attr/textColorPrimary" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_restaurantordering_productimage"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitCenter" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_restaurantordering_productprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가격"
+            android:textColor="?android:attr/textColorPrimary" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
