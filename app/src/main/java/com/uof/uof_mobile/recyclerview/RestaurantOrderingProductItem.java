@@ -1,6 +1,11 @@
 package com.uof.uof_mobile.recyclerview;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONObject;
 
@@ -11,7 +16,7 @@ public class RestaurantOrderingProductItem {
     protected String name;
     protected int price;
     protected String desc;
-    protected String image;
+    protected Bitmap image;
 
     public RestaurantOrderingProductItem(){
 
@@ -25,7 +30,7 @@ public class RestaurantOrderingProductItem {
             this.name = jsonObject.getString("name");
             this.price = jsonObject.getInt("price");
             this.desc = jsonObject.getString("desc");
-            this.image = jsonObject.getString("image");
+            this.image = UsefulFuncManager.convertStringToBitmap(jsonObject.getString("image"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,11 +60,11 @@ public class RestaurantOrderingProductItem {
         this.desc = desc;
     }
 
-    public String getImage() {
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 

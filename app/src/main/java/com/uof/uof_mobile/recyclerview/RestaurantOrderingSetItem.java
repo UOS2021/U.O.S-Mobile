@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.recyclerview;
 
 import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +17,7 @@ public class RestaurantOrderingSetItem extends RestaurantOrderingProductItem {
             this.name = jsonObject.getString("name");
             this.price = jsonObject.getInt("price");
             this.desc = jsonObject.getString("desc");
-            this.image = jsonObject.getString("image");
+            this.image = UsefulFuncManager.convertStringToBitmap(jsonObject.getString("image"));
             this.productList = jsonObject.getJSONArray("product_list");
         } catch (Exception e) {
             e.printStackTrace();
