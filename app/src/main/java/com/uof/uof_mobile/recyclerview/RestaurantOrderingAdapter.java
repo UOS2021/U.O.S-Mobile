@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class RestaurantOrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<RestaurantOrderingItem> restaurantOrderingItemArrayList = new ArrayList<>();
+    private ArrayList<RestaurantOrderingProductItem> restaurantOrderingItemArrayList = new ArrayList<>();
     private OnItemClickListener onItemClickListener = null;
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
@@ -94,18 +94,18 @@ public class RestaurantOrderingAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof SetViewHolder) {
-            ((SetViewHolder) viewHolder).tvRestaurantOrderingSetName.setText(((RestaurantOrderingSet) restaurantOrderingItemArrayList.get(position)).getName());
-            ((SetViewHolder) viewHolder).tvRestaurantOrderingSetPrice.setText(String.valueOf(((RestaurantOrderingSet) restaurantOrderingItemArrayList.get(position)).getPrice()));
+            ((SetViewHolder) viewHolder).tvRestaurantOrderingSetName.setText(restaurantOrderingItemArrayList.get(position).getName());
+            ((SetViewHolder) viewHolder).tvRestaurantOrderingSetPrice.setText(String.valueOf(restaurantOrderingItemArrayList.get(position).getPrice()));
         } else if (viewHolder instanceof ProductViewHolder) {
-            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductName.setText(((RestaurantOrderingProduct) restaurantOrderingItemArrayList.get(position)).getName());
-            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductPrice.setText(String.valueOf(((RestaurantOrderingProduct) restaurantOrderingItemArrayList.get(position)).getPrice()));
+            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductName.setText(restaurantOrderingItemArrayList.get(position).getName());
+            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductPrice.setText(String.valueOf(restaurantOrderingItemArrayList.get(position).getPrice()));
         } else {
-            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductName.setText(((RestaurantOrderingProduct) restaurantOrderingItemArrayList.get(position)).getName());
-            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductPrice.setText(String.valueOf(((RestaurantOrderingProduct) restaurantOrderingItemArrayList.get(position)).getPrice()));
+            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductName.setText(restaurantOrderingItemArrayList.get(position).getName());
+            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductPrice.setText(String.valueOf(restaurantOrderingItemArrayList.get(position).getPrice()));
         }
     }
 
-    public void addItem(RestaurantOrderingItem restaurantOrderingItem) {
+    public void addItem(RestaurantOrderingProductItem restaurantOrderingItem) {
         restaurantOrderingItemArrayList.add(restaurantOrderingItem);
     }
 
@@ -118,13 +118,13 @@ public class RestaurantOrderingAdapter extends RecyclerView.Adapter<RecyclerView
                 // 카테고리 내 세트 추가
                 JSONArray setList = categoryData.getJSONArray("set_list");
                 for (int loop2 = 0; loop2 < setList.length(); loop2++) {
-                    addItem(new RestaurantOrderingSet(setList.getJSONObject(loop2)));
+                    addItem(new RestaurantOrderingSetItem(setList.getJSONObject(loop2)));
                 }
 
                 // 카테고리 내 상품 추가
                 JSONArray productList = categoryData.getJSONArray("product_list");
                 for (int loop2 = 0; loop2 < productList.length(); loop2++) {
-                    addItem(new RestaurantOrderingProduct(productList.getJSONObject(loop2)));
+                    addItem(new RestaurantOrderingProductItem(productList.getJSONObject(loop2)));
                 }
 
             } catch (Exception e) {
@@ -143,7 +143,7 @@ public class RestaurantOrderingAdapter extends RecyclerView.Adapter<RecyclerView
         return restaurantOrderingItemArrayList.get(position).getType();
     }
 
-    public RestaurantOrderingItem getItem(int position){
+    public RestaurantOrderingProductItem getItem(int position) {
         return restaurantOrderingItemArrayList.get(position);
     }
 }

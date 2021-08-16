@@ -2,26 +2,31 @@ package com.uof.uof_mobile.recyclerview;
 
 import com.uof.uof_mobile.Constants;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RestaurantOrderingSet extends RestaurantOrderingItem {
-    private String name;
-    private int price;
-    private String desc;
-    private String image;
-    private JSONArray productList;
+public class RestaurantOrderingProductItem {
+    protected int type;
+    protected boolean selected;
+    protected int count;
+    protected String name;
+    protected int price;
+    protected String desc;
+    protected String image;
 
-    public RestaurantOrderingSet(JSONObject jsonObject){
-        this.type = Constants.ItemType.SET;
+    public RestaurantOrderingProductItem(){
+
+    }
+
+    public RestaurantOrderingProductItem(JSONObject jsonObject) {
+        this.type = Constants.ItemType.PRODUCT;
         this.selected = false;
+        this.count = 0;
         try {
             this.name = jsonObject.getString("name");
             this.price = jsonObject.getInt("price");
             this.desc = jsonObject.getString("desc");
             this.image = jsonObject.getString("image");
-            this.productList = jsonObject.getJSONArray("product_list");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -58,11 +63,27 @@ public class RestaurantOrderingSet extends RestaurantOrderingItem {
         this.image = image;
     }
 
-    public JSONArray getProductList() {
-        return productList;
+    public int getCount() {
+        return count;
     }
 
-    public void setProductList(JSONArray productList) {
-        this.productList = productList;
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
