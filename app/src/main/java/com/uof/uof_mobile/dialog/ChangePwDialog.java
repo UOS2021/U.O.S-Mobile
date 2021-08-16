@@ -13,7 +13,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.activity.RegisterActivity;
 import com.uof.uof_mobile.manager.HttpManager;
 
 import org.json.JSONObject;
@@ -64,7 +63,7 @@ public class ChangePwDialog extends Dialog {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 

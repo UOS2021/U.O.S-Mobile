@@ -92,7 +92,7 @@ public class CardActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get();
+                String temp = new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
 
                 JSONObject recvData = new JSONObject(temp);
 
@@ -149,7 +149,7 @@ public class CardActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
                 

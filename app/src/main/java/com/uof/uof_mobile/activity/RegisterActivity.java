@@ -517,7 +517,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 sendData.putOpt("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
@@ -574,7 +574,7 @@ public class RegisterActivity extends AppCompatActivity {
                 message.putOpt("company", company);
                 sendData.putOpt("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 

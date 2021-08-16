@@ -19,6 +19,7 @@ import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
 import com.uof.uof_mobile.dialog.RegisterTypeDialogListener;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.manager.SharedPreferenceManager;
 
 import org.json.JSONObject;
 
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLoginPass = findViewById(R.id.btn_login_pass);
 
         // 기본 데이터 설정
-
+        Intent intent = getIntent();
 
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
@@ -57,11 +58,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // 프리패스
-
         btnLoginPass.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
         });
+
         // 로그인 - 아이디 입력란이 수정되었을 경우
         tilLoginId.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,58 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // 로그인 버튼이 눌렸을 경우
         btnLoginLogin.setOnClickListener(view -> {
-            btnLoginLogin.setEnabled(false);
-
-            // 로그인 창일 경우
-            try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.LOGIN);
-
-                JSONObject message = new JSONObject();
-                message.accumulate("id", tilLoginId.getEditText().getText().toString());
-                message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
-                if (cbloginispartner.isChecked()) {
-                    message.accumulate("type", "uofpartner");
-                } else {
-                    message.accumulate("type", "customer");
-                }
-
-                sendData.accumulate("message", message);
-
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{"http://211.217.202.157:8080/post", sendData.toString()}).get());
-
-                String responseCode = recvData.getString("response_code");
-
-                if (responseCode.equals(Constants.Network.Response.LOGIN_SUCCESS)) {
-                    // 로그인 성공 - LobbyActivity로 이동
-                    JSONObject userData = recvData.getJSONObject("message");
-                    Constants.User.id = tilLoginId.getEditText().getText().toString();
-                    Constants.User.name = userData.getString("name");
-                    Constants.User.phone = userData.getString("phone");
-                    Constants.User.type = userData.getString("type");
-
-                    Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
-                    startActivity(intent);
-                } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
-                    // 로그인 실패 - 아이디 없음
-                    tilLoginId.setError("아이디가 존재하지 않습니다");
-                    tilLoginId.setErrorEnabled(true);
-                } else if (responseCode.equals(Constants.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
-                    // 로그인 실패 - 비밀번호 틀림
-                    tilLoginPw.setError("비밀번호가 일치하지 않습니다");
-                    tilLoginPw.setErrorEnabled(true);
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
-                    Toast.makeText(LoginActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
-                } else {
-                    // 로그인 실패 - 기타 오류
-                    Toast.makeText(LoginActivity.this, "로그인 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-            }
-            btnLoginLogin.setEnabled(true);
+            login();
         });
 
         // 회원가입 TextView가 눌렸을 경우
@@ -182,6 +131,79 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }).show();
         });
+
+        // 자동 로그인 시
+        if(intent.getBooleanExtra("isLogined", false) == true){
+            SharedPreferenceManager.open(LoginActivity.this, Constants.SharedPreference.APP_DATA);
+            tilLoginId.getEditText().setText(SharedPreferenceManager.load(Constants.SharedPreference.USER_ID, ""));
+            tilLoginPw.getEditText().setText(SharedPreferenceManager.load(Constants.SharedPreference.USER_PW, ""));
+            cbloginispartner.setChecked(SharedPreferenceManager.load(Constants.SharedPreference.USER_TYPE, "").equals("uofpartner"));
+            SharedPreferenceManager.close();
+            login();
+        }
+    }
+
+    // 로그인 동작
+    private void login(){
+        btnLoginLogin.setEnabled(false);
+
+        // 로그인 창일 경우
+        try {
+            JSONObject sendData = new JSONObject();
+            sendData.put("request_code", Constants.Network.Request.LOGIN);
+
+            JSONObject message = new JSONObject();
+            message.accumulate("id", tilLoginId.getEditText().getText().toString());
+            message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
+            if (cbloginispartner.isChecked()) {
+                message.accumulate("type", "uofpartner");
+            } else {
+                message.accumulate("type", "customer");
+            }
+
+            sendData.accumulate("message", message);
+
+            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+
+            String responseCode = recvData.getString("response_code");
+
+            if (responseCode.equals(Constants.Network.Response.LOGIN_SUCCESS)) {
+                // 로그인 성공 - LobbyActivity로 이동
+                JSONObject userData = recvData.getJSONObject("message");
+                Constants.User.id = tilLoginId.getEditText().getText().toString();
+                Constants.User.name = userData.getString("name");
+                Constants.User.phone = userData.getString("phone");
+                Constants.User.type = userData.getString("type");
+
+                SharedPreferenceManager.open(LoginActivity.this, Constants.SharedPreference.APP_DATA);
+                SharedPreferenceManager.save(Constants.SharedPreference.USER_ID, Constants.User.id);
+                SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, tilLoginPw.getEditText().getText().toString());
+                SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, Constants.User.type);
+                SharedPreferenceManager.save(Constants.SharedPreference.IS_LOGINED, true);
+                SharedPreferenceManager.close();
+
+                startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
+                finish();
+            } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
+                // 로그인 실패 - 아이디 없음
+                tilLoginId.setError("아이디가 존재하지 않습니다");
+                tilLoginId.setErrorEnabled(true);
+            } else if (responseCode.equals(Constants.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
+                // 로그인 실패 - 비밀번호 틀림
+                tilLoginPw.setError("비밀번호가 일치하지 않습니다");
+                tilLoginPw.setErrorEnabled(true);
+            } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                // 서버 연결 실패
+                Toast.makeText(LoginActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+            } else {
+                // 로그인 실패 - 기타 오류
+                Toast.makeText(LoginActivity.this, "로그인 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        btnLoginLogin.setEnabled(true);
     }
 
     // 로그인 시 아이디, 비밀번호 입력란 확인
