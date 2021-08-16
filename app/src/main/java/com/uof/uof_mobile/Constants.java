@@ -1,6 +1,10 @@
 package com.uof.uof_mobile;
 
+import com.uof.uof_mobile.manager.SocketManager;
+
 public class Constants {
+    public static SocketManager socketManager;
+
     public static class User {
         public static String id = "";
         public static String name = "";
@@ -8,7 +12,17 @@ public class Constants {
         public static String type = "";
     }
 
+    public static class SharedPreference{
+        public static String APP_DATA = "APP_DATA";
+        public static String IS_FIRST = "IS_FIRST";
+        public static String IS_LOGINED = "IS_LOGINED";
+        public static String USER_ID = "USER_ID";
+        public static String USER_PW = "USER_PW";
+        public static String USER_TYPE = "USER_TYPE";
+    }
+
     public class Network {
+        public final static String EXTERNAL_SERVER_URL = "http://211.217.202.55:8080/post";
         public final static int SOCKET_MAX_RECV_SIZE = 1000;
         public final static String EXTERNAL_SERVER_IP = "211.217.202.157";
         public final static int EXTERNAL_SERVER_PORT = 8080;
