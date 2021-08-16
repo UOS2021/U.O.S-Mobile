@@ -16,11 +16,13 @@ import com.uof.uof_mobile.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class RestaurantOrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<RestaurantOrderingProductItem> restaurantOrderingItemArrayList = new ArrayList<>();
+    private ArrayList<RestaurantOrderingCategory> restaurantOrderingCategoryArrayList = new ArrayList<>();
     private OnItemClickListener onItemClickListener = null;
+    private String selectedCategory;
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         public LinearLayoutCompat llRestaurantOrderingProduct;
@@ -94,39 +96,41 @@ public class RestaurantOrderingAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof SetViewHolder) {
-            ((SetViewHolder) viewHolder).tvRestaurantOrderingSetName.setText(restaurantOrderingItemArrayList.get(position).getName());
-            ((SetViewHolder) viewHolder).tvRestaurantOrderingSetPrice.setText(String.valueOf(restaurantOrderingItemArrayList.get(position).getPrice()));
+            ((SetViewHolder) viewHolder).tvRestaurantOrderingSetName.setText(getCategoryItems().get(position).getName());
+            ((SetViewHolder) viewHolder).tvRestaurantOrderingSetPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
+            ((SetViewHolder) viewHolder).ivRestaurantOrderingSetImage.setImageBitmap(getCategoryItems().get(position).getImage());
         } else if (viewHolder instanceof ProductViewHolder) {
-            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductName.setText(restaurantOrderingItemArrayList.get(position).getName());
-            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductPrice.setText(String.valueOf(restaurantOrderingItemArrayList.get(position).getPrice()));
+            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductName.setText(getCategoryItems().get(position).getName());
+            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
+            ((ProductViewHolder) viewHolder).ivRestaurantOrderingProductImage.setImageBitmap(getCategoryItems().get(position).getImage());
         } else {
-            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductName.setText(restaurantOrderingItemArrayList.get(position).getName());
-            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductPrice.setText(String.valueOf(restaurantOrderingItemArrayList.get(position).getPrice()));
+            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductName.setText(getCategoryItems().get(position).getName());
+            ((ProductViewHolder) viewHolder).tvRestaurantOrderingProductPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
+            ((ProductViewHolder) viewHolder).ivRestaurantOrderingProductImage.setImageBitmap(getCategoryItems().get(position).getImage());
         }
     }
 
-    public void addItem(RestaurantOrderingProductItem restaurantOrderingItem) {
-        restaurantOrderingItemArrayList.add(restaurantOrderingItem);
-    }
-
     public void setJson(JSONArray categoryList) {
-        restaurantOrderingItemArrayList.clear();
+        restaurantOrderingCategoryArrayList.clear();
         for (int loop1 = 0; loop1 < categoryList.length(); loop1++) {
             try {
                 JSONObject categoryData = categoryList.getJSONObject(loop1);
 
+                ArrayList<RestaurantOrderingProductItem> tempList = new ArrayList<>();
+
                 // 카테고리 내 세트 추가
                 JSONArray setList = categoryData.getJSONArray("set_list");
                 for (int loop2 = 0; loop2 < setList.length(); loop2++) {
-                    addItem(new RestaurantOrderingSetItem(setList.getJSONObject(loop2)));
+                    tempList.add(new RestaurantOrderingSetItem(setList.getJSONObject(loop2)));
                 }
 
                 // 카테고리 내 상품 추가
                 JSONArray productList = categoryData.getJSONArray("product_list");
                 for (int loop2 = 0; loop2 < productList.length(); loop2++) {
-                    addItem(new RestaurantOrderingProductItem(productList.getJSONObject(loop2)));
+                    tempList.add(new RestaurantOrderingProductItem(productList.getJSONObject(loop2)));
                 }
 
+                restaurantOrderingCategoryArrayList.add(new RestaurantOrderingCategory(categoryData.getString("category"), tempList));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -135,15 +139,32 @@ public class RestaurantOrderingAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return restaurantOrderingItemArrayList.size();
+        return getCategoryItems().size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return restaurantOrderingItemArrayList.get(position).getType();
+        return getCategoryItems().get(position).getType();
     }
 
     public RestaurantOrderingProductItem getItem(int position) {
-        return restaurantOrderingItemArrayList.get(position);
+        return getCategoryItems().get(position);
+    }
+
+    public ArrayList<RestaurantOrderingProductItem> getCategoryItems() {
+        for (int loop = 0; loop < restaurantOrderingCategoryArrayList.size(); loop++) {
+            if (restaurantOrderingCategoryArrayList.get(loop).getCategory().equals(selectedCategory)) {
+                return restaurantOrderingCategoryArrayList.get(loop).getRestaurantOrderingProductItemArrayList();
+            }
+        }
+        return null;
+    }
+
+    public String getSelectedCategory() {
+        return selectedCategory;
+    }
+
+    public void setSelectedCategory(String selectedCategory) {
+        this.selectedCategory = selectedCategory;
     }
 }
