@@ -54,4 +54,8 @@
     <drawable name="icon_btnclose">@drawable/icon_btnclose_night</drawable>
     <drawable name="icon_btnback">@drawable/icon_btnback_night</drawable>
     <drawable name="icon_btndelete">@drawable/icon_btndelete_night</drawable>
+
+    <style name="OrderingActivity_Background">
+        <item name="android:background">#4E4E4E</item>
+    </style>
 </resources>
