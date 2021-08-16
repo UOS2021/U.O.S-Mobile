@@ -3,6 +3,7 @@
     android:id="@+id/ll_restaurantordering_set"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:layout_margin="8dp"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
@@ -12,10 +13,13 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_restaurantordering_setname"
-        android:layout_width="wrap_content"
+        android:layout_width="144dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:singleLine="true"
         android:text="세트명"
+        android:textAlignment="center"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -23,9 +27,9 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_restaurantordering_setimage"
         android:layout_width="144dp"
-        android:layout_height="144dp"
+        android:layout_height="112dp"
         android:layout_marginBottom="8dp"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitXY" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_restaurantordering_setprice"
