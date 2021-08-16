@@ -30,6 +30,7 @@ import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.PatternManager;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONObject;
 
@@ -569,7 +570,7 @@ public class RegisterActivity extends AppCompatActivity {
                 company.put("license_num", tilRegisterCompanyName.getEditText().getText().toString());
                 company.put("type", spRegisterCompanyType.getSelectedItem().toString());
                 company.put("address", tilRegisterCompanyAddress.getEditText().getText().toString());
-                company.put("license_img", convertImageToString(ivRegisterLicenseImage));
+                company.put("license_img", UsefulFuncManager.convertBitmapToString(ivRegisterLicenseImage));
 
                 message.putOpt("company", company);
                 sendData.putOpt("message", message);
@@ -645,12 +646,5 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return result;
-    }
-
-    // 이미지를 문자열로 변경
-    private String convertImageToString(ImageView imageView) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ((BitmapDrawable) imageView.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        return Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.NO_WRAP);
     }
 }
