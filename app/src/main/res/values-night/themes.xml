@@ -58,4 +58,9 @@
     <style name="OrderingActivity_Background">
         <item name="android:background">#4E4E4E</item>
     </style>
+
+    <style name="Anim_FullScreenDialog">
+        <item name="android:windowEnterAnimation">@anim/headup_fullscreendialog</item>
+        <item name="android:windowExitAnimation">@anim/headdown_fullscreendialog</item>
+    </style>
 </resources>

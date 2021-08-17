@@ -40,6 +40,7 @@ public class AddCardDialog extends AppCompatDialog {
 
         setContentView(R.layout.dialog_addcard);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
 
         init();
     }

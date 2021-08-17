@@ -46,6 +46,7 @@ public class SelectProductDialog extends Dialog {
 
         setContentView(R.layout.dialog_selectproduct);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
 
         init();
     }
