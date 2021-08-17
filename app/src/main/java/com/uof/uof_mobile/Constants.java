@@ -83,4 +83,9 @@ public class Constants {
         public final static int LENGTH_LONG = 2;
         public final static int NOT_ALLOWED_CHARACTER = 3;
     }
+
+    public class ItemType{
+        public final static int PRODUCT = 1;
+        public final static int SET = 2;
+    }
 }
