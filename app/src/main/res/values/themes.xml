@@ -54,4 +54,13 @@
     <drawable name="icon_btnclose">@drawable/icon_btnclose_day</drawable>
     <drawable name="icon_btnback">@drawable/icon_btnback_day</drawable>
     <drawable name="icon_btndelete">@drawable/icon_btndelete_day</drawable>
+
+    <style name="OrderingActivity_Background">
+        <item name="android:background">#BDBDBD</item>
+    </style>
+
+    <style name="Anim_FullScreenDialog">
+        <item name="android:windowEnterAnimation">@anim/headup_fullscreendialog</item>
+        <item name="android:windowExitAnimation">@anim/headdown_fullscreendialog</item>
+    </style>
 </resources>

@@ -38,6 +38,7 @@ public class ChangePhoneDialog extends Dialog {
 
         setContentView(R.layout.dialog_changephone);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
 
         init();
     }
