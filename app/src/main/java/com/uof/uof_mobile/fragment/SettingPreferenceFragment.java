@@ -18,6 +18,7 @@ import com.uof.uof_mobile.activity.LoginActivity;
 import com.uof.uof_mobile.dialog.ChangePhoneDialog;
 import com.uof.uof_mobile.dialog.ChangePwDialog;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.manager.SharedPreferenceManager;
 
 import org.json.JSONObject;
 
@@ -64,10 +65,17 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
         // 로그아웃이 눌렸을 경우
         btnLogout.setOnPreferenceClickListener(preference -> {
+            SharedPreferenceManager.open(context, Constants.SharedPreference.APP_DATA);
+            SharedPreferenceManager.save(Constants.SharedPreference.IS_LOGINED, false);
+            SharedPreferenceManager.save(Constants.SharedPreference.USER_ID, "");
+            SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, "");
+            SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, "");
+            SharedPreferenceManager.close();
             final Intent intent = new Intent(context, LoginActivity.class);
             intent.putExtra("state", "kill");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            getActivity().finish();
 
             return false;
         });
@@ -94,10 +102,17 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
                             if (responseCode.equals(Constants.Network.Response.WITHDRAWAL_SUCCESS)) {
                                 Toast.makeText(context, "탈퇴되었습니다", Toast.LENGTH_SHORT).show();
+                                SharedPreferenceManager.open(context, Constants.SharedPreference.APP_DATA);
+                                SharedPreferenceManager.save(Constants.SharedPreference.IS_LOGINED, false);
+                                SharedPreferenceManager.save(Constants.SharedPreference.USER_ID, "");
+                                SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, "");
+                                SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, "");
+                                SharedPreferenceManager.close();
                                 final Intent intent = new Intent(context, LoginActivity.class);
                                 intent.putExtra("state", "kill");
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
+                                getActivity().finish();
                             } else if (responseCode.equals(Constants.Network.Response.WITHDRAWAL_FAILED)) {
                                 // 전화번호 변경 실패
                                 Toast.makeText(context, "탈퇴 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
