@@ -83,7 +83,7 @@
         android:id="@+id/cl_dlgselectproduct_4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_dlgselectproduct_add"
+        app:layout_constraintBottom_toTopOf="@id/ll_dlgselectproduct_add"
         app:layout_constraintTop_toBottomOf="@id/cl_dlgselectproduct_3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -107,11 +107,11 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/til_dlgselectproduct_productcount"
+                app:layout_constraintRight_toLeftOf="@id/til_dlgselectproduct_count"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_dlgselectproduct_productcount"
+                android:id="@+id/til_dlgselectproduct_count"
                 style="@style/TextInputLayout_Register"
                 android:layout_width="64dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -121,6 +121,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditText_Register"
                     android:gravity="center"
+                    android:inputType="numberDecimal"
                     android:singleLine="true"
                     android:text="0"
                     android:textSize="16sp" />
@@ -138,11 +139,60 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_dlgselectproduct_add"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="구매목록에 추가"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/ll_dlgselectproduct_add"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="금액: "
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dlgselectproduct_payamount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="원"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_dlgselectproduct_add"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="?android:attr/colorButtonNormal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dlgselectproduct_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="장바구니에 추가"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
