@@ -5,10 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -18,7 +16,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.recyclerview.RestaurantOrderingProductItem;
+import com.uof.uof_mobile.recyclerview.OrderingProductItem;
 
 public class SelectProductDialog extends Dialog {
     private final Context context;
@@ -32,12 +30,12 @@ public class SelectProductDialog extends Dialog {
     private AppCompatTextView tvDlgSelectProductPayAmount;
     private AppCompatTextView tvDlgSelectProductAdd;
     private final SelectProductDialogListener selectProductDialogListener;
-    private RestaurantOrderingProductItem restaurantOrderingProduct;
+    private OrderingProductItem orderingProduct;
 
-    public SelectProductDialog(@NonNull Context context, RestaurantOrderingProductItem restaurantOrderingProduct, SelectProductDialogListener selectProductDialogListener) {
+    public SelectProductDialog(@NonNull Context context, OrderingProductItem orderingProduct, SelectProductDialogListener selectProductDialogListener) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
-        this.restaurantOrderingProduct = restaurantOrderingProduct;
+        this.orderingProduct = orderingProduct;
         this.selectProductDialogListener = selectProductDialogListener;
 
         setCanceledOnTouchOutside(false);
@@ -66,9 +64,9 @@ public class SelectProductDialog extends Dialog {
         tvDlgSelectProductPayAmount = findViewById(R.id.tv_dlgselectproduct_payamount);
         tvDlgSelectProductAdd = findViewById(R.id.tv_dlgselectproduct_add);
 
-        tvDlgSelectProductName.setText(restaurantOrderingProduct.getName());
-        ivDlgSelectProductImage.setImageBitmap(restaurantOrderingProduct.getImage());
-        tvDlgSelectProductDesc.setText(restaurantOrderingProduct.getDesc());
+        tvDlgSelectProductName.setText(orderingProduct.getName());
+        ivDlgSelectProductImage.setImageBitmap(orderingProduct.getImage());
+        tvDlgSelectProductDesc.setText(orderingProduct.getDesc());
         tilDlgSelectProductProductCount.getEditText().setText("0");
         tvDlgSelectProductPayAmount.setText("0");
 
@@ -82,7 +80,7 @@ public class SelectProductDialog extends Dialog {
             int currentCount = Integer.valueOf(tilDlgSelectProductProductCount.getEditText().getText().toString());
             if (currentCount > 0) {
                 tilDlgSelectProductProductCount.getEditText().setText(String.valueOf(currentCount - 1));
-                tvDlgSelectProductPayAmount.setText(UsefulFuncManager.convertToCommaPattern(restaurantOrderingProduct.getPrice() * Integer.valueOf(tilDlgSelectProductProductCount.getEditText().getText().toString())));
+                tvDlgSelectProductPayAmount.setText(UsefulFuncManager.convertToCommaPattern(orderingProduct.getPrice() * Integer.valueOf(tilDlgSelectProductProductCount.getEditText().getText().toString())));
             }
         });
 
@@ -114,7 +112,7 @@ public class SelectProductDialog extends Dialog {
         // 키보드에서 Done(완료) 버튼 누를 시
         tilDlgSelectProductProductCount.getEditText().setOnEditorActionListener((v, actionId, event) -> {
             if(actionId== EditorInfo.IME_ACTION_DONE){
-                tvDlgSelectProductPayAmount.setText(UsefulFuncManager.convertToCommaPattern(restaurantOrderingProduct.getPrice() * Integer.valueOf(tilDlgSelectProductProductCount.getEditText().getText().toString())));
+                tvDlgSelectProductPayAmount.setText(UsefulFuncManager.convertToCommaPattern(orderingProduct.getPrice() * Integer.valueOf(tilDlgSelectProductProductCount.getEditText().getText().toString())));
                 tilDlgSelectProductProductCount.getEditText().clearFocus();
             }
             return false;
@@ -123,7 +121,7 @@ public class SelectProductDialog extends Dialog {
         // 상품 개수 증가 버튼 클릭 시
         ibtnDlgSelectProductCountUp.setOnClickListener(view -> {
             tilDlgSelectProductProductCount.getEditText().setText(String.valueOf(Integer.valueOf(tilDlgSelectProductProductCount.getEditText().getText().toString()) + 1));
-            tvDlgSelectProductPayAmount.setText(UsefulFuncManager.convertToCommaPattern(restaurantOrderingProduct.getPrice() * Integer.valueOf(tilDlgSelectProductProductCount.getEditText().getText().toString())));
+            tvDlgSelectProductPayAmount.setText(UsefulFuncManager.convertToCommaPattern(orderingProduct.getPrice() * Integer.valueOf(tilDlgSelectProductProductCount.getEditText().getText().toString())));
         });
 
         // 상품 추가 버튼 클릭 시

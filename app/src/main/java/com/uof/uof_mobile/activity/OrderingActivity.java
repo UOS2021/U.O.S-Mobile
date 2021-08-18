@@ -16,50 +16,50 @@ import com.google.android.material.chip.ChipGroup;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.SelectProductDialog;
-import com.uof.uof_mobile.manager.RestaurantBascketManager;
+import com.uof.uof_mobile.manager.BascketManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.recyclerview.RestaurantOrderingAdapter;
-import com.uof.uof_mobile.recyclerview.RestaurantOrderingProductItem;
+import com.uof.uof_mobile.recyclerview.OrderingAdapter;
+import com.uof.uof_mobile.recyclerview.OrderingProductItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RestaurantOrderingActivity extends AppCompatActivity {
-    private AppCompatImageButton ibtnRestaurantOrderingBack;
-    private AppCompatTextView tvRestaurantOrderingCompanyName;
-    private ChipGroup cgRestaurantOrderingCategoryList;
-    private RecyclerView rvRestaurantOrderingProductList;
-    private LinearLayoutCompat llRestaurantOrderingSelected;
-    private AppCompatTextView tvRestaurantOrderingPayAmount;
-    private AppCompatTextView tvRestaurantOrderingSelectedCount;
-    private LinearLayoutCompat llRestaurantOrderingPay;
+public class OrderingActivity extends AppCompatActivity {
+    private AppCompatImageButton ibtnOrderingBack;
+    private AppCompatTextView tvOrderingCompanyName;
+    private ChipGroup cgOrderingCategoryList;
+    private RecyclerView rvOrderingProductList;
+    private LinearLayoutCompat llOrderingSelected;
+    private AppCompatTextView tvOrderingPayAmount;
+    private AppCompatTextView tvOrderingSelectedCount;
+    private LinearLayoutCompat llOrderingPay;
     private JSONObject companyData;
     private JSONArray productData;
 
-    private RestaurantOrderingAdapter restaurantOrderingAdapter;
-    private RestaurantBascketManager restaurantBascketManager;
+    private OrderingAdapter orderingAdapter;
+    private BascketManager bascketManager;
     private String selectedCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurantordering);
+        setContentView(R.layout.activity_ordering);
 
         init();
     }
 
     private void init() {
-        ibtnRestaurantOrderingBack = findViewById(R.id.ibtn_restaurantordering_back);
-        tvRestaurantOrderingCompanyName = findViewById(R.id.tv_restaurantordering_companyname);
-        cgRestaurantOrderingCategoryList = findViewById(R.id.cg_restaurantordering_categorylist);
-        rvRestaurantOrderingProductList = findViewById(R.id.rv_restaurantordering_productlist);
-        llRestaurantOrderingSelected = findViewById(R.id.ll_restaurantordering_selected);
-        tvRestaurantOrderingPayAmount = findViewById(R.id.tv_restaurantordering_payamount);
-        tvRestaurantOrderingSelectedCount = findViewById(R.id.tv_restaurantordering_selectedcount);
-        llRestaurantOrderingPay = findViewById(R.id.ll_restaurantordering_pay);
+        ibtnOrderingBack = findViewById(R.id.ibtn_ordering_back);
+        tvOrderingCompanyName = findViewById(R.id.tv_ordering_companyname);
+        cgOrderingCategoryList = findViewById(R.id.cg_ordering_categorylist);
+        rvOrderingProductList = findViewById(R.id.rv_ordering_productlist);
+        llOrderingSelected = findViewById(R.id.ll_ordering_selected);
+        tvOrderingPayAmount = findViewById(R.id.tv_ordering_payamount);
+        tvOrderingSelectedCount = findViewById(R.id.tv_ordering_selectedcount);
+        llOrderingPay = findViewById(R.id.ll_ordering_pay);
 
-        tvRestaurantOrderingPayAmount.setText("0");
-        tvRestaurantOrderingSelectedCount.setText("0");
+        tvOrderingPayAmount.setText("0");
+        tvOrderingSelectedCount.setText("0");
 
         Intent loadData = getIntent();
 
@@ -68,70 +68,70 @@ public class RestaurantOrderingActivity extends AppCompatActivity {
             //productData = new JSONArray(loadData.getStringExtra("productData"));
             companyData = new JSONObject(tempJson).getJSONObject("message").getJSONObject("company");
             productData = new JSONObject(tempJson).getJSONObject("message").getJSONArray("category_list");
-            tvRestaurantOrderingCompanyName.setText(companyData.getString("name"));
+            tvOrderingCompanyName.setText(companyData.getString("name"));
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(RestaurantOrderingActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(OrderingActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
         }
 
         // 상품 목록 Adapter 설정
-        restaurantOrderingAdapter = new RestaurantOrderingAdapter();
-        restaurantOrderingAdapter.setJson(productData);
-        rvRestaurantOrderingProductList.setLayoutManager(new GridLayoutManager(RestaurantOrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
-        rvRestaurantOrderingProductList.setAdapter(restaurantOrderingAdapter);
-        restaurantBascketManager = new RestaurantBascketManager();
+        orderingAdapter = new OrderingAdapter();
+        orderingAdapter.setJson(productData);
+        rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
+        rvOrderingProductList.setAdapter(orderingAdapter);
+        bascketManager = new BascketManager();
 
         // 카테고리를 chipgroup에 추가
         for (int loop = 0; loop < productData.length(); loop++) {
-            Chip chip = (Chip) RestaurantOrderingActivity.this.getLayoutInflater().inflate(R.layout.chip_category, cgRestaurantOrderingCategoryList, false);
+            Chip chip = (Chip) OrderingActivity.this.getLayoutInflater().inflate(R.layout.chip_category, cgOrderingCategoryList, false);
             try {
                 chip.setText(productData.getJSONObject(loop).getString("category"));
                 chip.setOnClickListener(view -> {
                     selectedCategory = chip.getText().toString();
-                    restaurantOrderingAdapter.setSelectedCategory(selectedCategory);
-                    rvRestaurantOrderingProductList.setAdapter(restaurantOrderingAdapter);
+                    orderingAdapter.setSelectedCategory(selectedCategory);
+                    rvOrderingProductList.setAdapter(orderingAdapter);
                 });
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            cgRestaurantOrderingCategoryList.addView(chip);
+            cgOrderingCategoryList.addView(chip);
             if (loop == 0) {
                 selectedCategory = chip.getText().toString();
-                restaurantOrderingAdapter.setSelectedCategory(selectedCategory);
-                rvRestaurantOrderingProductList.setAdapter(restaurantOrderingAdapter);
+                orderingAdapter.setSelectedCategory(selectedCategory);
+                rvOrderingProductList.setAdapter(orderingAdapter);
                 chip.setChecked(true);
             }
         }
 
         // 뒤로가기 버튼이 눌렸을 경우
-        ibtnRestaurantOrderingBack.setOnClickListener(view -> {
+        ibtnOrderingBack.setOnClickListener(view -> {
             finish();
         });
 
         // 리스트 아이템이 눌렸을 경우
-        restaurantOrderingAdapter.setOnItemClickListener((view, position) -> {
-            RestaurantOrderingProductItem restaurantOrderingItem = restaurantOrderingAdapter.getItem(position);
+        orderingAdapter.setOnItemClickListener((view, position) -> {
+            OrderingProductItem restaurantOrderingItem = orderingAdapter.getItem(position);
 
             if (restaurantOrderingItem.getType() == Constants.ItemType.PRODUCT) {
-                new SelectProductDialog(RestaurantOrderingActivity.this, restaurantOrderingItem, (count) -> {
-                    int currentPayAmount = Integer.parseInt(tvRestaurantOrderingPayAmount.getText().toString().replace(",", ""));
-                    int currentSelectedCount = Integer.parseInt(tvRestaurantOrderingSelectedCount.getText().toString());
+                new SelectProductDialog(OrderingActivity.this, restaurantOrderingItem, (count) -> {
+                    int currentPayAmount = Integer.parseInt(tvOrderingPayAmount.getText().toString().replace(",", ""));
+                    int currentSelectedCount = Integer.parseInt(tvOrderingSelectedCount.getText().toString());
 
-                    restaurantBascketManager.addItem(restaurantOrderingItem, count);
-                    tvRestaurantOrderingPayAmount.setText(UsefulFuncManager.convertToCommaPattern(currentPayAmount + restaurantOrderingItem.getPrice() * count));
-                    tvRestaurantOrderingSelectedCount.setText(String.valueOf(currentSelectedCount + count));
+                    bascketManager.addItem(restaurantOrderingItem, count);
+                    tvOrderingPayAmount.setText(UsefulFuncManager.convertToCommaPattern(currentPayAmount + restaurantOrderingItem.getPrice() * count));
+                    tvOrderingSelectedCount.setText(String.valueOf(currentSelectedCount + count));
                 }).show();
             }
         });
 
         // 선택정보창 버튼이 눌렸을 경우
-        llRestaurantOrderingSelected.setOnClickListener(view -> {
+        llOrderingSelected.setOnClickListener(view -> {
 
         });
 
         // 결제 버튼이 눌렸을 경우
-        llRestaurantOrderingPay.setOnClickListener(view -> {
-            Intent intent = new Intent(RestaurantOrderingActivity.this, PayActivity.class);
+        llOrderingPay.setOnClickListener(view -> {
+            Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
             startActivity(intent);
         });
     }

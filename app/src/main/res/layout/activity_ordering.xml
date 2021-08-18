@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.RestaurantOrderingActivity">
+    tools:context=".activity.OrderingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:padding="16dp">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibtn_restaurantordering_back"
+            android:id="@+id/ibtn_ordering_back"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@null"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_restaurantordering_companyname"
+            android:id="@+id/tv_ordering_companyname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -59,7 +59,7 @@
                 android:scrollbars="none">
 
                 <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/cg_restaurantordering_categorylist"
+                    android:id="@+id/cg_ordering_categorylist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingRight="8dp"
@@ -74,7 +74,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_restaurantordering_productlist"
+            android:id="@+id/rv_ordering_productlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/amber_100"
@@ -89,7 +89,7 @@
             android:weightSum="7">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/ll_restaurantordering_selected"
+                android:id="@+id/ll_ordering_selected"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -99,7 +99,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_restaurantordering_payamount"
+                    android:id="@+id/tv_ordering_payamount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00,000"
@@ -114,7 +114,7 @@
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_restaurantordering_selectedcount"
+                    android:id="@+id/tv_ordering_selectedcount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="18"
@@ -131,7 +131,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/ll_restaurantordering_pay"
+                android:id="@+id/ll_ordering_pay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="4"

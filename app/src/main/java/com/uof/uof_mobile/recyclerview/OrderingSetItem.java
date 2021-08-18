@@ -6,10 +6,10 @@ import com.uof.uof_mobile.manager.UsefulFuncManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RestaurantOrderingSetItem extends RestaurantOrderingProductItem {
+public class OrderingSetItem extends OrderingProductItem {
     private JSONArray productList;
 
-    public RestaurantOrderingSetItem(JSONObject jsonObject) {
+    public OrderingSetItem(JSONObject jsonObject) {
         this.type = Constants.ItemType.SET;
         this.selected = false;
         this.count = 0;

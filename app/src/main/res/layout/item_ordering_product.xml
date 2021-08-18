@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_restaurantordering_product"
+    android:id="@+id/ll_ordering_product"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -19,7 +19,7 @@
         android:padding="8dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_restaurantordering_productname"
+            android:id="@+id/tv_ordering_productname"
             android:layout_width="144dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -32,14 +32,14 @@
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_restaurantordering_productimage"
+            android:id="@+id/iv_ordering_productimage"
             android:layout_width="144dp"
             android:layout_height="112dp"
             android:layout_marginBottom="8dp"
             android:scaleType="fitCenter" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_restaurantordering_productprice"
+            android:id="@+id/tv_ordering_productprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="가격"
