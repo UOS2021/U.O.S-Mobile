@@ -30,7 +30,8 @@ public class IntroActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
-        intent.putExtra("isLogined", SharedPreferenceManager.load(Constants.SharedPreference.IS_LOGINED, false));
+        intent.putExtra(Constants.SharedPreference.IS_LOGINED, SharedPreferenceManager.load(Constants.SharedPreference.IS_LOGINED, false));
+        SharedPreferenceManager.close();
         startActivity(intent);
         finish();
 
