@@ -73,13 +73,13 @@ public class SocketTestActivity extends AppCompatActivity {
 
                     JSONObject sendData = new JSONObject();
                     try {
-                        sendData.put("type", edtSocketTestType.getText().toString());
+                        sendData.put("request_code", edtSocketTestType.getText().toString());
                         sendData.put("message", edtSocketTestMessage.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                    if (socketManager.send(sendData.toString() + "\n")) {
+                    if (socketManager.send(sendData.toString())) {
                         // 메세지 전송 성공 시
                         runOnUiThread(() -> {
                             tvSocketTestSendLog.append(new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis())) + "송신 완료: " + sendData.toString() + "\n");
