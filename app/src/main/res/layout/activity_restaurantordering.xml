@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="?android:attr/colorBackground"
+        android:background="@color/color_dark"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="TextView"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,6 +55,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/amber_100"
                 android:scrollbars="none">
 
                 <com.google.android.material.chip.ChipGroup
@@ -76,6 +77,7 @@
             android:id="@+id/rv_restaurantordering_productlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/amber_100"
             android:layout_weight="1" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -83,6 +85,7 @@
             android:layout_height="64dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:background="@color/color_primary"
             android:weightSum="7">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -100,14 +103,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00,000"
-                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="원  ( "
-                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -115,14 +118,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="18"
-                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="개 상품 )"
-                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -141,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="주문하기"
-                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
