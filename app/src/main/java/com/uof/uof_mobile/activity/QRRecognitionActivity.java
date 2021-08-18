@@ -52,7 +52,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
                     try {
                         sendData.accumulate("request_code", Constants.Network.Request.STORE_PRODUCT_INFO);
-                        Constants.socketManager.send(sendData.toString() + "\n");
+                        Constants.socketManager.send(sendData.toString());
 
                         String strRecvData = Constants.socketManager.recv();
 
@@ -92,7 +92,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
                                 });
                             }
                         }
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         runOnUiThread(() -> {
                             Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
                         });
