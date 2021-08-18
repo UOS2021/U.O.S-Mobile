@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 자동 로그인 시
-        if(intent.getBooleanExtra("isLogined", false) == true){
+        if (intent.getBooleanExtra(Constants.SharedPreference.IS_LOGINED, false) == true) {
             SharedPreferenceManager.open(LoginActivity.this, Constants.SharedPreference.APP_DATA);
             tilLoginId.getEditText().setText(SharedPreferenceManager.load(Constants.SharedPreference.USER_ID, ""));
             tilLoginPw.getEditText().setText(SharedPreferenceManager.load(Constants.SharedPreference.USER_PW, ""));
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // 로그인 동작
-    private void login(){
+    private void login() {
         btnLoginLogin.setEnabled(false);
 
         // 로그인 창일 경우
