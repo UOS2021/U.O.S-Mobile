@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -10,13 +11,14 @@
         android:layout_height="56dp"
         android:orientation="horizontal"
         android:padding="16dp"
+        android:background="@color/color_primary"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ibtn_dlgselectproduct_close"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@null"
+            android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             android:src="@drawable/ripple_btnclose"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="TextView"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +71,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="상품 설명"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="수량"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -107,6 +109,8 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/icon_remove"
+                android:background="@android:color/transparent"
                 app:layout_constraintRight_toLeftOf="@id/til_dlgselectproduct_count"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -131,6 +135,8 @@
                 android:id="@+id/ibtn_dlgselectproduct_countup"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:src="@drawable/icon_add"
+                android:background="@android:color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -150,7 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="금액: "
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -158,14 +164,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="원"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -185,11 +191,11 @@
             android:id="@+id/tv_dlgselectproduct_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground"
+            android:background="@color/color_primary"
             android:clickable="true"
             android:gravity="center"
             android:text="장바구니에 추가"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 

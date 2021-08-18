@@ -2,13 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.UOFMobile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/color_main</item>
+        <item name="colorPrimaryVariant">@color/color_primary</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -18,10 +14,10 @@
     <style name="TextInputLayout_Register" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:textColorHint">?android:attr/textColorHint</item>
+        <item name="android:textColor">#dd000000</item>
+        <item name="android:textColorHint">#60000000</item>
         <item name="boxStrokeColor">@color/selector_textinputlayout_register</item>
-        <item name="hintTextColor">?android:attr/textColorHint</item> <!-- border에 표시되는 힌트 색깔 -->
+        <item name="hintTextColor">#89000000</item> <!-- border에 표시되는 힌트 색깔 -->
     </style>
 
     <color name="TextInputLayout_Selector_Enable">#232323</color>
@@ -31,7 +27,7 @@
     <!-- TextInputEditText Style -->
     <style name="TextInputEditText_Register">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textColor">#dd000000</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -54,6 +50,8 @@
     <drawable name="icon_btnclose">@drawable/icon_btnclose_day</drawable>
     <drawable name="icon_btnback">@drawable/icon_btnback_day</drawable>
     <drawable name="icon_btndelete">@drawable/icon_btndelete_day</drawable>
+    <drawable name="icon_add">@drawable/icon_add_day</drawable>
+    <drawable name="icon_remove">@drawable/icon_remove_day</drawable>
 
     <style name="OrderingActivity_Background">
         <item name="android:background">#BDBDBD</item>

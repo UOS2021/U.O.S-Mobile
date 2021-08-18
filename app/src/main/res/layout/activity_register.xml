@@ -184,6 +184,7 @@
                     android:id="@+id/btn_register_customerregister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/color_primary"
                     android:text="회원가입"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -479,10 +480,10 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="50dp"
         android:text="회사 정보 입력"
-        android:textColor="@color/white"
-        app:backgroundTint="#3F51B5"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/color_dark"
         app:elevation="0dp"
         app:icon="@drawable/arrow_drop_down"
         app:iconPadding="0dp"
-        app:iconTint="@color/white" />
+        app:iconTint="@color/black" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
