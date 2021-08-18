@@ -70,6 +70,7 @@ public class RestaurantOrderingActivity extends AppCompatActivity {
             productData = new JSONObject(tempJson).getJSONObject("message").getJSONArray("category_list");
             tvRestaurantOrderingCompanyName.setText(companyData.getString("name"));
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(RestaurantOrderingActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
         }
 
