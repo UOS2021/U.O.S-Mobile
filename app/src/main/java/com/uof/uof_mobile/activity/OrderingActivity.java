@@ -16,10 +16,12 @@ import com.google.android.material.chip.ChipGroup;
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.SelectProductDialog;
-import com.uof.uof_mobile.manager.BascketManager;
+import com.uof.uof_mobile.dialog.SelectSetDialog;
+import com.uof.uof_mobile.manager.BasketManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.recyclerview.OrderingAdapter;
 import com.uof.uof_mobile.recyclerview.OrderingProductItem;
+import com.uof.uof_mobile.recyclerview.OrderingSetItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,14 +32,14 @@ public class OrderingActivity extends AppCompatActivity {
     private ChipGroup cgOrderingCategoryList;
     private RecyclerView rvOrderingProductList;
     private LinearLayoutCompat llOrderingSelected;
-    private AppCompatTextView tvOrderingPayAmount;
-    private AppCompatTextView tvOrderingSelectedCount;
+    private AppCompatTextView tvOrderingTotalPrice;
+    private AppCompatTextView tvOrderingProductCount;
     private LinearLayoutCompat llOrderingPay;
     private JSONObject companyData;
     private JSONArray productData;
 
     private OrderingAdapter orderingAdapter;
-    private BascketManager bascketManager;
+    private BasketManager basketManager;
     private String selectedCategory;
 
     @Override
@@ -48,95 +50,6 @@ public class OrderingActivity extends AppCompatActivity {
         init();
     }
 
-    private void init() {
-        ibtnOrderingBack = findViewById(R.id.ibtn_ordering_back);
-        tvOrderingCompanyName = findViewById(R.id.tv_ordering_companyname);
-        cgOrderingCategoryList = findViewById(R.id.cg_ordering_categorylist);
-        rvOrderingProductList = findViewById(R.id.rv_ordering_productlist);
-        llOrderingSelected = findViewById(R.id.ll_ordering_selected);
-        tvOrderingPayAmount = findViewById(R.id.tv_ordering_payamount);
-        tvOrderingSelectedCount = findViewById(R.id.tv_ordering_selectedcount);
-        llOrderingPay = findViewById(R.id.ll_ordering_pay);
-
-        tvOrderingPayAmount.setText("0");
-        tvOrderingSelectedCount.setText("0");
-
-        Intent loadData = getIntent();
-
-        try {
-            //companyData = new JSONObject(loadData.getStringExtra("companyData"));
-            //productData = new JSONArray(loadData.getStringExtra("productData"));
-            companyData = new JSONObject(tempJson).getJSONObject("message").getJSONObject("company");
-            productData = new JSONObject(tempJson).getJSONObject("message").getJSONArray("category_list");
-            tvOrderingCompanyName.setText(companyData.getString("name"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(OrderingActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-        }
-
-        // 상품 목록 Adapter 설정
-        orderingAdapter = new OrderingAdapter();
-        orderingAdapter.setJson(productData);
-        rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
-        rvOrderingProductList.setAdapter(orderingAdapter);
-        bascketManager = new BascketManager();
-
-        // 카테고리를 chipgroup에 추가
-        for (int loop = 0; loop < productData.length(); loop++) {
-            Chip chip = (Chip) OrderingActivity.this.getLayoutInflater().inflate(R.layout.chip_category, cgOrderingCategoryList, false);
-            try {
-                chip.setText(productData.getJSONObject(loop).getString("category"));
-                chip.setOnClickListener(view -> {
-                    selectedCategory = chip.getText().toString();
-                    orderingAdapter.setSelectedCategory(selectedCategory);
-                    rvOrderingProductList.setAdapter(orderingAdapter);
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            cgOrderingCategoryList.addView(chip);
-            if (loop == 0) {
-                selectedCategory = chip.getText().toString();
-                orderingAdapter.setSelectedCategory(selectedCategory);
-                rvOrderingProductList.setAdapter(orderingAdapter);
-                chip.setChecked(true);
-            }
-        }
-
-        // 뒤로가기 버튼이 눌렸을 경우
-        ibtnOrderingBack.setOnClickListener(view -> {
-            finish();
-        });
-
-        // 리스트 아이템이 눌렸을 경우
-        orderingAdapter.setOnItemClickListener((view, position) -> {
-            OrderingProductItem restaurantOrderingItem = orderingAdapter.getItem(position);
-
-            if (restaurantOrderingItem.getType() == Constants.ItemType.PRODUCT) {
-                new SelectProductDialog(OrderingActivity.this, restaurantOrderingItem, (count) -> {
-                    int currentPayAmount = Integer.parseInt(tvOrderingPayAmount.getText().toString().replace(",", ""));
-                    int currentSelectedCount = Integer.parseInt(tvOrderingSelectedCount.getText().toString());
-
-                    bascketManager.addItem(restaurantOrderingItem, count);
-                    tvOrderingPayAmount.setText(UsefulFuncManager.convertToCommaPattern(currentPayAmount + restaurantOrderingItem.getPrice() * count));
-                    tvOrderingSelectedCount.setText(String.valueOf(currentSelectedCount + count));
-                }).show();
-            }
-        });
-
-        // 선택정보창 버튼이 눌렸을 경우
-        llOrderingSelected.setOnClickListener(view -> {
-
-        });
-
-        // 결제 버튼이 눌렸을 경우
-        llOrderingPay.setOnClickListener(view -> {
-            Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
-            startActivity(intent);
-        });
-    }
-
-    //private String tempJson = "{\"message\":{\"company\":{\"name\":\"맥도날드\"},\"category_list\":[{\"category\":\"테스트카테고리\",\"product_list\":[{\"name\":\"상품1\",\"price\":500,\"desc\":\"상품1입니다\",\"image\":\"imgdata\"},{\"name\":\"상품2\",\"price\":700,\"desc\":\"상품2입니다\",\"image\":\"imgdata\"},{\"name\":\"상품3\",\"price\":900,\"desc\":\"상품3입니다\",\"image\":\"imgdata\"},{\"name\":\"상품4\",\"price\":1000,\"desc\":\"상품4입니다\",\"image\":\"imgdata\"}],\"set_list\":[{\"name\":\"세트1\",\"price\":3000,\"desc\":\"세트1입니다\",\"image\":\"imgdata\",\"product_list\":[{\"name\":\"서브상품1\",\"price\":500,\"desc\":\"서브상품1입니다\",\"image\":\"imgdata\"},{\"name\":\"서브상품2\",\"price\":500,\"desc\":\"서브상품2입니다\",\"image\":\"imgdata\"},{\"name\":\"서브상품3\",\"price\":500,\"desc\":\"서브상품3입니다\",\"image\":\"imgdata\"},{\"name\":\"서브상품4\",\"price\":500,\"desc\":\"서브상품4입니다\",\"image\":\"imgdata\"}]}]}]}}";
     private String tempJson = "{\n" +
             "    \"response_code\": \"0007\"\n" +
             "    , \"message\":\n" +
@@ -149,6 +62,192 @@ public class OrderingActivity extends AppCompatActivity {
             "        , \"category_list\":\n" +
             "        [\n" +
             "            {\n" +
+            "                \"category\": \"세트\"\n" +
+            "                , \"product_list\":\n" +
+            "                [\n" +
+            "                ]\n" +
+            "                , \"set_list\":\n" +
+            "                [\n" +
+            "                    {\n" +
+            "                        \"name\": \"창녕 갈릭 버거 세트\"\n" +
+            "                        , \"price\": 8500\n" +
+            "                        , \"conf\": \"버거 + 후렌치후라이 (M) + 콜라 (M)\"\n" +
+            "                        , \"desc\": \"100% 국내산 창녕 햇마늘로 만든 토핑과 마늘 아이올리 30g의 풍미가 육즙을 꽉 가둬낸 순쇠고기 패티 2장과 만나 조화를 이뤄 풍부한 맛\"\n" +
+            "                        , \"image\": \"imagedata\"\n" +
+            "                        , \"category_list\":\n" +
+            "                        [\n" +
+            "                            {\n" +
+            "                                 \"category\" : \"사이드\"\n" +
+            "                                , \"required\" : true\n" +
+            "                                , \"product_list\":\n" +
+            "                                [\n" +
+            "                                    {\n" +
+            "                                        \"name\": \"맥너겟 4조각 (소스1종 랜덤증정)\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"골든 모짜렐라 치즈스틱 2조각\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                ] \n" +
+            "                            }, {\n" +
+            "                                 \"category\" : \"음료\"\n" +
+            "                                , \"required\" : true\n" +
+            "                                , \"product_list\":\n" +
+            "                                [\n" +
+            "                                    {\n" +
+            "                                        \"name\": \"코카 콜라 미디엄\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"환타 미디엄\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"스프라이트 미디엄\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"코카 콜라 제로 미디엄\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"커피 쉐이크 미디엄\"\n" +
+            "                                        , \"price\": 1100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"바닐라 쉐이크 미디엄\"\n" +
+            "                                        , \"price\": 1100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"딸기 쉐이크 미디엄\"\n" +
+            "                                        , \"price\": 1100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"초코 쉐이크 미디엄\"\n" +
+            "                                        , \"price\": 1100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"드립 커피 미디엄\"\n" +
+            "                                        , \"price\": 100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                ] \n" +
+            "                            }\n" +
+            "                        ]\n" +
+            "                    }, {\n" +
+            "                        \"name\": \"트리플 치즈버거 세트\"\n" +
+            "                        , \"price\": 8500\n" +
+            "                        , \"conf\": \"트리플 치즈버거 + 후렌치후라이 (M) + 콜라 (M)\"\n" +
+            "                        , \"desc\": \"부드러운 치즈와 풍부한 육즙의 패티를 세배 더 진하게 즐길 수 있는 트리플 치즈버거\"\n" +
+            "                        , \"image\": \"imagedata\"\n" +
+            "                        , \"category_list\":\n" +
+            "                        [\n" +
+            "                            {\n" +
+            "                                 \"category\" : \"사이드\"\n" +
+            "                                , \"required\" : true\n" +
+            "                                , \"product_list\":\n" +
+            "                                [\n" +
+            "                                    {\n" +
+            "                                        \"name\": \"맥너겟 4조각 (소스1종 랜덤증정)\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"골든 모짜렐라 치즈스틱 2조각\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                ] \n" +
+            "                            }, {\n" +
+            "                                 \"category\" : \"음료\"\n" +
+            "                                , \"required\" : true\n" +
+            "                                , \"product_list\":\n" +
+            "                                [\n" +
+            "                                    {\n" +
+            "                                        \"name\": \"코카 콜라 미디엄\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"환타 미디엄\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"스프라이트 미디엄\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"코카 콜라 제로 미디엄\"\n" +
+            "                                        , \"price\": 0\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"커피 쉐이크 미디엄\"\n" +
+            "                                        , \"price\": 1100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"바닐라 쉐이크 미디엄\"\n" +
+            "                                        , \"price\": 1100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"딸기 쉐이크 미디엄\"\n" +
+            "                                        , \"price\": 1100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"초코 쉐이크 미디엄\"\n" +
+            "                                        , \"price\": 1100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                    , {\n" +
+            "                                        \"name\": \"드립 커피 미디엄\"\n" +
+            "                                        , \"price\": 100\n" +
+            "                                        , \"desc\": \"추가비용 없음\"\n" +
+            "                                        , \"image\": \"imagedata\"\n" +
+            "                                    }\n" +
+            "                                ] \n" +
+            "                            }\n" +
+            "                        ]\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
+            "            , {\n" +
             "                \"category\": \"X\"\n" +
             "                , \"product_list\":\n" +
             "                [\n" +
@@ -386,4 +485,100 @@ public class OrderingActivity extends AppCompatActivity {
             "        ]\n" +
             "    }\n" +
             "}";
+
+    private void init() {
+        ibtnOrderingBack = findViewById(R.id.ibtn_ordering_back);
+        tvOrderingCompanyName = findViewById(R.id.tv_ordering_companyname);
+        cgOrderingCategoryList = findViewById(R.id.cg_ordering_categorylist);
+        rvOrderingProductList = findViewById(R.id.rv_ordering_productlist);
+        llOrderingSelected = findViewById(R.id.ll_ordering_selected);
+        tvOrderingTotalPrice = findViewById(R.id.tv_ordering_totalprice);
+        tvOrderingProductCount = findViewById(R.id.tv_ordering_productcount);
+        llOrderingPay = findViewById(R.id.ll_ordering_pay);
+
+        tvOrderingTotalPrice.setText("0");
+        tvOrderingProductCount.setText("0");
+
+        Intent loadData = getIntent();
+
+        try {
+            //companyData = new JSONObject(loadData.getStringExtra("companyData"));
+            //productData = new JSONArray(loadData.getStringExtra("productData"));
+            companyData = new JSONObject(tempJson).getJSONObject("message").getJSONObject("company");
+            productData = new JSONObject(tempJson).getJSONObject("message").getJSONArray("category_list");
+            tvOrderingCompanyName.setText(companyData.getString("name"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(OrderingActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        // 상품 목록 Adapter 설정
+        orderingAdapter = new OrderingAdapter();
+        orderingAdapter.setJson(productData);
+        rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
+        rvOrderingProductList.setAdapter(orderingAdapter);
+        basketManager = new BasketManager();
+
+        // 카테고리를 chipgroup에 추가
+        for (int loop = 0; loop < productData.length(); loop++) {
+            Chip chip = (Chip) OrderingActivity.this.getLayoutInflater().inflate(R.layout.chip_category, cgOrderingCategoryList, false);
+            try {
+                chip.setText(productData.getJSONObject(loop).getString("category"));
+                chip.setOnClickListener(view -> {
+                    selectedCategory = chip.getText().toString();
+                    orderingAdapter.setSelectedCategory(selectedCategory);
+                    rvOrderingProductList.setAdapter(orderingAdapter);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            cgOrderingCategoryList.addView(chip);
+            if (loop == 0) {
+                selectedCategory = chip.getText().toString();
+                orderingAdapter.setSelectedCategory(selectedCategory);
+                rvOrderingProductList.setAdapter(orderingAdapter);
+                chip.setChecked(true);
+            }
+        }
+
+        // 뒤로가기 버튼이 눌렸을 경우
+        ibtnOrderingBack.setOnClickListener(view -> {
+            finish();
+        });
+
+        // 리스트 아이템이 눌렸을 경우
+        orderingAdapter.setOnItemClickListener((view, position) -> {
+            OrderingProductItem orderingProductItem = orderingAdapter.getItem(position);
+
+            if (orderingProductItem.getType() == Constants.ItemType.PRODUCT) {
+                // 선택된 아이템이 단일상품일 경우
+                new SelectProductDialog(OrderingActivity.this, orderingProductItem, (orderingItem) -> {
+                    basketManager.addItem(orderingItem);
+                    updatePriceInfo();
+                }).show();
+            } else {
+                // 선택된 아이템이 세트상품일 경우
+                new SelectSetDialog(OrderingActivity.this, (OrderingSetItem) orderingProductItem, (orderingItem) -> {
+                    basketManager.addItem(orderingItem);
+                    updatePriceInfo();
+                }).show();
+            }
+        });
+
+        // 선택정보창 버튼이 눌렸을 경우
+        llOrderingSelected.setOnClickListener(view -> {
+
+        });
+
+        // 결제 버튼이 눌렸을 경우
+        llOrderingPay.setOnClickListener(view -> {
+            Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void updatePriceInfo() {
+        tvOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()));
+        tvOrderingProductCount.setText(String.valueOf(basketManager.getOrderCount()));
+    }
 }
