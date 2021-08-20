@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,9 +38,9 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ((SetProductViewHolder) viewHolder).tvSetProductPrice.setText(new DecimalFormat("+###,###원").format(getCategoryItems().get(position).getPrice()));
         ((SetProductViewHolder) viewHolder).tvSetProductDesc.setText(getCategoryItems().get(position).getDesc());
         if (getCategoryItems().get(position).getSelected()) {
-            ((SetProductViewHolder) viewHolder).ivSetProductSelected.setVisibility(View.VISIBLE);
+            ((SetProductViewHolder) viewHolder).rbSetProductSelected.setChecked(true);
         } else {
-            ((SetProductViewHolder) viewHolder).ivSetProductSelected.setVisibility(View.GONE);
+            ((SetProductViewHolder) viewHolder).rbSetProductSelected.setChecked(false);
         }
     }
 
@@ -156,14 +157,15 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public AppCompatTextView tvSetProductName;
         public AppCompatTextView tvSetProductPrice;
         public AppCompatTextView tvSetProductDesc;
+        public AppCompatRadioButton rbSetProductSelected;
 
         public SetProductViewHolder(View view) {
             super(view);
             llSetProduct = view.findViewById(R.id.ll_setproduct);
-            ivSetProductSelected = view.findViewById(R.id.iv_setproduct_selected);
             tvSetProductName = view.findViewById(R.id.tv_setproduct_name);
             tvSetProductPrice = view.findViewById(R.id.tv_setproduct_price);
             tvSetProductDesc = view.findViewById(R.id.tv_setproduct_desc);
+            rbSetProductSelected = view.findViewById(R.id.rb_setproduct_selected);
 
             llSetProduct.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();

@@ -14,14 +14,6 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_setproduct_selected"
-            android:layout_width="24dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:scaleType="fitStart"
-            android:src="@drawable/icon_selected" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -63,7 +55,15 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rb_setproduct_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:buttonTint="@color/black"
+            android:clickable="false">
 
+        </androidx.appcompat.widget.AppCompatRadioButton>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
