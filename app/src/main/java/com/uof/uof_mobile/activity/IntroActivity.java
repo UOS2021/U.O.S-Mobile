@@ -19,7 +19,15 @@ public class IntroActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        Constants.activities.remove(this);
+        super.onDestroy();
+    }
+
     private void init() {
+        Constants.activities.add(this);
+
         SharedPreferenceManager.open(IntroActivity.this, Constants.SharedPreference.APP_DATA);
         if (SharedPreferenceManager.load(Constants.SharedPreference.IS_FIRST, true) == true) {
             SharedPreferenceManager.save(Constants.SharedPreference.IS_LOGINED, false);

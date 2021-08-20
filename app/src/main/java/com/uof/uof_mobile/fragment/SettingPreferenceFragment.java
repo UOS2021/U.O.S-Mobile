@@ -12,9 +12,12 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.activity.LoginActivity;
+import com.uof.uof_mobile.activity.SettingActivity;
 import com.uof.uof_mobile.dialog.ChangePhoneDialog;
 import com.uof.uof_mobile.dialog.ChangePwDialog;
 import com.uof.uof_mobile.manager.HttpManager;
@@ -71,12 +74,15 @@ public class SettingPreferenceFragment extends PreferenceFragment {
             SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, "");
             SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, "");
             SharedPreferenceManager.close();
-            final Intent intent = new Intent(context, LoginActivity.class);
-            intent.putExtra("state", "kill");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            getActivity().finish();
 
+            for(AppCompatActivity activity : Constants.activities){
+                if(!(activity instanceof SettingActivity)){
+                    activity.finish();
+                }
+            }
+            startActivity(new Intent(context, LoginActivity.class));
+            getActivity().finish();
+            
             return false;
         });
 
@@ -108,10 +114,12 @@ public class SettingPreferenceFragment extends PreferenceFragment {
                                 SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, "");
                                 SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, "");
                                 SharedPreferenceManager.close();
-                                final Intent intent = new Intent(context, LoginActivity.class);
-                                intent.putExtra("state", "kill");
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
+                                for(AppCompatActivity activity : Constants.activities){
+                                    if(!(activity instanceof SettingActivity)){
+                                        activity.finish();
+                                    }
+                                }
+                                startActivity(new Intent(context, LoginActivity.class));
                                 getActivity().finish();
                             } else if (responseCode.equals(Constants.Network.Response.WITHDRAWAL_FAILED)) {
                                 // 전화번호 변경 실패

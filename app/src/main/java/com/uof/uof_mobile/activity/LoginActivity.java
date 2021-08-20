@@ -40,7 +40,15 @@ public class LoginActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        Constants.activities.remove(this);
+        super.onDestroy();
+    }
+
     private void init() {
+        Constants.activities.add(this);
+
         tilLoginId = findViewById(R.id.til_login_id);
         tilLoginPw = findViewById(R.id.til_login_pw);
         btnLoginLogin = findViewById(R.id.btn_login_login);
@@ -60,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         // 프리패스
         btnLoginPass.setOnClickListener(view -> {
             startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
+            finish();
         });
 
         // 로그인 - 아이디 입력란이 수정되었을 경우
@@ -123,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                             intent.putExtra("RegisterType", 1);    //파트너
                             startActivity(intent);  //다음 activity로 넘어가기
+                            finish();
                         }
 
                         @Override
