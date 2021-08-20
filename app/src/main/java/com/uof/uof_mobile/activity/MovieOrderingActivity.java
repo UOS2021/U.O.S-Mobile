@@ -1,8 +1,9 @@
 package com.uof.uof_mobile.activity;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
 import com.uof.uof_mobile.R;
 
 public class MovieOrderingActivity extends AppCompatActivity {

@@ -21,6 +21,7 @@ import com.uof.uof_mobile.recyclerview.OrderingProductItem;
 
 public class SelectProductDialog extends Dialog {
     private final Context context;
+    private final SelectProductDialogListener selectProductDialogListener;
     private AppCompatImageButton ibtnDlgSelectProductClose;
     private AppCompatTextView tvDlgSelectProductName;
     private AppCompatImageView ivDlgSelectProductImage;
@@ -30,8 +31,7 @@ public class SelectProductDialog extends Dialog {
     private AppCompatImageButton ibtnDlgSelectProductCountUp;
     private AppCompatTextView tvDlgSelectProductTotalPrice;
     private AppCompatTextView tvDlgSelectProductAdd;
-    private final SelectProductDialogListener selectProductDialogListener;
-    private OrderingProductItem orderingProduct;
+    private final OrderingProductItem orderingProduct;
 
     public SelectProductDialog(@NonNull Context context, OrderingProductItem orderingProduct, SelectProductDialogListener selectProductDialogListener) {
         super(context, R.style.DialogTheme_FullScreenDialog);

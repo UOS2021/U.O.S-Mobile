@@ -24,7 +24,7 @@ public class ChangePwDialog extends Dialog {
     private AppCompatButton btnDlgChangePwApply;
 
     public ChangePwDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
-        super(context,R.style.DialogTheme_FullScreenDialog);
+        super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
@@ -74,7 +74,7 @@ public class ChangePwDialog extends Dialog {
                 } else if (responseCode.equals(Constants.Network.Response.CHANGE_PW_FAILED)) {
                     // 비밀번호 변경 실패
                     Toast.makeText(context, "비밀번호 변경 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                }  else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {

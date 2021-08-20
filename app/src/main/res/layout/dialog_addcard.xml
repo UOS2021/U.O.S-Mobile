@@ -18,11 +18,12 @@
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/ripple_btnclose" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="카드 등록"
             android:layout_marginLeft="12dp"
+            android:text="카드 등록"
             android:textColor="@color/black">
 
         </TextView>
@@ -111,8 +112,8 @@
             android:id="@+id/btn_addcard_apply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_main"
             android:layout_marginTop="12dp"
+            android:background="@color/color_main"
             android:text="추가" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

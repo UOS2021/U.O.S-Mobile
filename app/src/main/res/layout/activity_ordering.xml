@@ -78,15 +78,15 @@
             android:id="@+id/rv_ordering_productlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/amber_100"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@color/amber_100" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="64dp"
+            android:background="@color/color_primary"
             android:gravity="center"
             android:orientation="horizontal"
-            android:background="@color/color_primary"
             android:weightSum="7">
 
             <androidx.appcompat.widget.LinearLayoutCompat

@@ -2,9 +2,7 @@ package com.uof.uof_mobile.manager;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.Base64;
-import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
@@ -24,12 +22,12 @@ public class UsefulFuncManager {
     }
 
     // 1000단위 구분기호 추가
-    public static String convertToCommaPattern(String value){
+    public static String convertToCommaPattern(String value) {
         return new DecimalFormat("###,###").format(Integer.valueOf(value));
     }
 
     // 1000단위 구분기호 추가
-    public static String convertToCommaPattern(int value){
+    public static String convertToCommaPattern(int value) {
         return new DecimalFormat("###,###").format(value);
     }
 }

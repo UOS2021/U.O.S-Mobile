@@ -41,16 +41,7 @@ public class OrderingActivity extends AppCompatActivity {
     private OrderingAdapter orderingAdapter;
     private BasketManager basketManager;
     private String selectedCategory;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ordering);
-
-        init();
-    }
-
-    private String tempJson = "{\n" +
+    private final String tempJson = "{\n" +
             "    \"response_code\": \"0007\"\n" +
             "    , \"message\":\n" +
             "    {\n" +
@@ -485,6 +476,14 @@ public class OrderingActivity extends AppCompatActivity {
             "        ]\n" +
             "    }\n" +
             "}";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ordering);
+
+        init();
+    }
 
     private void init() {
         ibtnOrderingBack = findViewById(R.id.ibtn_ordering_back);

@@ -12,7 +12,7 @@ public class Constants {
         public static String type = "";
     }
 
-    public static class SharedPreference{
+    public static class SharedPreference {
         public static String APP_DATA = "APP_DATA";
         public static String IS_FIRST = "IS_FIRST";
         public static String IS_LOGINED = "IS_LOGINED";

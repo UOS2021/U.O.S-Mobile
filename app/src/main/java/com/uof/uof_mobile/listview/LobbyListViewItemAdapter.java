@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.activity.LobbyActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class LobbyListViewItemAdapter extends BaseAdapter {
     ArrayList<LobbyListViewItem> items = new ArrayList<LobbyListViewItem>();
@@ -49,26 +48,26 @@ public class LobbyListViewItemAdapter extends BaseAdapter {
         //데이터 세팅하기
         LobbyListViewItem lobbylistviewitem = items.get(i);
         StringBuilder sumlist = new StringBuilder();
-        try{
+        try {
             final JSONArray list = lobbylistviewitem.getMenulist();
             for (int j = 0; j < list.length(); j++) {
                 JSONObject jsonObject = list.getJSONObject(j);
-                if(j==(list.length()-1)){
+                if (j == (list.length() - 1)) {
                     sumlist.append(jsonObject.getString("name") + " " + jsonObject.getInt("count") + "개");
-                }
-                else {
+                } else {
                     sumlist.append(jsonObject.getString("name") + " " + jsonObject.getInt("count") + "개, ");
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("Sss",sumlist.toString());
+        Log.e("Sss", sumlist.toString());
         rowslobbyordernumber.setText(String.valueOf(lobbylistviewitem.getOrdernum()));
         rowslobbyorderlist.setText(sumlist.toString());
         return view;
     }
-    public void addItem(LobbyListViewItem item){
+
+    public void addItem(LobbyListViewItem item) {
         items.add(item);
     }
 }
