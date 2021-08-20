@@ -3,10 +3,10 @@ package com.uof.uof_mobile.recyclerview;
 import java.util.ArrayList;
 
 public class OrderingCategory {
-    private String category;
-    private ArrayList<OrderingProductItem> orderingProductItemArrayList;
+    private String category;                                                // 카테고리 명
+    private ArrayList<OrderingProductItem> orderingProductItemArrayList;    // 카테고리에 포함되어있는 상품 목록
 
-    public OrderingCategory(String category, ArrayList<OrderingProductItem> orderingProductItemArrayList){
+    public OrderingCategory(String category, ArrayList<OrderingProductItem> orderingProductItemArrayList) {
         this.category = category;
         this.orderingProductItemArrayList = orderingProductItemArrayList;
     }
