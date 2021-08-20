@@ -1,8 +1,6 @@
 package com.uof.uof_mobile.recyclerview;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 
 import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
@@ -10,15 +8,15 @@ import com.uof.uof_mobile.manager.UsefulFuncManager;
 import org.json.JSONObject;
 
 public class OrderingProductItem {
-    protected int type;
-    protected boolean selected;
-    protected int count;
-    protected String name;
-    protected int price;
-    protected String desc;
-    protected Bitmap image;
+    protected int type;         // 상품 종류(단일상품, 세트상품)
+    protected boolean selected; // 선택 여부
+    protected int count;        // 개수
+    protected String name;      // 상품명
+    protected int price;        // 가격
+    protected String desc;      // 설명
+    protected Bitmap image;     // 이미지
 
-    public OrderingProductItem(){
+    public OrderingProductItem() {
 
     }
 
@@ -77,7 +75,7 @@ public class OrderingProductItem {
         this.count = count;
     }
 
-    public boolean isSelected() {
+    public boolean getSelected() {
         return selected;
     }
 
