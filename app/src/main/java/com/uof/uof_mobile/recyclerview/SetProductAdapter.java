@@ -12,6 +12,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +35,7 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         ((SetProductViewHolder) viewHolder).tvSetProductName.setText(getCategoryItems().get(position).getName());
-        ((SetProductViewHolder) viewHolder).tvSetProductPrice.setText(new DecimalFormat("+###,###원").format(getCategoryItems().get(position).getPrice()));
+        ((SetProductViewHolder) viewHolder).tvSetProductPrice.setText("+" + UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
         ((SetProductViewHolder) viewHolder).tvSetProductDesc.setText(getCategoryItems().get(position).getDesc());
         if (getCategoryItems().get(position).getSelected()) {
             ((SetProductViewHolder) viewHolder).ivSetProductSelected.setVisibility(View.VISIBLE);

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,16 +45,16 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (viewHolder instanceof SetViewHolder) {
             // 현재 표시할 뷰의 종류가 세트상품일 경우
             ((SetViewHolder) viewHolder).tvOrderingSetName.setText(getCategoryItems().get(position).getName());
-            ((SetViewHolder) viewHolder).tvOrderingSetPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
+            ((SetViewHolder) viewHolder).tvOrderingSetPrice.setText(UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
             ((SetViewHolder) viewHolder).ivOrderingSetImage.setImageBitmap(getCategoryItems().get(position).getImage());
         } else if (viewHolder instanceof ProductViewHolder) {
             // 현재 표시할 뷰의 종류가 단일상품일 경우
             ((ProductViewHolder) viewHolder).tvOrderingProductName.setText(getCategoryItems().get(position).getName());
-            ((ProductViewHolder) viewHolder).tvOrderingProductPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
+            ((ProductViewHolder) viewHolder).tvOrderingProductPrice.setText(UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
             ((ProductViewHolder) viewHolder).ivOrderingProductImage.setImageBitmap(getCategoryItems().get(position).getImage());
         } else {
             ((ProductViewHolder) viewHolder).tvOrderingProductName.setText(getCategoryItems().get(position).getName());
-            ((ProductViewHolder) viewHolder).tvOrderingProductPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
+            ((ProductViewHolder) viewHolder).tvOrderingProductPrice.setText(UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
             ((ProductViewHolder) viewHolder).ivOrderingProductImage.setImageBitmap(getCategoryItems().get(position).getImage());
         }
     }
