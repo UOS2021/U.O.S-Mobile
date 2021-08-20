@@ -62,6 +62,7 @@
                     android:id="@+id/cg_ordering_categorylist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     app:selectionRequired="true"
                     app:singleLine="true"
@@ -99,7 +100,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_ordering_payamount"
+                    android:id="@+id/tv_ordering_totalprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00,000"
@@ -114,7 +115,7 @@
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_ordering_selectedcount"
+                    android:id="@+id/tv_ordering_productcount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="18"
