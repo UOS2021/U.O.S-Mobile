@@ -76,6 +76,29 @@ public class CardActivity extends AppCompatActivity {
         });
     }
 
+    private void setCardData(String cardNum) {
+        tvCardNoCard.setVisibility(View.GONE);
+        clCardUiGroup.setVisibility(View.VISIBLE);
+        ibtnCardDelete.setVisibility(View.VISIBLE);
+        ibtnCardDelete.setEnabled(true);
+
+        tvCardUserName.setText(Constants.User.name);
+        tvCardCardNum.setText(cardNum);
+    }
+
+    private void removeCardData() {
+        tvCardNoCard.setText("등록된 카드가 없습니다");
+        clCardUiGroup.setVisibility(View.GONE);
+        tvCardNoCard.setVisibility(View.VISIBLE);
+        ibtnCardDelete.setVisibility(View.INVISIBLE);
+        ibtnCardDelete.setEnabled(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private class GetCard extends Thread {
         @Override
         public void run() {
@@ -97,7 +120,7 @@ public class CardActivity extends AppCompatActivity {
                 JSONObject recvData = new JSONObject(temp);
 
                 String responseCode = recvData.getString("response_code");
-                
+
                 if (responseCode.equals(Constants.Network.Response.CARD_INFO)) {
                     // 카드 불러오기 성공
                     String cardNum = recvData.getJSONObject("message").getString("num");
@@ -115,7 +138,7 @@ public class CardActivity extends AppCompatActivity {
                         removeCardData();
                         Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                     });
-                } else{
+                } else {
                     // 카드 불러오기 실패
                     runOnUiThread(() -> {
                         removeCardData();
@@ -152,7 +175,7 @@ public class CardActivity extends AppCompatActivity {
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
-                
+
                 if (responseCode.equals(Constants.Network.Response.CARD_REMOVE_SUCCESS)) {
                     // 카드 제거 성공
                     runOnUiThread(() -> {
@@ -169,7 +192,7 @@ public class CardActivity extends AppCompatActivity {
                         removeCardData();
                         Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                     });
-                }  else{
+                } else {
                     // 카드 제거 실패 - 기타
                     runOnUiThread(() -> {
                         new GetCard().start();
@@ -184,28 +207,5 @@ public class CardActivity extends AppCompatActivity {
                 });
             }
         }
-    }
-
-    private void setCardData(String cardNum) {
-        tvCardNoCard.setVisibility(View.GONE);
-        clCardUiGroup.setVisibility(View.VISIBLE);
-        ibtnCardDelete.setVisibility(View.VISIBLE);
-        ibtnCardDelete.setEnabled(true);
-
-        tvCardUserName.setText(Constants.User.name);
-        tvCardCardNum.setText(cardNum);
-    }
-
-    private void removeCardData() {
-        tvCardNoCard.setText("등록된 카드가 없습니다");
-        clCardUiGroup.setVisibility(View.GONE);
-        tvCardNoCard.setVisibility(View.VISIBLE);
-        ibtnCardDelete.setVisibility(View.INVISIBLE);
-        ibtnCardDelete.setEnabled(false);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 }

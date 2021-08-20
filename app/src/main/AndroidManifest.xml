@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,9 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UOFMobile">
-        <activity
-            android:name=".activity.PcOrderingActivity"
-            android:exported="true" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
@@ -38,7 +35,7 @@
             android:name=".activity.PayActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.RestaurantOrderingActivity"
+            android:name=".activity.OrderingActivity"
             android:exported="true" />
         <activity
             android:name=".activity.CardActivity"

@@ -73,7 +73,7 @@ public class CheckPwDialog extends Dialog {
                 } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
-                }  else {
+                } else {
                     // 비밀번호 확인 실패 - 기타 오류
                     Toast.makeText(context, "비밀번호 확인 실패(기타)", Toast.LENGTH_SHORT).show();
                 }

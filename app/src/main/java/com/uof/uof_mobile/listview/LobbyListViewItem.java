@@ -6,6 +6,11 @@ public class LobbyListViewItem {
     private int ordernum; // 주문번호
     private JSONArray menulist; // ex) [{name : "productname",count : 3}]
 
+    public LobbyListViewItem(int ordernum, JSONArray menulist) {
+        this.ordernum = ordernum;
+        this.menulist = menulist;
+    }
+
     public int getOrdernum() {
         return ordernum;
     }
@@ -17,11 +22,8 @@ public class LobbyListViewItem {
     public JSONArray getMenulist() {
         return menulist;
     }
+
     public void setMenulist(JSONArray menulist) {
-        this.menulist = menulist;
-    }
-    public LobbyListViewItem(int ordernum, JSONArray menulist){
-        this.ordernum = ordernum;
         this.menulist = menulist;
     }
 

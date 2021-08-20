@@ -133,18 +133,18 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 자동 로그인 시
-        if(intent.getBooleanExtra("isLogined", false) == true){
-            SharedPreferenceManager.open(LoginActivity.this, Constants.SharedPreference.APP_DATA);
+        SharedPreferenceManager.open(LoginActivity.this, Constants.SharedPreference.APP_DATA);
+        if (SharedPreferenceManager.load(Constants.SharedPreference.IS_LOGINED, false)) {
             tilLoginId.getEditText().setText(SharedPreferenceManager.load(Constants.SharedPreference.USER_ID, ""));
             tilLoginPw.getEditText().setText(SharedPreferenceManager.load(Constants.SharedPreference.USER_PW, ""));
             cbloginispartner.setChecked(SharedPreferenceManager.load(Constants.SharedPreference.USER_TYPE, "").equals("uofpartner"));
-            SharedPreferenceManager.close();
             login();
         }
+        SharedPreferenceManager.close();
     }
 
     // 로그인 동작
-    private void login(){
+    private void login() {
         btnLoginLogin.setEnabled(false);
 
         // 로그인 창일 경우

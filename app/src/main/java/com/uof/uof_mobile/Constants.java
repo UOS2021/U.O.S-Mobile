@@ -12,7 +12,7 @@ public class Constants {
         public static String type = "";
     }
 
-    public static class SharedPreference{
+    public static class SharedPreference {
         public static String APP_DATA = "APP_DATA";
         public static String IS_FIRST = "IS_FIRST";
         public static String IS_LOGINED = "IS_LOGINED";
@@ -23,7 +23,6 @@ public class Constants {
 
     public class Network {
         public final static String EXTERNAL_SERVER_URL = "http://211.217.202.55:8080/post";
-        public final static int SOCKET_MAX_RECV_SIZE = 1000;
         public final static String EXTERNAL_SERVER_IP = "211.217.202.157";
         public final static int EXTERNAL_SERVER_PORT = 8080;
 
@@ -84,8 +83,8 @@ public class Constants {
         public final static int NOT_ALLOWED_CHARACTER = 3;
     }
 
-    public class ItemType{
-        public final static int PRODUCT = 1;
-        public final static int SET = 2;
+    public class ItemType {
+        public final static int PRODUCT = 0;
+        public final static int SET = 1;
     }
 }

@@ -14,8 +14,8 @@
     <style name="TextInputLayout_Register" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-<!--        <item name="android:textColor">?android:textColorPrimary</item>-->
-<!--        <item name="android:textColorHint">?android:attr/textColorHint</item>-->
+        <!--        <item name="android:textColor">?android:textColorPrimary</item>-->
+        <!--        <item name="android:textColorHint">?android:attr/textColorHint</item>-->
         <item name="android:textColor">#dd000000</item>
         <item name="android:textColorHint">#60000000</item>
         <item name="boxStrokeColor">@color/selector_textinputlayout_register</item>
@@ -49,11 +49,11 @@
     </style>
 
     <!-- Icons -->
-<!--    <drawable name="icon_btnclose">@drawable/icon_btnclose_night</drawable>-->
-<!--    <drawable name="icon_btnback">@drawable/icon_btnback_night</drawable>-->
-<!--    <drawable name="icon_btndelete">@drawable/icon_btndelete_night</drawable>-->
-<!--    <drawable name="icon_add">@drawable/icon_add_night</drawable>-->
-<!--    <drawable name="icon_remove">@drawable/icon_remove_night</drawable>-->
+    <!--    <drawable name="icon_btnclose">@drawable/icon_btnclose_night</drawable>-->
+    <!--    <drawable name="icon_btnback">@drawable/icon_btnback_night</drawable>-->
+    <!--    <drawable name="icon_btndelete">@drawable/icon_btndelete_night</drawable>-->
+    <!--    <drawable name="icon_add">@drawable/icon_add_night</drawable>-->
+    <!--    <drawable name="icon_remove">@drawable/icon_remove_night</drawable>-->
 
     <style name="OrderingActivity_Background">
         <item name="android:background">#4E4E4E</item>

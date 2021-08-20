@@ -1,9 +1,8 @@
 package com.uof.uof_mobile.manager;
 
-import com.uof.uof_mobile.Constants;
-
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
@@ -11,9 +10,8 @@ import java.net.SocketAddress;
 public class SocketManager {
     private Socket socket;
     private SocketAddress socketAddress;
-    private OutputStream outputStream;
-    private InputStream inputStream;
-    private byte[] recvData;
+    private PrintWriter printWriter;
+    private BufferedReader bufferedReader;
 
     public SocketManager() {
 
@@ -48,8 +46,8 @@ public class SocketManager {
         try {
             socket.connect(socketAddress, timeoutMills);
             if (isSocketConnected()) {
-                outputStream = socket.getOutputStream();
-                inputStream = socket.getInputStream();
+                printWriter = new PrintWriter(socket.getOutputStream(), true);
+                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "EUC-KR"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,8 +62,10 @@ public class SocketManager {
             return true;
 
         try {
-            outputStream.close();
-            inputStream.close();
+            socket.getOutputStream().close();
+            socket.getInputStream().close();
+            printWriter.close();
+            bufferedReader.close();
             socket.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,13 +79,8 @@ public class SocketManager {
         if (!isSocketConnected())
             return false;
 
-        try {
-            outputStream.write(sendData.getBytes("euc-kr"));
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        printWriter.println(sendData);
+        return true;
     }
 
     // Receive data from connected socket
@@ -94,13 +89,7 @@ public class SocketManager {
             return null;
 
         try {
-            recvData = new byte[Constants.Network.SOCKET_MAX_RECV_SIZE];
-
-            // If received data size is 0 => means that an error occurred in the data transmission/reception process
-            if (inputStream.read(recvData) == 0)
-                return null;
-
-            return new String(recvData, "euc-kr");
+            return bufferedReader.readLine();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

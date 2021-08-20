@@ -13,7 +13,6 @@ import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.SocketManager;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class QRRecognitionActivity extends AppCompatActivity {
@@ -52,7 +51,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
                     try {
                         sendData.accumulate("request_code", Constants.Network.Request.STORE_PRODUCT_INFO);
-                        Constants.socketManager.send(sendData.toString() + "\n");
+                        Constants.socketManager.send(sendData.toString());
 
                         String strRecvData = Constants.socketManager.recv();
 
@@ -68,15 +67,9 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
                             String companyType = companyData.getString("type");
 
-                            if (companyType.equals("restaurant")) {
+                            if (companyType.equals("restaurant") || companyType.equals("pc")) {
                                 // 회사 종류 - 음식점
-                                Intent intent = new Intent(QRRecognitionActivity.this, RestaurantOrderingActivity.class);
-                                intent.putExtra("companyData", companyData.toString());
-                                intent.putExtra("productData", productData.toString());
-                                startActivity(intent);
-                            } else if (companyType.equals("pc")) {
-                                // 회사 종류 - PC방
-                                Intent intent = new Intent(QRRecognitionActivity.this, PcOrderingActivity.class);
+                                Intent intent = new Intent(QRRecognitionActivity.this, OrderingActivity.class);
                                 intent.putExtra("companyData", companyData.toString());
                                 intent.putExtra("productData", productData.toString());
                                 startActivity(intent);
@@ -92,7 +85,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
                                 });
                             }
                         }
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         runOnUiThread(() -> {
                             Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
                         });
