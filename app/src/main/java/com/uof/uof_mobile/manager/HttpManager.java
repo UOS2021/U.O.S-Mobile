@@ -2,7 +2,7 @@ package com.uof.uof_mobile.manager;
 
 import android.os.AsyncTask;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -55,7 +55,7 @@ public class HttpManager extends AsyncTask<String, String, String> {
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
 
-            return "{ response_code: \"" + Constants.Network.Response.SERVER_NOT_ONLINE + "\" }";
+            return "{ response_code: \"" + Global.Network.Response.SERVER_NOT_ONLINE + "\" }";
         } catch (Exception e) {
             e.printStackTrace();
 

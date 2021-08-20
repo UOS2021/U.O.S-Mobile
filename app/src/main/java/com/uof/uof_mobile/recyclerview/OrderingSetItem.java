@@ -1,6 +1,6 @@
 package com.uof.uof_mobile.recyclerview;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONArray;
@@ -11,7 +11,7 @@ public class OrderingSetItem extends OrderingProductItem {
     private String conf;            // 세트 구성
 
     public OrderingSetItem(JSONObject jsonObject) {
-        this.type = Constants.ItemType.SET;
+        this.type = Global.ItemType.SET;
         this.selected = false;
         this.count = 0;
         try {

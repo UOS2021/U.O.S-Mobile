@@ -24,7 +24,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.PatternManager;
@@ -147,10 +147,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkId(editable.toString());
 
-                if (result == Constants.Pattern.LENGTH_SHORT) {
+                if (result == Global.Pattern.LENGTH_SHORT) {
                     tilRegisterCustomerId.setError("아이디는 8자리 이상이어야 합니다");
                     tilRegisterCustomerId.setErrorEnabled(true);
-                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerId.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilRegisterCustomerId.setErrorEnabled(true);
                 } else {
@@ -176,10 +176,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPw(editable.toString());
 
-                if (result == Constants.Pattern.LENGTH_SHORT) {
+                if (result == Global.Pattern.LENGTH_SHORT) {
                     tilRegisterCustomerPw.setError("비밀번호는 8자리 이상이어야 합니다");
                     tilRegisterCustomerPw.setErrorEnabled(true);
-                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerPw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilRegisterCustomerPw.setErrorEnabled(true);
                 } else {
@@ -238,7 +238,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkName(editable.toString());
 
-                if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerName.setError("이름은 한글만 가능합니다");
                     tilRegisterCustomerName.setErrorEnabled(true);
                 } else {
@@ -264,7 +264,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPhoneNumber(editable.toString());
 
-                if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
                     tilRegisterCustomerPhoneNumber.setErrorEnabled(true);
                 } else {
@@ -291,10 +291,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkId(editable.toString());
 
-                if (result == Constants.Pattern.LENGTH_SHORT) {
+                if (result == Global.Pattern.LENGTH_SHORT) {
                     tilRegisterUofPartnerId.setError("아이디는 8자리 이상이어야 합니다");
                     tilRegisterUofPartnerId.setErrorEnabled(true);
-                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerId.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilRegisterUofPartnerId.setErrorEnabled(true);
                 } else {
@@ -320,10 +320,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPw(editable.toString());
 
-                if (result == Constants.Pattern.LENGTH_SHORT) {
+                if (result == Global.Pattern.LENGTH_SHORT) {
                     tilRegisterUofPartnerPw.setError("비밀번호는 8자리 이상이어야 합니다");
                     tilRegisterUofPartnerPw.setErrorEnabled(true);
-                } else if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerPw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilRegisterUofPartnerPw.setErrorEnabled(true);
                 } else {
@@ -382,7 +382,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkName(editable.toString());
 
-                if (result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerName.setError("이름은 한글만 가능합니다");
                     tilRegisterUofPartnerName.setErrorEnabled(true);
                 } else {
@@ -408,7 +408,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPhoneNumber(editable.toString());
 
-                if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUofPartnerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
                     tilRegisterUofPartnerPhoneNumber.setErrorEnabled(true);
                 } else {
@@ -450,7 +450,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkLicenseNumber(editable.toString());
 
-                if (result == Constants.Pattern.LENGTH_SHORT || result == Constants.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilRegisterLicenseNumber.setError("사업자번호는 10자리 숫자입니다");
                     tilRegisterLicenseNumber.setErrorEnabled(true);
                 } else {
@@ -503,7 +503,7 @@ public class RegisterActivity extends AppCompatActivity {
             // 회원가입 창일 경우
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.REGISTER_CUSTOMER);
+                sendData.put("request_code", Global.Network.Request.REGISTER_CUSTOMER);
 
                 JSONObject message = new JSONObject();
                 message.put("id", tilRegisterCustomerId.getEditText().getText().toString());
@@ -513,21 +513,21 @@ public class RegisterActivity extends AppCompatActivity {
 
                 sendData.putOpt("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Constants.Network.Response.REGISTER_SUCCESS)) {
+                if (responseCode.equals(Global.Network.Response.REGISTER_SUCCESS)) {
                     // 회원가입 성공 - 로그인창 표시
                     Toast.makeText(RegisterActivity.this, "가입되었습니다. 해당 계정으로 로그인해주세요.", Toast.LENGTH_SHORT).show();
                     finish();
-                } else if (responseCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
+                } else if (responseCode.equals(Global.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
                     // 회원가입 실패 - 아이디 중복
                     tilRegisterCustomerId.setError("해당 아이디는 이미 사용중입니다");
                     tilRegisterCustomerId.setErrorEnabled(true);
                     tilRegisterCustomerId.getEditText().setFocusableInTouchMode(true);
                     tilRegisterCustomerId.getEditText().requestFocus();
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
@@ -552,7 +552,7 @@ public class RegisterActivity extends AppCompatActivity {
             // 회원가입 창일 경우
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.REGISTER_UOFPARTNER);
+                sendData.put("request_code", Global.Network.Request.REGISTER_UOFPARTNER);
 
                 JSONObject message = new JSONObject();
                 message.put("id", tilRegisterUofPartnerId.getEditText().getText().toString());
@@ -570,21 +570,21 @@ public class RegisterActivity extends AppCompatActivity {
                 message.putOpt("company", company);
                 sendData.putOpt("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Constants.Network.Response.REGISTER_SUCCESS)) {
+                if (responseCode.equals(Global.Network.Response.REGISTER_SUCCESS)) {
                     // 회원가입 성공 - 로그인창 표시
                     Toast.makeText(RegisterActivity.this, "가입되었습니다. 해당 계정으로 로그인해주세요.", Toast.LENGTH_SHORT).show();
                     finish();
-                } else if (responseCode.equals(Constants.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
+                } else if (responseCode.equals(Global.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
                     // 회원가입 실패 - 아이디 중복
                     tilRegisterUofPartnerId.setError("해당 아이디는 이미 사용중입니다");
                     tilRegisterUofPartnerId.setErrorEnabled(true);
                     tilRegisterUofPartnerId.getEditText().setFocusableInTouchMode(true);
                     tilRegisterUofPartnerId.getEditText().requestFocus();
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
@@ -611,22 +611,22 @@ public class RegisterActivity extends AppCompatActivity {
 
     // 일반 고객 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인
     private boolean checkCustomerRegister() {
-        return PatternManager.checkId(tilRegisterCustomerId.getEditText().getText().toString()) == Constants.Pattern.OK
-                && PatternManager.checkPw(tilRegisterCustomerPw.getEditText().getText().toString()) == Constants.Pattern.OK
+        return PatternManager.checkId(tilRegisterCustomerId.getEditText().getText().toString()) == Global.Pattern.OK
+                && PatternManager.checkPw(tilRegisterCustomerPw.getEditText().getText().toString()) == Global.Pattern.OK
                 && tilRegisterCustomerPw.getEditText().getText().toString().equals(tilRegisterCustomerPwChk.getEditText().getText().toString())
-                && PatternManager.checkName(tilRegisterCustomerName.getEditText().getText().toString()) == Constants.Pattern.OK
-                && PatternManager.checkPhoneNumber(tilRegisterCustomerPhoneNumber.getEditText().getText().toString()) == Constants.Pattern.OK;
+                && PatternManager.checkName(tilRegisterCustomerName.getEditText().getText().toString()) == Global.Pattern.OK
+                && PatternManager.checkPhoneNumber(tilRegisterCustomerPhoneNumber.getEditText().getText().toString()) == Global.Pattern.OK;
     }
 
     // U.O.F 파트너 회원가입 시 아이디, 비밀번호, 이름 , 전화번호, 회사정보 입력 확인
     private boolean checkUofPartnerRegister() {
-        return PatternManager.checkId(tilRegisterUofPartnerId.getEditText().getText().toString()) == Constants.Pattern.OK
-                && PatternManager.checkPw(tilRegisterUofPartnerPw.getEditText().getText().toString()) == Constants.Pattern.OK
+        return PatternManager.checkId(tilRegisterUofPartnerId.getEditText().getText().toString()) == Global.Pattern.OK
+                && PatternManager.checkPw(tilRegisterUofPartnerPw.getEditText().getText().toString()) == Global.Pattern.OK
                 && tilRegisterUofPartnerPw.getEditText().getText().toString().equals(tilRegisterUofPartnerPwChk.getEditText().getText().toString())
-                && PatternManager.checkName(tilRegisterUofPartnerName.getEditText().getText().toString()) == Constants.Pattern.OK
-                && PatternManager.checkPhoneNumber(tilRegisterUofPartnerPhoneNumber.getEditText().getText().toString()) == Constants.Pattern.OK
+                && PatternManager.checkName(tilRegisterUofPartnerName.getEditText().getText().toString()) == Global.Pattern.OK
+                && PatternManager.checkPhoneNumber(tilRegisterUofPartnerPhoneNumber.getEditText().getText().toString()) == Global.Pattern.OK
                 && tilRegisterCompanyName.getEditText().getText().toString().length() > 0
-                && PatternManager.checkLicenseNumber(tilRegisterLicenseNumber.getEditText().getText().toString()) == Constants.Pattern.OK
+                && PatternManager.checkLicenseNumber(tilRegisterLicenseNumber.getEditText().getText().toString()) == Global.Pattern.OK
                 && tilRegisterCompanyAddress.getEditText().getText().toString().length() > 0
                 && checkRegisterLicenseImage(ivRegisterLicenseImage);
     }

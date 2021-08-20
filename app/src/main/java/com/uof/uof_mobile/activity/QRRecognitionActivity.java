@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.SocketManager;
 
@@ -41,19 +41,19 @@ public class QRRecognitionActivity extends AppCompatActivity {
             String targetIp = result.getContents().substring(result.getContents().indexOf("Ip") + 3, result.getContents().indexOf("&"));
             int targetPort = Integer.parseInt(result.getContents().substring(result.getContents().indexOf("Port") + 5));
 
-            Constants.socketManager = new SocketManager();
-            Constants.socketManager.setSocket(targetIp, targetPort);
+            Global.socketManager = new SocketManager();
+            Global.socketManager.setSocket(targetIp, targetPort);
 
             // Pos 소켓 연결 - 매장 정보 불러오기
             new Thread(() -> {
-                if (Constants.socketManager.connect(2000)) {
+                if (Global.socketManager.connect(2000)) {
                     JSONObject sendData = new JSONObject();
 
                     try {
-                        sendData.accumulate("request_code", Constants.Network.Request.STORE_PRODUCT_INFO);
-                        Constants.socketManager.send(sendData.toString());
+                        sendData.accumulate("request_code", Global.Network.Request.STORE_PRODUCT_INFO);
+                        Global.socketManager.send(sendData.toString());
 
-                        String strRecvData = Constants.socketManager.recv();
+                        String strRecvData = Global.socketManager.recv();
 
                         if (strRecvData == null) {
                             // 수신 데이터가 없을 경우

@@ -1,9 +1,14 @@
 package com.uof.uof_mobile;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.uof.uof_mobile.manager.SocketManager;
 
-public class Constants {
+import java.util.ArrayList;
+
+public class Global {
     public static SocketManager socketManager;
+    public static ArrayList<AppCompatActivity> activities = new ArrayList<>();
 
     public static class User {
         public static String id = "";

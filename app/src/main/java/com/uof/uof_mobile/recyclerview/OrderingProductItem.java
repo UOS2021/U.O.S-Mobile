@@ -2,7 +2,7 @@ package com.uof.uof_mobile.recyclerview;
 
 import android.graphics.Bitmap;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONObject;
@@ -21,7 +21,7 @@ public class OrderingProductItem {
     }
 
     public OrderingProductItem(JSONObject jsonObject) {
-        this.type = Constants.ItemType.PRODUCT;
+        this.type = Global.ItemType.PRODUCT;
         this.selected = false;
         this.count = 0;
         try {

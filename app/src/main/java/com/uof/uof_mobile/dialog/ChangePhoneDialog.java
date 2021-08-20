@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
 
@@ -49,7 +49,7 @@ public class ChangePhoneDialog extends Dialog {
         tilDlgChangePhoneChangePhone = findViewById(R.id.til_dlgchangephone_changephone);
         btnDlgChangePhoneApply = findViewById(R.id.btn_dlgchangephone_apply);
 
-        tvDlgChangePhoneCurrentPhone.setText(Constants.User.phone);
+        tvDlgChangePhoneCurrentPhone.setText(Global.User.phone);
 
         ibtnDlgChangePhoneClose.setOnClickListener(view -> {
             dismiss();
@@ -58,27 +58,27 @@ public class ChangePhoneDialog extends Dialog {
         btnDlgChangePhoneApply.setOnClickListener(view -> {
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.CHANGE_PHONE);
+                sendData.put("request_code", Global.Network.Request.CHANGE_PHONE);
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Constants.User.id);
+                message.accumulate("id", Global.User.id);
                 message.accumulate("change_phone", tilDlgChangePhoneChangePhone.getEditText().getText().toString());
-                message.accumulate("type", Constants.User.type);
+                message.accumulate("type", Global.User.type);
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Constants.Network.Response.CHANGE_PHONE_SUCCESS)) {
+                if (responseCode.equals(Global.Network.Response.CHANGE_PHONE_SUCCESS)) {
                     // 전화번호 변경 성공
-                    Constants.User.phone = tilDlgChangePhoneChangePhone.getEditText().getText().toString();
+                    Global.User.phone = tilDlgChangePhoneChangePhone.getEditText().getText().toString();
                     Toast.makeText(context, "변경되었습니다", Toast.LENGTH_SHORT).show();
-                } else if (responseCode.equals(Constants.Network.Response.CHANGE_PHONE_FAILED)) {
+                } else if (responseCode.equals(Global.Network.Response.CHANGE_PHONE_FAILED)) {
                     // 전화번호 변경 실패
                     Toast.makeText(context, "전화번호 변경 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {

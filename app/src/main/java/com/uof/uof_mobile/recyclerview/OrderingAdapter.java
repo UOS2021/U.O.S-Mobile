@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 
 import org.json.JSONArray;
@@ -28,10 +28,10 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        if (viewType == Constants.ItemType.SET) {
+        if (viewType == Global.ItemType.SET) {
             // 현재 생성할 뷰의 종류가 세트상품일 경우
             return new SetViewHolder(layoutInflater.inflate(R.layout.item_ordering_set, parent, false));
-        } else if (viewType == Constants.ItemType.PRODUCT) {
+        } else if (viewType == Global.ItemType.PRODUCT) {
             // 현재 생성할 뷰의 종류가 단일상품일 경우
             return new ProductViewHolder(layoutInflater.inflate(R.layout.item_ordering_product, parent, false));
         } else {

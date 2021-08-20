@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.activity.SettingActivity;
 import com.uof.uof_mobile.manager.HttpManager;
@@ -51,26 +51,26 @@ public class CheckPwDialog extends Dialog {
         tvDlgCheckPwOk.setOnClickListener(view -> {
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.CHECK_PW);
+                sendData.put("request_code", Global.Network.Request.CHECK_PW);
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Constants.User.id);
+                message.accumulate("id", Global.User.id);
                 message.accumulate("pw", tilDlgCheckPwPw.getEditText().getText().toString());
-                message.accumulate("type", Constants.User.type);
+                message.accumulate("type", Global.User.type);
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Constants.Network.Response.CHECKPW_SUCCESS)) {
+                if (responseCode.equals(Global.Network.Response.CHECKPW_SUCCESS)) {
                     // 비밀번호 확인 성공
                     context.startActivity(new Intent(context, SettingActivity.class));
-                } else if (responseCode.equals(Constants.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
+                } else if (responseCode.equals(Global.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
                     // 비밀번호 확인 실패
                     Toast.makeText(context, "비밀번호 틀림", Toast.LENGTH_SHORT).show();
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
