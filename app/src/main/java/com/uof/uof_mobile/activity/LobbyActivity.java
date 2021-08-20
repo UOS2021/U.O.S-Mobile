@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.CheckPwDialog;
 import com.uof.uof_mobile.listview.LobbyListViewItem;
@@ -32,12 +32,12 @@ public class LobbyActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Constants.activities.remove(this);
+        Global.activities.remove(this);
         super.onDestroy();
     }
 
     private void init(){
-        Constants.activities.add(this);
+        Global.activities.add(this);
 
         btn_card = findViewById(R.id.btn_lobby_card);
         btn_orderlist = findViewById(R.id.btn_lobby_orderlist);

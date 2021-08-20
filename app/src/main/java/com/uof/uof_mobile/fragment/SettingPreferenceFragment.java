@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.activity.LoginActivity;
 import com.uof.uof_mobile.activity.SettingActivity;
@@ -68,14 +68,14 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
         // 로그아웃이 눌렸을 경우
         btnLogout.setOnPreferenceClickListener(preference -> {
-            SharedPreferenceManager.open(context, Constants.SharedPreference.APP_DATA);
-            SharedPreferenceManager.save(Constants.SharedPreference.IS_LOGINED, false);
-            SharedPreferenceManager.save(Constants.SharedPreference.USER_ID, "");
-            SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, "");
-            SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, "");
+            SharedPreferenceManager.open(context, Global.SharedPreference.APP_DATA);
+            SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, false);
+            SharedPreferenceManager.save(Global.SharedPreference.USER_ID, "");
+            SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
+            SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
             SharedPreferenceManager.close();
 
-            for(AppCompatActivity activity : Constants.activities){
+            for(AppCompatActivity activity : Global.activities){
                 if(!(activity instanceof SettingActivity)){
                     activity.finish();
                 }
@@ -94,34 +94,34 @@ public class SettingPreferenceFragment extends PreferenceFragment {
                     .setPositiveButton("예", (dialogInterface, i) -> {
                         try {
                             JSONObject sendData = new JSONObject();
-                            sendData.put("request_code", Constants.Network.Request.WITHDRAWAL);
+                            sendData.put("request_code", Global.Network.Request.WITHDRAWAL);
 
                             JSONObject message = new JSONObject();
-                            message.accumulate("id", Constants.User.id);
-                            message.accumulate("type", Constants.User.type);
+                            message.accumulate("id", Global.User.id);
+                            message.accumulate("type", Global.User.type);
 
                             sendData.accumulate("message", message);
 
-                            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                             String responseCode = recvData.getString("response_code");
 
-                            if (responseCode.equals(Constants.Network.Response.WITHDRAWAL_SUCCESS)) {
+                            if (responseCode.equals(Global.Network.Response.WITHDRAWAL_SUCCESS)) {
                                 Toast.makeText(context, "탈퇴되었습니다", Toast.LENGTH_SHORT).show();
-                                SharedPreferenceManager.open(context, Constants.SharedPreference.APP_DATA);
-                                SharedPreferenceManager.save(Constants.SharedPreference.IS_LOGINED, false);
-                                SharedPreferenceManager.save(Constants.SharedPreference.USER_ID, "");
-                                SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, "");
-                                SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, "");
+                                SharedPreferenceManager.open(context, Global.SharedPreference.APP_DATA);
+                                SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, false);
+                                SharedPreferenceManager.save(Global.SharedPreference.USER_ID, "");
+                                SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
+                                SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
                                 SharedPreferenceManager.close();
-                                for(AppCompatActivity activity : Constants.activities){
+                                for(AppCompatActivity activity : Global.activities){
                                     if(!(activity instanceof SettingActivity)){
                                         activity.finish();
                                     }
                                 }
                                 startActivity(new Intent(context, LoginActivity.class));
                                 getActivity().finish();
-                            } else if (responseCode.equals(Constants.Network.Response.WITHDRAWAL_FAILED)) {
+                            } else if (responseCode.equals(Global.Network.Response.WITHDRAWAL_FAILED)) {
                                 // 전화번호 변경 실패
                                 Toast.makeText(context, "탈퇴 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
                             } else {

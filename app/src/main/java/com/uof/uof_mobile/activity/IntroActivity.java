@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
 
@@ -21,20 +21,20 @@ public class IntroActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Constants.activities.remove(this);
+        Global.activities.remove(this);
         super.onDestroy();
     }
 
     private void init() {
-        Constants.activities.add(this);
+        Global.activities.add(this);
 
-        SharedPreferenceManager.open(IntroActivity.this, Constants.SharedPreference.APP_DATA);
-        if (SharedPreferenceManager.load(Constants.SharedPreference.IS_FIRST, true) == true) {
-            SharedPreferenceManager.save(Constants.SharedPreference.IS_LOGINED, false);
-            SharedPreferenceManager.save(Constants.SharedPreference.USER_ID, "");
-            SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, "");
-            SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, "");
-            SharedPreferenceManager.save(Constants.SharedPreference.IS_FIRST, false);
+        SharedPreferenceManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
+        if (SharedPreferenceManager.load(Global.SharedPreference.IS_FIRST, true) == true) {
+            SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, false);
+            SharedPreferenceManager.save(Global.SharedPreference.USER_ID, "");
+            SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
+            SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
+            SharedPreferenceManager.save(Global.SharedPreference.IS_FIRST, false);
         }
 
         Intent intent = new Intent(IntroActivity.this, LoginActivity.class);

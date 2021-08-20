@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 
 public class SettingActivity extends AppCompatActivity {
@@ -19,11 +19,11 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Constants.activities.add(this);
+        Global.activities.add(this);
         super.onDestroy();
     }
 
     private void init(){
-        Constants.activities.add(this);
+        Global.activities.add(this);
     }
 }

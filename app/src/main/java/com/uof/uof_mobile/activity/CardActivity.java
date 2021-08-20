@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.AddCardDialog;
 import com.uof.uof_mobile.manager.HttpManager;
@@ -82,7 +82,7 @@ public class CardActivity extends AppCompatActivity {
         ibtnCardDelete.setVisibility(View.VISIBLE);
         ibtnCardDelete.setEnabled(true);
 
-        tvCardUserName.setText(Constants.User.name);
+        tvCardUserName.setText(Global.User.name);
         tvCardCardNum.setText(cardNum);
     }
 
@@ -108,31 +108,31 @@ public class CardActivity extends AppCompatActivity {
             });
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.CARD_INFO);
+                sendData.put("request_code", Global.Network.Request.CARD_INFO);
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Constants.User.id);
+                message.accumulate("id", Global.User.id);
 
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
+                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
 
                 JSONObject recvData = new JSONObject(temp);
 
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Constants.Network.Response.CARD_INFO)) {
+                if (responseCode.equals(Global.Network.Response.CARD_INFO)) {
                     // 카드 불러오기 성공
                     String cardNum = recvData.getJSONObject("message").getString("num");
                     runOnUiThread(() -> {
                         setCardData(cardNum);
                     });
-                } else if (responseCode.equals(Constants.Network.Response.CARD_NOINFO)) {
+                } else if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
                     // 카드 없음
                     runOnUiThread(() -> {
                         removeCardData();
                     });
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     runOnUiThread(() -> {
                         removeCardData();
@@ -165,28 +165,28 @@ public class CardActivity extends AppCompatActivity {
             });
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.CARD_REMOVE);
+                sendData.put("request_code", Global.Network.Request.CARD_REMOVE);
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Constants.User.id);
+                message.accumulate("id", Global.User.id);
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Constants.Network.Response.CARD_REMOVE_SUCCESS)) {
+                if (responseCode.equals(Global.Network.Response.CARD_REMOVE_SUCCESS)) {
                     // 카드 제거 성공
                     runOnUiThread(() -> {
                         removeCardData();
                     });
-                } else if (responseCode.equals(Constants.Network.Response.CARD_REMOVE_FAILED)) {
+                } else if (responseCode.equals(Global.Network.Response.CARD_REMOVE_FAILED)) {
                     // 카드 제거 실패
                     runOnUiThread(() -> {
                         new GetCard().start();
                     });
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     runOnUiThread(() -> {
                         removeCardData();

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.uof.uof_mobile.Constants;
+import com.uof.uof_mobile.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.SelectProductDialog;
 import com.uof.uof_mobile.dialog.SelectSetDialog;
@@ -549,7 +549,7 @@ public class OrderingActivity extends AppCompatActivity {
         orderingAdapter.setOnItemClickListener((view, position) -> {
             OrderingProductItem orderingProductItem = orderingAdapter.getItem(position);
 
-            if (orderingProductItem.getType() == Constants.ItemType.PRODUCT) {
+            if (orderingProductItem.getType() == Global.ItemType.PRODUCT) {
                 // 선택된 아이템이 단일상품일 경우
                 new SelectProductDialog(OrderingActivity.this, orderingProductItem, (orderingItem) -> {
                     basketManager.addItem(orderingItem);

@@ -6,7 +6,7 @@ import com.uof.uof_mobile.manager.SocketManager;
 
 import java.util.ArrayList;
 
-public class Constants {
+public class Global {
     public static SocketManager socketManager;
     public static ArrayList<AppCompatActivity> activities = new ArrayList<>();
 
