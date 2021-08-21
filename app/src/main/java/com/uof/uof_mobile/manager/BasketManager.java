@@ -1,6 +1,6 @@
 package com.uof.uof_mobile.manager;
 
-import com.uof.uof_mobile.recyclerview.OrderingItem;
+import com.uof.uof_mobile.listitem.OrderingItem;
 
 import org.json.JSONObject;
 

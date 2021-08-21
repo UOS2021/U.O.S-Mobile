@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.uof.uof_mobile.Global;
+import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.AddCardDialog;
 import com.uof.uof_mobile.manager.HttpManager;

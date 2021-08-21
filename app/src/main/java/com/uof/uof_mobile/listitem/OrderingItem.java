@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.recyclerview;
+package com.uof.uof_mobile.listitem;
 
 import android.graphics.Bitmap;
 

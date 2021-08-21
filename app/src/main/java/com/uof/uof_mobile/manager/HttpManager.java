@@ -2,7 +2,7 @@ package com.uof.uof_mobile.manager;
 
 import android.os.AsyncTask;
 
-import com.uof.uof_mobile.Global;
+import com.uof.uof_mobile.other.Global;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

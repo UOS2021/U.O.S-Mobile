@@ -8,11 +8,11 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uof.uof_mobile.Global;
+import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.CheckPwDialog;
-import com.uof.uof_mobile.listview.LobbyListViewItem;
-import com.uof.uof_mobile.listview.LobbyListViewItemAdapter;
+import com.uof.uof_mobile.listitem.OrderingSetItem;
+import com.uof.uof_mobile.adapter.LobbyListViewItemAdapter;
 
 import org.json.JSONArray;
 
@@ -69,8 +69,8 @@ public class LobbyActivity extends AppCompatActivity {
         try {
             adapter = new LobbyListViewItemAdapter();
             JSONArray menulist = new JSONArray("[{name : \"홍익수제비\", count : 3},{name : \"쉑섹버거\", count : 3}]");
-            adapter.addItem(new LobbyListViewItem(1002, menulist));
-            adapter.addItem(new LobbyListViewItem(1003, menulist));
+            adapter.addItem(new OrderingSetItem.LobbyListViewItem(1002, menulist));
+            adapter.addItem(new OrderingSetItem.LobbyListViewItem(1003, menulist));
         } catch (Exception e) {
             e.printStackTrace();
         }

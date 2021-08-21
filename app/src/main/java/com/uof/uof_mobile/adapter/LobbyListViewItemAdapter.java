@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.listview;
+package com.uof.uof_mobile.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.listitem.OrderingSetItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class LobbyListViewItemAdapter extends BaseAdapter {
-    ArrayList<LobbyListViewItem> items = new ArrayList<LobbyListViewItem>();
+    ArrayList<OrderingSetItem.LobbyListViewItem> items = new ArrayList<OrderingSetItem.LobbyListViewItem>();
 
     @Override
     public int getCount() {
@@ -46,7 +47,7 @@ public class LobbyListViewItemAdapter extends BaseAdapter {
         TextView rowslobbyorderlist = view.findViewById(R.id.rows_lobby_orderlist);
 
         //데이터 세팅하기
-        LobbyListViewItem lobbylistviewitem = items.get(i);
+        OrderingSetItem.LobbyListViewItem lobbylistviewitem = items.get(i);
         StringBuilder sumlist = new StringBuilder();
         try {
             final JSONArray list = lobbylistviewitem.getMenulist();
@@ -67,7 +68,7 @@ public class LobbyListViewItemAdapter extends BaseAdapter {
         return view;
     }
 
-    public void addItem(LobbyListViewItem item) {
+    public void addItem(OrderingSetItem.LobbyListViewItem item) {
         items.add(item);
     }
 }

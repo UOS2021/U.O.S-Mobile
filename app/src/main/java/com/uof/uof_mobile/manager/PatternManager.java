@@ -1,6 +1,6 @@
 package com.uof.uof_mobile.manager;
 
-import com.uof.uof_mobile.Global;
+import com.uof.uof_mobile.other.Global;
 
 public class PatternManager {
     // 아이디 패턴 및 보안 확인
