@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.listitem.OrderingItem;
 import com.uof.uof_mobile.manager.BasketManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
@@ -73,6 +74,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public AppCompatImageButton ibtnBasketItemCountDown;
         public TextInputLayout tilBasketItemCount;
         public AppCompatImageButton ibtnBasketItemCountUp;
+        public OrderingItem orderingItem;
         public int position;
 
         public BasketItemViewHolder(View view) {
@@ -92,6 +94,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ibtnBasketItemRemove.setOnClickListener(v -> {
                 basketManager.getOrderingItemArrayList().remove(position);
                 notifyItemRemoved(position);
+                notifyItemRangeChanged(position, basketManager.getOrderingItemArrayList().size());
                 if (position != RecyclerView.NO_POSITION) {
                     if (onUpdateListener != null) {
                         onUpdateListener.onUpdate();
