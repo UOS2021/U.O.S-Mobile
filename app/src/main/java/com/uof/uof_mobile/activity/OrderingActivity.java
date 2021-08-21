@@ -527,6 +527,8 @@ public class OrderingActivity extends AppCompatActivity {
                     selectedCategory = chip.getText().toString();
                     orderingAdapter.setSelectedCategory(selectedCategory);
                     rvOrderingProductList.setAdapter(orderingAdapter);
+                    chip.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                  chip.setTextColor(getResources().getColor(R.color.black));
                 });
             } catch (Exception e) {
                 e.printStackTrace();
