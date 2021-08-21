@@ -1,6 +1,5 @@
 package com.uof.uof_mobile.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -14,35 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.uof.uof_mobile.dialog.BasketDialog;
-import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.adapter.OrderingAdapter;
+import com.uof.uof_mobile.dialog.BasketDialog;
 import com.uof.uof_mobile.dialog.SelectProductDialog;
 import com.uof.uof_mobile.dialog.SelectSetDialog;
-import com.uof.uof_mobile.manager.BasketManager;
-import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.adapter.OrderingAdapter;
 import com.uof.uof_mobile.listitem.OrderingProductItem;
 import com.uof.uof_mobile.listitem.OrderingSetItem;
+import com.uof.uof_mobile.manager.BasketManager;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class OrderingActivity extends AppCompatActivity {
-    private AppCompatImageButton ibtnOrderingBack;
-    private AppCompatTextView tvOrderingCompanyName;
-    private ChipGroup cgOrderingCategoryList;
-    private RecyclerView rvOrderingProductList;
-    private LinearLayoutCompat llOrderingSelected;
-    private AppCompatTextView tvOrderingTotalPrice;
-    private AppCompatTextView tvOrderingProductCount;
-    private LinearLayoutCompat llOrderingPay;
-    private JSONObject companyData;
-    private JSONArray productData;
-
-    private OrderingAdapter orderingAdapter;
-    private BasketManager basketManager;
-    private String selectedCategory;
     private final String tempJson = "{\n" +
             "    \"response_code\": \"0007\"\n" +
             "    , \"message\":\n" +
@@ -478,6 +463,19 @@ public class OrderingActivity extends AppCompatActivity {
             "        ]\n" +
             "    }\n" +
             "}";
+    private AppCompatImageButton ibtnOrderingBack;
+    private AppCompatTextView tvOrderingCompanyName;
+    private ChipGroup cgOrderingCategoryList;
+    private RecyclerView rvOrderingProductList;
+    private LinearLayoutCompat llOrderingSelected;
+    private AppCompatTextView tvOrderingTotalPrice;
+    private AppCompatTextView tvOrderingProductCount;
+    private LinearLayoutCompat llOrderingPay;
+    private JSONObject companyData;
+    private JSONArray productData;
+    private OrderingAdapter orderingAdapter;
+    private BasketManager basketManager;
+    private String selectedCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -554,7 +552,7 @@ public class OrderingActivity extends AppCompatActivity {
             if (orderingProductItem.getType() == Global.ItemType.PRODUCT) {
                 // 선택된 아이템이 단일상품일 경우
                 new SelectProductDialog(OrderingActivity.this, orderingProductItem, (orderingItem) -> {
-                    if(orderingItem.getCount() >= 1){
+                    if (orderingItem.getCount() >= 1) {
                         basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
@@ -562,7 +560,7 @@ public class OrderingActivity extends AppCompatActivity {
             } else {
                 // 선택된 아이템이 세트상품일 경우
                 new SelectSetDialog(OrderingActivity.this, (OrderingSetItem) orderingProductItem, (orderingItem) -> {
-                    if(orderingItem.getCount() >= 1){
+                    if (orderingItem.getCount() >= 1) {
                         basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }

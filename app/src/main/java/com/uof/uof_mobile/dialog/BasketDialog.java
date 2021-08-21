@@ -20,7 +20,7 @@ import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 public class BasketDialog extends Dialog {
     private final Context context;
-    private BasketManager basketManager;
+    private final BasketManager basketManager;
     private AppCompatImageButton ibtnDlgBasketClose;
     private RecyclerView rvDlgBasket;
     private AppCompatTextView tvDlgBasketTotalPrice;

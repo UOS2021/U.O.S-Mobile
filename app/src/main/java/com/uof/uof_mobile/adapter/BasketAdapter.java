@@ -19,7 +19,7 @@ import com.uof.uof_mobile.manager.BasketManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private BasketManager basketManager;
+    private final BasketManager basketManager;
     private BasketAdapter.OnUpdateListener onUpdateListener = null;
 
     public BasketAdapter(BasketManager basketManager) {

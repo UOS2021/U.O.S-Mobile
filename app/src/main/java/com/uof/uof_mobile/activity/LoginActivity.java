@@ -14,11 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 

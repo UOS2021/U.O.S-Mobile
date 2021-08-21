@@ -10,11 +10,11 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.listitem.OrderingProductItem;
 import com.uof.uof_mobile.listitem.OrderingSetItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.other.OrderingCategory;
 
 import org.json.JSONArray;
