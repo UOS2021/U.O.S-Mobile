@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -92,6 +93,9 @@ public class SelectSetDialog extends Dialog {
             setProductAdapter = new SetProductAdapter();
             setProductAdapter.setJson(setData.getProductList());
             rvDlgSelectSetProductList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(context.getResources().getDrawable(R.drawable.recyclerview_divider));
+            rvDlgSelectSetProductList.addItemDecoration(dividerItemDecoration);
             rvDlgSelectSetProductList.setAdapter(setProductAdapter);
 
             updatePriceInfo();
