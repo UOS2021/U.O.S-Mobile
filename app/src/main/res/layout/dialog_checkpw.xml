@@ -3,11 +3,13 @@
     android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/white"
     android:padding="16dp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:text="비밀번호 확인" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -41,6 +43,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="8dp"
                 android:background="?attr/selectableItemBackground"
+                android:textColor="@color/black"
                 android:text="취소" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -49,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:background="?attr/selectableItemBackground"
+                android:textColor="@color/black"
                 android:text="확인" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

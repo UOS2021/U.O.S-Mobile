@@ -6,7 +6,8 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="56dp"
+        android:background="@color/color_primary">
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

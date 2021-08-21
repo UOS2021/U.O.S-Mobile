@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="현재 전화번호"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="@color/black"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgchangephone_currentphone"
@@ -39,13 +40,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="TextView"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="@color/black"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="변경할 전화번호"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_dlgchangephone_changephone"
@@ -62,6 +63,8 @@
             android:id="@+id/btn_dlgchangephone_apply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_dark"
+            android:textColor="@color/black"
             android:text="완료" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

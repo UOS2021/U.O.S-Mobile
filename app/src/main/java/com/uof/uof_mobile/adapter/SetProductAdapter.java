@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.adapter;
+package com.uof.uof_mobile.recyclerview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,18 +7,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderingProductItem;
-import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.other.OrderingCategory;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -35,13 +34,13 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        ((SetProductViewHolder) viewHolder).tvSetProductItemName.setText(getCategoryItems().get(position).getName());
-        ((SetProductViewHolder) viewHolder).tvSetProductItemPrice.setText("+" + UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
-        ((SetProductViewHolder) viewHolder).tvSetProductItemDesc.setText(getCategoryItems().get(position).getDesc());
+        ((SetProductViewHolder) viewHolder).tvSetProductName.setText(getCategoryItems().get(position).getName());
+        ((SetProductViewHolder) viewHolder).tvSetProductPrice.setText(new DecimalFormat("+###,###원").format(getCategoryItems().get(position).getPrice()));
+        ((SetProductViewHolder) viewHolder).tvSetProductDesc.setText(getCategoryItems().get(position).getDesc());
         if (getCategoryItems().get(position).getSelected()) {
-            ((SetProductViewHolder) viewHolder).ivSetProductItemSelected.setVisibility(View.VISIBLE);
+            ((SetProductViewHolder) viewHolder).rbSetProductSelected.setChecked(true);
         } else {
-            ((SetProductViewHolder) viewHolder).ivSetProductItemSelected.setVisibility(View.GONE);
+            ((SetProductViewHolder) viewHolder).rbSetProductSelected.setChecked(false);
         }
     }
 
@@ -153,21 +152,22 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public class SetProductViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayoutCompat llSetProductItem;
-        public AppCompatImageView ivSetProductItemSelected;
-        public AppCompatTextView tvSetProductItemName;
-        public AppCompatTextView tvSetProductItemPrice;
-        public AppCompatTextView tvSetProductItemDesc;
+        public LinearLayoutCompat llSetProduct;
+        public AppCompatImageView ivSetProductSelected;
+        public AppCompatTextView tvSetProductName;
+        public AppCompatTextView tvSetProductPrice;
+        public AppCompatTextView tvSetProductDesc;
+        public AppCompatRadioButton rbSetProductSelected;
 
         public SetProductViewHolder(View view) {
             super(view);
-            llSetProductItem = view.findViewById(R.id.ll_setproductitem);
-            ivSetProductItemSelected = view.findViewById(R.id.iv_setproductitem_selected);
-            tvSetProductItemName = view.findViewById(R.id.tv_setproductitem_name);
-            tvSetProductItemPrice = view.findViewById(R.id.tv_setproductitem_price);
-            tvSetProductItemDesc = view.findViewById(R.id.tv_setproductitem_desc);
+            llSetProduct = view.findViewById(R.id.ll_setproduct);
+            tvSetProductName = view.findViewById(R.id.tv_setproduct_name);
+            tvSetProductPrice = view.findViewById(R.id.tv_setproduct_price);
+            tvSetProductDesc = view.findViewById(R.id.tv_setproduct_desc);
+            rbSetProductSelected = view.findViewById(R.id.rb_setproduct_selected);
 
-            llSetProductItem.setOnClickListener(view1 -> {
+            llSetProduct.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     if (onItemClickListener != null) {
