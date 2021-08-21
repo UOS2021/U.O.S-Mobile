@@ -16,8 +16,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.recyclerview.OrderingItem;
-import com.uof.uof_mobile.recyclerview.OrderingProductItem;
+import com.uof.uof_mobile.listitem.OrderingItem;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
 
 public class SelectProductDialog extends Dialog {
     private final Context context;

@@ -22,10 +22,10 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.recyclerview.OrderingItem;
-import com.uof.uof_mobile.recyclerview.OrderingProductItem;
-import com.uof.uof_mobile.recyclerview.OrderingSetItem;
-import com.uof.uof_mobile.recyclerview.SetProductAdapter;
+import com.uof.uof_mobile.listitem.OrderingItem;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
+import com.uof.uof_mobile.listitem.OrderingSetItem;
+import com.uof.uof_mobile.adapter.SetProductAdapter;
 
 public class SelectSetDialog extends Dialog {
     private final Context context;

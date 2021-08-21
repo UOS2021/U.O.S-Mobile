@@ -1,4 +1,4 @@
-package com.uof.uof_mobile;
+package com.uof.uof_mobile.other;
 
 import androidx.appcompat.app.AppCompatActivity;
 

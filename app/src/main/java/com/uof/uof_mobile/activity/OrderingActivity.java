@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.uof.uof_mobile.Global;
+import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.SelectProductDialog;
 import com.uof.uof_mobile.dialog.SelectSetDialog;
 import com.uof.uof_mobile.manager.BasketManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.recyclerview.OrderingAdapter;
-import com.uof.uof_mobile.recyclerview.OrderingProductItem;
-import com.uof.uof_mobile.recyclerview.OrderingSetItem;
+import com.uof.uof_mobile.adapter.OrderingAdapter;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
+import com.uof.uof_mobile.listitem.OrderingSetItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -14,10 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.Global;
+import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
-import com.uof.uof_mobile.dialog.RegisterTypeDialogListener;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
 
@@ -119,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         // 회원가입 TextView가 눌렸을 경우
         tvLoginRegister.setOnClickListener(view -> {
             new RegisterTypeDialog(LoginActivity.this, true, true,
-                    new RegisterTypeDialogListener() {
+                    new RegisterTypeDialog.RegisterTypeDialogListener() {
                         @Override
                         public void onCustomerClick() {
                             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);

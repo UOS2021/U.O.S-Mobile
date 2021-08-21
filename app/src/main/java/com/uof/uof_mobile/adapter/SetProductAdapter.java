@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.recyclerview;
+package com.uof.uof_mobile.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,12 +12,13 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.OrderingCategory;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
