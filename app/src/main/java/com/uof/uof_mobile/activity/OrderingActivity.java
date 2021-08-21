@@ -1,5 +1,7 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -544,7 +546,14 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 뒤로가기 버튼이 눌렸을 경우
         ibtnOrderingBack.setOnClickListener(view -> {
-            finish();
+            new AlertDialog.Builder(OrderingActivity.this)
+                    .setTitle("주문 취소")
+                    .setMessage("주문창에서 나가시겠습니까?")
+                    .setPositiveButton("확인", (dialogInterface, i) -> {
+                        finish();
+                    })
+                    .setNegativeButton("취소", (dialogInterface, i) -> {
+                    }).show();
         });
 
         // 리스트 아이템이 눌렸을 경우
