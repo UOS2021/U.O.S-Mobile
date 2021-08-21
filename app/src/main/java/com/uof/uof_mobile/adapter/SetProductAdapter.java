@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.recyclerview;
+package com.uof.uof_mobile.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,6 +19,9 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import com.uof.uof_mobile.listitem.OrderingProductItem;
+import com.uof.uof_mobile.other.OrderingCategory;
 
 public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final ArrayList<OrderingCategory> orderingCategoryArrayList = new ArrayList<>();    // 세트창 내 카테고리별 상품 데이터
