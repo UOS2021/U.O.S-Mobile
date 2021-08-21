@@ -93,6 +93,8 @@
                     android:id="@+id/btn_login_login"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:background="@color/color_dark"
+                    android:textColor="@color/black"
                     android:text="로그인"
                     android:textSize="20sp"
                     android:textStyle="bold" />
