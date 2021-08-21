@@ -1,7 +1,7 @@
 package com.uof.uof_mobile.listitem;
 
-import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

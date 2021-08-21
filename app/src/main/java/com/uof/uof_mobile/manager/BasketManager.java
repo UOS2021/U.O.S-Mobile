@@ -25,7 +25,7 @@ public class BasketManager {
         boolean isExist = false;
 
         for (OrderingItem item : orderingItemArrayList) {
-            if (orderingItem.getMenu().equals(item.getMenu()) && orderingItem.getMenu().equals(item.getSubMenu())) {
+            if (orderingItem.getMenu().equals(item.getMenu()) && orderingItem.getSubMenu().equals(item.getSubMenu())) {
                 isExist = true;
                 item.setCount(item.getCount() + orderingItem.getCount());
                 break;

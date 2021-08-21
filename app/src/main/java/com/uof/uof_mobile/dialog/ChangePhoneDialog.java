@@ -12,9 +12,9 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_setproduct"
+    android:id="@+id/ll_setproductitem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -15,7 +15,7 @@
         android:background="?attr/selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_setproduct_selected"
+            android:id="@+id/iv_setproductitem_selected"
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -28,7 +28,7 @@
             android:layout_weight="1">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_setproduct_name"
+                android:id="@+id/tv_setproductitem_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -42,17 +42,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_setproduct_price"
+                android:id="@+id/tv_setproductitem_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+0원"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_setproduct_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_setproductitem_name" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_setproduct_desc"
+                android:id="@+id/tv_setproductitem_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"

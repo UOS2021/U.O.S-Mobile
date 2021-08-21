@@ -8,11 +8,11 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.adapter.LobbyListViewItemAdapter;
 import com.uof.uof_mobile.dialog.CheckPwDialog;
 import com.uof.uof_mobile.listitem.OrderingSetItem;
-import com.uof.uof_mobile.adapter.LobbyListViewItemAdapter;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONArray;
 
@@ -36,7 +36,7 @@ public class LobbyActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void init(){
+    private void init() {
         Global.activities.add(this);
 
         btn_card = findViewById(R.id.btn_lobby_card);

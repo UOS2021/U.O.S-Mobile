@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.activity.LoginActivity;
 import com.uof.uof_mobile.activity.SettingActivity;
@@ -22,6 +21,7 @@ import com.uof.uof_mobile.dialog.ChangePhoneDialog;
 import com.uof.uof_mobile.dialog.ChangePwDialog;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
@@ -75,14 +75,14 @@ public class SettingPreferenceFragment extends PreferenceFragment {
             SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
             SharedPreferenceManager.close();
 
-            for(AppCompatActivity activity : Global.activities){
-                if(!(activity instanceof SettingActivity)){
+            for (AppCompatActivity activity : Global.activities) {
+                if (!(activity instanceof SettingActivity)) {
                     activity.finish();
                 }
             }
             startActivity(new Intent(context, LoginActivity.class));
             getActivity().finish();
-            
+
             return false;
         });
 
@@ -114,8 +114,8 @@ public class SettingPreferenceFragment extends PreferenceFragment {
                                 SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
                                 SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
                                 SharedPreferenceManager.close();
-                                for(AppCompatActivity activity : Global.activities){
-                                    if(!(activity instanceof SettingActivity)){
+                                for (AppCompatActivity activity : Global.activities) {
+                                    if (!(activity instanceof SettingActivity)) {
                                         activity.finish();
                                     }
                                 }
