@@ -59,4 +59,12 @@ public class RegisterTypeDialog extends Dialog {
         getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         getWindow().setBackgroundDrawableResource(R.drawable.border_registertypedialog);
     }
+
+    public interface RegisterTypeDialogListener {
+        void onCustomerClick();
+
+        void onUofPartnerClick();
+
+        void onCancelClick();
+    }
 }

@@ -1,4 +1,6 @@
-package com.uof.uof_mobile.recyclerview;
+package com.uof.uof_mobile.other;
+
+import com.uof.uof_mobile.listitem.OrderingProductItem;
 
 import java.util.ArrayList;
 

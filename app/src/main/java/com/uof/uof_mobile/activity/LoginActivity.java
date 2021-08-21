@@ -14,12 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.RegisterTypeDialog;
-import com.uof.uof_mobile.dialog.RegisterTypeDialogListener;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
@@ -40,7 +39,15 @@ public class LoginActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        Global.activities.remove(this);
+        super.onDestroy();
+    }
+
     private void init() {
+        Global.activities.add(this);
+
         tilLoginId = findViewById(R.id.til_login_id);
         tilLoginPw = findViewById(R.id.til_login_pw);
         btnLoginLogin = findViewById(R.id.btn_login_login);
@@ -60,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         // 프리패스
         btnLoginPass.setOnClickListener(view -> {
             startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
+            finish();
         });
 
         // 로그인 - 아이디 입력란이 수정되었을 경우
@@ -110,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         // 회원가입 TextView가 눌렸을 경우
         tvLoginRegister.setOnClickListener(view -> {
             new RegisterTypeDialog(LoginActivity.this, true, true,
-                    new RegisterTypeDialogListener() {
+                    new RegisterTypeDialog.RegisterTypeDialogListener() {
                         @Override
                         public void onCustomerClick() {
                             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -123,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                             intent.putExtra("RegisterType", 1);    //파트너
                             startActivity(intent);  //다음 activity로 넘어가기
+                            finish();
                         }
 
                         @Override
@@ -133,11 +142,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 자동 로그인 시
-        SharedPreferenceManager.open(LoginActivity.this, Constants.SharedPreference.APP_DATA);
-        if (SharedPreferenceManager.load(Constants.SharedPreference.IS_LOGINED, false)) {
-            tilLoginId.getEditText().setText(SharedPreferenceManager.load(Constants.SharedPreference.USER_ID, ""));
-            tilLoginPw.getEditText().setText(SharedPreferenceManager.load(Constants.SharedPreference.USER_PW, ""));
-            cbloginispartner.setChecked(SharedPreferenceManager.load(Constants.SharedPreference.USER_TYPE, "").equals("uofpartner"));
+        SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
+        if (SharedPreferenceManager.load(Global.SharedPreference.IS_LOGINED, false)) {
+            tilLoginId.getEditText().setText(SharedPreferenceManager.load(Global.SharedPreference.USER_ID, ""));
+            tilLoginPw.getEditText().setText(SharedPreferenceManager.load(Global.SharedPreference.USER_PW, ""));
+            cbloginispartner.setChecked(SharedPreferenceManager.load(Global.SharedPreference.USER_TYPE, "").equals("uofpartner"));
             login();
         }
         SharedPreferenceManager.close();
@@ -150,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         // 로그인 창일 경우
         try {
             JSONObject sendData = new JSONObject();
-            sendData.put("request_code", Constants.Network.Request.LOGIN);
+            sendData.put("request_code", Global.Network.Request.LOGIN);
 
             JSONObject message = new JSONObject();
             message.accumulate("id", tilLoginId.getEditText().getText().toString());
@@ -163,36 +172,36 @@ public class LoginActivity extends AppCompatActivity {
 
             sendData.accumulate("message", message);
 
-            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
             String responseCode = recvData.getString("response_code");
 
-            if (responseCode.equals(Constants.Network.Response.LOGIN_SUCCESS)) {
+            if (responseCode.equals(Global.Network.Response.LOGIN_SUCCESS)) {
                 // 로그인 성공 - LobbyActivity로 이동
                 JSONObject userData = recvData.getJSONObject("message");
-                Constants.User.id = tilLoginId.getEditText().getText().toString();
-                Constants.User.name = userData.getString("name");
-                Constants.User.phone = userData.getString("phone");
-                Constants.User.type = userData.getString("type");
+                Global.User.id = tilLoginId.getEditText().getText().toString();
+                Global.User.name = userData.getString("name");
+                Global.User.phone = userData.getString("phone");
+                Global.User.type = userData.getString("type");
 
-                SharedPreferenceManager.open(LoginActivity.this, Constants.SharedPreference.APP_DATA);
-                SharedPreferenceManager.save(Constants.SharedPreference.USER_ID, Constants.User.id);
-                SharedPreferenceManager.save(Constants.SharedPreference.USER_PW, tilLoginPw.getEditText().getText().toString());
-                SharedPreferenceManager.save(Constants.SharedPreference.USER_TYPE, Constants.User.type);
-                SharedPreferenceManager.save(Constants.SharedPreference.IS_LOGINED, true);
+                SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
+                SharedPreferenceManager.save(Global.SharedPreference.USER_ID, Global.User.id);
+                SharedPreferenceManager.save(Global.SharedPreference.USER_PW, tilLoginPw.getEditText().getText().toString());
+                SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, Global.User.type);
+                SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, true);
                 SharedPreferenceManager.close();
 
                 startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
                 finish();
-            } else if (responseCode.equals(Constants.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
+            } else if (responseCode.equals(Global.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
                 // 로그인 실패 - 아이디 없음
                 tilLoginId.setError("아이디가 존재하지 않습니다");
                 tilLoginId.setErrorEnabled(true);
-            } else if (responseCode.equals(Constants.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
+            } else if (responseCode.equals(Global.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
                 // 로그인 실패 - 비밀번호 틀림
                 tilLoginPw.setError("비밀번호가 일치하지 않습니다");
                 tilLoginPw.setErrorEnabled(true);
-            } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+            } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                 // 서버 연결 실패
                 Toast.makeText(LoginActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
             } else {

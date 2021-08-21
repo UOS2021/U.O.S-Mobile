@@ -1,7 +1,7 @@
-package com.uof.uof_mobile.recyclerview;
+package com.uof.uof_mobile.listitem;
 
-import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,7 +11,7 @@ public class OrderingSetItem extends OrderingProductItem {
     private String conf;            // 세트 구성
 
     public OrderingSetItem(JSONObject jsonObject) {
-        this.type = Constants.ItemType.SET;
+        this.type = Global.ItemType.SET;
         this.selected = false;
         this.count = 0;
         try {
@@ -41,5 +41,32 @@ public class OrderingSetItem extends OrderingProductItem {
 
     public void setConf(String conf) {
         this.conf = conf;
+    }
+
+    public static class LobbyListViewItem {
+        private int ordernum; // 주문번호
+        private JSONArray menulist; // ex) [{name : "productname",count : 3}]
+
+        public LobbyListViewItem(int ordernum, JSONArray menulist) {
+            this.ordernum = ordernum;
+            this.menulist = menulist;
+        }
+
+        public int getOrdernum() {
+            return ordernum;
+        }
+
+        public void setOrdernum(int ordernum) {
+            this.ordernum = ordernum;
+        }
+
+        public JSONArray getMenulist() {
+            return menulist;
+        }
+
+        public void setMenulist(JSONArray menulist) {
+            this.menulist = menulist;
+        }
+
     }
 }

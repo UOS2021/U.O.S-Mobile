@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.recyclerview;
+package com.uof.uof_mobile.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,13 +10,16 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
+import com.uof.uof_mobile.listitem.OrderingSetItem;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
+import com.uof.uof_mobile.other.OrderingCategory;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -28,10 +31,10 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        if (viewType == Constants.ItemType.SET) {
+        if (viewType == Global.ItemType.SET) {
             // 현재 생성할 뷰의 종류가 세트상품일 경우
             return new SetViewHolder(layoutInflater.inflate(R.layout.item_ordering_set, parent, false));
-        } else if (viewType == Constants.ItemType.PRODUCT) {
+        } else if (viewType == Global.ItemType.PRODUCT) {
             // 현재 생성할 뷰의 종류가 단일상품일 경우
             return new ProductViewHolder(layoutInflater.inflate(R.layout.item_ordering_product, parent, false));
         } else {
@@ -43,18 +46,18 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof SetViewHolder) {
             // 현재 표시할 뷰의 종류가 세트상품일 경우
-            ((SetViewHolder) viewHolder).tvOrderingSetName.setText(getCategoryItems().get(position).getName());
-            ((SetViewHolder) viewHolder).tvOrderingSetPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
-            ((SetViewHolder) viewHolder).ivOrderingSetImage.setImageBitmap(getCategoryItems().get(position).getImage());
+            ((SetViewHolder) viewHolder).tvOrderingItemSetName.setText(getCategoryItems().get(position).getName());
+            ((SetViewHolder) viewHolder).tvOrderingItemSetPrice.setText(UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
+            ((SetViewHolder) viewHolder).ivOrderingItemSetImage.setImageBitmap(getCategoryItems().get(position).getImage());
         } else if (viewHolder instanceof ProductViewHolder) {
             // 현재 표시할 뷰의 종류가 단일상품일 경우
-            ((ProductViewHolder) viewHolder).tvOrderingProductName.setText(getCategoryItems().get(position).getName());
-            ((ProductViewHolder) viewHolder).tvOrderingProductPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
-            ((ProductViewHolder) viewHolder).ivOrderingProductImage.setImageBitmap(getCategoryItems().get(position).getImage());
+            ((ProductViewHolder) viewHolder).tvOrderingItemProductName.setText(getCategoryItems().get(position).getName());
+            ((ProductViewHolder) viewHolder).tvOrderingItemProductPrice.setText(UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
+            ((ProductViewHolder) viewHolder).ivOrderingItemProductImage.setImageBitmap(getCategoryItems().get(position).getImage());
         } else {
-            ((ProductViewHolder) viewHolder).tvOrderingProductName.setText(getCategoryItems().get(position).getName());
-            ((ProductViewHolder) viewHolder).tvOrderingProductPrice.setText(new DecimalFormat("###,###").format(getCategoryItems().get(position).getPrice()) + "원");
-            ((ProductViewHolder) viewHolder).ivOrderingProductImage.setImageBitmap(getCategoryItems().get(position).getImage());
+            ((ProductViewHolder) viewHolder).tvOrderingItemProductName.setText(getCategoryItems().get(position).getName());
+            ((ProductViewHolder) viewHolder).tvOrderingItemProductPrice.setText(UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
+            ((ProductViewHolder) viewHolder).ivOrderingItemProductImage.setImageBitmap(getCategoryItems().get(position).getImage());
         }
     }
 
@@ -131,19 +134,19 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     // 단일상품 뷰 관리자
     public class ProductViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayoutCompat llOrderingProduct;
-        public AppCompatTextView tvOrderingProductName;
-        public AppCompatTextView tvOrderingProductPrice;
-        public AppCompatImageView ivOrderingProductImage;
+        public LinearLayoutCompat llOrderingItemProduct;
+        public AppCompatTextView tvOrderingItemProductName;
+        public AppCompatTextView tvOrderingItemProductPrice;
+        public AppCompatImageView ivOrderingItemProductImage;
 
         public ProductViewHolder(View view) {
             super(view);
-            llOrderingProduct = view.findViewById(R.id.ll_ordering_product);
-            tvOrderingProductName = view.findViewById(R.id.tv_ordering_productname);
-            tvOrderingProductPrice = view.findViewById(R.id.tv_ordering_productprice);
-            ivOrderingProductImage = view.findViewById(R.id.iv_ordering_productimage);
+            llOrderingItemProduct = view.findViewById(R.id.ll_orderingitem_product);
+            tvOrderingItemProductName = view.findViewById(R.id.tv_orderingitem_productname);
+            tvOrderingItemProductPrice = view.findViewById(R.id.tv_orderingitem_productprice);
+            ivOrderingItemProductImage = view.findViewById(R.id.iv_orderingitem_productimage);
 
-            llOrderingProduct.setOnClickListener(view1 -> {
+            llOrderingItemProduct.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     if (onItemClickListener != null) {
@@ -156,19 +159,19 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     // 세트상품 뷰 관리자
     public class SetViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayoutCompat llOrderingSet;
-        public AppCompatTextView tvOrderingSetName;
-        public AppCompatTextView tvOrderingSetPrice;
-        public AppCompatImageView ivOrderingSetImage;
+        public LinearLayoutCompat llOrderingItemSet;
+        public AppCompatTextView tvOrderingItemSetName;
+        public AppCompatTextView tvOrderingItemSetPrice;
+        public AppCompatImageView ivOrderingItemSetImage;
 
         public SetViewHolder(View view) {
             super(view);
-            llOrderingSet = view.findViewById(R.id.ll_ordering_set);
-            tvOrderingSetName = view.findViewById(R.id.tv_ordering_setname);
-            tvOrderingSetPrice = view.findViewById(R.id.tv_ordering_setprice);
-            ivOrderingSetImage = view.findViewById(R.id.iv_ordering_setimage);
+            llOrderingItemSet = view.findViewById(R.id.ll_orderingitem_set);
+            tvOrderingItemSetName = view.findViewById(R.id.tv_orderingitem_setname);
+            tvOrderingItemSetPrice = view.findViewById(R.id.tv_orderingitem_setprice);
+            ivOrderingItemSetImage = view.findViewById(R.id.iv_orderingitem_setimage);
 
-            llOrderingSet.setOnClickListener(view1 -> {
+            llOrderingItemSet.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     if (onItemClickListener != null) {

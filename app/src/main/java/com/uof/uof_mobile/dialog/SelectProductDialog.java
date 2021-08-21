@@ -15,13 +15,14 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.listitem.OrderingItem;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.recyclerview.OrderingItem;
-import com.uof.uof_mobile.recyclerview.OrderingProductItem;
 
 public class SelectProductDialog extends Dialog {
     private final Context context;
     private final SelectProductDialogListener selectProductDialogListener;
+    private final OrderingProductItem orderingProduct;
     private AppCompatImageButton ibtnDlgSelectProductClose;
     private AppCompatTextView tvDlgSelectProductName;
     private AppCompatImageView ivDlgSelectProductImage;
@@ -31,7 +32,6 @@ public class SelectProductDialog extends Dialog {
     private AppCompatImageButton ibtnDlgSelectProductCountUp;
     private AppCompatTextView tvDlgSelectProductTotalPrice;
     private AppCompatTextView tvDlgSelectProductAdd;
-    private final OrderingProductItem orderingProduct;
 
     public SelectProductDialog(@NonNull Context context, OrderingProductItem orderingProduct, SelectProductDialogListener selectProductDialogListener) {
         super(context, R.style.DialogTheme_FullScreenDialog);

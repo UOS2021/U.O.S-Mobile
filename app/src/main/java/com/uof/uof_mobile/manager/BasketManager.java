@@ -1,6 +1,6 @@
 package com.uof.uof_mobile.manager;
 
-import com.uof.uof_mobile.recyclerview.OrderingItem;
+import com.uof.uof_mobile.listitem.OrderingItem;
 
 import org.json.JSONObject;
 
@@ -25,7 +25,7 @@ public class BasketManager {
         boolean isExist = false;
 
         for (OrderingItem item : orderingItemArrayList) {
-            if (orderingItem.getMenu().equals(item.getMenu()) && orderingItem.getMenu().equals(item.getSubMenu())) {
+            if (orderingItem.getMenu().equals(item.getMenu()) && orderingItem.getSubMenu().equals(item.getSubMenu())) {
                 isExist = true;
                 item.setCount(item.getCount() + orderingItem.getCount());
                 break;

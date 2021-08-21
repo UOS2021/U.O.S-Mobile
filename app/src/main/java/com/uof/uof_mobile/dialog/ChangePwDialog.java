@@ -11,9 +11,9 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
@@ -55,26 +55,26 @@ public class ChangePwDialog extends Dialog {
         btnDlgChangePwApply.setOnClickListener(view -> {
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.CHANGE_PW);
+                sendData.put("request_code", Global.Network.Request.CHANGE_PW);
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Constants.User.id);
+                message.accumulate("id", Global.User.id);
                 message.accumulate("change_pw", tilDlgChangePwChangePw.getEditText().getText().toString());
-                message.accumulate("type", Constants.User.type);
+                message.accumulate("type", Global.User.type);
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Constants.Network.Response.CHANGE_PW_SUCCESS)) {
+                if (responseCode.equals(Global.Network.Response.CHANGE_PW_SUCCESS)) {
                     // 비밀번호 변경 성공
                     Toast.makeText(context, "변경되었습니다", Toast.LENGTH_SHORT).show();
-                } else if (responseCode.equals(Constants.Network.Response.CHANGE_PW_FAILED)) {
+                } else if (responseCode.equals(Global.Network.Response.CHANGE_PW_FAILED)) {
                     // 비밀번호 변경 실패
                     Toast.makeText(context, "비밀번호 변경 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {

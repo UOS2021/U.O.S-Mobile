@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,11 +22,11 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.adapter.SetProductAdapter;
+import com.uof.uof_mobile.listitem.OrderingItem;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
+import com.uof.uof_mobile.listitem.OrderingSetItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.recyclerview.OrderingItem;
-import com.uof.uof_mobile.recyclerview.OrderingProductItem;
-import com.uof.uof_mobile.recyclerview.OrderingSetItem;
-import com.uof.uof_mobile.recyclerview.SetProductAdapter;
 
 public class SelectSetDialog extends Dialog {
     private final Context context;
@@ -92,6 +93,9 @@ public class SelectSetDialog extends Dialog {
             setProductAdapter = new SetProductAdapter();
             setProductAdapter.setJson(setData.getProductList());
             rvDlgSelectSetProductList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(context.getResources().getDrawable(R.drawable.recyclerview_divider));
+            rvDlgSelectSetProductList.addItemDecoration(dividerItemDecoration);
             rvDlgSelectSetProductList.setAdapter(setProductAdapter);
 
             updatePriceInfo();

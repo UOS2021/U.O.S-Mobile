@@ -13,34 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.adapter.OrderingAdapter;
+import com.uof.uof_mobile.dialog.BasketDialog;
 import com.uof.uof_mobile.dialog.SelectProductDialog;
 import com.uof.uof_mobile.dialog.SelectSetDialog;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
+import com.uof.uof_mobile.listitem.OrderingSetItem;
 import com.uof.uof_mobile.manager.BasketManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.recyclerview.OrderingAdapter;
-import com.uof.uof_mobile.recyclerview.OrderingProductItem;
-import com.uof.uof_mobile.recyclerview.OrderingSetItem;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class OrderingActivity extends AppCompatActivity {
-    private AppCompatImageButton ibtnOrderingBack;
-    private AppCompatTextView tvOrderingCompanyName;
-    private ChipGroup cgOrderingCategoryList;
-    private RecyclerView rvOrderingProductList;
-    private LinearLayoutCompat llOrderingSelected;
-    private AppCompatTextView tvOrderingTotalPrice;
-    private AppCompatTextView tvOrderingProductCount;
-    private LinearLayoutCompat llOrderingPay;
-    private JSONObject companyData;
-    private JSONArray productData;
-
-    private OrderingAdapter orderingAdapter;
-    private BasketManager basketManager;
-    private String selectedCategory;
     private final String tempJson = "{\n" +
             "    \"response_code\": \"0007\"\n" +
             "    , \"message\":\n" +
@@ -476,6 +463,19 @@ public class OrderingActivity extends AppCompatActivity {
             "        ]\n" +
             "    }\n" +
             "}";
+    private AppCompatImageButton ibtnOrderingBack;
+    private AppCompatTextView tvOrderingCompanyName;
+    private ChipGroup cgOrderingCategoryList;
+    private RecyclerView rvOrderingProductList;
+    private LinearLayoutCompat llOrderingSelected;
+    private AppCompatTextView tvOrderingTotalPrice;
+    private AppCompatTextView tvOrderingProductCount;
+    private LinearLayoutCompat llOrderingPay;
+    private JSONObject companyData;
+    private JSONArray productData;
+    private OrderingAdapter orderingAdapter;
+    private BasketManager basketManager;
+    private String selectedCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -493,7 +493,7 @@ public class OrderingActivity extends AppCompatActivity {
         llOrderingSelected = findViewById(R.id.ll_ordering_selected);
         tvOrderingTotalPrice = findViewById(R.id.tv_ordering_totalprice);
         tvOrderingProductCount = findViewById(R.id.tv_ordering_productcount);
-        llOrderingPay = findViewById(R.id.ll_ordering_pay);
+        llOrderingPay = findViewById(R.id.ll_ordering_order);
 
         tvOrderingTotalPrice.setText("0");
         tvOrderingProductCount.setText("0");
@@ -551,24 +551,32 @@ public class OrderingActivity extends AppCompatActivity {
         orderingAdapter.setOnItemClickListener((view, position) -> {
             OrderingProductItem orderingProductItem = orderingAdapter.getItem(position);
 
-            if (orderingProductItem.getType() == Constants.ItemType.PRODUCT) {
+            if (orderingProductItem.getType() == Global.ItemType.PRODUCT) {
                 // 선택된 아이템이 단일상품일 경우
                 new SelectProductDialog(OrderingActivity.this, orderingProductItem, (orderingItem) -> {
-                    basketManager.addItem(orderingItem);
-                    updatePriceInfo();
+                    if (orderingItem.getCount() >= 1) {
+                        basketManager.addItem(orderingItem);
+                        updatePriceInfo();
+                    }
                 }).show();
             } else {
                 // 선택된 아이템이 세트상품일 경우
                 new SelectSetDialog(OrderingActivity.this, (OrderingSetItem) orderingProductItem, (orderingItem) -> {
-                    basketManager.addItem(orderingItem);
-                    updatePriceInfo();
+                    if (orderingItem.getCount() >= 1) {
+                        basketManager.addItem(orderingItem);
+                        updatePriceInfo();
+                    }
                 }).show();
             }
         });
 
         // 선택정보창 버튼이 눌렸을 경우
         llOrderingSelected.setOnClickListener(view -> {
-
+            BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, basketManager);
+            basketDialog.setOnDismissListener(dialogInterface -> {
+                updatePriceInfo();
+            });
+            basketDialog.show();
         });
 
         // 결제 버튼이 눌렸을 경우

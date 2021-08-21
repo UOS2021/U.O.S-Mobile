@@ -23,6 +23,7 @@
     <color name="TextInputLayout_Selector_Enable">#232323</color>
     <color name="TextInputLayout_Selector_Disable">#6A6A6A</color>
     <color name="TextInputLayout_Selector_Focus">#000000</color>
+    <color name="gray">#8C8C8C</color>
 
     <!-- TextInputEditText Style -->
     <style name="TextInputEditText_Register">

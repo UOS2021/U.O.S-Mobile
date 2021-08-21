@@ -9,9 +9,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.adapter.LobbyListViewItemAdapter;
 import com.uof.uof_mobile.dialog.CheckPwDialog;
-import com.uof.uof_mobile.listview.LobbyListViewItem;
-import com.uof.uof_mobile.listview.LobbyListViewItemAdapter;
+import com.uof.uof_mobile.listitem.OrderingSetItem;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONArray;
 
@@ -25,6 +26,18 @@ public class LobbyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
+
+        init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Global.activities.remove(this);
+        super.onDestroy();
+    }
+
+    private void init() {
+        Global.activities.add(this);
 
         btn_card = findViewById(R.id.btn_lobby_card);
         btn_orderlist = findViewById(R.id.btn_lobby_orderlist);
@@ -56,13 +69,11 @@ public class LobbyActivity extends AppCompatActivity {
         try {
             adapter = new LobbyListViewItemAdapter();
             JSONArray menulist = new JSONArray("[{name : \"홍익수제비\", count : 3},{name : \"쉑섹버거\", count : 3}]");
-            adapter.addItem(new LobbyListViewItem(1002, menulist));
-            adapter.addItem(new LobbyListViewItem(1003, menulist));
+            adapter.addItem(new OrderingSetItem.LobbyListViewItem(1002, menulist));
+            adapter.addItem(new OrderingSetItem.LobbyListViewItem(1003, menulist));
         } catch (Exception e) {
             e.printStackTrace();
         }
         lvLobbyNowOrderList.setAdapter(adapter);
-
     }
-
 }

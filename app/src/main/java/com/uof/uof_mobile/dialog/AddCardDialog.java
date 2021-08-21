@@ -11,9 +11,9 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uof.uof_mobile.Constants;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
@@ -61,10 +61,10 @@ public class AddCardDialog extends AppCompatDialog {
         btnAddCardApply.setOnClickListener(view -> {
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Constants.Network.Request.CARD_ADD);
+                sendData.put("request_code", Global.Network.Request.CARD_ADD);
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Constants.User.id);
+                message.accumulate("id", Global.User.id);
 
                 JSONObject card = new JSONObject();
                 card.accumulate("num", tilAddCardNum.getEditText().getText().toString());
@@ -76,17 +76,17 @@ public class AddCardDialog extends AppCompatDialog {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Constants.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Constants.Network.Response.CARD_ADD_SUCCESS)) {
+                if (responseCode.equals(Global.Network.Response.CARD_ADD_SUCCESS)) {
                     // 카드등록 성공
                     Toast.makeText(context, "카드가 등록되었습니다", Toast.LENGTH_SHORT).show();
-                } else if (responseCode.equals(Constants.Network.Response.CARD_ADD_FAILED)) {
+                } else if (responseCode.equals(Global.Network.Response.CARD_ADD_FAILED)) {
                     // 카드등록 실패
                     Toast.makeText(context, "카드등록 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                } else if (responseCode.equals(Constants.Network.Response.SERVER_NOT_ONLINE)) {
+                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
