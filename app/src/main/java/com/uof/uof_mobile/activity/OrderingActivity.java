@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.uof.uof_mobile.dialog.BasketDialog;
 import com.uof.uof_mobile.other.Global;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.SelectProductDialog;
@@ -493,7 +495,7 @@ public class OrderingActivity extends AppCompatActivity {
         llOrderingSelected = findViewById(R.id.ll_ordering_selected);
         tvOrderingTotalPrice = findViewById(R.id.tv_ordering_totalprice);
         tvOrderingProductCount = findViewById(R.id.tv_ordering_productcount);
-        llOrderingPay = findViewById(R.id.ll_ordering_pay);
+        llOrderingPay = findViewById(R.id.ll_ordering_order);
 
         tvOrderingTotalPrice.setText("0");
         tvOrderingProductCount.setText("0");
@@ -552,21 +554,29 @@ public class OrderingActivity extends AppCompatActivity {
             if (orderingProductItem.getType() == Global.ItemType.PRODUCT) {
                 // 선택된 아이템이 단일상품일 경우
                 new SelectProductDialog(OrderingActivity.this, orderingProductItem, (orderingItem) -> {
-                    basketManager.addItem(orderingItem);
-                    updatePriceInfo();
+                    if(orderingItem.getCount() >= 1){
+                        basketManager.addItem(orderingItem);
+                        updatePriceInfo();
+                    }
                 }).show();
             } else {
                 // 선택된 아이템이 세트상품일 경우
                 new SelectSetDialog(OrderingActivity.this, (OrderingSetItem) orderingProductItem, (orderingItem) -> {
-                    basketManager.addItem(orderingItem);
-                    updatePriceInfo();
+                    if(orderingItem.getCount() >= 1){
+                        basketManager.addItem(orderingItem);
+                        updatePriceInfo();
+                    }
                 }).show();
             }
         });
 
         // 선택정보창 버튼이 눌렸을 경우
         llOrderingSelected.setOnClickListener(view -> {
-
+            BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, basketManager);
+            basketDialog.setOnDismissListener(dialogInterface -> {
+                updatePriceInfo();
+            });
+            basketDialog.show();
         });
 
         // 결제 버튼이 눌렸을 경우
