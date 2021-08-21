@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cl_basket"
+    android:id="@+id/cl_basketitem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:padding="8dp">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_basket_menu"
+        android:id="@+id/tv_basketitem_menu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
@@ -19,11 +19,11 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/ibtn_basket_remove"
+        app:layout_constraintRight_toLeftOf="@id/ibtn_basketitem_remove"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/ibtn_basket_remove"
+        android:id="@+id/ibtn_basketitem_remove"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:background="@drawable/ripple_btnclose"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_basket_price"
+        android:id="@+id/tv_basketitem_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -40,22 +40,22 @@
         android:text="0원"
         android:textColor="#737373"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/cl_basket_1"
-        app:layout_constraintTop_toBottomOf="@id/tv_basket_menu" />
+        app:layout_constraintRight_toLeftOf="@id/cl_basketitem_1"
+        app:layout_constraintTop_toBottomOf="@id/tv_basketitem_menu" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_basket_submenu"
+        android:id="@+id/tv_basketitem_submenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:text="서브메뉴"
         android:textColor="#737373"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/cl_basket_1"
-        app:layout_constraintTop_toBottomOf="@id/tv_basket_price" />
+        app:layout_constraintRight_toLeftOf="@id/cl_basketitem_1"
+        app:layout_constraintTop_toBottomOf="@id/tv_basketitem_price" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_basket_totalprice"
+        android:id="@+id/tv_basketitem_totalprice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -63,32 +63,32 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/cl_basket_1"
-        app:layout_constraintTop_toBottomOf="@id/tv_basket_submenu" />
+        app:layout_constraintRight_toLeftOf="@id/cl_basketitem_1"
+        app:layout_constraintTop_toBottomOf="@id/tv_basketitem_submenu" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_basket_1"
+        android:id="@+id/cl_basketitem_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibtn_basket_countdown"
+            android:id="@+id/ibtn_basketitem_countdown"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="@android:color/transparent"
             android:src="@drawable/icon_remove"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/til_basket_count"
+            app:layout_constraintRight_toLeftOf="@id/til_basketitem_count"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_basket_count"
+            android:id="@+id/til_basketitem_count"
             style="@style/TextInputLayout_Register"
             android:layout_width="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/ibtn_basket_countup"
+            app:layout_constraintRight_toLeftOf="@id/ibtn_basketitem_countup"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -102,7 +102,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibtn_basket_countup"
+            android:id="@+id/ibtn_basketitem_countup"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="@android:color/transparent"

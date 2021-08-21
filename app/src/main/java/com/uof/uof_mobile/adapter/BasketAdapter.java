@@ -36,11 +36,11 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ((BasketItemViewHolder) viewHolder).position = viewHolder.getAdapterPosition();
-        ((BasketItemViewHolder) viewHolder).tvBasketMenu.setText(basketManager.getOrderingItemArrayList().get(position).getMenu());
-        ((BasketItemViewHolder) viewHolder).tvBasketPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getPrice()) + "원");
-        ((BasketItemViewHolder) viewHolder).tvBasketSubMenu.setText(basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n"));
-        ((BasketItemViewHolder) viewHolder).tvBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
-        ((BasketItemViewHolder) viewHolder).tilBasketCount.getEditText().setText(String.valueOf(basketManager.getOrderingItemArrayList().get(position).getCount()));
+        ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(basketManager.getOrderingItemArrayList().get(position).getMenu());
+        ((BasketItemViewHolder) viewHolder).tvBasketItemPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getPrice()) + "원");
+        ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n"));
+        ((BasketItemViewHolder) viewHolder).tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
+        ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setText(String.valueOf(basketManager.getOrderingItemArrayList().get(position).getCount()));
     }
 
     public void setOnUpdateListener(BasketAdapter.OnUpdateListener onUpdateListener) {
@@ -64,32 +64,32 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     // 단일상품 뷰 관리자
     public class BasketItemViewHolder extends RecyclerView.ViewHolder {
-        public ConstraintLayout clBasket;
-        public AppCompatTextView tvBasketMenu;
-        public AppCompatImageButton ibtnBasketRemove;
-        public AppCompatTextView tvBasketPrice;
-        public AppCompatTextView tvBasketSubMenu;
-        public AppCompatTextView tvBasketTotalPrice;
-        public AppCompatImageButton ibtnBasketCountDown;
-        public TextInputLayout tilBasketCount;
-        public AppCompatImageButton ibtnBasketCountUp;
+        public ConstraintLayout clBasketItem;
+        public AppCompatTextView tvBasketItemMenu;
+        public AppCompatImageButton ibtnBasketItemRemove;
+        public AppCompatTextView tvBasketItemPrice;
+        public AppCompatTextView tvBasketItemSubMenu;
+        public AppCompatTextView tvBasketItemTotalPrice;
+        public AppCompatImageButton ibtnBasketItemCountDown;
+        public TextInputLayout tilBasketItemCount;
+        public AppCompatImageButton ibtnBasketItemCountUp;
         public int position;
 
         public BasketItemViewHolder(View view) {
             super(view);
 
-            clBasket = view.findViewById(R.id.cl_basket);
-            tvBasketMenu = view.findViewById(R.id.tv_basket_menu);
-            ibtnBasketRemove = view.findViewById(R.id.ibtn_basket_remove);
-            tvBasketPrice = view.findViewById(R.id.tv_basket_price);
-            tvBasketSubMenu = view.findViewById(R.id.tv_basket_submenu);
-            tvBasketTotalPrice = view.findViewById(R.id.tv_basket_totalprice);
-            ibtnBasketCountDown = view.findViewById(R.id.ibtn_basket_countdown);
-            tilBasketCount = view.findViewById(R.id.til_basket_count);
-            ibtnBasketCountUp = view.findViewById(R.id.ibtn_basket_countup);
+            clBasketItem = view.findViewById(R.id.cl_basketitem);
+            tvBasketItemMenu = view.findViewById(R.id.tv_basketitem_menu);
+            ibtnBasketItemRemove = view.findViewById(R.id.ibtn_basketitem_remove);
+            tvBasketItemPrice = view.findViewById(R.id.tv_basketitem_price);
+            tvBasketItemSubMenu = view.findViewById(R.id.tv_basketitem_submenu);
+            tvBasketItemTotalPrice = view.findViewById(R.id.tv_basketitem_totalprice);
+            ibtnBasketItemCountDown = view.findViewById(R.id.ibtn_basketitem_countdown);
+            tilBasketItemCount = view.findViewById(R.id.til_basketitem_count);
+            ibtnBasketItemCountUp = view.findViewById(R.id.ibtn_basketitem_countup);
 
             // 삭품 제거 버튼 클릭 시
-            ibtnBasketRemove.setOnClickListener(v -> {
+            ibtnBasketItemRemove.setOnClickListener(v -> {
                 basketManager.getOrderingItemArrayList().remove(position);
                 notifyItemRemoved(position);
                 if (position != RecyclerView.NO_POSITION) {
@@ -100,7 +100,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
 
             // 상품 개수 감소 버튼 클릭 시
-            ibtnBasketCountDown.setOnClickListener(v -> {
+            ibtnBasketItemCountDown.setOnClickListener(v -> {
                 int currentCount = basketManager.getOrderingItemArrayList().get(position).getCount();
                 if (currentCount > 1) {
                     basketManager.getOrderingItemArrayList().get(position).setCount(currentCount - 1);
@@ -109,7 +109,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
 
             // 상품 개수 입력 영역 변경 시
-            tilBasketCount.getEditText().addTextChangedListener(new TextWatcher() {
+            tilBasketItemCount.getEditText().addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -125,30 +125,30 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     if (editable.toString().equals("") || Integer.valueOf(editable.toString()) < 1) {
                         basketManager.getOrderingItemArrayList().get(position).setCount(1);
                     } else {
-                        basketManager.getOrderingItemArrayList().get(position).setCount(Integer.valueOf(tilBasketCount.getEditText().getText().toString()));
+                        basketManager.getOrderingItemArrayList().get(position).setCount(Integer.valueOf(tilBasketItemCount.getEditText().getText().toString()));
                     }
                 }
             });
 
             // 키보드에서 Done(완료) 버튼 누를 시
-            tilBasketCount.getEditText().setOnEditorActionListener((v, actionId, event) -> {
+            tilBasketItemCount.getEditText().setOnEditorActionListener((v, actionId, event) -> {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     updatePriceInfo();
-                    tilBasketCount.getEditText().clearFocus();
+                    tilBasketItemCount.getEditText().clearFocus();
                 }
                 return false;
             });
 
             // 상품 개수 증가 버튼 클릭 시
-            ibtnBasketCountUp.setOnClickListener(v -> {
+            ibtnBasketItemCountUp.setOnClickListener(v -> {
                 basketManager.getOrderingItemArrayList().get(position).setCount(basketManager.getOrderingItemArrayList().get(position).getCount() + 1);
                 updatePriceInfo();
             });
         }
 
         private void updatePriceInfo() {
-            tilBasketCount.getEditText().setText(String.valueOf(basketManager.getOrderingItemArrayList().get(position).getCount()));
-            tvBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
+            tilBasketItemCount.getEditText().setText(String.valueOf(basketManager.getOrderingItemArrayList().get(position).getCount()));
+            tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
 
             if (position != RecyclerView.NO_POSITION) {
                 if (onUpdateListener != null) {

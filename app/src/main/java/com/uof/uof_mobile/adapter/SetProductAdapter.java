@@ -35,13 +35,13 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        ((SetProductViewHolder) viewHolder).tvSetProductName.setText(getCategoryItems().get(position).getName());
-        ((SetProductViewHolder) viewHolder).tvSetProductPrice.setText("+" + UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
-        ((SetProductViewHolder) viewHolder).tvSetProductDesc.setText(getCategoryItems().get(position).getDesc());
+        ((SetProductViewHolder) viewHolder).tvSetProductItemName.setText(getCategoryItems().get(position).getName());
+        ((SetProductViewHolder) viewHolder).tvSetProductItemPrice.setText("+" + UsefulFuncManager.convertToCommaPattern(getCategoryItems().get(position).getPrice()) + "원");
+        ((SetProductViewHolder) viewHolder).tvSetProductItemDesc.setText(getCategoryItems().get(position).getDesc());
         if (getCategoryItems().get(position).getSelected()) {
-            ((SetProductViewHolder) viewHolder).ivSetProductSelected.setVisibility(View.VISIBLE);
+            ((SetProductViewHolder) viewHolder).ivSetProductItemSelected.setVisibility(View.VISIBLE);
         } else {
-            ((SetProductViewHolder) viewHolder).ivSetProductSelected.setVisibility(View.GONE);
+            ((SetProductViewHolder) viewHolder).ivSetProductItemSelected.setVisibility(View.GONE);
         }
     }
 
@@ -153,21 +153,21 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public class SetProductViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayoutCompat llSetProduct;
-        public AppCompatImageView ivSetProductSelected;
-        public AppCompatTextView tvSetProductName;
-        public AppCompatTextView tvSetProductPrice;
-        public AppCompatTextView tvSetProductDesc;
+        public LinearLayoutCompat llSetProductItem;
+        public AppCompatImageView ivSetProductItemSelected;
+        public AppCompatTextView tvSetProductItemName;
+        public AppCompatTextView tvSetProductItemPrice;
+        public AppCompatTextView tvSetProductItemDesc;
 
         public SetProductViewHolder(View view) {
             super(view);
-            llSetProduct = view.findViewById(R.id.ll_setproduct);
-            ivSetProductSelected = view.findViewById(R.id.iv_setproduct_selected);
-            tvSetProductName = view.findViewById(R.id.tv_setproduct_name);
-            tvSetProductPrice = view.findViewById(R.id.tv_setproduct_price);
-            tvSetProductDesc = view.findViewById(R.id.tv_setproduct_desc);
+            llSetProductItem = view.findViewById(R.id.ll_setproductitem);
+            ivSetProductItemSelected = view.findViewById(R.id.iv_setproductitem_selected);
+            tvSetProductItemName = view.findViewById(R.id.tv_setproductitem_name);
+            tvSetProductItemPrice = view.findViewById(R.id.tv_setproductitem_price);
+            tvSetProductItemDesc = view.findViewById(R.id.tv_setproductitem_desc);
 
-            llSetProduct.setOnClickListener(view1 -> {
+            llSetProductItem.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     if (onItemClickListener != null) {
