@@ -95,6 +95,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 basketManager.getOrderingItemArrayList().remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, basketManager.getOrderingItemArrayList().size());
+
                 if (position != RecyclerView.NO_POSITION) {
                     if (onUpdateListener != null) {
                         onUpdateListener.onUpdate();

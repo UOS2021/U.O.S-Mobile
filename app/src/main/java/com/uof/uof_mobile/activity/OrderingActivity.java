@@ -581,11 +581,15 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 선택정보창 버튼이 눌렸을 경우
         llOrderingSelected.setOnClickListener(view -> {
-            BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, basketManager);
-            basketDialog.setOnDismissListener(dialogInterface -> {
-                updatePriceInfo();
-            });
-            basketDialog.show();
+            if(basketManager.getOrderCount() == 0){
+                Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
+            }else {
+                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, basketManager);
+                basketDialog.setOnDismissListener(dialogInterface -> {
+                    updatePriceInfo();
+                });
+                basketDialog.show();
+            }
         });
 
         // 결제 버튼이 눌렸을 경우
