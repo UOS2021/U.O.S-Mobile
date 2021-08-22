@@ -59,7 +59,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onUpdate();
     }
 
-    // 단일상품 뷰 관리자
+    // 상품 뷰 관리자
     public class BasketItemViewHolder extends RecyclerView.ViewHolder {
         public ConstraintLayout clBasketItem;
         public AppCompatTextView tvBasketItemMenu;
