@@ -61,6 +61,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
                         } else {
                             // 수신 데이터가 있을 경우
                             JSONObject recvData = new JSONObject(strRecvData);
+                            Global.socketManager.disconnect();
 
                             JSONObject companyData = recvData.getJSONObject("message").getJSONObject("company");
                             JSONArray productData = recvData.getJSONObject("message").getJSONArray("category_list");
@@ -88,11 +89,13 @@ public class QRRecognitionActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         runOnUiThread(() -> {
                             Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Global.socketManager.disconnect();
                         });
                     }
                 } else {
                     runOnUiThread(() -> {
                         Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        Global.socketManager.disconnect();
                     });
                 }
                 finish();
