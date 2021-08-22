@@ -1,39 +1,39 @@
 package com.uof.uof_mobile.manager;
 
-import com.uof.uof_mobile.listitem.OrderingItem;
+import com.uof.uof_mobile.listitem.BasketItem;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class BasketManager {
-    private ArrayList<OrderingItem> orderingItemArrayList = new ArrayList<>();
+    private ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
 
     public BasketManager() {
 
     }
 
-    public ArrayList<OrderingItem> getOrderingItemArrayList() {
-        return orderingItemArrayList;
+    public ArrayList<BasketItem> getOrderingItemArrayList() {
+        return basketItemArrayList;
     }
 
-    public void setOrderingItemArrayList(ArrayList<OrderingItem> orderingItemArrayList) {
-        this.orderingItemArrayList = orderingItemArrayList;
+    public void setOrderingItemArrayList(ArrayList<BasketItem> basketItemArrayList) {
+        this.basketItemArrayList = basketItemArrayList;
     }
 
-    public void addItem(OrderingItem orderingItem) {
+    public void addItem(BasketItem basketItem) {
         boolean isExist = false;
 
-        for (OrderingItem item : orderingItemArrayList) {
-            if (orderingItem.getMenu().equals(item.getMenu()) && orderingItem.getSubMenu().equals(item.getSubMenu())) {
+        for (BasketItem item : basketItemArrayList) {
+            if (basketItem.getMenu().equals(item.getMenu()) && basketItem.getSubMenu().equals(item.getSubMenu())) {
                 isExist = true;
-                item.setCount(item.getCount() + orderingItem.getCount());
+                item.setCount(item.getCount() + basketItem.getCount());
                 break;
             }
         }
 
         if (!isExist) {
-            orderingItemArrayList.add(orderingItem);
+            basketItemArrayList.add(basketItem);
         }
     }
 
@@ -47,8 +47,8 @@ public class BasketManager {
     // 장바구니 내 모든 주문의 개수 총합
     public int getOrderCount() {
         int count = 0;
-        for (OrderingItem orderingItem : orderingItemArrayList) {
-            count += orderingItem.getCount();
+        for (BasketItem basketItem : basketItemArrayList) {
+            count += basketItem.getCount();
         }
 
         return count;
@@ -57,8 +57,8 @@ public class BasketManager {
     // 장바구니 내 모든 주문의 가격 총합
     public int getOrderPrice() {
         int price = 0;
-        for (OrderingItem orderingItem : orderingItemArrayList) {
-            price += orderingItem.getPrice() * orderingItem.getCount();
+        for (BasketItem basketItem : basketItemArrayList) {
+            price += basketItem.getPrice() * basketItem.getCount();
         }
 
         return price;

@@ -2,13 +2,13 @@ package com.uof.uof_mobile.listitem;
 
 import android.graphics.Bitmap;
 
-public class OrderingItem {
+public class BasketItem {
     private String menu;        // 상품명
     private String subMenu;     // 하위메뉴
     private int price;          // 가격
     private int count;          // 동일한 상품에 대한 개수
 
-    public OrderingItem(String menu, String subMenu, int price, int count) {
+    public BasketItem(String menu, String subMenu, int price, int count) {
         this.menu = menu;
         this.subMenu = subMenu;
         this.price = price;
@@ -47,7 +47,7 @@ public class OrderingItem {
         this.count = count;
     }
 
-    // OrderingItem(동일한 상품)의 개수와 개당 가격을 곱한 총 가격 반환
+    // BasketItem(동일한 상품)의 개수와 개당 가격을 곱한 총 가격 반환
     public int getTotalPrice() {
         return count * price;
     }

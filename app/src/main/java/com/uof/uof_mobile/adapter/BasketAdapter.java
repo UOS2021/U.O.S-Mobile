@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderingItem;
+import com.uof.uof_mobile.listitem.BasketItem;
 import com.uof.uof_mobile.manager.BasketManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
@@ -74,7 +74,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public AppCompatImageButton ibtnBasketItemCountDown;
         public TextInputLayout tilBasketItemCount;
         public AppCompatImageButton ibtnBasketItemCountUp;
-        public OrderingItem orderingItem;
+        public BasketItem basketItem;
         public int position;
 
         public BasketItemViewHolder(View view) {

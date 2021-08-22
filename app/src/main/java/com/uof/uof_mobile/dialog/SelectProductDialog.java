@@ -15,7 +15,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderingItem;
+import com.uof.uof_mobile.listitem.BasketItem;
 import com.uof.uof_mobile.listitem.OrderingProductItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
@@ -129,7 +129,7 @@ public class SelectProductDialog extends Dialog {
 
         // 상품 추가 버튼 클릭 시
         tvDlgSelectProductAdd.setOnClickListener(view -> {
-            this.selectProductDialogListener.onAddProductClicked(new OrderingItem(orderingProduct.getName(), "", orderingProduct.getPrice(), Integer.parseInt(tilDlgSelectProductCount.getEditText().getText().toString())));
+            this.selectProductDialogListener.onAddProductClicked(new BasketItem(orderingProduct.getName(), "", orderingProduct.getPrice(), Integer.parseInt(tilDlgSelectProductCount.getEditText().getText().toString())));
             dismiss();
         });
     }
@@ -139,6 +139,6 @@ public class SelectProductDialog extends Dialog {
     }
 
     public interface SelectProductDialogListener {
-        void onAddProductClicked(OrderingItem orderingItem);
+        void onAddProductClicked(BasketItem basketItem);
     }
 }

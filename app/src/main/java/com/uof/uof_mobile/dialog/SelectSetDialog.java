@@ -23,7 +23,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.SetProductAdapter;
-import com.uof.uof_mobile.listitem.OrderingItem;
+import com.uof.uof_mobile.listitem.BasketItem;
 import com.uof.uof_mobile.listitem.OrderingProductItem;
 import com.uof.uof_mobile.listitem.OrderingSetItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
@@ -196,7 +196,7 @@ public class SelectSetDialog extends Dialog {
 
         // 상품 추가 버튼 클릭 시
         llDlgSelectSetAdd.setOnClickListener(view -> {
-            this.selectSetDialogListener.onAddProductClicked(new OrderingItem(setData.getName(), setProductAdapter.getSubMenu(), setData.getPrice() + setProductAdapter.getAdditionalPrice(), Integer.valueOf(tilDlgSelectSetCount.getEditText().getText().toString())));
+            this.selectSetDialogListener.onAddProductClicked(new BasketItem(setData.getName(), setProductAdapter.getSubMenu(), setData.getPrice() + setProductAdapter.getAdditionalPrice(), Integer.valueOf(tilDlgSelectSetCount.getEditText().getText().toString())));
             dismiss();
         });
     }
@@ -210,6 +210,6 @@ public class SelectSetDialog extends Dialog {
     }
 
     public interface SelectSetDialogListener {
-        void onAddProductClicked(OrderingItem orderingItem);
+        void onAddProductClicked(BasketItem basketItem);
     }
 }
