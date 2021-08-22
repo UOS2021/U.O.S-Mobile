@@ -7,14 +7,12 @@ public class OrderingItem {
     private String subMenu;     // 하위메뉴
     private int price;          // 가격
     private int count;          // 동일한 상품에 대한 개수
-    private Bitmap image;       // 이미지
 
-    public OrderingItem(String menu, String subMenu, int price, int count, Bitmap image) {
+    public OrderingItem(String menu, String subMenu, int price, int count) {
         this.menu = menu;
         this.subMenu = subMenu;
         this.price = price;
         this.count = count;
-        this.image = image;
     }
 
     public String getMenu() {
@@ -47,14 +45,6 @@ public class OrderingItem {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
     }
 
     // OrderingItem(동일한 상품)의 개수와 개당 가격을 곱한 총 가격 반환

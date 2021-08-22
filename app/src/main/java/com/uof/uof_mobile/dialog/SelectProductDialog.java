@@ -129,7 +129,7 @@ public class SelectProductDialog extends Dialog {
 
         // 상품 추가 버튼 클릭 시
         tvDlgSelectProductAdd.setOnClickListener(view -> {
-            this.selectProductDialogListener.onAddProductClicked(new OrderingItem(orderingProduct.getName(), "", orderingProduct.getPrice(), Integer.parseInt(tilDlgSelectProductCount.getEditText().getText().toString()), orderingProduct.getImage()));
+            this.selectProductDialogListener.onAddProductClicked(new OrderingItem(orderingProduct.getName(), "", orderingProduct.getPrice(), Integer.parseInt(tilDlgSelectProductCount.getEditText().getText().toString())));
             dismiss();
         });
     }

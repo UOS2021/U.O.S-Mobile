@@ -196,7 +196,7 @@ public class SelectSetDialog extends Dialog {
 
         // 상품 추가 버튼 클릭 시
         llDlgSelectSetAdd.setOnClickListener(view -> {
-            this.selectSetDialogListener.onAddProductClicked(new OrderingItem(setData.getName(), setProductAdapter.getSubMenu(), setData.getPrice() + setProductAdapter.getAdditionalPrice(), Integer.valueOf(tilDlgSelectSetCount.getEditText().getText().toString()), setData.getImage()));
+            this.selectSetDialogListener.onAddProductClicked(new OrderingItem(setData.getName(), setProductAdapter.getSubMenu(), setData.getPrice() + setProductAdapter.getAdditionalPrice(), Integer.valueOf(tilDlgSelectSetCount.getEditText().getText().toString())));
             dismiss();
         });
     }
