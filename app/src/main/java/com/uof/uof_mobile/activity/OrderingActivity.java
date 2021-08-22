@@ -1,7 +1,6 @@
 package com.uof.uof_mobile.activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -517,7 +516,7 @@ public class OrderingActivity extends AppCompatActivity {
         orderingAdapter.setJson(productData);
         rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
         rvOrderingProductList.setAdapter(orderingAdapter);
-        Global.basketManager = new BasketManager();
+        Global.basketManager = new BasketManager(tvOrderingCompanyName.getText().toString());
 
         // 카테고리를 chipgroup에 추가
         for (int loop = 0; loop < productData.length(); loop++) {
@@ -596,9 +595,7 @@ public class OrderingActivity extends AppCompatActivity {
             if(Global.basketManager.getOrderCount() == 0){
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             }else {
-                Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
-                intent.putExtra("companyName", tvOrderingCompanyName.getText().toString());
-                startActivity(intent);
+                startActivity(new Intent(OrderingActivity.this, PayActivity.class));
             }
         });
     }
