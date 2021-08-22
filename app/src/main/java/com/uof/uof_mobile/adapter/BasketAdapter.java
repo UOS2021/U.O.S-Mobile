@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,13 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.BasketItem;
-import com.uof.uof_mobile.manager.BasketManager;
+import com.uof.uof_mobile.dialog.BasketDialog;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Global;
 
 public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private BasketAdapter.OnUpdateListener onUpdateListener = null;
+    private final BasketDialog basketDialog;
+
+    public BasketAdapter(BasketDialog basketDialog) {
+        this.basketDialog = basketDialog;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -70,7 +75,6 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public AppCompatImageButton ibtnBasketItemCountDown;
         public TextInputLayout tilBasketItemCount;
         public AppCompatImageButton ibtnBasketItemCountUp;
-        public BasketItem basketItem;
         public int position;
 
         public BasketItemViewHolder(View view) {
@@ -96,6 +100,10 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     if (onUpdateListener != null) {
                         onUpdateListener.onUpdate();
                     }
+                }
+
+                if (Global.basketManager.getOrderCount() == 0) {
+                    new Handler().postDelayed(() -> basketDialog.dismiss(), 300);
                 }
             });
 
