@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public class BasketManager {
     private ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
+    private String companyName;
 
-    public BasketManager() {
-
+    public BasketManager(String companyName) {
+        this.companyName = companyName;
     }
 
     public ArrayList<BasketItem> getOrderingItemArrayList() {
@@ -62,5 +63,13 @@ public class BasketManager {
         }
 
         return price;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
