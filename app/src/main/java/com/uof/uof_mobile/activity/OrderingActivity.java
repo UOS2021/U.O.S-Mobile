@@ -594,6 +594,7 @@ public class OrderingActivity extends AppCompatActivity {
         // 결제 버튼이 눌렸을 경우
         llOrderingPay.setOnClickListener(view -> {
             Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
+            intent.putExtra("companyName", tvOrderingCompanyName.getText().toString());
             startActivity(intent);
         });
     }
