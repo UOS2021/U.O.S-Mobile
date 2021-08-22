@@ -54,7 +54,7 @@ public class BasketDialog extends Dialog {
 
         tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
 
-        basketAdapter = new BasketAdapter(Global.basketManager);
+        basketAdapter = new BasketAdapter();
         rvDlgBasket.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(context.getResources().getDrawable(R.drawable.recyclerview_divider));
