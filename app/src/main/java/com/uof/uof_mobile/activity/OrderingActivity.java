@@ -476,7 +476,6 @@ public class OrderingActivity extends AppCompatActivity {
     private JSONObject companyData;
     private JSONArray productData;
     private OrderingAdapter orderingAdapter;
-    private BasketManager basketManager;
     private String selectedCategory;
 
     @Override
@@ -518,7 +517,7 @@ public class OrderingActivity extends AppCompatActivity {
         orderingAdapter.setJson(productData);
         rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
         rvOrderingProductList.setAdapter(orderingAdapter);
-        basketManager = new BasketManager();
+        Global.basketManager = new BasketManager();
 
         // 카테고리를 chipgroup에 추가
         for (int loop = 0; loop < productData.length(); loop++) {
@@ -564,7 +563,7 @@ public class OrderingActivity extends AppCompatActivity {
                 // 선택된 아이템이 단일상품일 경우
                 new SelectProductDialog(OrderingActivity.this, orderingProductItem, (orderingItem) -> {
                     if (orderingItem.getCount() >= 1) {
-                        basketManager.addItem(orderingItem);
+                        Global.basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
                 }).show();
@@ -572,7 +571,7 @@ public class OrderingActivity extends AppCompatActivity {
                 // 선택된 아이템이 세트상품일 경우
                 new SelectSetDialog(OrderingActivity.this, (OrderingSetItem) orderingProductItem, (orderingItem) -> {
                     if (orderingItem.getCount() >= 1) {
-                        basketManager.addItem(orderingItem);
+                        Global.basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
                 }).show();
@@ -581,10 +580,10 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 선택정보창 버튼이 눌렸을 경우
         llOrderingSelected.setOnClickListener(view -> {
-            if(basketManager.getOrderCount() == 0){
+            if(Global.basketManager.getOrderCount() == 0){
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             }else {
-                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, basketManager);
+                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -600,7 +599,7 @@ public class OrderingActivity extends AppCompatActivity {
     }
 
     private void updatePriceInfo() {
-        tvOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()));
-        tvOrderingProductCount.setText(String.valueOf(basketManager.getOrderCount()));
+        tvOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
+        tvOrderingProductCount.setText(String.valueOf(Global.basketManager.getOrderCount()));
     }
 }
