@@ -13,6 +13,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -26,10 +27,12 @@ public class AddCardDialog extends AppCompatDialog {
     private TextInputLayout tilAddCardCvc;
     private TextInputLayout tilAddCardPw;
     private AppCompatButton btnAddCardApply;
+    private Card card;
 
-    public AddCardDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
+    public AddCardDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, Card card) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
+        this.card = card;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -53,6 +56,13 @@ public class AddCardDialog extends AppCompatDialog {
         tilAddCardCvc = findViewById(R.id.til_addcard_cvc);
         tilAddCardPw = findViewById(R.id.til_addcard_pw);
         btnAddCardApply = findViewById(R.id.btn_addcard_apply);
+
+        if (card.getNum().length() > 0) {
+            tilAddCardNum.getEditText().setText(card.getNum());
+            tilAddCardMonth.getEditText().setText(card.getDueDate().substring(0, 2));
+            tilAddCardYear.getEditText().setText(card.getDueDate().substring(3, 5));
+            tilAddCardCvc.getEditText().setText(card.getCvc());
+        }
 
         ibtnAddCardClose.setOnClickListener(view -> {
             dismiss();
