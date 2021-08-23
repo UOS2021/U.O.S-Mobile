@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="현재 전화번호"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgchangephone_currentphone"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="TextView"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -64,8 +64,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_dark"
-            android:textColor="@color/black"
-            android:text="완료" />
+            android:text="완료"
+            android:textColor="@color/black" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

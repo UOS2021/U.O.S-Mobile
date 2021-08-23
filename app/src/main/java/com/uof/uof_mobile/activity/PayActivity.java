@@ -1,6 +1,5 @@
 package com.uof.uof_mobile.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +28,12 @@ import com.uof.uof_mobile.other.Global;
 import org.json.JSONObject;
 
 public class PayActivity extends AppCompatActivity {
+    ActivityResultLauncher<Intent> goToCardActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult()
+            , result -> {
+                new PayActivity.GetCard().start();
+            }
+    );
     private AppCompatImageButton ibtnPayBack;
     private AppCompatTextView tvPayCompanyName;
     private RecyclerView rvPayOrderList;
@@ -109,13 +114,6 @@ public class PayActivity extends AppCompatActivity {
 
         });
     }
-
-    ActivityResultLauncher<Intent> goToCardActivity = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult()
-            , result -> {
-                new PayActivity.GetCard().start();
-            }
-    );
 
     private void setCardData(String cardNum) {
         tvPayNoCard.setVisibility(View.GONE);

@@ -21,8 +21,8 @@ import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Global;
 
 public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private BasketAdapter.OnUpdateListener onUpdateListener = null;
     private final BasketDialog basketDialog;
+    private BasketAdapter.OnUpdateListener onUpdateListener = null;
 
     public BasketAdapter(BasketDialog basketDialog) {
         this.basketDialog = basketDialog;

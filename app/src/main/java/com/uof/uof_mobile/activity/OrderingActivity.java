@@ -528,7 +528,7 @@ public class OrderingActivity extends AppCompatActivity {
                     orderingAdapter.setSelectedCategory(selectedCategory);
                     rvOrderingProductList.setAdapter(orderingAdapter);
                     chip.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                  chip.setTextColor(getResources().getColor(R.color.black));
+                    chip.setTextColor(getResources().getColor(R.color.black));
                 });
             } catch (Exception e) {
                 e.printStackTrace();
@@ -579,9 +579,9 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 선택정보창 버튼이 눌렸을 경우
         llOrderingSelected.setOnClickListener(view -> {
-            if(Global.basketManager.getOrderCount() == 0){
+            if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 BasketDialog basketDialog = new BasketDialog(OrderingActivity.this);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
@@ -592,9 +592,9 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 결제 버튼이 눌렸을 경우
         llOrderingPay.setOnClickListener(view -> {
-            if(Global.basketManager.getOrderCount() == 0){
+            if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 startActivity(new Intent(OrderingActivity.this, PayActivity.class));
             }
         });

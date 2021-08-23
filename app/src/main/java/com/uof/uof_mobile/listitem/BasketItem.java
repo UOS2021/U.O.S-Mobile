@@ -1,7 +1,5 @@
 package com.uof.uof_mobile.listitem;
 
-import android.graphics.Bitmap;
-
 public class BasketItem {
     private String menu;        // 상품명
     private String subMenu;     // 하위메뉴

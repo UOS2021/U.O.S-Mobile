@@ -55,6 +55,7 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_setproduct_selected"
             android:layout_width="wrap_content"

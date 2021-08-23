@@ -13,15 +13,14 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.listitem.OrderingProductItem;
+import com.uof.uof_mobile.other.OrderingCategory;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-import com.uof.uof_mobile.listitem.OrderingProductItem;
-import com.uof.uof_mobile.other.OrderingCategory;
 
 public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final ArrayList<OrderingCategory> orderingCategoryArrayList = new ArrayList<>();    // 세트창 내 카테고리별 상품 데이터
@@ -40,11 +39,7 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ((SetProductViewHolder) viewHolder).tvSetProductName.setText(getCategoryItems().get(position).getName());
         ((SetProductViewHolder) viewHolder).tvSetProductPrice.setText(new DecimalFormat("+###,###원").format(getCategoryItems().get(position).getPrice()));
         ((SetProductViewHolder) viewHolder).tvSetProductDesc.setText(getCategoryItems().get(position).getDesc());
-        if (getCategoryItems().get(position).getSelected()) {
-            ((SetProductViewHolder) viewHolder).rbSetProductSelected.setChecked(true);
-        } else {
-            ((SetProductViewHolder) viewHolder).rbSetProductSelected.setChecked(false);
-        }
+        ((SetProductViewHolder) viewHolder).rbSetProductSelected.setChecked(getCategoryItems().get(position).getSelected());
     }
 
     // category_list JSONArray 데이터를 Adapter 데이터로 저장
