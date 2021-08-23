@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.dialog.AddCardDialog;
+import com.uof.uof_mobile.dialog.CardDialog;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
@@ -72,11 +72,11 @@ public class CardActivity extends AppCompatActivity {
         // 카드이미지가 눌렸을 경우
         ivCardBackground.setOnClickListener(view -> {
             // 카드이미지가 눌렸을 경우
-            AddCardDialog addCardDialog = new AddCardDialog(CardActivity.this, true, true, card);
-            addCardDialog.setOnDismissListener(dialogInterface -> {
+            CardDialog cardDialog = new CardDialog(CardActivity.this, true, true, card);
+            cardDialog.setOnDismissListener(dialogInterface -> {
                 new GetCard().start();
             });
-            addCardDialog.show();
+            cardDialog.show();
         });
     }
 

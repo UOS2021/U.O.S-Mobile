@@ -18,7 +18,7 @@ import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class AddCardDialog extends AppCompatDialog {
+public class CardDialog extends AppCompatDialog {
     private final Context context;
     private AppCompatImageButton ibtnAddCardClose;
     private TextInputLayout tilAddCardNum;
@@ -29,7 +29,7 @@ public class AddCardDialog extends AppCompatDialog {
     private AppCompatButton btnAddCardApply;
     private Card card;
 
-    public AddCardDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, Card card) {
+    public CardDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, Card card) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.card = card;
@@ -41,7 +41,7 @@ public class AddCardDialog extends AppCompatDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_addcard);
+        setContentView(R.layout.dialog_card);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
 

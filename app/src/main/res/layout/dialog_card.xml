@@ -9,6 +9,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:background="@color/color_primary"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -23,9 +24,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:gravity="center"
             android:text="카드 등록"
-            android:textColor="@color/black">
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold">
 
         </TextView>
 
