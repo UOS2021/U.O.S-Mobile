@@ -51,10 +51,10 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         btn_orderlist.setOnClickListener(view -> {
-//            Intent intent = new Intent(LobbyActivity.this, OrderListActivity.class);
-//            startActivity(intent);
-            Intent intent = new Intent(LobbyActivity.this, OrderingActivity.class);
+            Intent intent = new Intent(LobbyActivity.this, OrderListActivity.class);
             startActivity(intent);
+//            Intent intent = new Intent(LobbyActivity.this, OrderingActivity.class);
+//            startActivity(intent);
         });
 
         btn_setting.setOnClickListener(view -> {
