@@ -15,8 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:textColor="@color/black"
-            android:text="가입 유형을 선택해주세요" />
+            android:text="가입 유형을 선택해주세요"
+            android:textColor="@color/black" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -42,8 +42,8 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="일반 고객" />
+                android:text="일반 고객"
+                android:textColor="@color/black" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -65,8 +65,8 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="U.O.F 파트너" />
+                android:text="U.O.F 파트너"
+                android:textColor="@color/black" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_dark"
-        android:textColor="@color/black"
-        android:text="취소" />
+        android:text="취소"
+        android:textColor="@color/black" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -4,7 +4,7 @@
     style="@style/Widget.MaterialComponents.Chip.Choice"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:chipBackgroundColor="@color/white"
-    android:textColor="@color/black">
+    android:textColor="@color/black"
+    app:chipBackgroundColor="@color/white">
 
 </com.google.android.material.chip.Chip>

@@ -2,6 +2,7 @@ package com.uof.uof_mobile.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 
@@ -14,23 +15,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.activity.PayActivity;
 import com.uof.uof_mobile.adapter.BasketAdapter;
-import com.uof.uof_mobile.manager.BasketManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 public class BasketDialog extends Dialog {
     private final Context context;
-    private final BasketManager basketManager;
     private AppCompatImageButton ibtnDlgBasketClose;
     private RecyclerView rvDlgBasket;
     private AppCompatTextView tvDlgBasketTotalPrice;
-    private LinearLayoutCompat llDlgBasketPay;
+    private LinearLayoutCompat llDlgBasketOrder;
     private BasketAdapter basketAdapter;
 
-    public BasketDialog(@NonNull Context context, BasketManager basketManager) {
+    public BasketDialog(@NonNull Context context) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
-        this.basketManager = basketManager;
 
         setCanceledOnTouchOutside(false);
         setCancelable(true);
@@ -51,11 +51,11 @@ public class BasketDialog extends Dialog {
         ibtnDlgBasketClose = findViewById(R.id.ibtn_dlgbasket_close);
         rvDlgBasket = findViewById(R.id.rv_dlgbasket);
         tvDlgBasketTotalPrice = findViewById(R.id.tv_dlgbasket_totalprice);
-        llDlgBasketPay = findViewById(R.id.ll_dlgbasket_order);
+        llDlgBasketOrder = findViewById(R.id.ll_dlgbasket_order);
 
-        tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()));
+        tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
 
-        basketAdapter = new BasketAdapter(basketManager);
+        basketAdapter = new BasketAdapter(this);
         rvDlgBasket.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(context.getResources().getDrawable(R.drawable.recyclerview_divider));
@@ -69,7 +69,12 @@ public class BasketDialog extends Dialog {
 
         // 장바구니 아이템 수량 변경 시
         basketAdapter.setOnUpdateListener(() -> {
-            tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()));
+            tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
+        });
+
+        // 주문하기 버튼 클릭 시
+        llDlgBasketOrder.setOnClickListener(view -> {
+            context.startActivity(new Intent(context, PayActivity.class));
         });
     }
 }

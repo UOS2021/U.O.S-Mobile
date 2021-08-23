@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,16 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderingItem;
-import com.uof.uof_mobile.manager.BasketManager;
+import com.uof.uof_mobile.dialog.BasketDialog;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final BasketManager basketManager;
+    private final BasketDialog basketDialog;
     private BasketAdapter.OnUpdateListener onUpdateListener = null;
 
-    public BasketAdapter(BasketManager basketManager) {
-        this.basketManager = basketManager;
+    public BasketAdapter(BasketDialog basketDialog) {
+        this.basketDialog = basketDialog;
     }
 
     @Override
@@ -37,11 +38,11 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ((BasketItemViewHolder) viewHolder).position = viewHolder.getAdapterPosition();
-        ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(basketManager.getOrderingItemArrayList().get(position).getMenu());
-        ((BasketItemViewHolder) viewHolder).tvBasketItemPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getPrice()) + "원");
-        ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n"));
-        ((BasketItemViewHolder) viewHolder).tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
-        ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setText(String.valueOf(basketManager.getOrderingItemArrayList().get(position).getCount()));
+        ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu());
+        ((BasketItemViewHolder) viewHolder).tvBasketItemPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getPrice()) + "원");
+        ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n"));
+        ((BasketItemViewHolder) viewHolder).tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
+        ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setText(String.valueOf(Global.basketManager.getOrderingItemArrayList().get(position).getCount()));
     }
 
     public void setOnUpdateListener(BasketAdapter.OnUpdateListener onUpdateListener) {
@@ -50,7 +51,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return basketManager.getOrderingItemArrayList().size();
+        return Global.basketManager.getOrderingItemArrayList().size();
     }
 
     @Override
@@ -63,7 +64,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onUpdate();
     }
 
-    // 단일상품 뷰 관리자
+    // 상품 뷰 관리자
     public class BasketItemViewHolder extends RecyclerView.ViewHolder {
         public ConstraintLayout clBasketItem;
         public AppCompatTextView tvBasketItemMenu;
@@ -74,7 +75,6 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public AppCompatImageButton ibtnBasketItemCountDown;
         public TextInputLayout tilBasketItemCount;
         public AppCompatImageButton ibtnBasketItemCountUp;
-        public OrderingItem orderingItem;
         public int position;
 
         public BasketItemViewHolder(View view) {
@@ -92,21 +92,26 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             // 삭품 제거 버튼 클릭 시
             ibtnBasketItemRemove.setOnClickListener(v -> {
-                basketManager.getOrderingItemArrayList().remove(position);
+                Global.basketManager.getOrderingItemArrayList().remove(position);
                 notifyItemRemoved(position);
-                notifyItemRangeChanged(position, basketManager.getOrderingItemArrayList().size());
+                notifyItemRangeChanged(position, Global.basketManager.getOrderingItemArrayList().size());
+
                 if (position != RecyclerView.NO_POSITION) {
                     if (onUpdateListener != null) {
                         onUpdateListener.onUpdate();
                     }
                 }
+
+                if (Global.basketManager.getOrderCount() == 0) {
+                    new Handler().postDelayed(() -> basketDialog.dismiss(), 300);
+                }
             });
 
             // 상품 개수 감소 버튼 클릭 시
             ibtnBasketItemCountDown.setOnClickListener(v -> {
-                int currentCount = basketManager.getOrderingItemArrayList().get(position).getCount();
+                int currentCount = Global.basketManager.getOrderingItemArrayList().get(position).getCount();
                 if (currentCount > 1) {
-                    basketManager.getOrderingItemArrayList().get(position).setCount(currentCount - 1);
+                    Global.basketManager.getOrderingItemArrayList().get(position).setCount(currentCount - 1);
                     updatePriceInfo();
                 }
             });
@@ -126,9 +131,9 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void afterTextChanged(Editable editable) {
                     if (editable.toString().equals("") || Integer.valueOf(editable.toString()) < 1) {
-                        basketManager.getOrderingItemArrayList().get(position).setCount(1);
+                        Global.basketManager.getOrderingItemArrayList().get(position).setCount(1);
                     } else {
-                        basketManager.getOrderingItemArrayList().get(position).setCount(Integer.valueOf(tilBasketItemCount.getEditText().getText().toString()));
+                        Global.basketManager.getOrderingItemArrayList().get(position).setCount(Integer.valueOf(tilBasketItemCount.getEditText().getText().toString()));
                     }
                 }
             });
@@ -144,14 +149,14 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             // 상품 개수 증가 버튼 클릭 시
             ibtnBasketItemCountUp.setOnClickListener(v -> {
-                basketManager.getOrderingItemArrayList().get(position).setCount(basketManager.getOrderingItemArrayList().get(position).getCount() + 1);
+                Global.basketManager.getOrderingItemArrayList().get(position).setCount(Global.basketManager.getOrderingItemArrayList().get(position).getCount() + 1);
                 updatePriceInfo();
             });
         }
 
         private void updatePriceInfo() {
-            tilBasketItemCount.getEditText().setText(String.valueOf(basketManager.getOrderingItemArrayList().get(position).getCount()));
-            tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
+            tilBasketItemCount.getEditText().setText(String.valueOf(Global.basketManager.getOrderingItemArrayList().get(position).getCount()));
+            tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
 
             if (position != RecyclerView.NO_POSITION) {
                 if (onUpdateListener != null) {

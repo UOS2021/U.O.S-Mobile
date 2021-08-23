@@ -63,8 +63,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:textColor="@color/black"
-                    android:text="U.O.F 파트너 이신가요?" />
+                    android:text="U.O.F 파트너 이신가요?"
+                    android:textColor="@color/black" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_login_id"
@@ -94,8 +94,8 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:background="@color/color_dark"
-                    android:textColor="@color/black"
                     android:text="로그인"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </androidx.appcompat.widget.LinearLayoutCompat>

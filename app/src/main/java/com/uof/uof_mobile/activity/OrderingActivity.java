@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -474,7 +475,6 @@ public class OrderingActivity extends AppCompatActivity {
     private JSONObject companyData;
     private JSONArray productData;
     private OrderingAdapter orderingAdapter;
-    private BasketManager basketManager;
     private String selectedCategory;
 
     @Override
@@ -516,7 +516,7 @@ public class OrderingActivity extends AppCompatActivity {
         orderingAdapter.setJson(productData);
         rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
         rvOrderingProductList.setAdapter(orderingAdapter);
-        basketManager = new BasketManager();
+        Global.basketManager = new BasketManager(tvOrderingCompanyName.getText().toString());
 
         // 카테고리를 chipgroup에 추가
         for (int loop = 0; loop < productData.length(); loop++) {
@@ -528,7 +528,7 @@ public class OrderingActivity extends AppCompatActivity {
                     orderingAdapter.setSelectedCategory(selectedCategory);
                     rvOrderingProductList.setAdapter(orderingAdapter);
                     chip.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                  chip.setTextColor(getResources().getColor(R.color.black));
+                    chip.setTextColor(getResources().getColor(R.color.black));
                 });
             } catch (Exception e) {
                 e.printStackTrace();
@@ -544,7 +544,14 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 뒤로가기 버튼이 눌렸을 경우
         ibtnOrderingBack.setOnClickListener(view -> {
-            finish();
+            new AlertDialog.Builder(OrderingActivity.this)
+                    .setTitle("주문 취소")
+                    .setMessage("주문창에서 나가시겠습니까?")
+                    .setPositiveButton("확인", (dialogInterface, i) -> {
+                        finish();
+                    })
+                    .setNegativeButton("취소", (dialogInterface, i) -> {
+                    }).show();
         });
 
         // 리스트 아이템이 눌렸을 경우
@@ -555,7 +562,7 @@ public class OrderingActivity extends AppCompatActivity {
                 // 선택된 아이템이 단일상품일 경우
                 new SelectProductDialog(OrderingActivity.this, orderingProductItem, (orderingItem) -> {
                     if (orderingItem.getCount() >= 1) {
-                        basketManager.addItem(orderingItem);
+                        Global.basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
                 }).show();
@@ -563,7 +570,7 @@ public class OrderingActivity extends AppCompatActivity {
                 // 선택된 아이템이 세트상품일 경우
                 new SelectSetDialog(OrderingActivity.this, (OrderingSetItem) orderingProductItem, (orderingItem) -> {
                     if (orderingItem.getCount() >= 1) {
-                        basketManager.addItem(orderingItem);
+                        Global.basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
                 }).show();
@@ -572,22 +579,29 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 선택정보창 버튼이 눌렸을 경우
         llOrderingSelected.setOnClickListener(view -> {
-            BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, basketManager);
-            basketDialog.setOnDismissListener(dialogInterface -> {
-                updatePriceInfo();
-            });
-            basketDialog.show();
+            if (Global.basketManager.getOrderCount() == 0) {
+                Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
+            } else {
+                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this);
+                basketDialog.setOnDismissListener(dialogInterface -> {
+                    updatePriceInfo();
+                });
+                basketDialog.show();
+            }
         });
 
         // 결제 버튼이 눌렸을 경우
         llOrderingPay.setOnClickListener(view -> {
-            Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
-            startActivity(intent);
+            if (Global.basketManager.getOrderCount() == 0) {
+                Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(OrderingActivity.this, PayActivity.class));
+            }
         });
     }
 
     private void updatePriceInfo() {
-        tvOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()));
-        tvOrderingProductCount.setText(String.valueOf(basketManager.getOrderCount()));
+        tvOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
+        tvOrderingProductCount.setText(String.valueOf(Global.basketManager.getOrderCount()));
     }
 }

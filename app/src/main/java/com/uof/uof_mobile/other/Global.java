@@ -2,12 +2,14 @@ package com.uof.uof_mobile.other;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.uof.uof_mobile.manager.BasketManager;
 import com.uof.uof_mobile.manager.SocketManager;
 
 import java.util.ArrayList;
 
 public class Global {
     public static SocketManager socketManager;
+    public static BasketManager basketManager;
     public static ArrayList<AppCompatActivity> activities = new ArrayList<>();
 
     public static class User {
