@@ -1,11 +1,3 @@
----
-name: Pull-Request Template
-about: Pull-Request Template
-title: '[U.O.F-Mobile] '
-labels: 'Status: To Do'
-assignees: ''
----
-
 ## 주요 변경사항
 > ### 부제목
 > - 설명
