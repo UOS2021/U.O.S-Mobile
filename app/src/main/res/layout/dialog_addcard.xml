@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -43,6 +44,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
+                android:inputType="numberDecimal"
                 android:maxLength="16"
                 android:singleLine="true" />
 
@@ -61,7 +63,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditText_Register"
                     android:gravity="center"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="2"
                     android:singleLine="true" />
 
@@ -76,7 +78,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditText_Register"
                     android:gravity="center"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="2"
                     android:singleLine="true" />
 
@@ -91,7 +93,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditText_Register"
                     android:gravity="center"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="3"
                     android:singleLine="true" />
 
@@ -103,7 +105,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_addcard_pw"
             style="@style/TextInputLayout_Register"
-            android:hint="비밀번호를 입력해주세요">
+            android:hint="비밀번호를 입력해주세요"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
