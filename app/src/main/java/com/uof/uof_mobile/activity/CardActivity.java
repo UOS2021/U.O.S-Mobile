@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.AddCardDialog;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -26,6 +27,7 @@ public class CardActivity extends AppCompatActivity {
     private ConstraintLayout clCardUiGroup;
     private AppCompatTextView tvCardUserName;
     private AppCompatTextView tvCardCardNum;
+    private Card card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class CardActivity extends AppCompatActivity {
         clCardUiGroup = findViewById(R.id.cl_card_uigroup);
         tvCardUserName = findViewById(R.id.tv_card_username);
         tvCardCardNum = findViewById(R.id.tv_card_cardnum);
+
+        card = new Card();
 
         // 초기 UI 상태 설정
         removeCardData();
@@ -68,7 +72,7 @@ public class CardActivity extends AppCompatActivity {
         // 카드이미지가 눌렸을 경우
         ivCardBackground.setOnClickListener(view -> {
             // 카드이미지가 눌렸을 경우
-            AddCardDialog addCardDialog = new AddCardDialog(CardActivity.this, true, true);
+            AddCardDialog addCardDialog = new AddCardDialog(CardActivity.this, true, true, card);
             addCardDialog.setOnDismissListener(dialogInterface -> {
                 new GetCard().start();
             });
@@ -76,14 +80,14 @@ public class CardActivity extends AppCompatActivity {
         });
     }
 
-    private void setCardData(String cardNum) {
+    private void setCardData() {
         tvCardNoCard.setVisibility(View.GONE);
         clCardUiGroup.setVisibility(View.VISIBLE);
         ibtnCardDelete.setVisibility(View.VISIBLE);
         ibtnCardDelete.setEnabled(true);
 
         tvCardUserName.setText(Global.User.name);
-        tvCardCardNum.setText(cardNum);
+        tvCardCardNum.setText(card.getNum());
     }
 
     private void removeCardData() {
@@ -123,27 +127,32 @@ public class CardActivity extends AppCompatActivity {
 
                 if (responseCode.equals(Global.Network.Response.CARD_INFO)) {
                     // 카드 불러오기 성공
-                    String cardNum = recvData.getJSONObject("message").getString("num");
+                    card.setNum(recvData.getJSONObject("message").getString("num"));
+                    card.setDueDate(recvData.getJSONObject("message").getString("due_date"));
+                    card.setCvc(recvData.getJSONObject("message").getString("cvc"));
                     runOnUiThread(() -> {
-                        setCardData(cardNum);
-                    });
-                } else if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
-                    // 카드 없음
-                    runOnUiThread(() -> {
-                        removeCardData();
-                    });
-                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
-                    runOnUiThread(() -> {
-                        removeCardData();
-                        Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                        setCardData();
                     });
                 } else {
-                    // 카드 불러오기 실패
-                    runOnUiThread(() -> {
-                        removeCardData();
-                        tvCardNoCard.setText("카드를 불러올 수 없습니다");
-                    });
+                    card.clear();
+                    if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
+                        // 카드 없음
+                        runOnUiThread(() -> {
+                            removeCardData();
+                        });
+                    } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
+                        // 서버 연결 실패
+                        runOnUiThread(() -> {
+                            removeCardData();
+                            Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        // 카드 불러오기 실패
+                        runOnUiThread(() -> {
+                            removeCardData();
+                            tvCardNoCard.setText("카드를 불러올 수 없습니다");
+                        });
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
