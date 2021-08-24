@@ -2,8 +2,10 @@ package com.uof.uof_mobile.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.Preference;
@@ -88,7 +90,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
         // 회원탈퇴가 눌렸을 경우
         btnWithdrawal.setOnPreferenceClickListener(preference -> {
-            new AlertDialog.Builder(context)
+            AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogTheme)
                     .setTitle("U.O.F 탈퇴")
                     .setMessage("U.O.F를 탈퇴하시겠습니까?")
                     .setPositiveButton("예", (dialogInterface, i) -> {
@@ -133,7 +135,14 @@ public class SettingPreferenceFragment extends PreferenceFragment {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
                     })
-                    .setNegativeButton("아니오", null).create().show();
+                    .setNegativeButton("아니오", null).create();
+
+            alertDialog.setOnShowListener(dialogInterface -> {
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+            });
+
+            alertDialog.show();
 
             return false;
         });

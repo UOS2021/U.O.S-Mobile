@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.activity;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -59,14 +60,20 @@ public class CardActivity extends AppCompatActivity {
 
         // 삭제 버튼이 눌렸을 경우
         ibtnCardDelete.setOnClickListener(view -> {
-            new AlertDialog.Builder(CardActivity.this)
+            AlertDialog alertDialog = new AlertDialog.Builder(CardActivity.this, R.style.AlertDialogTheme)
                     .setTitle("카드 제거")
                     .setMessage("카드를 제거하시겠습니까?")
                     .setPositiveButton("제거", (dialogInterface, i) -> {
                         new RemoveCard().start();
                     })
-                    .setNegativeButton("취소", null)
-                    .show();
+                    .setNegativeButton("취소", null).create();
+
+            alertDialog.setOnShowListener(dialogInterface -> {
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+            });
+
+            alertDialog.show();
         });
 
         // 카드이미지가 눌렸을 경우
