@@ -3,7 +3,10 @@ package com.uof.uof_mobile.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.manager.PatternManager;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -21,7 +25,7 @@ public class ChangePwDialog extends Dialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgChangePwClose;
     private TextInputLayout tilDlgChangePwChangePw;
-    private AppCompatButton btnDlgChangePwApply;
+    private TextView tvDlgChangePwApply;
 
     public ChangePwDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
         super(context, R.style.DialogTheme_FullScreenDialog);
@@ -46,13 +50,42 @@ public class ChangePwDialog extends Dialog {
     private void init() {
         ibtnDlgChangePwClose = findViewById(R.id.ibtn_dlgchangepw_close);
         tilDlgChangePwChangePw = findViewById(R.id.til_dlgchangepw_changepw);
-        btnDlgChangePwApply = findViewById(R.id.btn_dlgchangepw_apply);
+        tvDlgChangePwApply = findViewById(R.id.tv_dlgchangepw_apply);
 
         ibtnDlgChangePwClose.setOnClickListener(view -> {
             dismiss();
         });
 
-        btnDlgChangePwApply.setOnClickListener(view -> {
+        tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.color_light));
+        tvDlgChangePwApply.setEnabled(false);
+        tilDlgChangePwChangePw.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int result = PatternManager.checkPw(editable.toString());
+
+                if (result == Global.Pattern.LENGTH_SHORT) {
+                    tilDlgChangePwChangePw.setError("바꿀 비밀번호는 8자리 이상이어야 합니다");
+                    tilDlgChangePwChangePw.setErrorEnabled(true);
+                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                    tilDlgChangePwChangePw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
+                    tilDlgChangePwChangePw.setErrorEnabled(true);
+                } else {
+                    tilDlgChangePwChangePw.setError(null);
+                    tilDlgChangePwChangePw.setErrorEnabled(false);
+                    tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.black));
+                    tvDlgChangePwApply.setEnabled(true);
+                }
+            }
+        });
+        tvDlgChangePwApply.setOnClickListener(view -> {
             try {
                 JSONObject sendData = new JSONObject();
                 sendData.put("request_code", Global.Network.Request.CHANGE_PW);
