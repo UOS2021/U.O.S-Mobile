@@ -3,7 +3,10 @@ package com.uof.uof_mobile.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +17,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.manager.PatternManager;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -23,7 +27,7 @@ public class ChangePhoneDialog extends Dialog {
     private AppCompatImageButton ibtnDlgChangePhoneClose;
     private AppCompatTextView tvDlgChangePhoneCurrentPhone;
     private TextInputLayout tilDlgChangePhoneChangePhone;
-    private AppCompatButton btnDlgChangePhoneApply;
+    private TextView tvDlgChangePhoneApply;
 
     public ChangePhoneDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
         super(context, R.style.DialogTheme_FullScreenDialog);
@@ -47,7 +51,7 @@ public class ChangePhoneDialog extends Dialog {
         ibtnDlgChangePhoneClose = findViewById(R.id.ibtn_dlgchangephone_close);
         tvDlgChangePhoneCurrentPhone = findViewById(R.id.tv_dlgchangephone_currentphone);
         tilDlgChangePhoneChangePhone = findViewById(R.id.til_dlgchangephone_changephone);
-        btnDlgChangePhoneApply = findViewById(R.id.btn_dlgchangephone_apply);
+        tvDlgChangePhoneApply = findViewById(R.id.tv_dlgchangephone_apply);
 
         tvDlgChangePhoneCurrentPhone.setText(Global.User.phone);
 
@@ -55,7 +59,33 @@ public class ChangePhoneDialog extends Dialog {
             dismiss();
         });
 
-        btnDlgChangePhoneApply.setOnClickListener(view -> {
+        tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.color_light));
+        tvDlgChangePhoneApply.setEnabled(false);
+        tilDlgChangePhoneChangePhone.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int result = PatternManager.checkPhoneNumber(editable.toString());
+
+                if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                    tilDlgChangePhoneChangePhone.setError("전화번호 형식이 맞지 않습니다");
+                    tilDlgChangePhoneChangePhone.setErrorEnabled(true);
+                } else {
+                    tilDlgChangePhoneChangePhone.setError(null);
+                    tilDlgChangePhoneChangePhone.setErrorEnabled(false);
+                    tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.black));
+                    tvDlgChangePhoneApply.setEnabled(true);
+                }
+            }
+        });
+        tvDlgChangePhoneApply.setOnClickListener(view -> {
             try {
                 JSONObject sendData = new JSONObject();
                 sendData.put("request_code", Global.Network.Request.CHANGE_PHONE);
