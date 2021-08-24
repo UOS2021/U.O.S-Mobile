@@ -21,9 +21,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_dlgcheckpw_pw"
             style="@style/TextInputLayout_Register"
-            android:paddingBottom="32dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30">
+            android:paddingBottom="32dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
