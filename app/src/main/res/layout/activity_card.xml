@@ -74,6 +74,7 @@
                 android:id="@+id/tv_card_nocard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="등록된 카드가 없습니다"
                 android:textColor="#60000000"
                 app:layout_constraintBottom_toBottomOf="parent"
