@@ -91,11 +91,12 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private void removeCardData() {
-        tvCardNoCard.setText("등록된 카드가 없습니다");
+        tvCardNoCard.setText("터치하여 카드를 등록하세요");
         clCardUiGroup.setVisibility(View.GONE);
         tvCardNoCard.setVisibility(View.VISIBLE);
         ibtnCardDelete.setVisibility(View.INVISIBLE);
         ibtnCardDelete.setEnabled(false);
+        card.clear();
     }
 
     @Override
@@ -127,14 +128,17 @@ public class CardActivity extends AppCompatActivity {
 
                 if (responseCode.equals(Global.Network.Response.CARD_INFO)) {
                     // 카드 불러오기 성공
-                    card.setNum(recvData.getJSONObject("message").getString("num"));
-                    card.setDueDate(recvData.getJSONObject("message").getString("due_date"));
-                    card.setCvc(recvData.getJSONObject("message").getString("cvc"));
                     runOnUiThread(() -> {
-                        setCardData();
+                        try {
+                            card.setNum(recvData.getJSONObject("message").getString("num"));
+                            card.setDueDate(recvData.getJSONObject("message").getString("due_date"));
+                            card.setCvc(recvData.getJSONObject("message").getString("cvc"));
+                            setCardData();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     });
                 } else {
-                    card.clear();
                     if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
                         // 카드 없음
                         runOnUiThread(() -> {
@@ -156,7 +160,6 @@ public class CardActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-
                 runOnUiThread(() -> {
                     Toast.makeText(CardActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     removeCardData();
