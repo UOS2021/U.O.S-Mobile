@@ -10,7 +10,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <!-- TextInputLayuout Style -->
+    <!-- TextInputLayout Style -->
     <style name="TextInputLayout_Register" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
