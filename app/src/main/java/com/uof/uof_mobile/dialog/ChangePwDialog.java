@@ -48,6 +48,9 @@ public class ChangePwDialog extends Dialog {
         tilDlgChangePwChangePw = findViewById(R.id.til_dlgchangepw_changepw);
         btnDlgChangePwApply = findViewById(R.id.btn_dlgchangepw_apply);
 
+        tilDlgChangePwChangePw.setCounterEnabled(true);
+        tilDlgChangePwChangePw.setCounterMaxLength(30);
+
         ibtnDlgChangePwClose.setOnClickListener(view -> {
             dismiss();
         });

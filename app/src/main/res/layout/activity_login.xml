@@ -73,6 +73,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
+                        android:maxLength="20"
                         android:hint="아이디"
                         android:inputType="textUri" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -85,6 +86,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
+                        android:maxLength="30"
                         android:hint="비밀번호"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>

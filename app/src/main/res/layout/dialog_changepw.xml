@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -36,10 +37,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_dlgchangepw_changepw"
             style="@style/TextInputLayout_Register"
-            android:hint="변경할 비밀번호를 입력해주세요">
+            android:hint="변경할 비밀번호를 입력해주세요"
+            app:counterEnabled="true"
+            app:counterMaxLength="30">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
+                android:maxLength="30"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
