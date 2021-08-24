@@ -55,7 +55,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/amber_100"
+                android:background="#f5f5f5"
                 android:scrollbars="none">
 
                 <com.google.android.material.chip.ChipGroup
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/amber_100" />
+            android:background="#f5f5f5" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
