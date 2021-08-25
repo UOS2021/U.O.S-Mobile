@@ -55,12 +55,13 @@ public class ChangePwDialog extends Dialog {
         tilDlgChangePwChangePw.setCounterEnabled(true);
         tilDlgChangePwChangePw.setCounterMaxLength(30);
 
+        tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.color_light));
+        tvDlgChangePwApply.setEnabled(false);
+
         ibtnDlgChangePwClose.setOnClickListener(view -> {
             dismiss();
         });
 
-        tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.color_light));
-        tvDlgChangePwApply.setEnabled(false);
         tilDlgChangePwChangePw.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -77,9 +78,13 @@ public class ChangePwDialog extends Dialog {
                 if (result == Global.Pattern.LENGTH_SHORT) {
                     tilDlgChangePwChangePw.setError("바꿀 비밀번호는 8자리 이상이어야 합니다");
                     tilDlgChangePwChangePw.setErrorEnabled(true);
+                    tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.color_light));
+                    tvDlgChangePwApply.setEnabled(false);
                 } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilDlgChangePwChangePw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilDlgChangePwChangePw.setErrorEnabled(true);
+                    tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.color_light));
+                    tvDlgChangePwApply.setEnabled(false);
                 } else {
                     tilDlgChangePwChangePw.setError(null);
                     tilDlgChangePwChangePw.setErrorEnabled(false);
@@ -88,6 +93,7 @@ public class ChangePwDialog extends Dialog {
                 }
             }
         });
+
         tvDlgChangePwApply.setOnClickListener(view -> {
             try {
                 JSONObject sendData = new JSONObject();

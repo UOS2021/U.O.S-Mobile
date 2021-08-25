@@ -29,14 +29,14 @@
             android:gravity="center"
             android:textColor="@color/black">
         </androidx.appcompat.widget.AppCompatTextView>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgchangepw_apply"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="변경"
-            android:textSize="20dp"
             android:textColor="@color/black"
-            android:textStyle="bold">
+            android:textSize="18sp">
 
         </androidx.appcompat.widget.AppCompatTextView>
     </androidx.appcompat.widget.LinearLayoutCompat>
