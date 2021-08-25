@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
@@ -30,7 +29,6 @@ public class CardDialog extends AppCompatDialog {
     private TextInputLayout tilDlgCardYear;
     private TextInputLayout tilDlgCardCvc;
     private TextInputLayout tilDlgCardPw;
-    private LinearLayoutCompat llDlgCardSave;
     private AppCompatTextView tvDlgCardSave;
     private Card card;
 
@@ -60,8 +58,9 @@ public class CardDialog extends AppCompatDialog {
         tilDlgCardYear = findViewById(R.id.til_dlgcard_year);
         tilDlgCardCvc = findViewById(R.id.til_dlgcard_cvc);
         tilDlgCardPw = findViewById(R.id.til_dlgcard_pw);
-        llDlgCardSave = findViewById(R.id.ll_dlgcard_save);
         tvDlgCardSave = findViewById(R.id.tv_dlgcard_save);
+
+        tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.color_light));
 
         if (card.getNum().length() > 0) {
             tilDlgCardNum.getEditText().setText(card.getNum());
@@ -249,7 +248,7 @@ public class CardDialog extends AppCompatDialog {
         });
 
         // 등록 버튼이 눌렸을 경우
-        llDlgCardSave.setOnClickListener(view -> {
+        tvDlgCardSave.setOnClickListener(view -> {
             if (checkSaveButtonEnable()) {
                 try {
                     JSONObject sendData = new JSONObject();
@@ -304,12 +303,12 @@ public class CardDialog extends AppCompatDialog {
     }
 
     private void saveButtonEnable(boolean enable) {
-        if (enable) {
-            llDlgCardSave.setBackground(context.getDrawable(R.drawable.background_button_enabled));
-        } else {
-            llDlgCardSave.setBackground(context.getDrawable(R.drawable.background_button_disabled));
+        if(enable){
+            tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.black));
+        }else{
+            tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.color_light));
         }
-        llDlgCardSave.setEnabled(enable);
+        tvDlgCardSave.setEnabled(enable);
     }
 
     private boolean checkSaveButtonEnable() {
