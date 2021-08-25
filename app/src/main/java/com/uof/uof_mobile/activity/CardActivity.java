@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.activity;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -12,8 +13,9 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.dialog.AddCardDialog;
+import com.uof.uof_mobile.dialog.CardDialog;
 import com.uof.uof_mobile.manager.HttpManager;
+import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -26,6 +28,7 @@ public class CardActivity extends AppCompatActivity {
     private ConstraintLayout clCardUiGroup;
     private AppCompatTextView tvCardUserName;
     private AppCompatTextView tvCardCardNum;
+    private Card card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class CardActivity extends AppCompatActivity {
         tvCardUserName = findViewById(R.id.tv_card_username);
         tvCardCardNum = findViewById(R.id.tv_card_cardnum);
 
+        card = new Card();
+
         // 초기 UI 상태 설정
         removeCardData();
         new GetCard().start();
@@ -55,43 +60,50 @@ public class CardActivity extends AppCompatActivity {
 
         // 삭제 버튼이 눌렸을 경우
         ibtnCardDelete.setOnClickListener(view -> {
-            new AlertDialog.Builder(CardActivity.this)
+            AlertDialog alertDialog = new AlertDialog.Builder(CardActivity.this, R.style.AlertDialogTheme)
                     .setTitle("카드 제거")
                     .setMessage("카드를 제거하시겠습니까?")
                     .setPositiveButton("제거", (dialogInterface, i) -> {
                         new RemoveCard().start();
                     })
-                    .setNegativeButton("취소", null)
-                    .show();
+                    .setNegativeButton("취소", null).create();
+
+            alertDialog.setOnShowListener(dialogInterface -> {
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+            });
+
+            alertDialog.show();
         });
 
         // 카드이미지가 눌렸을 경우
         ivCardBackground.setOnClickListener(view -> {
             // 카드이미지가 눌렸을 경우
-            AddCardDialog addCardDialog = new AddCardDialog(CardActivity.this, true, true);
-            addCardDialog.setOnDismissListener(dialogInterface -> {
+            CardDialog cardDialog = new CardDialog(CardActivity.this, true, true, card);
+            cardDialog.setOnDismissListener(dialogInterface -> {
                 new GetCard().start();
             });
-            addCardDialog.show();
+            cardDialog.show();
         });
     }
 
-    private void setCardData(String cardNum) {
+    private void setCardData() {
         tvCardNoCard.setVisibility(View.GONE);
         clCardUiGroup.setVisibility(View.VISIBLE);
         ibtnCardDelete.setVisibility(View.VISIBLE);
         ibtnCardDelete.setEnabled(true);
 
         tvCardUserName.setText(Global.User.name);
-        tvCardCardNum.setText(cardNum);
+        tvCardCardNum.setText(card.getNum());
     }
 
     private void removeCardData() {
-        tvCardNoCard.setText("등록된 카드가 없습니다");
+        tvCardNoCard.setText("터치하여 카드를 등록하세요");
         clCardUiGroup.setVisibility(View.GONE);
         tvCardNoCard.setVisibility(View.VISIBLE);
         ibtnCardDelete.setVisibility(View.INVISIBLE);
         ibtnCardDelete.setEnabled(false);
+        card.clear();
     }
 
     @Override
@@ -123,31 +135,38 @@ public class CardActivity extends AppCompatActivity {
 
                 if (responseCode.equals(Global.Network.Response.CARD_INFO)) {
                     // 카드 불러오기 성공
-                    String cardNum = recvData.getJSONObject("message").getString("num");
                     runOnUiThread(() -> {
-                        setCardData(cardNum);
-                    });
-                } else if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
-                    // 카드 없음
-                    runOnUiThread(() -> {
-                        removeCardData();
-                    });
-                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
-                    runOnUiThread(() -> {
-                        removeCardData();
-                        Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                        try {
+                            card.setNum(recvData.getJSONObject("message").getString("num"));
+                            card.setDueDate(recvData.getJSONObject("message").getString("due_date"));
+                            card.setCvc(recvData.getJSONObject("message").getString("cvc"));
+                            setCardData();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     });
                 } else {
-                    // 카드 불러오기 실패
-                    runOnUiThread(() -> {
-                        removeCardData();
-                        tvCardNoCard.setText("카드를 불러올 수 없습니다");
-                    });
+                    if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
+                        // 카드 없음
+                        runOnUiThread(() -> {
+                            removeCardData();
+                        });
+                    } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
+                        // 서버 연결 실패
+                        runOnUiThread(() -> {
+                            removeCardData();
+                            Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        // 카드 불러오기 실패
+                        runOnUiThread(() -> {
+                            removeCardData();
+                            tvCardNoCard.setText("카드를 불러올 수 없습니다");
+                        });
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-
                 runOnUiThread(() -> {
                     Toast.makeText(CardActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     removeCardData();

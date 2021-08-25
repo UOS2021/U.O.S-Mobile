@@ -131,7 +131,6 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                             intent.putExtra("RegisterType", 1);    //파트너
                             startActivity(intent);  //다음 activity로 넘어가기
-                            finish();
                         }
 
                         @Override

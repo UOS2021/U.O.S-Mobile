@@ -54,13 +54,13 @@ public class ChangePhoneDialog extends Dialog {
         tvDlgChangePhoneApply = findViewById(R.id.tv_dlgchangephone_apply);
 
         tvDlgChangePhoneCurrentPhone.setText(Global.User.phone);
+        tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.color_light));
+        tvDlgChangePhoneApply.setEnabled(false);
 
         ibtnDlgChangePhoneClose.setOnClickListener(view -> {
             dismiss();
         });
 
-        tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.color_light));
-        tvDlgChangePhoneApply.setEnabled(false);
         tilDlgChangePhoneChangePhone.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -77,6 +77,8 @@ public class ChangePhoneDialog extends Dialog {
                 if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
                     tilDlgChangePhoneChangePhone.setError("전화번호 형식이 맞지 않습니다");
                     tilDlgChangePhoneChangePhone.setErrorEnabled(true);
+                    tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.color_light));
+                    tvDlgChangePhoneApply.setEnabled(false);
                 } else {
                     tilDlgChangePhoneChangePhone.setError(null);
                     tilDlgChangePhoneChangePhone.setErrorEnabled(false);

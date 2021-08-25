@@ -2,6 +2,7 @@ package com.uof.uof_mobile.manager;
 
 import com.uof.uof_mobile.listitem.BasketItem;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -39,10 +40,23 @@ public class BasketManager {
     }
 
     // 장바구니에 들어있는 상품목록을 JSON 형식으로 반환
-    public JSONObject getJson() {
-        JSONObject jsonObject = new JSONObject();
+    public JSONArray getJson() {
+        JSONArray jsonArray = new JSONArray();
 
-        return jsonObject;
+        try {
+            for (BasketItem basketItem : basketItemArrayList) {
+                JSONObject item = new JSONObject();
+                item.accumulate("menu", basketItem.getMenu());
+                item.accumulate("submenu", basketItem.getSubMenu());
+                item.accumulate("count", basketItem.getCount());
+                item.accumulate("price", basketItem.getPrice());
+                jsonArray.put(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return jsonArray;
     }
 
     // 장바구니 내 모든 주문의 개수 총합

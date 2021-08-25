@@ -48,6 +48,7 @@ public class Global {
             public final static String ORDER_CANCEL = "0012";
             public final static String ORDER_LIST = "0013";
             public final static String STORE_PRODUCT_INFO = "0014";
+            public final static String QR_IMAGE = "0015";
         }
 
         public class Response {
@@ -80,6 +81,8 @@ public class Global {
             public final static String ORDER_CANCEL_FAILED = "0025";
             public final static String ORDER_SUCCESS = "0026";
             public final static String ORDER_FAILED = "0027";
+            public final static String QR_IMAGE_SUCCESS = "0028";
+            public final static String QR_IMAGE_FAILED = "0029";
         }
     }
 

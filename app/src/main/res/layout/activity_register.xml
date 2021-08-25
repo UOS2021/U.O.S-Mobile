@@ -54,125 +54,143 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_register_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="아이디"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_customerid"
-                        style="@style/TextInputLayout_Register"
-                        android:layout_marginBottom="8dp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_register_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="아이디"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/TextInputEditText_Register"
-                            android:hint="아이디를 입력해주세요"
-                            android:inputType="textUri" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_register_customerid"
+                            style="@style/TextInputLayout_Register"
+                            android:layout_marginBottom="8dp"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="20">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_register_pw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="비밀번호"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/TextInputEditText_Register"
+                                android:hint="아이디를 입력해주세요"
+                                android:inputType="textUri"
+                                android:maxLength="20" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_customerpw"
-                        style="@style/TextInputLayout_Register"
-                        android:layout_marginBottom="8dp"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/black">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_register_pw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="비밀번호"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/TextInputEditText_Register"
-                            android:hint="비밀번호를 입력해주세요"
-                            android:inputType="textPassword" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_register_customerpw"
+                            style="@style/TextInputLayout_Register"
+                            android:layout_marginBottom="8dp"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="30"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/black">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="비밀번호 확인"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/TextInputEditText_Register"
+                                android:hint="비밀번호를 입력해주세요"
+                                android:inputType="textPassword"
+                                android:maxLength="30" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_customerpwchk"
-                        style="@style/TextInputLayout_Register"
-                        android:layout_marginBottom="8dp"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/black">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="비밀번호 확인"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/TextInputEditText_Register"
-                            android:hint="비밀번호를 입력해주세요"
-                            android:inputType="textPassword" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_register_customerpwchk"
+                            style="@style/TextInputLayout_Register"
+                            android:layout_marginBottom="8dp"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="30"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/black">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_register_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="이름"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/TextInputEditText_Register"
+                                android:hint="비밀번호를 입력해주세요"
+                                android:inputType="textPassword"
+                                android:maxLength="30" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_customername"
-                        style="@style/TextInputLayout_Register"
-                        android:layout_marginBottom="8dp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_register_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="이름"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/TextInputEditText_Register"
-                            android:hint="이름을 입력해주세요"
-                            android:inputType="text" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_register_customername"
+                            style="@style/TextInputLayout_Register"
+                            android:layout_marginBottom="8dp"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="10">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_register_customerphone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="전화번호"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/TextInputEditText_Register"
+                                android:hint="이름을 입력해주세요"
+                                android:inputType="text"
+                                android:maxLength="10" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_customerphonenumber"
-                        style="@style/TextInputLayout_Register">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_register_customerphone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="전화번호"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/TextInputEditText_Register"
-                            android:hint="전화번호를 입력해주세요"
-                            android:inputType="phone"
-                            android:maxLength="11" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_register_customerphonenumber"
+                            style="@style/TextInputLayout_Register">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/TextInputEditText_Register"
+                                android:hint="전화번호를 입력해주세요"
+                                android:inputType="phone"
+                                android:maxLength="11" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </ScrollView>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -236,12 +254,15 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_register_uofpartnerid"
                         style="@style/TextInputLayout_Register"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginBottom="8dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="20">
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputEditText_Register"
                             android:hint="아이디를 입력해주세요"
-                            android:inputType="textUri" />
+                            android:inputType="textUri"
+                            android:maxLength="20" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -256,13 +277,16 @@
                         android:id="@+id/til_register_uofpartnerpw"
                         style="@style/TextInputLayout_Register"
                         android:layout_marginBottom="8dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="30"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/black">
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputEditText_Register"
                             android:hint="비밀번호를 입력해주세요"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:maxLength="30" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -277,13 +301,16 @@
                         android:id="@+id/til_register_uofpartnerpwchk"
                         style="@style/TextInputLayout_Register"
                         android:layout_marginBottom="8dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="30"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/black">
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputEditText_Register"
                             android:hint="비밀번호를 입력해주세요"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:maxLength="30" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -297,12 +324,15 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_register_uofpartnername"
                         style="@style/TextInputLayout_Register"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginBottom="8dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="10">
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputEditText_Register"
                             android:hint="이름을 입력해주세요"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:maxLength="10" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -366,12 +396,16 @@
                             android:text="사업자번호"
                             android:textColor="@color/black"
                             android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="10" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_register_licensenumber"
                             style="@style/TextInputLayout_Register"
-                            android:layout_marginBottom="8dp">
+                            android:layout_marginBottom="8dp"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="10">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextInputEditText_Register"

@@ -1,14 +1,11 @@
 package com.uof.uof_mobile.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -21,19 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.PayAdapter;
+import com.uof.uof_mobile.dialog.CardDialog;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
 public class PayActivity extends AppCompatActivity {
-    ActivityResultLauncher<Intent> goToCardActivity = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult()
-            , result -> {
-                new PayActivity.GetCard().start();
-            }
-    );
     private AppCompatImageButton ibtnPayBack;
     private AppCompatTextView tvPayCompanyName;
     private RecyclerView rvPayOrderList;
@@ -48,6 +41,8 @@ public class PayActivity extends AppCompatActivity {
     private RadioButton rbPayDirect;
     private LinearLayoutCompat llPayPay;
     private PayAdapter payAdapter;
+
+    private Card card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +71,13 @@ public class PayActivity extends AppCompatActivity {
         tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()) + "원");
         tvPayUserName.setText(Global.User.name);
 
+        card = new Card();
         removeCardData();
         new PayActivity.GetCard().start();
 
         payAdapter = new PayAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(PayActivity.this, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recyclerview_divider));
+        dividerItemDecoration.setDrawable(getDrawable(R.drawable.recyclerview_divider));
         rvPayOrderList.addItemDecoration(dividerItemDecoration);
         rvPayOrderList.setLayoutManager(new LinearLayoutManager(PayActivity.this, LinearLayoutManager.VERTICAL, false));
         rvPayOrderList.setAdapter(payAdapter);
@@ -105,28 +101,64 @@ public class PayActivity extends AppCompatActivity {
         // 카드이미지 눌릴 시
         ivPayCardBackground.setOnClickListener(view -> {
             if (rbPayCard.isChecked()) {
-                goToCardActivity.launch(new Intent(PayActivity.this, CardActivity.class));
+                CardDialog cardDialog = new CardDialog(PayActivity.this, true, true, card);
+                cardDialog.setOnDismissListener(dialogInterface -> {
+                    new PayActivity.GetCard().start();
+                });
+                cardDialog.show();
             }
         });
 
         // 결제하기 버튼 눌릴 시
         llPayPay.setOnClickListener(view -> {
+            if (rbPayCard.isChecked()) {
+                if (tvPayNoCard.getVisibility() == View.GONE) {
+                    try {
+                        JSONObject sendData = new JSONObject();
 
+                        sendData.accumulate("request_code", Global.Network.Request.ORDER);
+
+                        JSONObject message = new JSONObject();
+
+                        message.accumulate("id", Global.User.id);
+
+                        JSONObject cardData = new JSONObject();
+
+                        cardData.accumulate("num", card.getNum());
+                        cardData.accumulate("cvc", card.getCvc());
+                        cardData.accumulate("due_date", card.getDueDate());
+                        cardData.accumulate("pw", "testpw");
+
+                        message.accumulate("card", cardData);
+                        message.accumulate("order", Global.basketManager.getJson());
+
+                        sendData.accumulate("message", message);
+
+                        Toast.makeText(PayActivity.this, sendData.toString(), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(PayActivity.this, "등록된 카드가 없습니다. 카드 등록 후 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            } else if (rbPayDirect.isChecked()) {
+
+            }
         });
     }
 
     private void setCardData(String cardNum) {
         tvPayNoCard.setVisibility(View.GONE);
         clPayCard.setVisibility(View.VISIBLE);
-
         tvPayUserName.setText(Global.User.name);
         tvPayCardNum.setText(cardNum);
     }
 
     private void removeCardData() {
-        tvPayNoCard.setText("등록된 카드가 없습니다");
+        tvPayNoCard.setText("터치하여 카드를 등록하세요");
         clPayCard.setVisibility(View.GONE);
         tvPayNoCard.setVisibility(View.VISIBLE);
+        card.clear();
     }
 
     private class GetCard extends Thread {
@@ -153,9 +185,15 @@ public class PayActivity extends AppCompatActivity {
 
                 if (responseCode.equals(Global.Network.Response.CARD_INFO)) {
                     // 카드 불러오기 성공
-                    String cardNum = recvData.getJSONObject("message").getString("num");
                     runOnUiThread(() -> {
-                        setCardData(cardNum);
+                        try {
+                            card.setNum(recvData.getJSONObject("message").getString("num"));
+                            card.setCvc(recvData.getJSONObject("message").getString("cvc"));
+                            card.setDueDate(recvData.getJSONObject("message").getString("due_date"));
+                            setCardData(card.getNum());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     });
                 } else if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
                     // 카드 없음
@@ -177,7 +215,6 @@ public class PayActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-
                 runOnUiThread(() -> {
                     Toast.makeText(PayActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     removeCardData();
