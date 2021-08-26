@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:orientation="horizontal"
+            android:background="@color/color_primary"
             android:padding="16dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
@@ -39,6 +40,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -224,6 +226,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:text="UOF\n파트너 회원가입"
                 android:textAlignment="center"
                 android:textColor="@color/black"
