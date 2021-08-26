@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@id/ll_pay_pay"
+        app:layout_constraintBottom_toTopOf="@id/cl_pay_pay"
         app:layout_constraintTop_toBottomOf="@id/tv_pay_companyname">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -238,8 +238,8 @@
 
     </ScrollView>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_pay_pay"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_pay_pay"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="@color/color_primary"
@@ -251,6 +251,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_pay_pay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
@@ -260,6 +261,13 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/pb_pay_loading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
