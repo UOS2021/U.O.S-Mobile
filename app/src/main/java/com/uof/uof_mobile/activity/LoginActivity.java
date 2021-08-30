@@ -190,7 +190,11 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, true);
                 SharedPreferenceManager.close();
 
-                startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
+                if(Global.User.type.equals("uofpartner")){
+                    startActivity(new Intent(LoginActivity.this, OwnerLobbyActivity.class));
+                }else{
+                    startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
+                }
                 finish();
             } else if (responseCode.equals(Global.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
                 // 로그인 실패 - 아이디 없음

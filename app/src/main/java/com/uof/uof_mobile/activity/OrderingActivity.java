@@ -486,7 +486,14 @@ public class OrderingActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        Global.activities.remove(this);
+        super.onDestroy();
+    }
+
     private void init() {
+        Global.activities.add(this);
         ibtnOrderingBack = findViewById(R.id.ibtn_ordering_back);
         tvOrderingCompanyName = findViewById(R.id.tv_ordering_companyname);
         cgOrderingCategoryList = findViewById(R.id.cg_ordering_categorylist);
