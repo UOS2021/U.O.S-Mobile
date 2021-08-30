@@ -56,6 +56,9 @@
             android:name=".activity.LoginActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.MovieOrderingActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.IntroActivity"
             android:exported="true">
             <intent-filter>
