@@ -83,6 +83,8 @@ public class Global {
             public final static String ORDER_CANCEL_FAILED = "0027";
             public final static String QR_IMAGE_SUCCESS = "0028";
             public final static String QR_IMAGE_FAILED = "0029";
+            public final static String PAY_SUCCESS = "0030";
+            public final static String PAY_FAILED = "0031";
         }
     }
 
@@ -99,10 +101,13 @@ public class Global {
     }
 
     public static class MovieSeat {
+        public final static int NONE = -1;
         public final static int RESERVATION_AVAILABLE = 0;
-        public final static int ALREADY_RESERVED = 0;
-        public final static int UNRESERVED_SEAT = 0;
+        public final static int ALREADY_RESERVED = 1;
+        public final static int UNRESERVED_SEAT = 2;
+        public final static int SELECTED_SEAT = 3;
 
         public enum ROW {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
+        public static String[] ROW_ARR = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     }
 }
