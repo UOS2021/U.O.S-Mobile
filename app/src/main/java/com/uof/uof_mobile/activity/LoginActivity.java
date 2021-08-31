@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
             String responseCode = recvData.getString("response_code");
 
             if (responseCode.equals(Global.Network.Response.LOGIN_SUCCESS)) {
-                // 로그인 성공
+                // 로그인 성공 - LobbyActivity로 이동
                 JSONObject userData = recvData.getJSONObject("message");
                 Global.User.id = tilLoginId.getEditText().getText().toString();
                 Global.User.name = userData.getString("name");
@@ -189,14 +189,8 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, Global.User.type);
                 SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, true);
                 SharedPreferenceManager.close();
-                if(cbloginispartner.isChecked()){
-                    //파트너 로그인
-                    startActivity(new Intent(LoginActivity.this, OwnerLobbyActivity.class));
-                }
-                else{
-                    //일반 유저 로그인
-                    startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
-                }
+
+                startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
                 finish();
             } else if (responseCode.equals(Global.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
                 // 로그인 실패 - 아이디 없음
