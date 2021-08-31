@@ -503,9 +503,6 @@ public class OrderingActivity extends AppCompatActivity {
         tvOrderingProductCount = findViewById(R.id.tv_ordering_productcount);
         llOrderingPay = findViewById(R.id.ll_ordering_order);
 
-        tvOrderingTotalPrice.setText("0");
-        tvOrderingProductCount.setText("0");
-
         Intent loadData = getIntent();
 
         try {
@@ -525,6 +522,8 @@ public class OrderingActivity extends AppCompatActivity {
         rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
         rvOrderingProductList.setAdapter(orderingAdapter);
         Global.basketManager = new BasketManager(tvOrderingCompanyName.getText().toString());
+
+        updatePriceInfo();
 
         // 카테고리를 chipgroup에 추가
         for (int loop = 0; loop < productData.length(); loop++) {
@@ -617,5 +616,17 @@ public class OrderingActivity extends AppCompatActivity {
     private void updatePriceInfo() {
         tvOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
         tvOrderingProductCount.setText(String.valueOf(Global.basketManager.getOrderCount()));
+
+        if (Global.basketManager.getOrderCount() == 0) {
+            llOrderingSelected.setEnabled(false);
+            llOrderingSelected.setBackgroundColor(getResources().getColor(R.color.gray));
+            llOrderingPay.setEnabled(false);
+            llOrderingPay.setBackgroundColor(getResources().getColor(R.color.gray));
+        } else {
+            llOrderingSelected.setEnabled(true);
+            llOrderingSelected.setBackgroundColor(getResources().getColor(R.color.color_primary));
+            llOrderingPay.setEnabled(true);
+            llOrderingPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
+        }
     }
 }

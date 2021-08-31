@@ -87,9 +87,6 @@ public class MovieOrderingActivity extends AppCompatActivity {
         tvMovieOrderingProductCount = findViewById(R.id.tv_movieordering_productcount);
         llMovieOrderingPay = findViewById(R.id.ll_movieordering_order);
 
-        tvMovieOrderingTotalPrice.setText("0");
-        tvMovieOrderingProductCount.setText("0");
-
         // UI 초기 상태 설정
         tvMovieOrderingShowMovie.setEnabled(false);
         tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(R.color.white));
@@ -123,6 +120,8 @@ public class MovieOrderingActivity extends AppCompatActivity {
         rvMovieOrderingProductList.setLayoutManager(new GridLayoutManager(MovieOrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
         rvMovieOrderingProductList.setAdapter(orderingAdapter);
         Global.basketManager = new BasketManager(tvMovieOrderingCompanyName.getText().toString());
+
+        updatePriceInfo();
 
         // 카테고리를 chipgroup에 추가
         for (int loop = 0; loop < productData.length(); loop++) {
@@ -254,6 +253,18 @@ public class MovieOrderingActivity extends AppCompatActivity {
     private void updatePriceInfo() {
         tvMovieOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
         tvMovieOrderingProductCount.setText(String.valueOf(Global.basketManager.getOrderCount()));
+
+        if (Global.basketManager.getOrderCount() == 0) {
+            llMovieOrderingSelected.setEnabled(false);
+            llMovieOrderingSelected.setBackgroundColor(getResources().getColor(R.color.gray));
+            llMovieOrderingPay.setEnabled(false);
+            llMovieOrderingPay.setBackgroundColor(getResources().getColor(R.color.gray));
+        } else {
+            llMovieOrderingSelected.setEnabled(true);
+            llMovieOrderingSelected.setBackgroundColor(getResources().getColor(R.color.color_primary));
+            llMovieOrderingPay.setEnabled(true);
+            llMovieOrderingPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
+        }
     }
 
     private final String tempJson = "{\n" +
