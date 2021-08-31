@@ -23,9 +23,8 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_payitem_count"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
         android:maxLines="1"
         android:text="0개"
         android:textColor="@color/black"
@@ -40,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
         android:text="0원"
         android:textColor="#737373"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -51,9 +51,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:text="서브메뉴"
         android:textColor="#737373"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_payitem_price" />
 
     <androidx.appcompat.widget.AppCompatTextView
