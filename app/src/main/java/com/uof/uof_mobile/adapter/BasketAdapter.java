@@ -37,12 +37,25 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        int itemType = Global.basketManager.getOrderingItemArrayList().get(position).getType();
         ((BasketItemViewHolder) viewHolder).position = viewHolder.getAdapterPosition();
-        ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu());
+
         ((BasketItemViewHolder) viewHolder).tvBasketItemPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getPrice()) + "원");
-        ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n"));
         ((BasketItemViewHolder) viewHolder).tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
         ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setText(String.valueOf(Global.basketManager.getOrderingItemArrayList().get(position).getCount()));
+
+        if (itemType == Global.ItemType.SET || itemType == Global.ItemType.PRODUCT) {
+            ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu());
+            String tempText = Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n");
+            ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(tempText);
+        } else if (itemType == Global.ItemType.MOVIE_TICKET) {
+            ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu().replace("&", " - "));
+            String tempText = Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", ", ");
+            ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(tempText);
+            ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setEnabled(false);
+            ((BasketItemViewHolder) viewHolder).ibtnBasketItemCountDown.setVisibility(View.GONE);
+            ((BasketItemViewHolder) viewHolder).ibtnBasketItemCountUp.setVisibility(View.GONE);
+        }
     }
 
     public void setOnUpdateListener(BasketAdapter.OnUpdateListener onUpdateListener) {
@@ -92,6 +105,10 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             // 삭품 제거 버튼 클릭 시
             ibtnBasketItemRemove.setOnClickListener(v -> {
+                if (Global.basketManager.getOrderingItemArrayList().get(position).getType() == Global.ItemType.MOVIE_TICKET) {
+                    Global.basketManager.getOrderingItemArrayList().get(position).getMovieItem().setAllSeatSelected(false);
+                }
+
                 Global.basketManager.getOrderingItemArrayList().remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, Global.basketManager.getOrderingItemArrayList().size());
