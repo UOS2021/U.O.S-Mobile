@@ -57,6 +57,23 @@ public class MovieOrderingAdapter extends RecyclerView.Adapter<RecyclerView.View
         return 0;
     }
 
+    public void setJson(JSONArray jsonArray) {
+        movieItemArrayList.clear();
+
+        for (int loop = 0; loop < jsonArray.length(); loop++) {
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(loop);
+
+                MovieItem movieItem = new MovieItem();
+                movieItem.setSeatListFromJson(jsonObject);
+
+                movieItemArrayList.add(movieItem);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     // 아이템 클릭 리스너 인터페이스
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
@@ -84,23 +101,6 @@ public class MovieOrderingAdapter extends RecyclerView.Adapter<RecyclerView.View
                     }
                 }
             });
-        }
-    }
-
-    public void setJson(JSONArray jsonArray) {
-        movieItemArrayList.clear();
-
-        for (int loop = 0; loop < jsonArray.length(); loop++) {
-            try {
-                JSONObject jsonObject = jsonArray.getJSONObject(loop);
-
-                MovieItem movieItem = new MovieItem();
-                movieItem.setSeatListFromJson(jsonObject);
-
-                movieItemArrayList.add(movieItem);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 }

@@ -22,8 +22,6 @@ import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
-import java.security.acl.Owner;
-
 public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tilLoginId;
     private TextInputLayout tilLoginPw;
@@ -191,11 +189,10 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, Global.User.type);
                 SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, true);
                 SharedPreferenceManager.close();
-                if(cbloginispartner.isChecked()){
+                if (cbloginispartner.isChecked()) {
                     //파트너 로그인
                     startActivity(new Intent(LoginActivity.this, OwnerLobbyActivity.class));
-                }
-                else{
+                } else {
                     startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
                 }
                 finish();

@@ -1,17 +1,15 @@
 package com.uof.uof_mobile.listitem;
 
-import com.uof.uof_mobile.other.Global;
-
 import org.json.JSONObject;
 
-public class MovieSeatItem implements Cloneable{
+public class MovieSeatItem implements Cloneable {
     private String code;
     private int price;
     private int state;
     private boolean selected;
 
     public MovieSeatItem clone() throws CloneNotSupportedException {
-        return (MovieSeatItem)super.clone();
+        return (MovieSeatItem) super.clone();
     }
 
     public boolean getSelected() {
@@ -22,7 +20,7 @@ public class MovieSeatItem implements Cloneable{
         this.selected = selected;
     }
 
-    public void changeSelected(){
+    public void changeSelected() {
         this.selected = !this.selected;
     }
 
@@ -60,13 +58,13 @@ public class MovieSeatItem implements Cloneable{
         return (alphabet - 65);
     }
 
-    public void setMovieSeatItemFromJson(JSONObject jsonObject){
+    public void setMovieSeatItemFromJson(JSONObject jsonObject) {
         try {
             code = jsonObject.getString("code");
             price = jsonObject.getInt("price");
             state = jsonObject.getInt("state");
             selected = false;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

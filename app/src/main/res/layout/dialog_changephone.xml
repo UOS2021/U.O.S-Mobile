@@ -8,8 +8,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
         android:background="@color/color_primary"
+        android:orientation="horizontal"
         android:padding="16dp">
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -23,12 +23,11 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="전화번호 변경"
-            android:textSize="20dp"
             android:layout_weight="100"
             android:gravity="center"
-            android:textColor="@color/black">
-        </androidx.appcompat.widget.AppCompatTextView>
+            android:text="전화번호 변경"
+            android:textColor="@color/black"
+            android:textSize="20dp"></androidx.appcompat.widget.AppCompatTextView>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgchangephone_apply"
@@ -53,8 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="현재 전화번호"
-            android:textSize="16dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgchangephone_currentphone"
@@ -68,8 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="변경할 전화번호"
-            android:textSize="16dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_dlgchangephone_changephone"
@@ -78,8 +77,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
                 android:hint="변경할 전화번호를 입력해주세요"
-                android:maxLength="11"
                 android:inputType="phone"
+                android:maxLength="11"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>

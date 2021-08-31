@@ -49,7 +49,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
                 if (Global.socketManager.connect(2000)) {
                     JSONObject sendData = new JSONObject();
 
-                    if(Global.User.type.equals("customer")) {
+                    if (Global.User.type.equals("customer")) {
                         try {
                             sendData.accumulate("request_code", Global.Network.Request.STORE_PRODUCT_INFO);
                             Global.socketManager.send(sendData.toString());
@@ -93,13 +93,13 @@ public class QRRecognitionActivity extends AppCompatActivity {
                                 Global.socketManager.disconnect();
                             });
                         }
-                    } else if(Global.User.type.equals("uofpartner")){
+                    } else if (Global.User.type.equals("uofpartner")) {
                         try {
                             sendData.accumulate("request_code", Global.Network.Request.STORE_PRODUCT_INFO);
                             Global.socketManager.send(sendData.toString());
 
                             String strRecvData = Global.socketManager.recv();
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                             runOnUiThread(() -> {
                                 Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();

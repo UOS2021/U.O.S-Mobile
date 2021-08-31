@@ -37,7 +37,7 @@ public class SelectSeatDialog extends Dialog {
         this.context = context;
         try {
             this.movieItem = movieItem.clone();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         this.selectSeatDialogListener = selectSeatDialogListener;

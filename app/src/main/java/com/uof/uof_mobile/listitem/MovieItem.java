@@ -163,9 +163,9 @@ public class MovieItem implements Cloneable {
         return price;
     }
 
-    public void setAllSeatSelected(boolean selected){
-        for(MovieSeatItem movieSeatItem : movieSeatItemArrayList){
-            if(movieSeatItem.getState() == Global.MovieSeat.RESERVATION_AVAILABLE || movieSeatItem.getState() == Global.MovieSeat.SELECTED_SEAT){
+    public void setAllSeatSelected(boolean selected) {
+        for (MovieSeatItem movieSeatItem : movieSeatItemArrayList) {
+            if (movieSeatItem.getState() == Global.MovieSeat.RESERVATION_AVAILABLE || movieSeatItem.getState() == Global.MovieSeat.SELECTED_SEAT) {
                 movieSeatItem.setSelected(selected);
             }
         }

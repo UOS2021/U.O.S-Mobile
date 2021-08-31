@@ -243,11 +243,11 @@
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
                         android:gravity="center"
-                        android:letterSpacing="0.5"
                         android:inputType="numberPassword"
-                        android:textSize="18sp"
+                        android:letterSpacing="0.5"
                         android:maxLength="4"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:textSize="18sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -270,8 +270,8 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="@color/color_primary"
-        android:foreground="?attr/selectableItemBackground"
         android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"

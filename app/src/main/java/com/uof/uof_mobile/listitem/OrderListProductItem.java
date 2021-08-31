@@ -7,7 +7,7 @@ public class OrderListProductItem {
     private String name;
     private int count;
 
-    public OrderListProductItem(JSONObject jsonObject){
+    public OrderListProductItem(JSONObject jsonObject) {
         try {
             name = jsonObject.getString("name");
             count = jsonObject.getInt("count");

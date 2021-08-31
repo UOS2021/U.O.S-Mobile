@@ -9,11 +9,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderListProductItem;
-import com.uof.uof_mobile.listitem.OrderingProductItem;
-import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.listitem.OrderListItem;
-import com.uof.uof_mobile.other.OrderingCategory;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,9 +18,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<OrderListItem> orderListItemArrayList = new ArrayList<>();
+    private final ArrayList<OrderListItem> orderListItemArrayList = new ArrayList<>();
 
-    public void setJson(JSONArray data){
+    public void setJson(JSONArray data) {
         orderListItemArrayList.clear();
         for (int loop1 = 0; loop1 < data.length(); loop1++) {
             try {
@@ -41,16 +38,19 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         return new OrderListViewHolder(layoutInflater.inflate(R.layout.item_orderlist_order, parent, false));
     }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        ((OrderListViewHolder)viewHolder).tvOrderListOrderdate.setText(orderListItemArrayList.get(position).getDate());
-        ((OrderListViewHolder)viewHolder).tvOrderListOrderCompanyname.setText(orderListItemArrayList.get(position).getCompanyname());
-        ((OrderListViewHolder)viewHolder).tvOrderListOrderOrderlist.setText(orderListItemArrayList.get(position).getStringProductItemList());
-        ((OrderListViewHolder)viewHolder).tvOrderListOrderPrice.setText(UsefulFuncManager.convertToCommaPattern(orderListItemArrayList.get(position).getPrice()) + "원");
+        ((OrderListViewHolder) viewHolder).tvOrderListOrderdate.setText(orderListItemArrayList.get(position).getDate());
+        ((OrderListViewHolder) viewHolder).tvOrderListOrderCompanyname.setText(orderListItemArrayList.get(position).getCompanyname());
+        ((OrderListViewHolder) viewHolder).tvOrderListOrderOrderlist.setText(orderListItemArrayList.get(position).getStringProductItemList());
+        ((OrderListViewHolder) viewHolder).tvOrderListOrderPrice.setText(UsefulFuncManager.convertToCommaPattern(orderListItemArrayList.get(position).getPrice()) + "원");
     }
 
     @Override
-    public int getItemCount(){ return orderListItemArrayList.size();}
+    public int getItemCount() {
+        return orderListItemArrayList.size();
+    }
 
 
     public class OrderListViewHolder extends RecyclerView.ViewHolder {

@@ -71,6 +71,10 @@ public class MovieSeatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+    public void setMovieSeatItemArrayList(ArrayList<MovieSeatItem> movieSeatItemArrayList) {
+        this.movieSeatItemArrayList = movieSeatItemArrayList;
+    }
+
     // 아이템 클릭 리스너 인터페이스
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
@@ -147,9 +151,5 @@ public class MovieSeatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public NoneSeatViewHolder(View view) {
             super(view);
         }
-    }
-
-    public void setMovieSeatItemArrayList(ArrayList<MovieSeatItem> movieSeatItemArrayList) {
-        this.movieSeatItemArrayList = movieSeatItemArrayList;
     }
 }

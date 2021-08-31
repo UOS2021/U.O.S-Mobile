@@ -5,16 +5,17 @@ public class Card {
     private String cvc;
     private String dueDate;
 
-    public Card(){
+    public Card() {
 
     }
-    public Card(String num, String cvc, String dueDate){
+
+    public Card(String num, String cvc, String dueDate) {
         this.num = num;
         this.cvc = cvc;
         this.dueDate = dueDate;
     }
 
-    public void clear(){
+    public void clear() {
         num = "";
         cvc = "";
         dueDate = "";

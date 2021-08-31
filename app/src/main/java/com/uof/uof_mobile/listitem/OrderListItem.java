@@ -10,7 +10,7 @@ public class OrderListItem {
     private String date;
     private String companyname;
     private int price;
-    private ArrayList<OrderListProductItem> orderListProductItemArrayList = new ArrayList<>();
+    private final ArrayList<OrderListProductItem> orderListProductItemArrayList = new ArrayList<>();
 
     public OrderListItem() {
 
@@ -31,12 +31,12 @@ public class OrderListItem {
         }
     }
 
-    public String getStringProductItemList(){
+    public String getStringProductItemList() {
         String result = "";
-        for(OrderListProductItem orderListProductItem : orderListProductItemArrayList) {
+        for (OrderListProductItem orderListProductItem : orderListProductItemArrayList) {
             result += orderListProductItem.getName() + " X" + orderListProductItem.getCount() + "\n";
         }
-        return result.substring(0,result.length()-1);
+        return result.substring(0, result.length() - 1);
     }
 
     public String getDate() {

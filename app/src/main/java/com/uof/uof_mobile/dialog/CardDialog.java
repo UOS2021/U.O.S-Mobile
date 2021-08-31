@@ -30,7 +30,7 @@ public class CardDialog extends AppCompatDialog {
     private TextInputLayout tilDlgCardCvc;
     private TextInputLayout tilDlgCardPw;
     private AppCompatTextView tvDlgCardSave;
-    private Card card;
+    private final Card card;
 
     public CardDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, Card card) {
         super(context, R.style.DialogTheme_FullScreenDialog);
@@ -303,9 +303,9 @@ public class CardDialog extends AppCompatDialog {
     }
 
     private void saveButtonEnable(boolean enable) {
-        if(enable){
+        if (enable) {
             tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.black));
-        }else{
+        } else {
             tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.color_light));
         }
         tvDlgCardSave.setEnabled(enable);
