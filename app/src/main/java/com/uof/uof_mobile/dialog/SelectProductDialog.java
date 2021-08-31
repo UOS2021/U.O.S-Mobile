@@ -18,6 +18,7 @@ import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.listitem.BasketItem;
 import com.uof.uof_mobile.listitem.OrderingProductItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 public class SelectProductDialog extends Dialog {
     private final Context context;
@@ -129,7 +130,7 @@ public class SelectProductDialog extends Dialog {
 
         // 상품 추가 버튼 클릭 시
         tvDlgSelectProductAdd.setOnClickListener(view -> {
-            this.selectProductDialogListener.onAddProductClicked(new BasketItem(orderingProduct.getName(), "", orderingProduct.getPrice(), Integer.parseInt(tilDlgSelectProductCount.getEditText().getText().toString())));
+            this.selectProductDialogListener.onAddProductClicked(new BasketItem(Global.ItemType.PRODUCT, orderingProduct.getName(), "", orderingProduct.getPrice(), Integer.parseInt(tilDlgSelectProductCount.getEditText().getText().toString())));
             dismiss();
         });
     }
