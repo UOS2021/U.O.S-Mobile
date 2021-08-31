@@ -84,7 +84,8 @@ public class Global {
             public final static String QR_IMAGE_SUCCESS = "0028";
             public final static String QR_IMAGE_FAILED = "0029";
             public final static String PAY_SUCCESS = "0030";
-            public final static String PAY_FAILED = "0031";
+            public final static String PAY_FAILED_WRONG_PASSWORD = "0031";
+            public final static String PAY_FAILED_NOT_ENOUGH_MONEY = "0032";
         }
     }
 
