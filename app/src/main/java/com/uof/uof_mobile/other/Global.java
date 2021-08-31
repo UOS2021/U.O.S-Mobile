@@ -98,6 +98,7 @@ public class Global {
     public static class ItemType {
         public final static int PRODUCT = 0;
         public final static int SET = 1;
+        public final static int MOVIE_TICKET = 2;
     }
 
     public static class MovieSeat {
@@ -107,7 +108,7 @@ public class Global {
         public final static int UNRESERVED_SEAT = 2;
         public final static int SELECTED_SEAT = 3;
 
-        public enum ROW {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
+        public enum ROW {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
         public static String[] ROW_ARR = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     }
 }
