@@ -545,6 +545,7 @@ public class RegisterActivity extends AppCompatActivity {
             llRegisterCompany.setVisibility(View.VISIBLE);
             //btnRegisterUofPartnerRegister.setVisibility(View.VISIBLE);
             svRegisterScrollView.smoothScrollTo(0, llRegisterCompany.getTop());
+            efRegisterGotoCompanyInfo.setVisibility(View.GONE);
 
         });
         // U.O.F 파트너 회원가입 버튼이 눌렸을 경우
