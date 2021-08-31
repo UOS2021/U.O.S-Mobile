@@ -2,19 +2,13 @@ package com.uof.uof_mobile.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.activity.OwnerLobbyActivity;
-import com.uof.uof_mobile.other.Global;
-
-import org.json.JSONObject;
 
 import androidx.annotation.NonNull;
+
+import com.uof.uof_mobile.R;
 
 public class ShowQRDialog extends Dialog {
     private final Context context;
@@ -44,7 +38,7 @@ public class ShowQRDialog extends Dialog {
         ibtnDlgShowqrClose.setOnClickListener(view -> {
             dismiss();
         });
-        
+
         //qr코드 Resource 변경하는 부분
         ivDlgShowqrQRcode.setImageResource(R.drawable.qrcode);
     }

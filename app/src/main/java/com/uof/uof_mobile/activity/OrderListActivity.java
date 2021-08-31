@@ -15,17 +15,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class OrderListActivity extends AppCompatActivity {
+    private final String tempJson =
+            "{\"response_code\": \"0011\", \"message\": " +
+                    "[{\"date\": \"7/28\", " +
+                    "\"companyname\": \"버거킹\", " +
+                    "\"orderlist\": [{\"name\": \"와퍼\", \"count\": 3}, {\"name\": \"통새우와퍼\", \"count\": 2}]," +
+                    "\"price\": 23000}]}";
     private AppCompatImageButton ibtnOrderlistBack;
     private OrderListAdapter orderListAdapter;
     private JSONArray orderlist;
 
-
-    private final String tempJson =
-            "{\"response_code\": \"0011\", \"message\": " +
-            "[{\"date\": \"7/28\", " +
-            "\"companyname\": \"버거킹\", " +
-            "\"orderlist\": [{\"name\": \"와퍼\", \"count\": 3}, {\"name\": \"통새우와퍼\", \"count\": 2}]," +
-            "\"price\": 23000}]}";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +33,7 @@ public class OrderListActivity extends AppCompatActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         ibtnOrderlistBack = findViewById(R.id.ibtn_orderlist_back);
 
         try {
@@ -46,11 +45,10 @@ public class OrderListActivity extends AppCompatActivity {
 
         orderListAdapter = new OrderListAdapter();
         orderListAdapter.setJson(orderlist);
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv_orderlist_orderlistview);
-        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_orderlist_orderlistview);
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(orderListAdapter);
-
 
 
         ibtnOrderlistBack.setOnClickListener(view -> {

@@ -23,11 +23,19 @@ public class PayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        ((PayItemViewHolder) viewHolder).tvPayItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu());
-        ((PayItemViewHolder) viewHolder).tvPayItemCount.setText("X  " + Global.basketManager.getOrderingItemArrayList().get(position).getCount() + "개");
+        int itemType = Global.basketManager.getOrderingItemArrayList().get(position).getType();
+
         ((PayItemViewHolder) viewHolder).tvPayItemPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getPrice()) + "원");
-        ((PayItemViewHolder) viewHolder).tvPayItemSubMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n"));
         ((PayItemViewHolder) viewHolder).tvPayItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getPrice() * Global.basketManager.getOrderingItemArrayList().get(position).getCount()) + "원");
+
+        if (itemType == Global.ItemType.SET || itemType == Global.ItemType.PRODUCT) {
+            ((PayItemViewHolder) viewHolder).tvPayItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu());
+            ((PayItemViewHolder) viewHolder).tvPayItemSubMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n"));
+        } else if (itemType == Global.ItemType.MOVIE_TICKET) {
+            ((PayItemViewHolder) viewHolder).tvPayItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu().replace("&", " - "));
+            ((PayItemViewHolder) viewHolder).tvPayItemSubMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", ", "));
+        }
+        ((PayItemViewHolder) viewHolder).tvPayItemCount.setText("X  " + Global.basketManager.getOrderingItemArrayList().get(position).getCount() + "개");
     }
 
     @Override

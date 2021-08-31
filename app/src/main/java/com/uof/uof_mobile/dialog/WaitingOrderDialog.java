@@ -71,7 +71,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
                         }
 
                         JSONObject sendData = new JSONObject();
-                        sendData.accumulate("resquest_code", Global.Network.Request.ORDER_CANCEL);
+                        sendData.accumulate("request_code", Global.Network.Request.ORDER_CANCEL);
 
                         JSONObject message = new JSONObject();
                         message.accumulate("cancel", orderCancel);
@@ -94,10 +94,15 @@ public class WaitingOrderDialog extends AppCompatDialog {
                             ((PayActivity) context).runOnUiThread(() -> {
                                 tvDlgWaitingOrderMessage.setText("결제가 완료되었습니다\n주문하신 상품이 준비되면 알려드리겠습니다");
                             });
-                        } else if (responseCode.equals(Global.Network.Response.PAY_FAILED)) {
+                        } else if (responseCode.equals(Global.Network.Response.PAY_FAILED_WRONG_PASSWORD)) {
                             // 결제 실패시
                             ((PayActivity) context).runOnUiThread(() -> {
-                                tvDlgWaitingOrderMessage.setText("결제 도중 오류가 발생했습니다\n매장에 문의해주세요");
+                                tvDlgWaitingOrderMessage.setText("카드 비밀번호가 틀렸습니다\n확인 후 다시 시도해주세요");
+                            });
+                        } else if (responseCode.equals(Global.Network.Response.PAY_FAILED_NOT_ENOUGH_MONEY)) {
+                            // 결제 실패시
+                            ((PayActivity) context).runOnUiThread(() -> {
+                                tvDlgWaitingOrderMessage.setText("잔액이 부족합니다\n확인 후 다시 시도해주세요");
                             });
                         } else if (responseCode.equals(Global.Network.Response.ORDER_CANCEL_SUCCESS)) {
                             // 주문취소 성공시

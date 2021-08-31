@@ -84,7 +84,8 @@ public class Global {
             public final static String QR_IMAGE_SUCCESS = "0028";
             public final static String QR_IMAGE_FAILED = "0029";
             public final static String PAY_SUCCESS = "0030";
-            public final static String PAY_FAILED = "0031";
+            public final static String PAY_FAILED_WRONG_PASSWORD = "0031";
+            public final static String PAY_FAILED_NOT_ENOUGH_MONEY = "0032";
         }
     }
 
@@ -98,6 +99,7 @@ public class Global {
     public static class ItemType {
         public final static int PRODUCT = 0;
         public final static int SET = 1;
+        public final static int MOVIE_TICKET = 2;
     }
 
     public static class MovieSeat {
@@ -106,8 +108,8 @@ public class Global {
         public final static int ALREADY_RESERVED = 1;
         public final static int UNRESERVED_SEAT = 2;
         public final static int SELECTED_SEAT = 3;
+        public static String[] ROW_ARR = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
-        public enum ROW {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
-        public static String[] ROW_ARR = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        public enum ROW {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
     }
 }
