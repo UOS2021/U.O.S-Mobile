@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -19,28 +21,38 @@
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/ripple_btnclose" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dlgshowqr_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
+            android:layout_marginBottom="32dp"
             android:text="QR코드를 인식하여 주문하세요!"
             android:textColor="@color/black"
-            android:textSize="28dp" />
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/iv_dlgshowqr_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_dlgshowqr_qrcode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_dlgshowqr_image"
+            android:layout_width="272dp"
+            android:layout_height="272dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
