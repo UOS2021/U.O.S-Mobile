@@ -27,6 +27,7 @@ import com.uof.uof_mobile.listitem.BasketItem;
 import com.uof.uof_mobile.listitem.OrderingProductItem;
 import com.uof.uof_mobile.listitem.OrderingSetItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 public class SelectSetDialog extends Dialog {
     private final Context context;
@@ -196,7 +197,7 @@ public class SelectSetDialog extends Dialog {
 
         // 상품 추가 버튼 클릭 시
         llDlgSelectSetAdd.setOnClickListener(view -> {
-            this.selectSetDialogListener.onAddProductClicked(new BasketItem(setData.getName(), setProductAdapter.getSubMenu(), setData.getPrice() + setProductAdapter.getAdditionalPrice(), Integer.valueOf(tilDlgSelectSetCount.getEditText().getText().toString())));
+            this.selectSetDialogListener.onAddProductClicked(new BasketItem(Global.ItemType.SET, setData.getName(), setProductAdapter.getSubMenu(), setData.getPrice() + setProductAdapter.getAdditionalPrice(), Integer.valueOf(tilDlgSelectSetCount.getEditText().getText().toString())));
             dismiss();
         });
     }
