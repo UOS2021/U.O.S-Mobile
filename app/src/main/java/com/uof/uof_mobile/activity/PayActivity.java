@@ -1,7 +1,8 @@
 package com.uof.uof_mobile.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,12 +18,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.PayAdapter;
 import com.uof.uof_mobile.dialog.CardDialog;
 import com.uof.uof_mobile.dialog.WaitingOrderDialog;
 import com.uof.uof_mobile.manager.HttpManager;
-import com.uof.uof_mobile.manager.SocketManager;
+import com.uof.uof_mobile.manager.PatternManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
@@ -41,6 +43,7 @@ public class PayActivity extends AppCompatActivity {
     private AppCompatImageView ivPayCardBackground;
     private AppCompatTextView tvPayUserName;
     private AppCompatTextView tvPayCardNum;
+    private TextInputLayout tilPayCardPw;
     private RadioButton rbPayDirect;
     private ConstraintLayout clPayPay;
     private AppCompatTextView tvPayPay;
@@ -78,6 +81,7 @@ public class PayActivity extends AppCompatActivity {
         ivPayCardBackground = findViewById(R.id.iv_pay_cardbackground);
         tvPayUserName = findViewById(R.id.tv_pay_username);
         tvPayCardNum = findViewById(R.id.tv_pay_cardnum);
+        tilPayCardPw = findViewById(R.id.til_pay_cardpw);
         rbPayDirect = findViewById(R.id.rb_pay_direct);
         clPayPay = findViewById(R.id.cl_pay_pay);
         tvPayPay = findViewById(R.id.tv_pay_pay);
@@ -102,6 +106,8 @@ public class PayActivity extends AppCompatActivity {
         rvPayOrderList.setAdapter(payAdapter);
 
         rbPayCard.setChecked(true);
+        clPayPay.setEnabled(false);
+        clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
 
         // 뒤로가기 버튼 눌릴 시
         ibtnPayBack.setOnClickListener(view -> {
@@ -112,8 +118,33 @@ public class PayActivity extends AppCompatActivity {
         rgPayPayment.setOnCheckedChangeListener((radioGroup, id) -> {
             if (id == R.id.rb_pay_card) {
                 ivPayCardBackground.setBackground(getDrawable(R.drawable.ripple_cardimage));
+                tilPayCardPw.getEditText().setEnabled(true);
+
+                int result = PatternManager.checkCardPw(tilPayCardPw.getEditText().getText().toString());
+
+                if (result == Global.Pattern.LENGTH_SHORT) {
+                    clPayPay.setEnabled(false);
+                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+                    tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
+                    tilPayCardPw.setErrorEnabled(true);
+                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                    clPayPay.setEnabled(false);
+                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+                    tilPayCardPw.setError("숫자만 입력가능합니다");
+                    tilPayCardPw.setErrorEnabled(true);
+                } else {
+                    clPayPay.setEnabled(true);
+                    clPayPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    tilPayCardPw.setError(null);
+                    tilPayCardPw.setErrorEnabled(false);
+                }
             } else if (id == R.id.rb_pay_direct) {
                 ivPayCardBackground.setBackground(getDrawable(R.drawable.background_pay_carddisabled));
+                tilPayCardPw.getEditText().setEnabled(false);
+                tilPayCardPw.setError(null);
+                tilPayCardPw.setErrorEnabled(false);
+                clPayPay.setEnabled(true);
+                clPayPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
             }
         });
 
@@ -125,6 +156,41 @@ public class PayActivity extends AppCompatActivity {
                     new PayActivity.GetCard().start();
                 });
                 cardDialog.show();
+            }
+        });
+
+        // 카드 비밀번호 입력 시
+        tilPayCardPw.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int result = PatternManager.checkCardPw(editable.toString());
+
+                if (result == Global.Pattern.LENGTH_SHORT) {
+                    clPayPay.setEnabled(false);
+                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+                    tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
+                    tilPayCardPw.setErrorEnabled(true);
+                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                    clPayPay.setEnabled(false);
+                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+                    tilPayCardPw.setError("숫자만 입력가능합니다");
+                    tilPayCardPw.setErrorEnabled(true);
+                } else {
+                    clPayPay.setEnabled(true);
+                    clPayPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    tilPayCardPw.setError(null);
+                    tilPayCardPw.setErrorEnabled(false);
+                }
             }
         });
 
@@ -149,7 +215,7 @@ public class PayActivity extends AppCompatActivity {
                             cardData.accumulate("num", card.getNum());
                             cardData.accumulate("cvc", card.getCvc());
                             cardData.accumulate("due_date", card.getDueDate());
-                            cardData.accumulate("pw", "testpw");
+                            cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
 
                             message.accumulate("card", cardData);
                             message.accumulate("order", Global.basketManager.getJson());
@@ -166,8 +232,8 @@ public class PayActivity extends AppCompatActivity {
                                     runOnUiThread(() -> {
                                         waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false);
                                         waitingOrderDialog.setOnDismissListener(dialogInterface -> {
-                                            for(int loop = 0; loop < Global.activities.size(); loop++){
-                                                if(Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity){
+                                            for (int loop = 0; loop < Global.activities.size(); loop++) {
+                                                if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity) {
                                                     Global.activities.get(loop).finish();
                                                     finish();
                                                 }
