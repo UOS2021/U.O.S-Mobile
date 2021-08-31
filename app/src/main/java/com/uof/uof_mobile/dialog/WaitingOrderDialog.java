@@ -71,7 +71,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
                         }
 
                         JSONObject sendData = new JSONObject();
-                        sendData.accumulate("resquest_code", Global.Network.Request.ORDER_CANCEL);
+                        sendData.accumulate("request_code", Global.Network.Request.ORDER_CANCEL);
 
                         JSONObject message = new JSONObject();
                         message.accumulate("cancel", orderCancel);
