@@ -22,6 +22,8 @@ import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
+import java.security.acl.Owner;
+
 public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tilLoginId;
     private TextInputLayout tilLoginPw;
@@ -176,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
             String responseCode = recvData.getString("response_code");
 
             if (responseCode.equals(Global.Network.Response.LOGIN_SUCCESS)) {
-                // 로그인 성공 - LobbyActivity로 이동
+                // 로그인 성공
                 JSONObject userData = recvData.getJSONObject("message");
                 Global.User.id = tilLoginId.getEditText().getText().toString();
                 Global.User.name = userData.getString("name");
@@ -189,10 +191,11 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, Global.User.type);
                 SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, true);
                 SharedPreferenceManager.close();
-
-                if(Global.User.type.equals("uofpartner")){
+                if(cbloginispartner.isChecked()){
+                    //파트너 로그인
                     startActivity(new Intent(LoginActivity.this, OwnerLobbyActivity.class));
-                }else{
+                }
+                else{
                     startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
                 }
                 finish();
