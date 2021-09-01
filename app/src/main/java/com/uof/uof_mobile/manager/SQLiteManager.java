@@ -11,6 +11,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.uof.uof_mobile.other.Global;
 
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class SQLiteManager extends SQLiteOpenHelper {
     private Context context;
     private SQLiteDatabase sqLiteDatabase;
@@ -132,5 +137,18 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
 
         return sqLiteDatabase.update(tableName, contentValues, condition, conditionValues);
+    }
+
+    public boolean saveOrder(int orderNumber, JSONObject orderData) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Global.SQLite.CL_ORDER_NUMBER, orderNumber);
+        contentValues.put(Global.SQLite.CL_ORDER_TIME, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(System.currentTimeMillis())));
+        contentValues.put(Global.SQLite.CL_ORDER_INFO, orderData.toString());
+
+        return (insert(Global.SQLite.TB_ORDER_LIST, contentValues) != -1);
+    }
+
+    public boolean removeOrder(int orderNumber) {
+        return (delete(Global.SQLite.TB_ORDER_LIST, new String[]{Global.SQLite.CL_ORDER_NUMBER}, new String[]{String.valueOf(orderNumber)}) == 1);
     }
 }
