@@ -1,10 +1,12 @@
 package com.uof.uof_mobile.dialog;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
@@ -13,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.activity.PayActivity;
+import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -91,6 +94,21 @@ public class WaitingOrderDialog extends AppCompatDialog {
 
                         if (responseCode.equals(Global.Network.Response.PAY_SUCCESS)) {
                             // 결제 성공시
+                            int orderNumber = recvData.getJSONObject("message").getInt("order_number");
+
+                            SQLiteManager sqLiteManager = new SQLiteManager(context);
+                            sqLiteManager.openDatabase();
+                            if(sqLiteManager.saveOrder(orderNumber, sendData.getJSONObject("message"))){
+                                ((PayActivity) context).runOnUiThread(() -> {
+                                    Toast.makeText(context, "주문내역 저장 성공", Toast.LENGTH_SHORT).show();
+                                });
+                            }else{
+                                ((PayActivity) context).runOnUiThread(() -> {
+                                    Toast.makeText(context, "주문내역 저장 실패", Toast.LENGTH_SHORT).show();
+                                });
+                            }
+                            sqLiteManager.closeDatabase();
+
                             ((PayActivity) context).runOnUiThread(() -> {
                                 tvDlgWaitingOrderMessage.setText("결제가 완료되었습니다\n주문하신 상품이 준비되면 알려드리겠습니다");
                             });
