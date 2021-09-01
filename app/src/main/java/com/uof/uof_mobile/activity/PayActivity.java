@@ -120,24 +120,7 @@ public class PayActivity extends AppCompatActivity {
                 ivPayCardBackground.setBackground(getDrawable(R.drawable.ripple_cardimage));
                 tilPayCardPw.getEditText().setEnabled(true);
 
-                int result = PatternManager.checkCardPw(tilPayCardPw.getEditText().getText().toString());
-
-                if (result == Global.Pattern.LENGTH_SHORT) {
-                    clPayPay.setEnabled(false);
-                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
-                    tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
-                    tilPayCardPw.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
-                    clPayPay.setEnabled(false);
-                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
-                    tilPayCardPw.setError("숫자만 입력가능합니다");
-                    tilPayCardPw.setErrorEnabled(true);
-                } else {
-                    clPayPay.setEnabled(true);
-                    clPayPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                    tilPayCardPw.setError(null);
-                    tilPayCardPw.setErrorEnabled(false);
-                }
+                checkPayEnable();
             } else if (id == R.id.rb_pay_direct) {
                 ivPayCardBackground.setBackground(getDrawable(R.drawable.background_pay_carddisabled));
                 tilPayCardPw.getEditText().setEnabled(false);
@@ -173,24 +156,7 @@ public class PayActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int result = PatternManager.checkCardPw(editable.toString());
-
-                if (result == Global.Pattern.LENGTH_SHORT) {
-                    clPayPay.setEnabled(false);
-                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
-                    tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
-                    tilPayCardPw.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
-                    clPayPay.setEnabled(false);
-                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
-                    tilPayCardPw.setError("숫자만 입력가능합니다");
-                    tilPayCardPw.setErrorEnabled(true);
-                } else {
-                    clPayPay.setEnabled(true);
-                    clPayPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                    tilPayCardPw.setError(null);
-                    tilPayCardPw.setErrorEnabled(false);
-                }
+                checkPayEnable();
             }
         });
 
@@ -274,11 +240,38 @@ public class PayActivity extends AppCompatActivity {
         });
     }
 
+    public void checkPayEnable() {
+        int result = PatternManager.checkCardPw(tilPayCardPw.getEditText().getText().toString());
+
+        if (result == Global.Pattern.OK) {
+            tilPayCardPw.setError(null);
+            tilPayCardPw.setErrorEnabled(false);
+            if (tvPayNoCard.getVisibility() == View.GONE) {
+                clPayPay.setEnabled(true);
+                clPayPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
+            } else {
+                clPayPay.setEnabled(false);
+                clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+            }
+        } else if (result == Global.Pattern.LENGTH_SHORT) {
+            clPayPay.setEnabled(false);
+            clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+            tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
+            tilPayCardPw.setErrorEnabled(true);
+        } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+            clPayPay.setEnabled(false);
+            clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+            tilPayCardPw.setError("숫자만 입력가능합니다");
+            tilPayCardPw.setErrorEnabled(true);
+        }
+    }
+
     private void setCardData(String cardNum) {
         tvPayNoCard.setVisibility(View.GONE);
         clPayCard.setVisibility(View.VISIBLE);
         tvPayUserName.setText(Global.User.name);
         tvPayCardNum.setText(cardNum);
+        checkPayEnable();
     }
 
     private void removeCardData() {
@@ -286,6 +279,7 @@ public class PayActivity extends AppCompatActivity {
         clPayCard.setVisibility(View.GONE);
         tvPayNoCard.setVisibility(View.VISIBLE);
         card.clear();
+        checkPayEnable();
     }
 
     private class GetCard extends Thread {

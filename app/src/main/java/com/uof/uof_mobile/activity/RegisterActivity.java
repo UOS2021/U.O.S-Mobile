@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout tilRegisterCustomerPwChk;
     private TextInputLayout tilRegisterCustomerName;
     private TextInputLayout tilRegisterCustomerPhoneNumber;
-    private AppCompatButton btnRegisterCustomerRegister;
+    private LinearLayoutCompat llRegisterCustomerRegister;
 
     private TextInputLayout tilRegisterUofPartnerId;
     private TextInputLayout tilRegisterUofPartnerPw;
@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout tilRegisterLicenseNumber;
     private Spinner spRegisterCompanyType;
     private TextInputLayout tilRegisterCompanyAddress;
-    private AppCompatButton btnRegisterUofPartnerRegister;
+    private LinearLayoutCompat llRegisterUofPartnerRegister;
     private AppCompatImageView ivRegisterLicenseImage;
     private AppCompatButton btnRegisterLicenseImage;
     private ExtendedFloatingActionButton efRegisterGotoCompanyInfo;
@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         tilRegisterCustomerPwChk = findViewById(R.id.til_register_customerpwchk);
         tilRegisterCustomerName = findViewById(R.id.til_register_customername);
         tilRegisterCustomerPhoneNumber = findViewById(R.id.til_register_customerphonenumber);
-        btnRegisterCustomerRegister = findViewById(R.id.btn_register_customerregister);
+        llRegisterCustomerRegister = findViewById(R.id.ll_register_customerregister);
 
         tilRegisterUofPartnerId = findViewById(R.id.til_register_uofpartnerid);
         tilRegisterUofPartnerPw = findViewById(R.id.til_register_uofpartnerpw);
@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
         tilRegisterLicenseNumber = findViewById(R.id.til_register_licensenumber);
         btnRegisterLicenseImage = findViewById(R.id.btn_register_licenseimage);
         ivRegisterLicenseImage = findViewById(R.id.iv_register_licenseimage);
-        btnRegisterUofPartnerRegister = findViewById(R.id.btn_register_uofpartnerregister);
+        llRegisterUofPartnerRegister = findViewById(R.id.ll_register_uofpartnerregister);
         spRegisterCompanyType = findViewById(R.id.sp_register_companytype);
         tilRegisterCompanyAddress = findViewById(R.id.til_register_companyaddress);
 
@@ -125,8 +125,10 @@ public class RegisterActivity extends AppCompatActivity {
         companyType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spRegisterCompanyType.setAdapter(companyType);
 
-        btnRegisterCustomerRegister.setEnabled(false);
-        btnRegisterUofPartnerRegister.setEnabled(false);
+        llRegisterCustomerRegister.setEnabled(false);
+        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+        llRegisterUofPartnerRegister.setEnabled(false);
+        llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
 
         ibtnRegisterClose.setOnClickListener(view -> {
             finish();
@@ -158,7 +160,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterCustomerId.setErrorEnabled(false);
                 }
 
-                btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                if(checkCustomerRegister()){
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -195,7 +202,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterUofPartnerPwChk.setErrorEnabled(false);
                 }
 
-                btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                if(checkCustomerRegister()){
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -214,11 +226,17 @@ public class RegisterActivity extends AppCompatActivity {
                 if (!editable.toString().equals(tilRegisterCustomerPw.getEditText().getText().toString())) {
                     tilRegisterCustomerPwChk.setError("비밀번호가 일치하지 않습니다");
                     tilRegisterCustomerPwChk.setErrorEnabled(true);
-                    btnRegisterCustomerRegister.setEnabled(false);
+                    llRegisterCustomerRegister.setEnabled(false);
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 } else {
                     tilRegisterCustomerPwChk.setError(null);
                     tilRegisterCustomerPwChk.setErrorEnabled(false);
-                    btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                    llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                    if(checkCustomerRegister()){
+                        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    }else{
+                        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    }
                 }
             }
         });
@@ -246,7 +264,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterCustomerName.setErrorEnabled(false);
                 }
 
-                btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                if(checkCustomerRegister()){
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -272,7 +295,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterCustomerPhoneNumber.setErrorEnabled(false);
                 }
 
-                btnRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
+                if(checkCustomerRegister()){
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -302,7 +330,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterUofPartnerId.setErrorEnabled(false);
                 }
 
-                btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                if(checkUofPartnerRegister()){
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -339,7 +372,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterUofPartnerPwChk.setErrorEnabled(false);
                 }
 
-                btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                if(checkUofPartnerRegister()){
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -358,11 +396,17 @@ public class RegisterActivity extends AppCompatActivity {
                 if (!editable.toString().equals(tilRegisterUofPartnerPw.getEditText().getText().toString())) {
                     tilRegisterUofPartnerPwChk.setError("비밀번호가 일치하지 않습니다");
                     tilRegisterUofPartnerPwChk.setErrorEnabled(true);
-                    btnRegisterUofPartnerRegister.setEnabled(false);
+                    llRegisterUofPartnerRegister.setEnabled(false);
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 } else {
                     tilRegisterUofPartnerPwChk.setError(null);
                     tilRegisterUofPartnerPwChk.setErrorEnabled(false);
-                    btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                    llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                    if(checkUofPartnerRegister()){
+                        llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    }else{
+                        llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    }
                 }
             }
         });
@@ -390,7 +434,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterUofPartnerName.setErrorEnabled(false);
                 }
 
-                btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                if(checkUofPartnerRegister()){
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -416,7 +465,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterUofPartnerPhoneNumber.setErrorEnabled(false);
                 }
 
-                btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                if(checkUofPartnerRegister()){
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -432,7 +486,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                if(checkUofPartnerRegister()){
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -458,7 +517,12 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterLicenseNumber.setErrorEnabled(false);
                 }
 
-                btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                if(checkUofPartnerRegister()){
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -474,7 +538,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+                if(checkUofPartnerRegister()){
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                }else{
+                    llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -486,8 +555,8 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-            }
 
+            }
         });
 
         // 사업자등록증 이미지 불러오기 버튼이 눌렸을 경우
@@ -499,7 +568,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         // 일반고객 회원가입 버튼이 눌렸을 경우
-        btnRegisterCustomerRegister.setOnClickListener(view -> {
+        llRegisterCustomerRegister.setOnClickListener(view -> {
             // 회원가입 창일 경우
             try {
                 JSONObject sendData = new JSONObject();
@@ -543,12 +612,12 @@ public class RegisterActivity extends AppCompatActivity {
         // U.O.F 파트너 회사 정보 입력 버튼이 눌렀을 경우
         efRegisterGotoCompanyInfo.setOnClickListener(view -> {
             llRegisterCompany.setVisibility(View.VISIBLE);
-            //btnRegisterUofPartnerRegister.setVisibility(View.VISIBLE);
             svRegisterScrollView.smoothScrollTo(0, llRegisterCompany.getTop());
+            efRegisterGotoCompanyInfo.setVisibility(View.GONE);
 
         });
         // U.O.F 파트너 회원가입 버튼이 눌렸을 경우
-        btnRegisterUofPartnerRegister.setOnClickListener(view -> {
+        llRegisterUofPartnerRegister.setOnClickListener(view -> {
             // 회원가입 창일 경우
             try {
                 JSONObject sendData = new JSONObject();
@@ -605,7 +674,12 @@ public class RegisterActivity extends AppCompatActivity {
             //이미지 업로드
             Uri selectedImageUri = data.getData();
             ivRegisterLicenseImage.setImageURI(selectedImageUri);
-            btnRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+            llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
+            if(checkUofPartnerRegister()){
+                llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+            }else{
+                llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+            }
         }
     }
 

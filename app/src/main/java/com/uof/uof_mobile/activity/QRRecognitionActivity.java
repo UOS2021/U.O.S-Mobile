@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.manager.SharedPreferenceManager;
 import com.uof.uof_mobile.manager.SocketManager;
 import com.uof.uof_mobile.other.Global;
 
@@ -95,10 +96,34 @@ public class QRRecognitionActivity extends AppCompatActivity {
                         }
                     } else if (Global.User.type.equals("uofpartner")) {
                         try {
-                            sendData.accumulate("request_code", Global.Network.Request.STORE_PRODUCT_INFO);
+                            sendData.accumulate("request_code", Global.Network.Request.QR_IMAGE);
                             Global.socketManager.send(sendData.toString());
 
                             String strRecvData = Global.socketManager.recv();
+
+                            JSONObject recvData = new JSONObject(strRecvData);
+
+                            String responseCode = recvData.getString("response_code");
+
+                            if(responseCode.equals(Global.Network.Response.QR_IMAGE_SUCCESS)){
+                                SharedPreferenceManager.open(QRRecognitionActivity.this, Global.SharedPreference.APP_DATA);
+                                SharedPreferenceManager.save(Global.SharedPreference.QR_IMAGE, recvData.getJSONObject("message").getString("image"));
+                                SharedPreferenceManager.close();
+                                runOnUiThread(() -> {
+                                    Toast.makeText(QRRecognitionActivity.this, "매장 QR코드를 저장했습니다", Toast.LENGTH_SHORT).show();
+                                    Global.socketManager.disconnect();
+                                });
+                            }else if(responseCode.equals(Global.Network.Response.QR_IMAGE_FAILED)){
+                                runOnUiThread(() -> {
+                                    Toast.makeText(QRRecognitionActivity.this, "QR코드 불러오기 실패", Toast.LENGTH_SHORT).show();
+                                    Global.socketManager.disconnect();
+                                });
+                            }else{
+                                runOnUiThread(() -> {
+                                    Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                                    Global.socketManager.disconnect();
+                                });
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                             runOnUiThread(() -> {
@@ -113,11 +138,10 @@ public class QRRecognitionActivity extends AppCompatActivity {
                         Global.socketManager.disconnect();
                     });
                 }
-                finish();
             }).start();
         } else {
             Toast.makeText(this, "QR 코드 인식에 실패했습니다.\n다시 시도해주세요.", Toast.LENGTH_LONG).show();
-            finish();
         }
+        finish();
     }
 }

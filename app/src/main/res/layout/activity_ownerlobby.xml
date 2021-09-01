@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_ownerlobby_appname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:textColor="#000"
             android:textSize="50sp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_ownerlobby_adminpage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_ownerlobby_ownerkind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,8 +54,8 @@
                 android:textColor="#000"
                 android:textSize="35sp" />
 
-            <TextView
-                android:id="@+id/tv_ownerlobby_ownername"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_ownerlobby_companyname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -71,21 +71,23 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@color/color_light"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="저장된 QRcode 전시하기"
             android:textColor="@color/black"
             android:textSize="30sp"></androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_ownerlobby_getqr"
+            android:id="@+id/btn_ownerlobby_loadqr"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@color/color_light"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="QR코드 불러오기"
             android:textColor="@color/black"
             android:textSize="35sp"></androidx.appcompat.widget.AppCompatButton>
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ibtn_ownerlobby_setting"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -93,6 +95,7 @@
             android:backgroundTint="#00ff0000"
             android:scaleType="fitCenter"
             android:src="@drawable/setting_icon" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

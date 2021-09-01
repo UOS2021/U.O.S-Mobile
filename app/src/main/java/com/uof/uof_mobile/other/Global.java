@@ -26,6 +26,7 @@ public class Global {
         public static String USER_ID = "USER_ID";
         public static String USER_PW = "USER_PW";
         public static String USER_TYPE = "USER_TYPE";
+        public static String QR_IMAGE = "QR_IMAGE";
     }
 
     public static class Network {
