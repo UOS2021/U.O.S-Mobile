@@ -107,7 +107,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
                             if(responseCode.equals(Global.Network.Response.QR_IMAGE_SUCCESS)){
                                 SharedPreferenceManager.open(QRRecognitionActivity.this, Global.SharedPreference.APP_DATA);
-                                SharedPreferenceManager.save(Global.SharedPreference.QR_IMAGE, strRecvData);
+                                SharedPreferenceManager.save(Global.SharedPreference.QR_IMAGE, recvData.getJSONObject("message").getString("image"));
                                 SharedPreferenceManager.close();
                                 runOnUiThread(() -> {
                                     Toast.makeText(QRRecognitionActivity.this, "매장 QR코드를 저장했습니다", Toast.LENGTH_SHORT).show();
