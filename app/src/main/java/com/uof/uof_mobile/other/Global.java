@@ -20,21 +20,25 @@ public class Global {
     }
 
     public static class SQLite {
-        public static final String DB_ORDER_LIST = "OrderList.db";
-        public static final String TB_ORDER_LIST = "OrderList";
+        public static final String DB_ORDER_LIST = "WaitingOrderList.db";
+        public static final String TB_ORDER_LIST = "WaitingOrderList";
         public static final int DB_VERSION = 1;
 
-        public static final String CL_ORDER_NUMBER = "order_number";
-        public static final String CL_ORDER_TIME = "order_time";
-        public static final String CL_ORDER_INFO = "order_info";
+        public static final String CL_ORDER_NUMBER = "number";
+        public static final String CL_ORDER_COMPANY = "company";
+        public static final String CL_ORDER_TIME = "time";
+        public static final String CL_ORDER_INFO = "info";
+        public static final String CL_ORDER_STATE = "state";
 
         public static final String SORT_ASCENDING = "ASC";
         public static final String SORT_DECENDING = "DESC";
 
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + SQLite.TB_ORDER_LIST + " ("
                 + CL_ORDER_NUMBER + " TEXT PRIMARY KEY,"
+                + CL_ORDER_COMPANY + " TEXT, "
                 + CL_ORDER_TIME + " TEXT, "
-                + CL_ORDER_INFO + " TEXT)";
+                + CL_ORDER_INFO + " TEXT, "
+                + CL_ORDER_STATE + " TEXT)";
 
         public static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS "
                 + SQLite.TB_ORDER_LIST;
