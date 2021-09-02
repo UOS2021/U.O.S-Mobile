@@ -15,16 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.WaitingOrderInfoAdapter;
+import com.uof.uof_mobile.listitem.BasketItem;
 import com.uof.uof_mobile.listitem.WaitingOrderItem;
 import com.uof.uof_mobile.manager.SQLiteManager;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 public class WaitingOrderInfoDialog extends AppCompatDialog {
     private final Context context;
     private final WaitingOrderItem waitingOrderItem;
     private AppCompatImageButton ibtnDlgWaitingOrderInfoClose;
     private AppCompatTextView tvDlgWaitingOrderInfoCompanyName;
-    private AppCompatTextView tvDlgWaitingOrderInfoOrderNumber;
     private AppCompatTextView tvDlgWaitingOrderInfoOrderTime;
+    private AppCompatTextView tvDlgWaitingOrderInfoOrderNumber;
+    private AppCompatTextView tvDlgWaitingOrderInfoOrderTotalPrice;
     private RecyclerView rvDlgWaitingOrderInfo;
     private ConstraintLayout clDlgWaitingOrderInfoTake;
     private WaitingOrderInfoAdapter waitingOrderInfoAdapter;
@@ -54,14 +57,20 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
         tvDlgWaitingOrderInfoCompanyName = findViewById(R.id.tv_dlgwaitingorderinfo_companyname);
         tvDlgWaitingOrderInfoOrderNumber = findViewById(R.id.tv_dlgwaitingorderinfo_ordernumber);
         tvDlgWaitingOrderInfoOrderTime = findViewById(R.id.tv_dlgwaitingorderinfo_ordertime);
+        tvDlgWaitingOrderInfoOrderTotalPrice = findViewById(R.id.tv_dlgwaitingorderinfo_totalprice);
         rvDlgWaitingOrderInfo = findViewById(R.id.rv_dlgwaitingorderinfo);
         clDlgWaitingOrderInfoTake = findViewById(R.id.ll_dlgwaitingorderinfo_takeproduct);
 
         sqLiteManager = new SQLiteManager(context);
 
         tvDlgWaitingOrderInfoCompanyName.setText(waitingOrderItem.getCompanyName());
-        tvDlgWaitingOrderInfoOrderNumber.setText(String.valueOf(waitingOrderItem.getOrderNumber()));
         tvDlgWaitingOrderInfoOrderTime.setText(String.valueOf(waitingOrderItem.getOrderTime()));
+        tvDlgWaitingOrderInfoOrderNumber.setText(String.valueOf(waitingOrderItem.getOrderNumber()));
+        int totalPrice = 0;
+        for(BasketItem basketItem : waitingOrderItem.getBasketItemArrayList()){
+            totalPrice += basketItem.getTotalPrice();
+        }
+        tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
 
         waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();
         waitingOrderInfoAdapter.setBasketItemArrayList(waitingOrderItem.getBasketItemArrayList());
@@ -82,12 +91,6 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
         // 닫기 버튼이 눌렸을 경우
         ibtnDlgWaitingOrderInfoClose.setOnClickListener(view -> {
             dismiss();
-        });
-
-        tvDlgWaitingOrderInfoOrderNumber.setOnClickListener(view -> {
-            sqLiteManager.openDatabase();
-            sqLiteManager.setOrderState(waitingOrderItem.getOrderNumber(), "prepared");
-            sqLiteManager.closeDatabase();
         });
 
         // 상품 수령 완료 버튼이 눌렸을 경우
