@@ -196,10 +196,12 @@ public class PayActivity extends AppCompatActivity {
                                 if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
                                     // 주문접수 성공 시
                                     runOnUiThread(() -> {
+                                        clPayPay.setEnabled(false);
+                                        clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
                                         waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData);
                                         waitingOrderDialog.setOnDismissListener(dialogInterface -> {
                                             for (int loop = 0; loop < Global.activities.size(); loop++) {
-                                                if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity) {
+                                                if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity || Global.activities.get(loop) instanceof QRRecognitionActivity) {
                                                     Global.activities.get(loop).finish();
                                                     finish();
                                                 }

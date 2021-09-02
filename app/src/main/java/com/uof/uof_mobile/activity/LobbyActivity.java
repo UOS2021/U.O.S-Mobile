@@ -145,6 +145,14 @@ public class LobbyActivity extends AppCompatActivity {
         ibtnLobbySetting.setOnClickListener(view -> {
             new CheckPwDialog(LobbyActivity.this, true, true).show();
         });
+
+        Intent lobbyActivityIntent = getIntent();
+        if(lobbyActivityIntent.getStringExtra("targetIp") != null){
+            Intent intent = new Intent(LobbyActivity.this, QRRecognitionActivity.class);
+            intent.putExtra("targetIp", lobbyActivityIntent.getStringExtra("targetIp"));
+            intent.putExtra("targetPort", lobbyActivityIntent.getStringExtra("targetPort"));
+            startActivity(intent);
+        }
     }
 
     public void updateList() {
