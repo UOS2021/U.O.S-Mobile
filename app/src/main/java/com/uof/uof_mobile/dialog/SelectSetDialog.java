@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +43,7 @@ public class SelectSetDialog extends Dialog {
     private AppCompatTextView tvDlgSelectSetDesc;
     private ChipGroup cgDlgSelectSetCategoryList;
     private RecyclerView rvDlgSelectSetProductList;
-    private LinearLayoutCompat llDlgSelectSetAdd;
+    private ConstraintLayout clDlgSelectSetAdd;
     private AppCompatTextView tvDlgSelectSetTotalPrice;
     private SetProductAdapter setProductAdapter;
     private String selectedCategory;
@@ -80,7 +80,7 @@ public class SelectSetDialog extends Dialog {
         tvDlgSelectSetDesc = findViewById(R.id.tv_dlgselectset_desc);
         cgDlgSelectSetCategoryList = findViewById(R.id.cg_dlgselectset_categorylist);
         rvDlgSelectSetProductList = findViewById(R.id.rv_dlgselectset_productlist);
-        llDlgSelectSetAdd = findViewById(R.id.ll_dlgselectset_add);
+        clDlgSelectSetAdd = findViewById(R.id.cl_dlgselectset_add);
         tvDlgSelectSetTotalPrice = findViewById(R.id.tv_dlgselectset_totalprice);
 
         try {
@@ -196,7 +196,7 @@ public class SelectSetDialog extends Dialog {
         });
 
         // 상품 추가 버튼 클릭 시
-        llDlgSelectSetAdd.setOnClickListener(view -> {
+        clDlgSelectSetAdd.setOnClickListener(view -> {
             this.selectSetDialogListener.onAddProductClicked(new BasketItem(Global.ItemType.SET, setData.getName(), setProductAdapter.getSubMenu(), setData.getPrice() + setProductAdapter.getAdditionalPrice(), Integer.valueOf(tilDlgSelectSetCount.getEditText().getText().toString())));
             dismiss();
         });

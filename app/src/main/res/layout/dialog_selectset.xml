@@ -44,7 +44,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/ll_dlgselectset_add"
+        app:layout_constraintBottom_toTopOf="@id/cl_dlgselectset_add"
         app:layout_constraintTop_toBottomOf="@id/cl_dlgselectset_1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -214,53 +214,46 @@
 
     </ScrollView>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_dlgselectset_add"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_dlgselectset_add"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="@color/color_primary"
         android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="@+id/l_dlgselectset_addsub"
-            android:background="?attr/selectableItemBackground">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dlgselectset_totalprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/zxing_transparent"
+            android:text="00,000원"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/tv_dlgselectset_add"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_dlgselectset_totalprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/zxing_transparent"
-                android:text="00,000원"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toTopOf="@id/tv_dlgselectset_add"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dlgselectset_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/zxing_transparent"
+            android:gravity="center"
+            android:text="장바구니에 추가"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_dlgselectset_totalprice" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_dlgselectset_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/zxing_transparent"
-                android:gravity="center"
-                android:text="장바구니에 추가"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_dlgselectset_totalprice" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
