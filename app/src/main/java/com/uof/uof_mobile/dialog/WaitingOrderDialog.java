@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
@@ -13,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.activity.PayActivity;
+import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -24,11 +26,15 @@ public class WaitingOrderDialog extends AppCompatDialog {
     private ConstraintLayout clDlgWaitingOrderCancel;
     private AppCompatTextView tvDlgWaitingOrder2;
     private AppCompatTextView tvDlgWaitingOrder3;
+    private final String companyName;
+    private final JSONObject orderData;
     private boolean orderCancel;
 
-    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
+    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
+        this.companyName = companyName;
+        this.orderData = orderData;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -49,6 +55,8 @@ public class WaitingOrderDialog extends AppCompatDialog {
         clDlgWaitingOrderCancel = findViewById(R.id.cl_dlgwaitingorder_cancel);
         tvDlgWaitingOrder2 = findViewById(R.id.tv_dlgwaitingorder_2);
         tvDlgWaitingOrder3 = findViewById(R.id.tv_dlgwaitingorder_3);
+
+        tvDlgWaitingOrderMessage.setText("매장에서 주문을 확인하고 있습니다\n잠시만 기다려주세요...");
 
         // 주문접수 상태 불러오기
         new Thread(() -> {
@@ -91,6 +99,21 @@ public class WaitingOrderDialog extends AppCompatDialog {
 
                         if (responseCode.equals(Global.Network.Response.PAY_SUCCESS)) {
                             // 결제 성공시
+                            int orderNumber = recvData.getJSONObject("message").getInt("order_number");
+
+                            SQLiteManager sqLiteManager = new SQLiteManager(context);
+                            sqLiteManager.openDatabase();
+                            if (sqLiteManager.saveOrder(orderNumber, companyName, orderData.getJSONObject("message"))) {
+                                ((PayActivity) context).runOnUiThread(() -> {
+                                    Toast.makeText(context, "주문내역 저장 성공", Toast.LENGTH_SHORT).show();
+                                });
+                            } else {
+                                ((PayActivity) context).runOnUiThread(() -> {
+                                    Toast.makeText(context, "주문내역 저장 실패", Toast.LENGTH_SHORT).show();
+                                });
+                            }
+                            sqLiteManager.closeDatabase();
+
                             ((PayActivity) context).runOnUiThread(() -> {
                                 tvDlgWaitingOrderMessage.setText("결제가 완료되었습니다\n주문하신 상품이 준비되면 알려드리겠습니다");
                             });

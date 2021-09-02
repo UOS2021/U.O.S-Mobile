@@ -92,8 +92,14 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     // 현재 선택된 카테고리 반환
-    public String getSelectedCategory() {
-        return selectedCategory;
+    public OrderingCategory getSelectedCategory() {
+        for(OrderingCategory orderingCategory : orderingCategoryArrayList){
+            if(orderingCategory.getCategory().equals(selectedCategory)){
+                return orderingCategory;
+            }
+        }
+
+        return null;
     }
 
     // 매개변수로 들어온 카테고리를 현재 선택된 카테고리로 설정

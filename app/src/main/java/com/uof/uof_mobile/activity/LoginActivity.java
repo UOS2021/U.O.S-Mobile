@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,11 +25,11 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tilLoginId;
     private TextInputLayout tilLoginPw;
-    private Button btnLoginLogin;
-    private TextView tvLoginRegister;
+    private AppCompatButton btnLoginLogin;
+    private AppCompatTextView tvLoginRegister;
     private LinearLayoutCompat llLoginLoginLayout;
     private CheckBox cbloginispartner;
-    private Button btnLoginPass;
+    private AppCompatButton btnLoginPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

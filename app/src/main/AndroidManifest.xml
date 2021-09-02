@@ -23,12 +23,6 @@
             android:name=".activity.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.OwnerSettingActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.OwnerQRRecognitionActivity"
-            android:exported="true" />
-        <activity
             android:name=".activity.OwnerLobbyActivity"
             android:exported="true" />
         <activity
