@@ -9,11 +9,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.uof.uof_mobile.listitem.BasketItem;
+import com.uof.uof_mobile.listitem.WaitingOrderItem;
 import com.uof.uof_mobile.other.Global;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class SQLiteManager extends SQLiteOpenHelper {
@@ -139,16 +143,61 @@ public class SQLiteManager extends SQLiteOpenHelper {
         return sqLiteDatabase.update(tableName, contentValues, condition, conditionValues);
     }
 
-    public boolean saveOrder(int orderNumber, JSONObject orderData) {
+    public boolean saveOrder(int orderNumber, String companyName, JSONObject orderData) {
         ContentValues contentValues = new ContentValues();
+        contentValues.put(Global.SQLite.CL_ORDER_COMPANY, companyName);
         contentValues.put(Global.SQLite.CL_ORDER_NUMBER, orderNumber);
         contentValues.put(Global.SQLite.CL_ORDER_TIME, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(System.currentTimeMillis())));
         contentValues.put(Global.SQLite.CL_ORDER_INFO, orderData.toString());
+        contentValues.put(Global.SQLite.CL_ORDER_STATE, "wait");
 
         return (insert(Global.SQLite.TB_ORDER_LIST, contentValues) != -1);
     }
 
+    public ArrayList<WaitingOrderItem> loadOrder() {
+        ArrayList<WaitingOrderItem> waitingOrderItemArrayList = new ArrayList<>();
+
+        Cursor cursor = read(Global.SQLite.TB_ORDER_LIST, null, new String[]{}, null, Global.SQLite.CL_ORDER_STATE, Global.SQLite.SORT_ASCENDING);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            do {
+                try {
+                    ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
+
+                    JSONArray orderList = new JSONObject(cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_INFO))).getJSONArray("order");
+
+                    for (int loop = 0; loop < orderList.length(); loop++) {
+                        JSONObject orderItem = orderList.getJSONObject(loop);
+                        basketItemArrayList.add(new BasketItem(orderItem.getInt("type"), orderItem.getString("menu"), orderItem.getString("submenu"), orderItem.getInt("price"), orderItem.getInt("count")));
+                    }
+
+                    waitingOrderItemArrayList.add(new WaitingOrderItem(
+                            cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_COMPANY))
+                            , Integer.valueOf(cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_NUMBER)))
+                            , cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_TIME))
+                            , cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_STATE))
+                            , basketItemArrayList));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } while (cursor.moveToNext());
+        }
+
+        return waitingOrderItemArrayList;
+    }
+
+    public boolean hasOrderNumber(int orderNumber){
+        return (read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_NUMBER}, new String[]{String.valueOf(orderNumber)}, Global.SQLite.CL_ORDER_NUMBER, Global.SQLite.SORT_ASCENDING).getCount() == 1);
+    }
+
     public boolean removeOrder(int orderNumber) {
         return (delete(Global.SQLite.TB_ORDER_LIST, new String[]{Global.SQLite.CL_ORDER_NUMBER}, new String[]{String.valueOf(orderNumber)}) == 1);
+    }
+
+    public boolean setOrderState(int orderNumber, String state) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Global.SQLite.CL_ORDER_STATE, state);
+        return (update(Global.SQLite.TB_ORDER_LIST, contentValues, new String[]{Global.SQLite.CL_ORDER_NUMBER}, new String[]{String.valueOf(orderNumber)}) != 0);
     }
 }
