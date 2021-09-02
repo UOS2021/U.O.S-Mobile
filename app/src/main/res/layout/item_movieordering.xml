@@ -4,7 +4,7 @@
     android:id="@+id/cl_movieordering"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/recyclerview_background"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     android:padding="8dp">
