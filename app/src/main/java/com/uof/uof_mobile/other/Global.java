@@ -29,12 +29,14 @@ public class Global {
         public static final String CL_ORDER_TIME = "time";
         public static final String CL_ORDER_INFO = "info";
         public static final String CL_ORDER_STATE = "state";
+        public static final String CL_ORDER_ID = "id";
 
         public static final String SORT_ASCENDING = "ASC";
         public static final String SORT_DECENDING = "DESC";
 
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + SQLite.TB_ORDER_LIST + " ("
                 + CL_ORDER_NUMBER + " TEXT PRIMARY KEY,"
+                 + CL_ORDER_ID + " TEXT, "
                 + CL_ORDER_COMPANY + " TEXT, "
                 + CL_ORDER_TIME + " TEXT, "
                 + CL_ORDER_INFO + " TEXT, "
