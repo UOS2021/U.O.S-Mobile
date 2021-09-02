@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -671,6 +672,10 @@ public class MovieOrderingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Global.activities.remove(this);
+        Global.basketManager.getOrderingItemArrayList().clear();
+        if (Global.socketManager != null && Global.socketManager.isSocketConnected()) {
+            Global.socketManager.disconnect();
+        }
         super.onDestroy();
     }
 
@@ -693,7 +698,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
 
         // UI 초기 상태 설정
         tvMovieOrderingShowMovie.setEnabled(false);
-        tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(R.color.white));
+        tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(R.color.recyclerview_background));
         llMovieOrderingMovie.setVisibility(View.VISIBLE);
         tvMovieOrderingShowFood.setEnabled(true);
         tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(R.color.gray));
@@ -716,6 +721,9 @@ public class MovieOrderingActivity extends AppCompatActivity {
         movieOrderingAdapter = new MovieOrderingAdapter();
         movieOrderingAdapter.setJson(movieData);
         rvMovieOrderingMovieList.setLayoutManager(new LinearLayoutManager(MovieOrderingActivity.this, LinearLayoutManager.VERTICAL, false));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(MovieOrderingActivity.this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recyclerview_divider));
+        rvMovieOrderingMovieList.addItemDecoration(dividerItemDecoration);
         rvMovieOrderingMovieList.setAdapter(movieOrderingAdapter);
 
         // 상품 목록 Adapter 설정
@@ -736,19 +744,17 @@ public class MovieOrderingActivity extends AppCompatActivity {
                     selectedCategory = chip.getText().toString();
                     orderingAdapter.setSelectedCategory(selectedCategory);
                     rvMovieOrderingProductList.setAdapter(orderingAdapter);
-                    chip.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                    chip.setTextColor(getResources().getColor(R.color.black));
                 });
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            cgMovieOrderingCategoryList.addView(chip);
             if (loop == 0) {
                 selectedCategory = chip.getText().toString();
                 orderingAdapter.setSelectedCategory(selectedCategory);
                 rvMovieOrderingProductList.setAdapter(orderingAdapter);
                 chip.setChecked(true);
             }
+            cgMovieOrderingCategoryList.addView(chip);
         }
 
         // 뒤로가기 버튼이 눌렸을 경우
@@ -772,7 +778,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
         // 영화 표시 버튼이 눌렸을 때
         tvMovieOrderingShowMovie.setOnClickListener(view -> {
             tvMovieOrderingShowMovie.setEnabled(false);
-            tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(R.color.white));
+            tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(R.color.recyclerview_background));
             llMovieOrderingMovie.setVisibility(View.VISIBLE);
 
             tvMovieOrderingShowFood.setEnabled(true);
@@ -787,7 +793,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
             llMovieOrderingMovie.setVisibility(View.GONE);
 
             tvMovieOrderingShowFood.setEnabled(false);
-            tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(R.color.white));
+            tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(R.color.recyclerview_background));
             llMovieOrderingFood.setVisibility(View.VISIBLE);
         });
 
