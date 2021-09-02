@@ -22,6 +22,7 @@ public class BasketItem {
         this.subMenu = subMenu;
         this.price = price;
         this.count = count;
+        this.movieItem = movieItem;
     }
 
     public MovieItem getMovieItem() {
