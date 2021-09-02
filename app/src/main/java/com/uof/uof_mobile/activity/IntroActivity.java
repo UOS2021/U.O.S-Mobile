@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
 import com.uof.uof_mobile.other.Global;
@@ -29,7 +31,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
+        for (Activity activity : Global.activities) {
             activity.finish();
         }
 
@@ -42,7 +44,20 @@ public class IntroActivity extends AppCompatActivity {
             SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
             SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
             SharedPreferenceManager.save(Global.SharedPreference.IS_FIRST, false);
+            SharedPreferenceManager.save(Global.SharedPreference.SP_KEY_LAST_NOTIFICATION_NUMBER, 0);
         }
+
+        // FCM 앱 고유 토큰 부여
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w("UOF_MOBILE_FCM", "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    String fcmToken = task.getResult();
+                    Global.Firebase.FCM_TOKEN = fcmToken;
+                });
 
         Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
 
@@ -53,10 +68,10 @@ public class IntroActivity extends AppCompatActivity {
                 try {
                     intent.putExtra("targetIp", uri.getQueryParameter("targetIp"));
                     intent.putExtra("targetPort", uri.getQueryParameter("targetPort"));
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(IntroActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
-               }
+                }
             }
         }
         startActivity(intent);
