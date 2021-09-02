@@ -84,7 +84,6 @@ public class QRRecognitionActivity extends AppCompatActivity {
                             if (strRecvData == null) {
                                 // 수신 데이터가 없을 경우
                                 Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                                finish();
                             } else {
                                 // 수신 데이터가 있을 경우
                                 JSONObject recvData = new JSONObject(strRecvData);
@@ -109,6 +108,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
                                 } else {
                                     runOnUiThread(() -> {
                                         Toast.makeText(QRRecognitionActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
+                                        Global.socketManager.disconnect();
                                     });
                                 }
                             }
@@ -126,28 +126,33 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
                             String strRecvData = Global.socketManager.recv();
 
-                            JSONObject recvData = new JSONObject(strRecvData);
-
-                            String responseCode = recvData.getString("response_code");
-
-                            if (responseCode.equals(Global.Network.Response.QR_IMAGE_SUCCESS)) {
-                                SharedPreferenceManager.open(QRRecognitionActivity.this, Global.SharedPreference.APP_DATA);
-                                SharedPreferenceManager.save(Global.SharedPreference.QR_IMAGE, recvData.getJSONObject("message").getString("image"));
-                                SharedPreferenceManager.close();
-                                runOnUiThread(() -> {
-                                    Toast.makeText(QRRecognitionActivity.this, "매장 QR코드를 저장했습니다", Toast.LENGTH_SHORT).show();
-                                    Global.socketManager.disconnect();
-                                });
-                            } else if (responseCode.equals(Global.Network.Response.QR_IMAGE_FAILED)) {
-                                runOnUiThread(() -> {
-                                    Toast.makeText(QRRecognitionActivity.this, "QR코드 불러오기 실패", Toast.LENGTH_SHORT).show();
-                                    Global.socketManager.disconnect();
-                                });
+                            if (strRecvData == null) {
+                                // 수신 데이터가 없을 경우
+                                Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
                             } else {
-                                runOnUiThread(() -> {
-                                    Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                                    Global.socketManager.disconnect();
-                                });
+                                // 수신 데이터가 있을 경우
+                                JSONObject recvData = new JSONObject(strRecvData);
+                                String responseCode = recvData.getString("response_code");
+
+                                if (responseCode.equals(Global.Network.Response.QR_IMAGE_SUCCESS)) {
+                                    SharedPreferenceManager.open(QRRecognitionActivity.this, Global.SharedPreference.APP_DATA);
+                                    SharedPreferenceManager.save(Global.SharedPreference.QR_IMAGE, recvData.getJSONObject("message").getString("image"));
+                                    SharedPreferenceManager.close();
+                                    runOnUiThread(() -> {
+                                        Toast.makeText(QRRecognitionActivity.this, "매장 QR코드를 저장했습니다", Toast.LENGTH_SHORT).show();
+                                        Global.socketManager.disconnect();
+                                    });
+                                } else if (responseCode.equals(Global.Network.Response.QR_IMAGE_FAILED)) {
+                                    runOnUiThread(() -> {
+                                        Toast.makeText(QRRecognitionActivity.this, "QR코드 불러오기 실패", Toast.LENGTH_SHORT).show();
+                                        Global.socketManager.disconnect();
+                                    });
+                                } else {
+                                    runOnUiThread(() -> {
+                                        Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                                        Global.socketManager.disconnect();
+                                    });
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
