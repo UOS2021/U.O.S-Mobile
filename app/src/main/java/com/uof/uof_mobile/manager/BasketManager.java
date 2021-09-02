@@ -46,6 +46,7 @@ public class BasketManager {
         try {
             for (BasketItem basketItem : basketItemArrayList) {
                 JSONObject item = new JSONObject();
+                item.accumulate("type", basketItem.getType());
                 item.accumulate("menu", basketItem.getMenu());
                 item.accumulate("submenu", basketItem.getSubMenu());
                 item.accumulate("count", basketItem.getCount());
