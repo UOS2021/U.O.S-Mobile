@@ -197,7 +197,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_dlgselectset_2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -206,7 +206,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_dlgselectset_productlist"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
