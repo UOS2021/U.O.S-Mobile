@@ -106,4 +106,8 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((AnimationDrawable) clWaitingOrder.getBackground()).start();
         }
     }
+
+    public ArrayList<WaitingOrderItem> getWaitingOrderItemArrayList(){
+        return waitingOrderItemArrayList;
+    }
 }
