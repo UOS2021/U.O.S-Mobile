@@ -489,6 +489,10 @@ public class OrderingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Global.activities.remove(this);
+        Global.basketManager.getOrderingItemArrayList().clear();
+        if (Global.socketManager != null && Global.socketManager.isSocketConnected()) {
+            Global.socketManager.disconnect();
+        }
         super.onDestroy();
     }
 
@@ -534,19 +538,17 @@ public class OrderingActivity extends AppCompatActivity {
                     selectedCategory = chip.getText().toString();
                     orderingAdapter.setSelectedCategory(selectedCategory);
                     rvOrderingProductList.setAdapter(orderingAdapter);
-                    chip.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                    chip.setTextColor(getResources().getColor(R.color.black));
                 });
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            cgOrderingCategoryList.addView(chip);
             if (loop == 0) {
                 selectedCategory = chip.getText().toString();
                 orderingAdapter.setSelectedCategory(selectedCategory);
                 rvOrderingProductList.setAdapter(orderingAdapter);
                 chip.setChecked(true);
             }
+            cgOrderingCategoryList.addView(chip);
         }
 
         // 뒤로가기 버튼이 눌렸을 경우
