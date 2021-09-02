@@ -1,6 +1,5 @@
 package com.uof.uof_mobile.dialog;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -27,11 +26,15 @@ public class WaitingOrderDialog extends AppCompatDialog {
     private ConstraintLayout clDlgWaitingOrderCancel;
     private AppCompatTextView tvDlgWaitingOrder2;
     private AppCompatTextView tvDlgWaitingOrder3;
+    private final String companyName;
+    private final JSONObject orderData;
     private boolean orderCancel;
 
-    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
+    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
+        this.companyName = companyName;
+        this.orderData = orderData;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -52,6 +55,8 @@ public class WaitingOrderDialog extends AppCompatDialog {
         clDlgWaitingOrderCancel = findViewById(R.id.cl_dlgwaitingorder_cancel);
         tvDlgWaitingOrder2 = findViewById(R.id.tv_dlgwaitingorder_2);
         tvDlgWaitingOrder3 = findViewById(R.id.tv_dlgwaitingorder_3);
+
+        tvDlgWaitingOrderMessage.setText("매장에서 주문을 확인하고 있습니다\n잠시만 기다려주세요...");
 
         // 주문접수 상태 불러오기
         new Thread(() -> {
@@ -98,11 +103,11 @@ public class WaitingOrderDialog extends AppCompatDialog {
 
                             SQLiteManager sqLiteManager = new SQLiteManager(context);
                             sqLiteManager.openDatabase();
-                            if(sqLiteManager.saveOrder(orderNumber, sendData.getJSONObject("message"))){
+                            if (sqLiteManager.saveOrder(orderNumber, companyName, orderData.getJSONObject("message"))) {
                                 ((PayActivity) context).runOnUiThread(() -> {
                                     Toast.makeText(context, "주문내역 저장 성공", Toast.LENGTH_SHORT).show();
                                 });
-                            }else{
+                            } else {
                                 ((PayActivity) context).runOnUiThread(() -> {
                                     Toast.makeText(context, "주문내역 저장 실패", Toast.LENGTH_SHORT).show();
                                 });
