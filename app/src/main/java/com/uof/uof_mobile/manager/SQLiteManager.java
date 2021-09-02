@@ -150,6 +150,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(Global.SQLite.CL_ORDER_TIME, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(System.currentTimeMillis())));
         contentValues.put(Global.SQLite.CL_ORDER_INFO, orderData.toString());
         contentValues.put(Global.SQLite.CL_ORDER_STATE, "wait");
+        contentValues.put(Global.SQLite.CL_ORDER_ID, Global.User.id);
 
         return (insert(Global.SQLite.TB_ORDER_LIST, contentValues) != -1);
     }
@@ -157,7 +158,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public ArrayList<WaitingOrderItem> loadOrder() {
         ArrayList<WaitingOrderItem> waitingOrderItemArrayList = new ArrayList<>();
 
-        Cursor cursor = read(Global.SQLite.TB_ORDER_LIST, null, new String[]{}, null, Global.SQLite.CL_ORDER_STATE, Global.SQLite.SORT_ASCENDING);
+        Cursor cursor = read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_ID}, new String[] {Global.User.id}, Global.SQLite.CL_ORDER_STATE, Global.SQLite.SORT_ASCENDING);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
