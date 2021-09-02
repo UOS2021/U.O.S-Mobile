@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,19 +9,23 @@
     tools:context=".activity.LobbyActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_lobby_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_lobby_recognizeqr"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/qrcode" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_lobby_notify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,38 +34,71 @@
             android:text="현재 매장의 QR코드를 인식해주세요!"
             android:textColor="#ff0000"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <TextView
-        android:id="@+id/tv_lobby_shownoworderlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="현재 주문 내역"
-        android:textColor="#000"
-        android:textSize="30sp" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.5"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/ll_lobby_2"
+        app:layout_constraintTop_toBottomOf="@id/ll_lobby_1">
 
-        <ListView
-            android:id="@+id/lv_lobby_noworderlist"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_lobby_waitingordermessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="대기 중인 주문이 없습니다"
+            android:textColor="#000"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ibtn_lobby_left"
+            android:layout_width="32dp"
+            android:layout_height="64dp"
+            android:background="@drawable/icon_left"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_lobby_waitingorder"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/listview_border"
-            android:padding="10dp"></ListView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintLeft_toRightOf="@id/ibtn_lobby_left"
+            app:layout_constraintRight_toLeftOf="@id/ibtn_lobby_right" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ibtn_lobby_right"
+            android:layout_width="32dp"
+            android:layout_height="64dp"
+            android:background="@drawable/icon_right"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_lobby_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -70,13 +107,16 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btn_lobby_card"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibtn_lobby_card"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#00ff0000"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="fitCenter"
                 android:src="@drawable/card_icon" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -86,11 +126,13 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btn_lobby_orderlist"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibtn_lobby_orderlist"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#00ff0000"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="fitCenter"
                 android:src="@drawable/orderlist_icon" />
 
@@ -103,15 +145,17 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btn_lobby_setting"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibtn_lobby_setting"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#00ff0000"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="fitCenter"
                 android:src="@drawable/setting_icon" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>
