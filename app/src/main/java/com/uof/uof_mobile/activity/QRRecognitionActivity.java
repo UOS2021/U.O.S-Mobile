@@ -24,11 +24,26 @@ public class QRRecognitionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrrecognition);
 
-        qrScan = new IntentIntegrator(this);
-        qrScan.setOrientationLocked(false);
-        qrScan.setPrompt("QR 코드를 인식해주세요");
-        qrScan.setBeepEnabled(false);
-        qrScan.initiateScan();
+        Global.activities.add(this);
+
+        Intent qrRecognitionActivityIntent = getIntent();
+        if (qrRecognitionActivityIntent.getStringExtra("targetIp") != null) {
+            String temp1 = qrRecognitionActivityIntent.getStringExtra("targetIp");
+            String temp2 = qrRecognitionActivityIntent.getStringExtra("targetPort");
+            connectToStore(qrRecognitionActivityIntent.getStringExtra("targetIp"), Integer.valueOf(qrRecognitionActivityIntent.getStringExtra("targetPort")));
+        } else {
+            qrScan = new IntentIntegrator(this);
+            qrScan.setOrientationLocked(false);
+            qrScan.setPrompt("QR 코드를 인식해주세요");
+            qrScan.setBeepEnabled(false);
+            qrScan.initiateScan();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Global.activities.remove(this);
+        super.onDestroy();
     }
 
     @Override
@@ -39,71 +54,84 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
         if (result != null && result.getContents() != null) {
             // 회사 종류에 따라 다른 Activity 표시
-            try {
-                String targetIp = result.getContents().substring(result.getContents().indexOf("Ip") + 3, result.getContents().indexOf("&"));
-                int targetPort = Integer.parseInt(result.getContents().substring(result.getContents().indexOf("Port") + 5));
+            String targetIp = result.getContents().substring(result.getContents().indexOf("Ip") + 3, result.getContents().indexOf("&"));
+            int targetPort = Integer.parseInt(result.getContents().substring(result.getContents().indexOf("Port") + 5));
 
-                Global.socketManager = new SocketManager();
-                Global.socketManager.setSocket(targetIp, targetPort);
+            connectToStore(targetIp, targetPort);
+        } else {
+            Toast.makeText(this, "QR 코드 인식에 실패했습니다.\n다시 시도해주세요.", Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
 
-                // Pos 소켓 연결 - 매장 정보 불러오기
-                new Thread(() -> {
-                    if (Global.socketManager.connect(2000)) {
-                        JSONObject sendData = new JSONObject();
+    private void connectToStore(String targetIp, int targetPort) {
+        try {
+            Global.socketManager = new SocketManager();
+            Global.socketManager.setSocket(targetIp, targetPort);
 
-                        if (Global.User.type.equals("customer")) {
-                            try {
-                                sendData.accumulate("request_code", Global.Network.Request.STORE_PRODUCT_INFO);
-                                Global.socketManager.send(sendData.toString());
+            // Pos 소켓 연결 - 매장 정보 불러오기
+            new Thread(() -> {
+                if (Global.socketManager.connect(2000)) {
+                    JSONObject sendData = new JSONObject();
 
-                                String strRecvData = Global.socketManager.recv();
+                    if (Global.User.type.equals("customer")) {
+                        try {
+                            sendData.accumulate("request_code", Global.Network.Request.STORE_PRODUCT_INFO);
+                            Global.socketManager.send(sendData.toString());
 
-                                if (strRecvData == null) {
-                                    // 수신 데이터가 없을 경우
-                                    Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // 수신 데이터가 있을 경우
-                                    JSONObject recvData = new JSONObject(strRecvData);
+                            String strRecvData = Global.socketManager.recv();
 
-                                    JSONObject companyData = recvData.getJSONObject("message").getJSONObject("company");
-                                    JSONArray productData = recvData.getJSONObject("message").getJSONArray("category_list");
-
-                                    String companyType = companyData.getString("type");
-
-                                    if (companyType.equals("restaurant") || companyType.equals("pc")) {
-                                        // 회사 종류 - 음식점 또는 PC방
-                                        Intent intent = new Intent(QRRecognitionActivity.this, OrderingActivity.class);
-                                        intent.putExtra("companyData", companyData.toString());
-                                        intent.putExtra("productData", productData.toString());
-                                        startActivity(intent);
-                                    } else if (companyType.equals("movie")) {
-                                        // 회사 종류 - 영화관
-                                        Intent intent = new Intent(QRRecognitionActivity.this, MovieOrderingActivity.class);
-                                        intent.putExtra("companyData", companyData.toString());
-                                        intent.putExtra("productData", productData.toString());
-                                        startActivity(intent);
-                                    } else {
-                                        runOnUiThread(() -> {
-                                            Toast.makeText(QRRecognitionActivity.this, "유효하지 않은 매장 정보입니다", Toast.LENGTH_SHORT).show();
-                                        });
-                                    }
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                runOnUiThread(() -> {
-                                    Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
-                                    Global.socketManager.disconnect();
-                                });
-                            }
-                        } else if (Global.User.type.equals("uofpartner")) {
-                            try {
-                                sendData.accumulate("request_code", Global.Network.Request.QR_IMAGE);
-                                Global.socketManager.send(sendData.toString());
-
-                                String strRecvData = Global.socketManager.recv();
-
+                            if (strRecvData == null) {
+                                // 수신 데이터가 없을 경우
+                                Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // 수신 데이터가 있을 경우
                                 JSONObject recvData = new JSONObject(strRecvData);
 
+                                JSONObject companyData = recvData.getJSONObject("message").getJSONObject("company");
+                                JSONArray productData = recvData.getJSONObject("message").getJSONArray("category_list");
+
+                                String companyType = companyData.getString("type");
+
+                                if (companyType.equals("restaurant") || companyType.equals("pc")) {
+                                    // 회사 종류 - 음식점 또는 PC방
+                                    Intent intent = new Intent(QRRecognitionActivity.this, OrderingActivity.class);
+                                    intent.putExtra("companyData", companyData.toString());
+                                    intent.putExtra("productData", productData.toString());
+                                    startActivity(intent);
+                                } else if (companyType.equals("movie")) {
+                                    // 회사 종류 - 영화관
+                                    Intent intent = new Intent(QRRecognitionActivity.this, MovieOrderingActivity.class);
+                                    intent.putExtra("companyData", companyData.toString());
+                                    intent.putExtra("productData", productData.toString());
+                                    startActivity(intent);
+                                } else {
+                                    runOnUiThread(() -> {
+                                        Toast.makeText(QRRecognitionActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
+                                        Global.socketManager.disconnect();
+                                    });
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            runOnUiThread(() -> {
+                                Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
+                                Global.socketManager.disconnect();
+                            });
+                        }
+                    } else if (Global.User.type.equals("uofpartner")) {
+                        try {
+                            sendData.accumulate("request_code", Global.Network.Request.QR_IMAGE);
+                            Global.socketManager.send(sendData.toString());
+
+                            String strRecvData = Global.socketManager.recv();
+
+                            if (strRecvData == null) {
+                                // 수신 데이터가 없을 경우
+                                Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // 수신 데이터가 있을 경우
+                                JSONObject recvData = new JSONObject(strRecvData);
                                 String responseCode = recvData.getString("response_code");
 
                                 if (responseCode.equals(Global.Network.Response.QR_IMAGE_SUCCESS)) {
@@ -125,27 +153,25 @@ public class QRRecognitionActivity extends AppCompatActivity {
                                         Global.socketManager.disconnect();
                                     });
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                runOnUiThread(() -> {
-                                    Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
-                                    Global.socketManager.disconnect();
-                                });
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            runOnUiThread(() -> {
+                                Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다: " + e.toString(), Toast.LENGTH_SHORT).show();
+                                Global.socketManager.disconnect();
+                            });
                         }
-                    } else {
-                        runOnUiThread(() -> {
-                            Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                            Global.socketManager.disconnect();
-                        });
                     }
-                }).start();
-            } catch (Exception e) {
-                Toast.makeText(QRRecognitionActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        Global.socketManager.disconnect();
+                    });
+                }
                 finish();
-            }
-        } else {
-            Toast.makeText(this, "QR 코드 인식에 실패했습니다.\n다시 시도해주세요.", Toast.LENGTH_LONG).show();
+            }).start();
+        } catch (Exception e) {
+            Toast.makeText(QRRecognitionActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
         }
         finish();
     }

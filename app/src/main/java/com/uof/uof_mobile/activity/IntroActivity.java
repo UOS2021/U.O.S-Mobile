@@ -1,7 +1,10 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +29,10 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            activity.finish();
+        }
+
         Global.activities.add(this);
 
         SharedPreferenceManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
@@ -38,24 +45,21 @@ public class IntroActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+
+        if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+            Uri uri = getIntent().getData();
+
+            if (uri != null) {
+                try {
+                    intent.putExtra("targetIp", uri.getQueryParameter("targetIp"));
+                    intent.putExtra("targetPort", uri.getQueryParameter("targetPort"));
+                } catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(IntroActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
+               }
+            }
+        }
         startActivity(intent);
         finish();
-
-//        if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
-//            Uri uri = getIntent().getData();
-//
-//            if (uri == null) {
-//                Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(IntroActivity.this, OrderingActivity.class);
-//                intent.putExtra("targetIp", ((Uri) uri).getQueryParameter("targetIp"));
-//                intent.putExtra("targetPort", Integer.parseInt(uri.getQueryParameter("targetPort")));
-//                startActivity(intent);
-//            }
-//        } else {
-//            Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
-//            startActivity(intent);
-//        }
     }
 }

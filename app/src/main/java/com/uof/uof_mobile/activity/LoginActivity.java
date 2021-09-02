@@ -56,9 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         cbloginispartner = findViewById(R.id.cb_login_ispartner);
         btnLoginPass = findViewById(R.id.btn_login_pass);
 
-        // 기본 데이터 설정
-        Intent intent = getIntent();
-
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
         llLoginLoginLayout.setVisibility(View.VISIBLE);
@@ -189,11 +186,23 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, Global.User.type);
                 SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, true);
                 SharedPreferenceManager.close();
+
+                Intent loginActivityIntent = getIntent();
+
                 if (cbloginispartner.isChecked()) {
                     //파트너 로그인
+                    if (loginActivityIntent.getStringExtra("targetIp") != null) {
+                        Toast.makeText(LoginActivity.this, "파트너는 매장 상품 구매가 불가능합니다", Toast.LENGTH_SHORT).show();
+                    }
                     startActivity(new Intent(LoginActivity.this, OwnerLobbyActivity.class));
                 } else {
-                    startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
+                    // 일반고객 로그인
+                    Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
+                    if (loginActivityIntent.getStringExtra("targetIp") != null) {
+                        intent.putExtra("targetIp", loginActivityIntent.getStringExtra("targetIp"));
+                        intent.putExtra("targetPort", loginActivityIntent.getStringExtra("targetPort"));
+                    }
+                    startActivity(intent);
                 }
                 finish();
             } else if (responseCode.equals(Global.Network.Response.LOGIN_FAILED_ID_NOT_EXIST)) {
