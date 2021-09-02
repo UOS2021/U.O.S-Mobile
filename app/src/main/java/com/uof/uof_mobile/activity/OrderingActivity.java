@@ -507,8 +507,6 @@ public class OrderingActivity extends AppCompatActivity {
         tvOrderingProductCount = findViewById(R.id.tv_ordering_productcount);
         llOrderingPay = findViewById(R.id.ll_ordering_order);
 
-        Intent loadData = getIntent();
-
         try {
             //companyData = new JSONObject(loadData.getStringExtra("companyData"));
             //productData = new JSONArray(loadData.getStringExtra("productData"));
