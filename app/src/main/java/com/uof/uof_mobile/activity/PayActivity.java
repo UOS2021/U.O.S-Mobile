@@ -175,6 +175,7 @@ public class PayActivity extends AppCompatActivity {
                             JSONObject message = new JSONObject();
 
                             message.accumulate("id", Global.User.id);
+                            message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
 
                             JSONObject cardData = new JSONObject();
 
