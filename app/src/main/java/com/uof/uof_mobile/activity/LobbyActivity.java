@@ -16,6 +16,7 @@ import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.WaitingOrderAdapter;
 import com.uof.uof_mobile.dialog.CheckPwDialog;
 import com.uof.uof_mobile.dialog.WaitingOrderInfoDialog;
+import com.uof.uof_mobile.listitem.WaitingOrderItem;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.other.Global;
 
@@ -147,7 +148,7 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         Intent lobbyActivityIntent = getIntent();
-        if(lobbyActivityIntent.getStringExtra("targetIp") != null){
+        if (lobbyActivityIntent.getStringExtra("targetIp") != null) {
             Intent intent = new Intent(LobbyActivity.this, QRRecognitionActivity.class);
             intent.putExtra("targetIp", lobbyActivityIntent.getStringExtra("targetIp"));
             intent.putExtra("targetPort", lobbyActivityIntent.getStringExtra("targetPort"));
@@ -169,6 +170,17 @@ public class LobbyActivity extends AppCompatActivity {
             ibtnLobbyLeft.setVisibility(View.INVISIBLE);
         } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findLastVisibleItemPosition() == waitingOrderAdapter.getItemCount() - 1) {
             ibtnLobbyRight.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void moveToOrderNumber(int orderNumber) {
+        int position = 0;
+        for (WaitingOrderItem waitingOrderItem : waitingOrderAdapter.getWaitingOrderItemArrayList()) {
+            if (waitingOrderItem.getOrderNumber() == orderNumber) {
+                rvLobbyWaitingOrder.smoothScrollToPosition(position);
+                break;
+            }
+            position++;
         }
     }
 }
