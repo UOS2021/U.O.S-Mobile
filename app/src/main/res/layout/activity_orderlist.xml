@@ -57,8 +57,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_orderlist_2"
             android:layout_width="match_parent"
-            android:background="@color/color_light"
-            android:layout_height="240dp">
+            android:layout_height="240dp"
+            android:background="@color/color_light">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"

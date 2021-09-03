@@ -63,7 +63,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return new OrderListViewHolder(layoutInflater.inflate(R.layout.item_orderlist, parent, false));
     }
 
-    public OrderListItem getItem(int position){
+    public OrderListItem getItem(int position) {
         return orderListItemArrayList.get(position);
     }
 
@@ -80,6 +80,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return orderListItemArrayList.size();
     }
 
+    public void setOnItemClickListener(OrderListAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    // 아이템 클릭 리스너 인터페이스
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
 
     public class OrderListViewHolder extends RecyclerView.ViewHolder {
         public ConstraintLayout clOrderListItem;
@@ -105,14 +113,5 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
         }
-    }
-
-    public void setOnItemClickListener(OrderListAdapter.OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    // 아이템 클릭 리스너 인터페이스
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
     }
 }

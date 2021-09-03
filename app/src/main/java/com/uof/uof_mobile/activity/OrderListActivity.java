@@ -23,6 +23,87 @@ import com.uof.uof_mobile.other.Global;
 import org.json.JSONObject;
 
 public class OrderListActivity extends AppCompatActivity {
+    private final String sampleData = "{\n" +
+            "    \"response_code\": \"0013\"\n" +
+            "    , \"message\": \n" +
+            "    { \n" +
+            "        \"order_list\": \n" +
+            "        [\n" +
+            "            { \n" +
+            "                \"date\": \"2021-01-01\"\n" +
+            "                , \"company_name\": \"버거킹\"\n" +
+            "                , \"order\": \n" +
+            "                [\n" +
+            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
+            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
+            "                ] \n" +
+            "            }\n" +
+            "            , { \n" +
+            "                \"date\": \"2021-01-01\"\n" +
+            "                , \"company_name\": \"버거킹\"\n" +
+            "                , \"order\": \n" +
+            "                [\n" +
+            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
+            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
+            "                ] \n" +
+            "            }\n" +
+            "            , { \n" +
+            "                \"date\": \"2021-01-01\"\n" +
+            "                , \"company_name\": \"버거킹\"\n" +
+            "                , \"order\": \n" +
+            "                [\n" +
+            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
+            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
+            "                ] \n" +
+            "            }\n" +
+            "            , { \n" +
+            "                \"date\": \"2021-01-01\"\n" +
+            "                , \"company_name\": \"버거킹\"\n" +
+            "                , \"order\": \n" +
+            "                [\n" +
+            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
+            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
+            "                ] \n" +
+            "            }\n" +
+            "            , { \n" +
+            "                \"date\": \"2021-01-01\"\n" +
+            "                , \"company_name\": \"버거킹\"\n" +
+            "                , \"order\": \n" +
+            "                [\n" +
+            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
+            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
+            "                ] \n" +
+            "            }\n" +
+            "            , { \n" +
+            "                \"date\": \"2021-01-01\"\n" +
+            "                , \"company_name\": \"버거킹\"\n" +
+            "                , \"order\": \n" +
+            "                [\n" +
+            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
+            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
+            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
+            "                ] \n" +
+            "            }\n" +
+            "        ] \n" +
+            "    } \n" +
+            "}";
     private AppCompatImageButton ibtnOrderListBack;
     private AppCompatTextView tvOrderListWaitingOrderCount;
     private AppCompatTextView tvOrderListDoneOrderCount;
@@ -185,86 +266,4 @@ public class OrderListActivity extends AppCompatActivity {
             });
         }
     }
-
-    private final String sampleData = "{\n" +
-            "    \"response_code\": \"0013\"\n" +
-            "    , \"message\": \n" +
-            "    { \n" +
-            "        \"order_list\": \n" +
-            "        [\n" +
-            "            { \n" +
-            "                \"date\": \"2021-01-01\"\n" +
-            "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"order\": \n" +
-            "                [\n" +
-            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
-            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
-            "                ] \n" +
-            "            }\n" +
-            "            , { \n" +
-            "                \"date\": \"2021-01-01\"\n" +
-            "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"order\": \n" +
-            "                [\n" +
-            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
-            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
-            "                ] \n" +
-            "            }\n" +
-            "            , { \n" +
-            "                \"date\": \"2021-01-01\"\n" +
-            "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"order\": \n" +
-            "                [\n" +
-            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
-            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
-            "                ] \n" +
-            "            }\n" +
-            "            , { \n" +
-            "                \"date\": \"2021-01-01\"\n" +
-            "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"order\": \n" +
-            "                [\n" +
-            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
-            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
-            "                ] \n" +
-            "            }\n" +
-            "            , { \n" +
-            "                \"date\": \"2021-01-01\"\n" +
-            "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"order\": \n" +
-            "                [\n" +
-            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
-            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
-            "                ] \n" +
-            "            }\n" +
-            "            , { \n" +
-            "                \"date\": \"2021-01-01\"\n" +
-            "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"order\": \n" +
-            "                [\n" +
-            "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"불고기버거세트\", \"submenu\": \"감자튀김(R)&콜라(R)\", \"count\": 1, \"price\": 16000 }\n" +
-            "                    ,{ \"type\": 2, \"menu\": \"분노의질주: 더 익스트림\", \"submenu\": \"A1&A3&A5\", \"count\": 3, \"price\": 5000 }\n" +
-            "                    ,{ \"type\": 0, \"menu\": \"menu\", \"submenu\": \"submenu\", \"count\": 1, \"price\": 3000 }\n" +
-            "                ] \n" +
-            "            }\n" +
-            "        ] \n" +
-            "    } \n" +
-            "}";
 }

@@ -76,19 +76,19 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return waitingOrderItemArrayList;
     }
 
-    // 아이템 클릭 리스너 인터페이스
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public WaitingOrderItem getItemByOrderNumber(String orderNumber){
-        for(WaitingOrderItem waitingOrderItem : waitingOrderItemArrayList){
-            if(waitingOrderItem.getOrderNumber() == Integer.valueOf(orderNumber)){
+    public WaitingOrderItem getItemByOrderNumber(String orderNumber) {
+        for (WaitingOrderItem waitingOrderItem : waitingOrderItemArrayList) {
+            if (waitingOrderItem.getOrderNumber() == Integer.valueOf(orderNumber)) {
                 return waitingOrderItem;
             }
         }
 
         return null;
+    }
+
+    // 아이템 클릭 리스너 인터페이스
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 
     // 주문 뷰 관리자

@@ -24,6 +24,10 @@ public class OrderListItem {
         return basketItemArrayList;
     }
 
+    public void setBasketItemArrayList(ArrayList<BasketItem> basketItemArrayList) {
+        this.basketItemArrayList = basketItemArrayList;
+    }
+
     public String getDate() {
         return date;
     }
@@ -38,10 +42,6 @@ public class OrderListItem {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
-    }
-
-    public void setBasketItemArrayList(ArrayList<BasketItem> basketItemArrayList) {
-        this.basketItemArrayList = basketItemArrayList;
     }
 
     public int getTotalPrice() {

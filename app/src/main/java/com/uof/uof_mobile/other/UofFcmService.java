@@ -45,9 +45,9 @@ public class UofFcmService extends FirebaseMessagingService {
                         ((LobbyActivity) activity).updateList();
                         ((LobbyActivity) activity).moveToOrderNumber(Integer.valueOf(orderNumber));
                     });
-                }else if(activity instanceof OrderListActivity){
+                } else if (activity instanceof OrderListActivity) {
                     activity.runOnUiThread(() -> {
-                        ((OrderListActivity)activity).doUpdateOrderScreen();
+                        ((OrderListActivity) activity).doUpdateOrderScreen();
                     });
                 }
             }

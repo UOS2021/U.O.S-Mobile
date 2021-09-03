@@ -7,7 +7,6 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class UsefulFuncManager {
@@ -38,7 +37,7 @@ public class UsefulFuncManager {
     public static String getWeekDayFromDate(String date) {
         try {
             return new SimpleDateFormat("EE", Locale.getDefault()).format(new SimpleDateFormat("yyyy-MM-dd").parse(date));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

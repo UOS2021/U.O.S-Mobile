@@ -202,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("targetIp", loginActivityIntent.getStringExtra("targetIp"));
                         intent.putExtra("targetPort", loginActivityIntent.getStringExtra("targetPort"));
                     }
-                    if(loginActivityIntent.getStringExtra("orderNumber") != null){
+                    if (loginActivityIntent.getStringExtra("orderNumber") != null) {
                         intent.putExtra("orderNumber", loginActivityIntent.getStringExtra("orderNumber"));
                     }
                     startActivity(intent);

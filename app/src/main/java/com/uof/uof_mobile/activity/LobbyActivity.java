@@ -156,11 +156,11 @@ public class LobbyActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if(lobbyActivityIntent.getStringExtra("orderNumber") != null){
+        if (lobbyActivityIntent.getStringExtra("orderNumber") != null) {
             WaitingOrderItem waitingOrderItem = waitingOrderAdapter.getItemByOrderNumber(lobbyActivityIntent.getStringExtra("orderNumber"));
-            if(waitingOrderItem == null){
+            if (waitingOrderItem == null) {
                 Toast.makeText(LobbyActivity.this, "번호가 " + lobbyActivityIntent.getStringExtra("orderNumber") + "인 주문이 없습니다", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 WaitingOrderInfoDialog waitingOrderInfoDialog = new WaitingOrderInfoDialog(LobbyActivity.this, false, true, waitingOrderItem);
                 waitingOrderInfoDialog.setOnDismissListener(dialogInterface -> {
                     updateList();
