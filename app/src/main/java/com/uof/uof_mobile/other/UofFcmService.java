@@ -62,12 +62,14 @@ public class UofFcmService extends FirebaseMessagingService {
                     .setContentText("카운터에서 상품을 수령해주세요")
                     .setFullScreenIntent(pendingIntent, true)
                     .setAutoCancel(true)
-                    .setGroup(Global.Notification.GROUP_ID);
+                    .setGroup(Global.Notification.GROUP_ID)
+                    .setSmallIcon(R.mipmap.ic_uof_logo_round);
 
             NotificationCompat.Builder notificationGroup = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setGroup(Global.Notification.GROUP_ID)
                     .setAutoCancel(true)
+                    .setSmallIcon(R.mipmap.ic_uof_logo_round)
                     .setGroupSummary(true);
 
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
