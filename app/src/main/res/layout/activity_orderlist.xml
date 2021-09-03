@@ -57,7 +57,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_orderlist_2"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="160dp"
             android:background="@color/color_light">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -74,6 +74,7 @@
                 android:id="@+id/tv_orderlist_waitingordercount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="0"
                 android:textColor="@color/black"
                 android:textSize="64sp"
@@ -106,6 +107,7 @@
                 android:id="@+id/tv_orderlist_doneordercount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="0"
                 android:textColor="@color/black"
                 android:textSize="64sp"
