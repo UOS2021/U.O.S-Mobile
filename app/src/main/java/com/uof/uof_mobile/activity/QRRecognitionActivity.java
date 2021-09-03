@@ -13,7 +13,6 @@ import com.uof.uof_mobile.manager.SharedPreferenceManager;
 import com.uof.uof_mobile.manager.SocketManager;
 import com.uof.uof_mobile.other.Global;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class QRRecognitionActivity extends AppCompatActivity {
@@ -89,7 +88,6 @@ public class QRRecognitionActivity extends AppCompatActivity {
                                 JSONObject recvData = new JSONObject(strRecvData);
 
                                 JSONObject companyData = recvData.getJSONObject("message").getJSONObject("company");
-                                JSONArray productData = recvData.getJSONObject("message").getJSONArray("category_list");
 
                                 String companyType = companyData.getString("type");
 
@@ -97,13 +95,14 @@ public class QRRecognitionActivity extends AppCompatActivity {
                                     // 회사 종류 - 음식점 또는 PC방
                                     Intent intent = new Intent(QRRecognitionActivity.this, OrderingActivity.class);
                                     intent.putExtra("companyData", companyData.toString());
-                                    intent.putExtra("productData", productData.toString());
+                                    intent.putExtra("categoryData", recvData.getJSONObject("message").getJSONArray("category_list").toString());
                                     startActivity(intent);
                                 } else if (companyType.equals("movie")) {
                                     // 회사 종류 - 영화관
                                     Intent intent = new Intent(QRRecognitionActivity.this, MovieOrderingActivity.class);
                                     intent.putExtra("companyData", companyData.toString());
-                                    intent.putExtra("productData", productData.toString());
+                                    intent.putExtra("movieData", recvData.getJSONObject("message").getJSONArray("movie_list").toString());
+                                    intent.putExtra("categoryData", recvData.getJSONObject("message").getJSONArray("category_list").toString());
                                     startActivity(intent);
                                 } else {
                                     runOnUiThread(() -> {

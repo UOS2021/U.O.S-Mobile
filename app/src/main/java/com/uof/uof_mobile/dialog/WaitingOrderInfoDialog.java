@@ -20,7 +20,6 @@ import com.uof.uof_mobile.item.BasketItem;
 import com.uof.uof_mobile.item.WaitingOrderItem;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.other.Global;
 
 public class WaitingOrderInfoDialog extends AppCompatDialog {
     private final Context context;
@@ -75,7 +74,7 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
 
         ValueAnimator va = ValueAnimator.ofInt(0, totalPrice);
         va.setDuration(2000);
-        va.addUpdateListener(va1 -> tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer)va1.getAnimatedValue()) + "원"));
+        va.addUpdateListener(va1 -> tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue()) + "원"));
         va.start();
 
         waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();

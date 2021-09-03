@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.dialog;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -205,7 +206,10 @@ public class SelectSetDialog extends Dialog {
     }
 
     private void updatePriceInfo() {
-        tvDlgSelectSetTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(getTotalPrice()) + "원");
+        ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvDlgSelectSetTotalPrice.getText().toString().replace(",", "").replace("원", "")), getTotalPrice());
+        va.setDuration(1000);
+        va.addUpdateListener(va1 -> tvDlgSelectSetTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue()) + "원"));
+        va.start();
     }
 
     private int getTotalPrice() {

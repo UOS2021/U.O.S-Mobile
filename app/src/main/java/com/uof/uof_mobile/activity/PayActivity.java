@@ -95,7 +95,7 @@ public class PayActivity extends AppCompatActivity {
 
         ValueAnimator totalPriceValueAnimator = ValueAnimator.ofInt(0, Global.basketManager.getOrderPrice());
         totalPriceValueAnimator.setDuration(2000);
-        totalPriceValueAnimator.addUpdateListener(valueAnimator -> tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer)valueAnimator.getAnimatedValue()) + "원"));
+        totalPriceValueAnimator.addUpdateListener(valueAnimator -> tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) valueAnimator.getAnimatedValue()) + "원"));
         totalPriceValueAnimator.start();
 
         tvPayUserName.setText(Global.User.name);
