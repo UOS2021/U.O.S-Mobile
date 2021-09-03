@@ -59,7 +59,7 @@ public class OrderInfoDialog extends AppCompatDialog {
         sqLiteManager = new SQLiteManager(context);
 
         tvDlgOrderInfoCompanyName.setText(orderListItem.getCompanyName());
-        tvDlgOrderInfoOrderTime.setText(String.valueOf(orderListItem.getDate()));
+        tvDlgOrderInfoOrderTime.setText(orderListItem.getDate() + " " + orderListItem.getTime());
 
         int totalPrice = 0;
         for (BasketItem basketItem : orderListItem.getBasketItemArrayList()) {
