@@ -104,9 +104,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
                             SQLiteManager sqLiteManager = new SQLiteManager(context);
                             sqLiteManager.openDatabase();
                             if (sqLiteManager.saveOrder(orderNumber, companyName, orderData.getJSONObject("message"))) {
-                                ((PayActivity) context).runOnUiThread(() -> {
-                                    Toast.makeText(context, "주문내역 저장 성공", Toast.LENGTH_SHORT).show();
-                                });
+
                             } else {
                                 ((PayActivity) context).runOnUiThread(() -> {
                                     Toast.makeText(context, "주문내역 저장 실패", Toast.LENGTH_SHORT).show();
