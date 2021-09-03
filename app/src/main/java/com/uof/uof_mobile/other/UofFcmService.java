@@ -17,6 +17,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.activity.IntroActivity;
 import com.uof.uof_mobile.activity.LobbyActivity;
+import com.uof.uof_mobile.activity.OrderListActivity;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
 
@@ -44,6 +45,10 @@ public class UofFcmService extends FirebaseMessagingService {
                         ((LobbyActivity) activity).moveToOrderNumber(Integer.valueOf(orderNumber));
                     });
                     break;
+                }else if(activity instanceof OrderListActivity){
+                    activity.runOnUiThread(() -> {
+                        ((OrderListActivity)activity).doUpdateOrderScreen();
+                    });
                 }
             }
 
