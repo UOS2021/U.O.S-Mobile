@@ -81,6 +81,16 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         void onItemClick(View view, int position);
     }
 
+    public WaitingOrderItem getItemByOrderNumber(String orderNumber){
+        for(WaitingOrderItem waitingOrderItem : waitingOrderItemArrayList){
+            if(waitingOrderItem.getOrderNumber() == Integer.valueOf(orderNumber)){
+                return waitingOrderItem;
+            }
+        }
+
+        return null;
+    }
+
     // 주문 뷰 관리자
     public class WaitingOrderViewHolder extends RecyclerView.ViewHolder {
         public ConstraintLayout clWaitingOrder;
