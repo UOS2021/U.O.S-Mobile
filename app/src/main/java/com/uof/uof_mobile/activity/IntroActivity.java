@@ -75,6 +75,11 @@ public class IntroActivity extends AppCompatActivity {
                 }
             }
         }
+
+        if (getIntent().getDataString() != null) {
+            intent.putExtra("orderNumber", getIntent().getDataString());
+        }
+
         startActivity(intent);
         finish();
     }
