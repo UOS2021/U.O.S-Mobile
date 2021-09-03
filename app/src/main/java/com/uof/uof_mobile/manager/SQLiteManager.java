@@ -203,7 +203,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     public int getWaitingOrderCount() {
-        Cursor cursor = read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_STATE}, new String[]{"wait"}, null, null);
+        Cursor cursor = read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_STATE, Global.SQLite.CL_ORDER_ID}, new String[]{"wait", Global.User.id}, null, null);
 
         if (cursor == null) {
             return 0;
