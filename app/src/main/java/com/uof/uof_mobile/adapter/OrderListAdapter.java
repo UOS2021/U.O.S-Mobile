@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.item.BasketItem;
 import com.uof.uof_mobile.item.OrderListItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
@@ -22,10 +23,31 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void setJson(JSONArray data) {
         orderListItemArrayList.clear();
+
         for (int loop1 = 0; loop1 < data.length(); loop1++) {
             try {
-                JSONObject listData = data.getJSONObject(loop1);
-                orderListItemArrayList.add(new OrderListItem(listData));
+                JSONObject orderData = data.getJSONObject(loop1);
+
+                ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
+                JSONArray order = orderData.getJSONArray("order");
+
+                for (int loop2 = 0; loop2 < order.length(); loop2++) {
+                    JSONObject productData = order.getJSONObject(loop2);
+
+                    basketItemArrayList.add(
+                            new BasketItem(
+                                    productData.getInt("type")
+                                    , productData.getString("menu")
+                                    , productData.getString("submenu")
+                                    , productData.getInt("price")
+                                    , productData.getInt("count")));
+                }
+
+                orderListItemArrayList.add(
+                        new OrderListItem(
+                                orderData.getString("company_name")
+                                , orderData.getString("date")
+                                , basketItemArrayList));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -36,15 +58,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        return new OrderListViewHolder(layoutInflater.inflate(R.layout.item_orderlist_order, parent, false));
+        return new OrderListViewHolder(layoutInflater.inflate(R.layout.item_orderlist, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        ((OrderListViewHolder) viewHolder).tvOrderListOrderdate.setText(orderListItemArrayList.get(position).getDate());
-        ((OrderListViewHolder) viewHolder).tvOrderListOrderCompanyname.setText(orderListItemArrayList.get(position).getCompanyname());
-        ((OrderListViewHolder) viewHolder).tvOrderListOrderOrderlist.setText(orderListItemArrayList.get(position).getStringProductItemList());
-        ((OrderListViewHolder) viewHolder).tvOrderListOrderPrice.setText(UsefulFuncManager.convertToCommaPattern(orderListItemArrayList.get(position).getPrice()) + "원");
+        ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText(orderListItemArrayList.get(position).getDate());
+        ((OrderListViewHolder) viewHolder).tvOrderListItemCompanyName.setText(orderListItemArrayList.get(position).getCompanyName());
+        ((OrderListViewHolder) viewHolder).tvOrderListItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(orderListItemArrayList.get(position).getTotalPrice()) + "원");
+        ((OrderListViewHolder) viewHolder).tvOrderListItemOrderSimple.setText(orderListItemArrayList.get(position).getOrderSimple());
     }
 
     @Override
@@ -54,17 +76,17 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public class OrderListViewHolder extends RecyclerView.ViewHolder {
-        public AppCompatTextView tvOrderListOrderdate;
-        public AppCompatTextView tvOrderListOrderCompanyname;
-        public AppCompatTextView tvOrderListOrderOrderlist;
-        public AppCompatTextView tvOrderListOrderPrice;
+        public AppCompatTextView tvOrderListItemDate;
+        public AppCompatTextView tvOrderListItemCompanyName;
+        public AppCompatTextView tvOrderListItemTotalPrice;
+        public AppCompatTextView tvOrderListItemOrderSimple;
 
         public OrderListViewHolder(View view) {
             super(view);
-            tvOrderListOrderdate = view.findViewById(R.id.tv_orderlist_orderdate);
-            tvOrderListOrderCompanyname = view.findViewById(R.id.tv_orderlist_ordercompanyname);
-            tvOrderListOrderOrderlist = view.findViewById(R.id.tv_orderlist_orderlist);
-            tvOrderListOrderPrice = view.findViewById(R.id.tv_orderlist_price);
+            tvOrderListItemDate = view.findViewById(R.id.tv_orderlistitem_date);
+            tvOrderListItemCompanyName = view.findViewById(R.id.tv_orderlistitem_companyname);
+            tvOrderListItemTotalPrice = view.findViewById(R.id.tv_orderlistitem_totalprice);
+            tvOrderListItemOrderSimple = view.findViewById(R.id.tv_orderlistitem_ordersimple);
         }
     }
 }
