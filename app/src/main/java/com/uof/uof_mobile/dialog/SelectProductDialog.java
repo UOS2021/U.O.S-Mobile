@@ -81,7 +81,7 @@ public class SelectProductDialog extends Dialog {
         // 상품 개수 감소 버튼 클릭 시
         ibtnDlgSelectProductCountDown.setOnClickListener(view -> {
             int currentCount = Integer.valueOf(tilDlgSelectProductCount.getEditText().getText().toString());
-            if (currentCount > 0) {
+            if (currentCount > 1) {
                 tilDlgSelectProductCount.getEditText().setText(String.valueOf(currentCount - 1));
                 updatePriceInfo();
             }
@@ -103,10 +103,12 @@ public class SelectProductDialog extends Dialog {
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().equals("")) {
                     tilDlgSelectProductCount.getEditText().setText("0");
+                } else if (editable.toString().equals("00")) {
+                    tilDlgSelectProductCount.getEditText().setText("0");
                 } else {
                     int currentCount = Integer.valueOf(editable.toString());
-                    if (currentCount < 0) {
-                        tilDlgSelectProductCount.getEditText().setText("0");
+                    if (currentCount < 1) {
+                        tilDlgSelectProductCount.getEditText().setText("1");
                     }
                 }
                 updatePriceInfo();

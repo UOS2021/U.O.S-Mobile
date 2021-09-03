@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.dialog;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -18,6 +19,7 @@ import com.uof.uof_mobile.item.BasketItem;
 import com.uof.uof_mobile.item.OrderListItem;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 public class OrderInfoDialog extends AppCompatDialog {
     private final Context context;
@@ -65,7 +67,11 @@ public class OrderInfoDialog extends AppCompatDialog {
         for (BasketItem basketItem : orderListItem.getBasketItemArrayList()) {
             totalPrice += basketItem.getTotalPrice();
         }
-        tvDlgOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
+
+        ValueAnimator va = ValueAnimator.ofInt(0, totalPrice);
+        va.setDuration(2000);
+        va.addUpdateListener(va1 -> tvDlgOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer)va1.getAnimatedValue()) + "원"));
+        va.start();
 
         waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();
         waitingOrderInfoAdapter.setBasketItemArrayList(orderListItem.getBasketItemArrayList());
