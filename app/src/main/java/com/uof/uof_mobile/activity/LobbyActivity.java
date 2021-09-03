@@ -138,7 +138,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         // 주문내역 버튼이 눌렸을 경우
         ibtnLobbyOrderList.setOnClickListener(view -> {
-            Intent intent = new Intent(LobbyActivity.this, MovieOrderingActivity.class);
+            Intent intent = new Intent(LobbyActivity.this, OrderListActivity.class);
             startActivity(intent);
         });
 
