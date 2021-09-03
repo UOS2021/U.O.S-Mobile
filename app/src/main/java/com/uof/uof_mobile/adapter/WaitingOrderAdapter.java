@@ -76,6 +76,16 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return waitingOrderItemArrayList;
     }
 
+    public WaitingOrderItem getItemByOrderNumber(String orderNumber) {
+        for (WaitingOrderItem waitingOrderItem : waitingOrderItemArrayList) {
+            if (waitingOrderItem.getOrderNumber() == Integer.valueOf(orderNumber)) {
+                return waitingOrderItem;
+            }
+        }
+
+        return null;
+    }
+
     // 아이템 클릭 리스너 인터페이스
     public interface OnItemClickListener {
         void onItemClick(View view, int position);

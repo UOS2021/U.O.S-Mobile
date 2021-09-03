@@ -109,6 +109,8 @@ public class PayActivity extends AppCompatActivity {
         clPayPay.setEnabled(false);
         clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
 
+        rbPayDirect.setEnabled(false);
+
         // 뒤로가기 버튼 눌릴 시
         ibtnPayBack.setOnClickListener(view -> {
             finish();
@@ -184,7 +186,7 @@ public class PayActivity extends AppCompatActivity {
                             cardData.accumulate("due_date", cardItem.getDueDate());
                             cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
 
-                            message.accumulate("cardItem", cardData);
+                            message.accumulate("card", cardData);
                             message.accumulate("order", Global.basketManager.getJson());
 
                             sendData.accumulate("message", message);

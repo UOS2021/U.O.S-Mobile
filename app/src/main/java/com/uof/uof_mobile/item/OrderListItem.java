@@ -1,42 +1,33 @@
 package com.uof.uof_mobile.item;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 import java.util.ArrayList;
 
 public class OrderListItem {
-
-    private final ArrayList<OrderListProductItem> orderListProductItemArrayList = new ArrayList<>();
+    private ArrayList<BasketItem> basketItemArrayList;
     private String date;
-    private String companyname;
-    private int price;
+    private String time;
+    private String companyName;
+    private int totalPrice = 0;
 
-    public OrderListItem() {
-
-    }
-
-    public OrderListItem(JSONObject jsonObject) {
-        try {
-            date = jsonObject.getString("date");
-            companyname = jsonObject.getString("companyname");
-            price = jsonObject.getInt("price");
-
-            JSONArray jsonArray = jsonObject.getJSONArray("orderlist");
-            for (int loop2 = 0; loop2 < jsonArray.length(); loop2++) {
-                orderListProductItemArrayList.add(new OrderListProductItem(jsonArray.getJSONObject(loop2)));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public OrderListItem(String companyName, String date, ArrayList<BasketItem> basketItemArrayList) {
+        this.companyName = companyName;
+        this.date = date.substring(0, 10) + " (" + UsefulFuncManager.getWeekDayFromDate(date) + ")";
+        this.time = date.substring(11);
+        this.basketItemArrayList = basketItemArrayList;
+        for (BasketItem basketItem : this.basketItemArrayList) {
+            totalPrice += basketItem.getTotalPrice();
         }
     }
 
-    public String getStringProductItemList() {
-        String result = "";
-        for (OrderListProductItem orderListProductItem : orderListProductItemArrayList) {
-            result += orderListProductItem.getName() + " X" + orderListProductItem.getCount() + "\n";
-        }
-        return result.substring(0, result.length() - 1);
+    public ArrayList<BasketItem> getBasketItemArrayList() {
+        return basketItemArrayList;
+    }
+
+    public void setBasketItemArrayList(ArrayList<BasketItem> basketItemArrayList) {
+        this.basketItemArrayList = basketItemArrayList;
     }
 
     public String getDate() {
@@ -47,19 +38,50 @@ public class OrderListItem {
         this.date = date;
     }
 
-    public String getCompanyname() {
-        return companyname;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompanyname(String companyname) {
-        this.companyname = companyname;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public int getPrice() {
-        return price;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getOrderSimple() {
+        String result = "";
+        int maximumPrice = 0;
+        int totalItemCount = 0;
+        for (BasketItem basketItem : basketItemArrayList) {
+            if (maximumPrice < basketItem.getPrice()) {
+                maximumPrice = basketItem.getPrice();
+                if (basketItem.getType() == Global.ItemType.MOVIE_TICKET) {
+                    result = basketItem.getMenu().replace("&", " - ");
+                } else {
+                    result = basketItem.getMenu();
+                }
+            }
+            totalItemCount += basketItem.getCount();
+        }
+
+        if (totalItemCount > 1) {
+            result += " 외 " + (totalItemCount - 1) + "개";
+        }
+
+        return result;
     }
 }

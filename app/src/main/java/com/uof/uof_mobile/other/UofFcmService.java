@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.activity.IntroActivity;
 import com.uof.uof_mobile.activity.LobbyActivity;
+import com.uof.uof_mobile.activity.OrderListActivity;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
 
@@ -43,11 +45,16 @@ public class UofFcmService extends FirebaseMessagingService {
                         ((LobbyActivity) activity).updateList();
                         ((LobbyActivity) activity).moveToOrderNumber(Integer.valueOf(orderNumber));
                     });
-                    break;
+                } else if (activity instanceof OrderListActivity) {
+                    activity.runOnUiThread(() -> {
+                        ((OrderListActivity) activity).doUpdateOrderScreen();
+                    });
                 }
             }
 
-            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), IntroActivity.class), PendingIntent.FLAG_IMMUTABLE);
+            Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
+            intent.setData(Uri.parse(orderNumber));
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
             NotificationCompat.Builder notification = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher)

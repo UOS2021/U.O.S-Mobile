@@ -3,6 +3,7 @@ package com.uof.uof_mobile.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -138,7 +139,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         // 주문내역 버튼이 눌렸을 경우
         ibtnLobbyOrderList.setOnClickListener(view -> {
-            Intent intent = new Intent(LobbyActivity.this, MovieOrderingActivity.class);
+            Intent intent = new Intent(LobbyActivity.this, OrderListActivity.class);
             startActivity(intent);
         });
 
@@ -153,6 +154,19 @@ public class LobbyActivity extends AppCompatActivity {
             intent.putExtra("targetIp", lobbyActivityIntent.getStringExtra("targetIp"));
             intent.putExtra("targetPort", lobbyActivityIntent.getStringExtra("targetPort"));
             startActivity(intent);
+        }
+
+        if (lobbyActivityIntent.getStringExtra("orderNumber") != null) {
+            WaitingOrderItem waitingOrderItem = waitingOrderAdapter.getItemByOrderNumber(lobbyActivityIntent.getStringExtra("orderNumber"));
+            if (waitingOrderItem == null) {
+                Toast.makeText(LobbyActivity.this, "번호가 " + lobbyActivityIntent.getStringExtra("orderNumber") + "인 주문이 없습니다", Toast.LENGTH_SHORT).show();
+            } else {
+                WaitingOrderInfoDialog waitingOrderInfoDialog = new WaitingOrderInfoDialog(LobbyActivity.this, false, true, waitingOrderItem);
+                waitingOrderInfoDialog.setOnDismissListener(dialogInterface -> {
+                    updateList();
+                });
+                waitingOrderInfoDialog.show();
+            }
         }
     }
 
