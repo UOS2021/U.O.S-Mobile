@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.OrderListAdapter;
+import com.uof.uof_mobile.dialog.OrderInfoDialog;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.other.Global;
@@ -67,6 +68,10 @@ public class OrderListActivity extends AppCompatActivity {
             finish();
         });
 
+        // 주문목록 아이템이 눌릴 시
+        orderListAdapter.setOnItemClickListener((view, position) -> new OrderInfoDialog(OrderListActivity.this, false, true, orderListAdapter.getItem(position)).show());
+
+        // 새로고침 스크롤 발생 시
         srlOrderList.setOnRefreshListener(() -> doUpdateOrderScreen());
     }
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final ArrayList<OrderListItem> orderListItemArrayList = new ArrayList<>();
+    private OrderListAdapter.OnItemClickListener onItemClickListener = null;
 
     public void setJson(JSONArray data) {
         orderListItemArrayList.clear();
@@ -61,6 +63,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return new OrderListViewHolder(layoutInflater.inflate(R.layout.item_orderlist, parent, false));
     }
 
+    public OrderListItem getItem(int position){
+        return orderListItemArrayList.get(position);
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText(orderListItemArrayList.get(position).getDate());
@@ -76,6 +82,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public class OrderListViewHolder extends RecyclerView.ViewHolder {
+        public ConstraintLayout clOrderListItem;
         public AppCompatTextView tvOrderListItemDate;
         public AppCompatTextView tvOrderListItemCompanyName;
         public AppCompatTextView tvOrderListItemTotalPrice;
@@ -83,10 +90,29 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public OrderListViewHolder(View view) {
             super(view);
+            clOrderListItem = view.findViewById(R.id.cl_orderlistitem);
             tvOrderListItemDate = view.findViewById(R.id.tv_orderlistitem_date);
             tvOrderListItemCompanyName = view.findViewById(R.id.tv_orderlistitem_companyname);
             tvOrderListItemTotalPrice = view.findViewById(R.id.tv_orderlistitem_totalprice);
             tvOrderListItemOrderSimple = view.findViewById(R.id.tv_orderlistitem_ordersimple);
+
+            clOrderListItem.setOnClickListener(view1 -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onItemClick(view1, position);
+                    }
+                }
+            });
         }
+    }
+
+    public void setOnItemClickListener(OrderListAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    // 아이템 클릭 리스너 인터페이스
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }
