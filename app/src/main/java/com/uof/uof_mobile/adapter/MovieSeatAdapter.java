@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.MovieSeatItem;
+import com.uof.uof_mobile.item.MovieSeatItem;
 import com.uof.uof_mobile.other.Global;
 
 import java.util.ArrayList;

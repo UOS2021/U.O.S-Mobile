@@ -1,14 +1,12 @@
-package com.uof.uof_mobile.other;
-
-import com.uof.uof_mobile.listitem.OrderingProductItem;
+package com.uof.uof_mobile.item;
 
 import java.util.ArrayList;
 
-public class OrderingCategory {
+public class OrderingCategoryItem {
     private String category;                                                // 카테고리 명
     private ArrayList<OrderingProductItem> orderingProductItemArrayList;    // 카테고리에 포함되어있는 상품 목록
 
-    public OrderingCategory(String category, ArrayList<OrderingProductItem> orderingProductItemArrayList) {
+    public OrderingCategoryItem(String category, ArrayList<OrderingProductItem> orderingProductItemArrayList) {
         this.category = category;
         this.orderingProductItemArrayList = orderingProductItemArrayList;
     }

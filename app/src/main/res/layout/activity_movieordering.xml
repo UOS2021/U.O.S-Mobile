@@ -102,10 +102,10 @@
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:background="@color/recyclerview_background"
                     android:id="@+id/rv_movieordering_movielist"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@color/recyclerview_background" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

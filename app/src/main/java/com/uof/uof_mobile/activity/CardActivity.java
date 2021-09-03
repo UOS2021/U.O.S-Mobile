@@ -14,8 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.dialog.CardDialog;
+import com.uof.uof_mobile.item.CardItem;
 import com.uof.uof_mobile.manager.HttpManager;
-import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -28,7 +28,7 @@ public class CardActivity extends AppCompatActivity {
     private ConstraintLayout clCardUiGroup;
     private AppCompatTextView tvCardUserName;
     private AppCompatTextView tvCardCardNum;
-    private Card card;
+    private CardItem cardItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class CardActivity extends AppCompatActivity {
         tvCardUserName = findViewById(R.id.tv_card_username);
         tvCardCardNum = findViewById(R.id.tv_card_cardnum);
 
-        card = new Card();
+        cardItem = new CardItem();
 
         // 초기 UI 상태 설정
         removeCardData();
@@ -79,7 +79,7 @@ public class CardActivity extends AppCompatActivity {
         // 카드이미지가 눌렸을 경우
         ivCardBackground.setOnClickListener(view -> {
             // 카드이미지가 눌렸을 경우
-            CardDialog cardDialog = new CardDialog(CardActivity.this, true, true, card);
+            CardDialog cardDialog = new CardDialog(CardActivity.this, true, true, cardItem);
             cardDialog.setOnDismissListener(dialogInterface -> {
                 new GetCard().start();
             });
@@ -94,7 +94,7 @@ public class CardActivity extends AppCompatActivity {
         ibtnCardDelete.setEnabled(true);
 
         tvCardUserName.setText(Global.User.name);
-        tvCardCardNum.setText(card.getNum());
+        tvCardCardNum.setText(cardItem.getNum());
     }
 
     private void removeCardData() {
@@ -103,7 +103,7 @@ public class CardActivity extends AppCompatActivity {
         tvCardNoCard.setVisibility(View.VISIBLE);
         ibtnCardDelete.setVisibility(View.INVISIBLE);
         ibtnCardDelete.setEnabled(false);
-        card.clear();
+        cardItem.clear();
     }
 
     @Override
@@ -137,9 +137,9 @@ public class CardActivity extends AppCompatActivity {
                     // 카드 불러오기 성공
                     runOnUiThread(() -> {
                         try {
-                            card.setNum(recvData.getJSONObject("message").getString("num"));
-                            card.setDueDate(recvData.getJSONObject("message").getString("due_date"));
-                            card.setCvc(recvData.getJSONObject("message").getString("cvc"));
+                            cardItem.setNum(recvData.getJSONObject("message").getString("num"));
+                            cardItem.setDueDate(recvData.getJSONObject("message").getString("due_date"));
+                            cardItem.setCvc(recvData.getJSONObject("message").getString("cvc"));
                             setCardData();
                         } catch (Exception e) {
                             e.printStackTrace();

@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderListItem;
+import com.uof.uof_mobile.item.OrderListItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONArray;

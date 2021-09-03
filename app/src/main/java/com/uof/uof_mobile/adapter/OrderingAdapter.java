@@ -11,11 +11,11 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderingProductItem;
-import com.uof.uof_mobile.listitem.OrderingSetItem;
+import com.uof.uof_mobile.item.OrderingCategoryItem;
+import com.uof.uof_mobile.item.OrderingProductItem;
+import com.uof.uof_mobile.item.OrderingSetItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Global;
-import com.uof.uof_mobile.other.OrderingCategory;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final ArrayList<OrderingCategory> orderingCategoryArrayList = new ArrayList<>();  // 카테고리별 상품 데이터
+    private final ArrayList<OrderingCategoryItem> orderingCategoryItemArrayList = new ArrayList<>();  // 카테고리별 상품 데이터
     private String selectedCategory;                                                    // 현재 선택된 카테고리
     private OnItemClickListener onItemClickListener = null;
 
@@ -63,7 +63,7 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     // category_list 내에 있는 데이터로 Adapter 데이터 설정
     public void setJson(JSONArray categoryList) {
-        orderingCategoryArrayList.clear();
+        orderingCategoryItemArrayList.clear();
         for (int loop1 = 0; loop1 < categoryList.length(); loop1++) {
             try {
                 JSONObject categoryData = categoryList.getJSONObject(loop1);
@@ -82,7 +82,7 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     tempList.add(new OrderingProductItem(productList.getJSONObject(loop2)));
                 }
 
-                orderingCategoryArrayList.add(new OrderingCategory(categoryData.getString("category"), tempList));
+                orderingCategoryItemArrayList.add(new OrderingCategoryItem(categoryData.getString("category"), tempList));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -95,9 +95,9 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     // 현재 선택된 카테고리에 해당하는 상품들 반환
     public ArrayList<OrderingProductItem> getCategoryItems() {
-        for (int loop = 0; loop < orderingCategoryArrayList.size(); loop++) {
-            if (orderingCategoryArrayList.get(loop).getCategory().equals(selectedCategory)) {
-                return orderingCategoryArrayList.get(loop).getOrderingProductItemArrayList();
+        for (int loop = 0; loop < orderingCategoryItemArrayList.size(); loop++) {
+            if (orderingCategoryItemArrayList.get(loop).getCategory().equals(selectedCategory)) {
+                return orderingCategoryItemArrayList.get(loop).getOrderingProductItemArrayList();
             }
         }
         return null;

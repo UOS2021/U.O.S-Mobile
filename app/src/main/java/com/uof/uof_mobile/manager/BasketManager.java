@@ -1,6 +1,6 @@
 package com.uof.uof_mobile.manager;
 
-import com.uof.uof_mobile.listitem.BasketItem;
+import com.uof.uof_mobile.item.BasketItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

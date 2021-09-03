@@ -1,15 +1,15 @@
-package com.uof.uof_mobile.other;
+package com.uof.uof_mobile.item;
 
-public class Card {
+public class CardItem {
     private String num;
     private String cvc;
     private String dueDate;
 
-    public Card() {
+    public CardItem() {
 
     }
 
-    public Card(String num, String cvc, String dueDate) {
+    public CardItem(String num, String cvc, String dueDate) {
         this.num = num;
         this.cvc = cvc;
         this.dueDate = dueDate;

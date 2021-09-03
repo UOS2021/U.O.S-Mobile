@@ -23,10 +23,10 @@ import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.PayAdapter;
 import com.uof.uof_mobile.dialog.CardDialog;
 import com.uof.uof_mobile.dialog.WaitingOrderDialog;
+import com.uof.uof_mobile.item.CardItem;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.PatternManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
-import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -52,7 +52,7 @@ public class PayActivity extends AppCompatActivity {
 
     private PayAdapter payAdapter;
 
-    private Card card;
+    private CardItem cardItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +94,7 @@ public class PayActivity extends AppCompatActivity {
         tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()) + "원");
         tvPayUserName.setText(Global.User.name);
 
-        card = new Card();
+        cardItem = new CardItem();
         removeCardData();
         new PayActivity.GetCard().start();
 
@@ -134,7 +134,7 @@ public class PayActivity extends AppCompatActivity {
         // 카드이미지 눌릴 시
         ivPayCardBackground.setOnClickListener(view -> {
             if (rbPayCard.isChecked()) {
-                CardDialog cardDialog = new CardDialog(PayActivity.this, true, true, card);
+                CardDialog cardDialog = new CardDialog(PayActivity.this, true, true, cardItem);
                 cardDialog.setOnDismissListener(dialogInterface -> {
                     new PayActivity.GetCard().start();
                 });
@@ -179,12 +179,12 @@ public class PayActivity extends AppCompatActivity {
 
                             JSONObject cardData = new JSONObject();
 
-                            cardData.accumulate("num", card.getNum());
-                            cardData.accumulate("cvc", card.getCvc());
-                            cardData.accumulate("due_date", card.getDueDate());
+                            cardData.accumulate("num", cardItem.getNum());
+                            cardData.accumulate("cvc", cardItem.getCvc());
+                            cardData.accumulate("due_date", cardItem.getDueDate());
                             cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
 
-                            message.accumulate("card", cardData);
+                            message.accumulate("cardItem", cardData);
                             message.accumulate("order", Global.basketManager.getJson());
 
                             sendData.accumulate("message", message);
@@ -281,7 +281,7 @@ public class PayActivity extends AppCompatActivity {
         tvPayNoCard.setText("터치하여 카드를 등록하세요");
         clPayCard.setVisibility(View.GONE);
         tvPayNoCard.setVisibility(View.VISIBLE);
-        card.clear();
+        cardItem.clear();
         checkPayEnable();
     }
 
@@ -311,10 +311,10 @@ public class PayActivity extends AppCompatActivity {
                     // 카드 불러오기 성공
                     runOnUiThread(() -> {
                         try {
-                            card.setNum(recvData.getJSONObject("message").getString("num"));
-                            card.setCvc(recvData.getJSONObject("message").getString("cvc"));
-                            card.setDueDate(recvData.getJSONObject("message").getString("due_date"));
-                            setCardData(card.getNum());
+                            cardItem.setNum(recvData.getJSONObject("message").getString("num"));
+                            cardItem.setCvc(recvData.getJSONObject("message").getString("cvc"));
+                            cardItem.setDueDate(recvData.getJSONObject("message").getString("due_date"));
+                            setCardData(cardItem.getNum());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

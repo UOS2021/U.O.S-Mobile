@@ -16,7 +16,7 @@ import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.WaitingOrderAdapter;
 import com.uof.uof_mobile.dialog.CheckPwDialog;
 import com.uof.uof_mobile.dialog.WaitingOrderInfoDialog;
-import com.uof.uof_mobile.listitem.WaitingOrderItem;
+import com.uof.uof_mobile.item.WaitingOrderItem;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.other.Global;
 

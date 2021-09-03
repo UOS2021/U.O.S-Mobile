@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.WaitingOrderInfoAdapter;
-import com.uof.uof_mobile.listitem.BasketItem;
-import com.uof.uof_mobile.listitem.WaitingOrderItem;
+import com.uof.uof_mobile.item.BasketItem;
+import com.uof.uof_mobile.item.WaitingOrderItem;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 
@@ -67,7 +67,7 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
         tvDlgWaitingOrderInfoOrderTime.setText(String.valueOf(waitingOrderItem.getOrderTime()));
         tvDlgWaitingOrderInfoOrderNumber.setText(String.valueOf(waitingOrderItem.getOrderNumber()));
         int totalPrice = 0;
-        for(BasketItem basketItem : waitingOrderItem.getBasketItemArrayList()){
+        for (BasketItem basketItem : waitingOrderItem.getBasketItemArrayList()) {
             totalPrice += basketItem.getTotalPrice();
         }
         tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");

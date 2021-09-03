@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.listitem;
+package com.uof.uof_mobile.item;
 
 import com.uof.uof_mobile.other.Global;
 

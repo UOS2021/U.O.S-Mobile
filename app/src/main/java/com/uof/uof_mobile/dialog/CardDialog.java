@@ -14,15 +14,16 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.item.CardItem;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.PatternManager;
-import com.uof.uof_mobile.other.Card;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONObject;
 
 public class CardDialog extends AppCompatDialog {
     private final Context context;
+    private final CardItem cardItem;
     private AppCompatImageButton ibtnAddCardClose;
     private TextInputLayout tilDlgCardNum;
     private TextInputLayout tilDlgCardMonth;
@@ -30,12 +31,11 @@ public class CardDialog extends AppCompatDialog {
     private TextInputLayout tilDlgCardCvc;
     private TextInputLayout tilDlgCardPw;
     private AppCompatTextView tvDlgCardSave;
-    private final Card card;
 
-    public CardDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, Card card) {
+    public CardDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, CardItem cardItem) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
-        this.card = card;
+        this.cardItem = cardItem;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -62,11 +62,11 @@ public class CardDialog extends AppCompatDialog {
 
         tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.color_light));
 
-        if (card.getNum().length() > 0) {
-            tilDlgCardNum.getEditText().setText(card.getNum());
-            tilDlgCardMonth.getEditText().setText(card.getDueDate().substring(0, 2));
-            tilDlgCardYear.getEditText().setText(card.getDueDate().substring(3, 5));
-            tilDlgCardCvc.getEditText().setText(card.getCvc());
+        if (cardItem.getNum().length() > 0) {
+            tilDlgCardNum.getEditText().setText(cardItem.getNum());
+            tilDlgCardMonth.getEditText().setText(cardItem.getDueDate().substring(0, 2));
+            tilDlgCardYear.getEditText().setText(cardItem.getDueDate().substring(3, 5));
+            tilDlgCardCvc.getEditText().setText(cardItem.getCvc());
         }
 
         checkSaveButtonEnable();
@@ -272,7 +272,7 @@ public class CardDialog extends AppCompatDialog {
                     card.accumulate("cvc", tilDlgCardCvc.getEditText().getText().toString());
                     card.accumulate("pw", tilDlgCardPw.getEditText().getText().toString());
 
-                    message.accumulate("card", card);
+                    message.accumulate("cardItem", card);
 
                     sendData.accumulate("message", message);
 

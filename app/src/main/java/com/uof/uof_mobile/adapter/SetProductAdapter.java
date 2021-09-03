@@ -13,8 +13,8 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderingProductItem;
-import com.uof.uof_mobile.other.OrderingCategory;
+import com.uof.uof_mobile.item.OrderingCategoryItem;
+import com.uof.uof_mobile.item.OrderingProductItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,7 +23,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final ArrayList<OrderingCategory> orderingCategoryArrayList = new ArrayList<>();    // 세트창 내 카테고리별 상품 데이터
+    private final ArrayList<OrderingCategoryItem> orderingCategoryItemArrayList = new ArrayList<>();    // 세트창 내 카테고리별 상품 데이터
     private String selectedCategory;                                                            // 세트창 내 현재 선택된 카테고리
     private SetProductAdapter.OnItemClickListener onItemClickListener = null;
 
@@ -44,7 +44,7 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     // category_list JSONArray 데이터를 Adapter 데이터로 저장
     public void setJson(JSONArray categoryList) {
-        orderingCategoryArrayList.clear();
+        orderingCategoryItemArrayList.clear();
         for (int loop1 = 0; loop1 < categoryList.length(); loop1++) {
             try {
                 JSONObject categoryData = categoryList.getJSONObject(loop1);
@@ -61,7 +61,7 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                orderingCategoryArrayList.add(new OrderingCategory(categoryData.getString("category"), tempList));
+                orderingCategoryItemArrayList.add(new OrderingCategoryItem(categoryData.getString("category"), tempList));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -83,19 +83,19 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public ArrayList<OrderingProductItem> getCategoryItems() {
-        for (int loop = 0; loop < orderingCategoryArrayList.size(); loop++) {
-            if (orderingCategoryArrayList.get(loop).getCategory().equals(selectedCategory)) {
-                return orderingCategoryArrayList.get(loop).getOrderingProductItemArrayList();
+        for (int loop = 0; loop < orderingCategoryItemArrayList.size(); loop++) {
+            if (orderingCategoryItemArrayList.get(loop).getCategory().equals(selectedCategory)) {
+                return orderingCategoryItemArrayList.get(loop).getOrderingProductItemArrayList();
             }
         }
         return null;
     }
 
     // 현재 선택된 카테고리 반환
-    public OrderingCategory getSelectedCategory() {
-        for(OrderingCategory orderingCategory : orderingCategoryArrayList){
-            if(orderingCategory.getCategory().equals(selectedCategory)){
-                return orderingCategory;
+    public OrderingCategoryItem getSelectedCategory() {
+        for (OrderingCategoryItem orderingCategoryItem : orderingCategoryItemArrayList) {
+            if (orderingCategoryItem.getCategory().equals(selectedCategory)) {
+                return orderingCategoryItem;
             }
         }
 
@@ -109,9 +109,9 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     // 모든 카테고리 선택 상태 설정
     public void setCategoryProductAllChecked(boolean checked) {
-        for (int loop = 0; loop < orderingCategoryArrayList.size(); loop++) {
-            if (orderingCategoryArrayList.get(loop).getCategory().equals(selectedCategory)) {
-                for (OrderingProductItem orderingProductItem : orderingCategoryArrayList.get(loop).getOrderingProductItemArrayList()) {
+        for (int loop = 0; loop < orderingCategoryItemArrayList.size(); loop++) {
+            if (orderingCategoryItemArrayList.get(loop).getCategory().equals(selectedCategory)) {
+                for (OrderingProductItem orderingProductItem : orderingCategoryItemArrayList.get(loop).getOrderingProductItemArrayList()) {
                     orderingProductItem.setSelected(checked);
                 }
                 break;
@@ -122,7 +122,7 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     // 추가 비용 반환
     public int getAdditionalPrice() {
         int additionalPrice = 0;
-        for (OrderingCategory ordering : orderingCategoryArrayList) {
+        for (OrderingCategoryItem ordering : orderingCategoryItemArrayList) {
             for (OrderingProductItem orderingProductItem : ordering.getOrderingProductItemArrayList()) {
                 if (orderingProductItem.getSelected()) {
                     additionalPrice += orderingProductItem.getPrice();
@@ -136,7 +136,7 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     // 서브메뉴 반환
     public String getSubMenu() {
         String subMenu = "";
-        for (OrderingCategory ordering : orderingCategoryArrayList) {
+        for (OrderingCategoryItem ordering : orderingCategoryItemArrayList) {
             for (OrderingProductItem orderingProductItem : ordering.getOrderingProductItemArrayList()) {
                 if (orderingProductItem.getSelected()) {
                     subMenu += orderingProductItem.getName() + "&";

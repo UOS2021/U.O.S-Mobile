@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.MovieItem;
+import com.uof.uof_mobile.item.MovieItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
