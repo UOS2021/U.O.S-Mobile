@@ -71,7 +71,6 @@
                     android:scheme="uofmobile" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SocketTestActivity" />
 
         <service android:name=".other.UofFcmService">
             <intent-filter>
