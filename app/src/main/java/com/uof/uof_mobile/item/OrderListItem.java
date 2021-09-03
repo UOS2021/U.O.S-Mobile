@@ -78,7 +78,7 @@ public class OrderListItem {
             totalItemCount += basketItem.getCount();
         }
 
-        if(totalItemCount > 1){
+        if (totalItemCount > 1) {
             result += " 외 " + (totalItemCount - 1) + "개";
         }
 
