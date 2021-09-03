@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -861,7 +862,11 @@ public class MovieOrderingActivity extends AppCompatActivity {
     }
 
     private void updatePriceInfo() {
-        tvMovieOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
+        ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvMovieOrderingTotalPrice.getText().toString().replace(",", "")), Global.basketManager.getOrderPrice());
+        va.setDuration(1000);
+        va.addUpdateListener(va1 -> tvMovieOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer)va1.getAnimatedValue())));
+        va.start();
+
         tvMovieOrderingProductCount.setText(String.valueOf(Global.basketManager.getOrderCount()));
 
         if (Global.basketManager.getOrderCount() == 0) {

@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -91,7 +92,12 @@ public class PayActivity extends AppCompatActivity {
         pbPayLoading.setVisibility(View.INVISIBLE);
 
         tvPayCompanyName.setText(Global.basketManager.getCompanyName());
-        tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()) + "원");
+
+        ValueAnimator totalPriceValueAnimator = ValueAnimator.ofInt(0, Global.basketManager.getOrderPrice());
+        totalPriceValueAnimator.setDuration(2000);
+        totalPriceValueAnimator.addUpdateListener(valueAnimator -> tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer)valueAnimator.getAnimatedValue()) + "원"));
+        totalPriceValueAnimator.start();
+
         tvPayUserName.setText(Global.User.name);
 
         cardItem = new CardItem();
