@@ -77,7 +77,7 @@ public class IntroActivity extends AppCompatActivity {
                     Toast.makeText(IntroActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
                 }
             }
-        }else{
+        } else {
             if (getIntent().getDataString() != null) {
                 intent.putExtra("orderNumber", getIntent().getDataString());
             }

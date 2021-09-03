@@ -208,7 +208,7 @@ public class SelectSetDialog extends Dialog {
     private void updatePriceInfo() {
         ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvDlgSelectSetTotalPrice.getText().toString().replace(",", "").replace("원", "")), getTotalPrice());
         va.setDuration(1000);
-        va.addUpdateListener(va1 -> tvDlgSelectSetTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer)va1.getAnimatedValue()) + "원"));
+        va.addUpdateListener(va1 -> tvDlgSelectSetTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue()) + "원"));
         va.start();
     }
 
