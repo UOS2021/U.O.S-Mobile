@@ -8,12 +8,14 @@ import java.util.ArrayList;
 public class OrderListItem {
     private ArrayList<BasketItem> basketItemArrayList;
     private String date;
+    private String time;
     private String companyName;
     private int totalPrice = 0;
 
     public OrderListItem(String companyName, String date, ArrayList<BasketItem> basketItemArrayList) {
         this.companyName = companyName;
-        this.date = date + " (" + UsefulFuncManager.getWeekDayFromDate(date) + ")";
+        this.date = date.substring(0, 10) + " (" + UsefulFuncManager.getWeekDayFromDate(date) + ")";
+        this.time = date.substring(11);
         this.basketItemArrayList = basketItemArrayList;
         for (BasketItem basketItem : this.basketItemArrayList) {
             totalPrice += basketItem.getTotalPrice();
@@ -52,6 +54,14 @@ public class OrderListItem {
         this.totalPrice = totalPrice;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public String getOrderSimple() {
         String result = "";
         int maximumPrice = 0;
@@ -68,7 +78,9 @@ public class OrderListItem {
             totalItemCount += basketItem.getCount();
         }
 
-        result += " 외 " + (totalItemCount - 1) + "개";
+        if(totalItemCount > 1){
+            result += " 외 " + (totalItemCount - 1) + "개";
+        }
 
         return result;
     }
