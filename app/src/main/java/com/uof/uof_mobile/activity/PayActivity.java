@@ -109,6 +109,8 @@ public class PayActivity extends AppCompatActivity {
         clPayPay.setEnabled(false);
         clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
 
+        rbPayDirect.setEnabled(false);
+
         // 뒤로가기 버튼 눌릴 시
         ibtnPayBack.setOnClickListener(view -> {
             finish();
