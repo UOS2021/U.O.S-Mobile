@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.MovieSeatAdapter;
-import com.uof.uof_mobile.listitem.BasketItem;
-import com.uof.uof_mobile.listitem.MovieItem;
+import com.uof.uof_mobile.item.BasketItem;
+import com.uof.uof_mobile.item.MovieItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Global;
 

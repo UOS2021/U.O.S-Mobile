@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.listitem;
+package com.uof.uof_mobile.item;
 
 public class BasketItem {
     private int type;           // 상품 종류

@@ -9,8 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.uof.uof_mobile.listitem.BasketItem;
-import com.uof.uof_mobile.listitem.WaitingOrderItem;
+import com.uof.uof_mobile.item.BasketItem;
+import com.uof.uof_mobile.item.WaitingOrderItem;
 import com.uof.uof_mobile.other.Global;
 
 import org.json.JSONArray;
@@ -158,7 +158,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public ArrayList<WaitingOrderItem> loadOrder() {
         ArrayList<WaitingOrderItem> waitingOrderItemArrayList = new ArrayList<>();
 
-        Cursor cursor = read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_ID}, new String[] {Global.User.id}, Global.SQLite.CL_ORDER_STATE, Global.SQLite.SORT_ASCENDING);
+        Cursor cursor = read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_ID}, new String[]{Global.User.id}, Global.SQLite.CL_ORDER_STATE, Global.SQLite.SORT_ASCENDING);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -188,7 +188,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         return waitingOrderItemArrayList;
     }
 
-    public boolean hasOrderNumber(int orderNumber){
+    public boolean hasOrderNumber(int orderNumber) {
         return (read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_NUMBER}, new String[]{String.valueOf(orderNumber)}, Global.SQLite.CL_ORDER_NUMBER, Global.SQLite.SORT_ASCENDING).getCount() == 1);
     }
 

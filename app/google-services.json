@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "951958912834",
+    "project_id": "untact-order-framework",
+    "storage_bucket": "untact-order-framework.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951958912834:android:b290a9bd62a240a44a12db",
+        "android_client_info": {
+          "package_name": "com.uof.uof_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951958912834-h31da04oi3d9pi05pt4i992cgb8ivunm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoS_vuwiYZLg9-ex6MtgJmVb0Zeaqfc-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951958912834-h31da04oi3d9pi05pt4i992cgb8ivunm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

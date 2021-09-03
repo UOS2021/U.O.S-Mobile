@@ -161,9 +161,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
-                if(checkCustomerRegister()){
+                if (checkCustomerRegister()) {
                     llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -203,9 +203,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
-                if(checkCustomerRegister()){
+                if (checkCustomerRegister()) {
                     llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -232,9 +232,9 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterCustomerPwChk.setError(null);
                     tilRegisterCustomerPwChk.setErrorEnabled(false);
                     llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
-                    if(checkCustomerRegister()){
+                    if (checkCustomerRegister()) {
                         llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                    }else{
+                    } else {
                         llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                     }
                 }
@@ -265,9 +265,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
-                if(checkCustomerRegister()){
+                if (checkCustomerRegister()) {
                     llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -296,9 +296,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
-                if(checkCustomerRegister()){
+                if (checkCustomerRegister()) {
                     llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -331,9 +331,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-                if(checkUofPartnerRegister()){
+                if (checkUofPartnerRegister()) {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -373,9 +373,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-                if(checkUofPartnerRegister()){
+                if (checkUofPartnerRegister()) {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -402,9 +402,9 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterUofPartnerPwChk.setError(null);
                     tilRegisterUofPartnerPwChk.setErrorEnabled(false);
                     llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-                    if(checkUofPartnerRegister()){
+                    if (checkUofPartnerRegister()) {
                         llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                    }else{
+                    } else {
                         llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                     }
                 }
@@ -435,9 +435,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-                if(checkUofPartnerRegister()){
+                if (checkUofPartnerRegister()) {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -466,9 +466,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-                if(checkUofPartnerRegister()){
+                if (checkUofPartnerRegister()) {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -487,9 +487,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-                if(checkUofPartnerRegister()){
+                if (checkUofPartnerRegister()) {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -518,9 +518,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-                if(checkUofPartnerRegister()){
+                if (checkUofPartnerRegister()) {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -539,9 +539,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-                if(checkUofPartnerRegister()){
+                if (checkUofPartnerRegister()) {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-                }else{
+                } else {
                     llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
                 }
             }
@@ -675,9 +675,9 @@ public class RegisterActivity extends AppCompatActivity {
             Uri selectedImageUri = data.getData();
             ivRegisterLicenseImage.setImageURI(selectedImageUri);
             llRegisterUofPartnerRegister.setEnabled(checkUofPartnerRegister());
-            if(checkUofPartnerRegister()){
+            if (checkUofPartnerRegister()) {
                 llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
-            }else{
+            } else {
                 llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
             }
         }

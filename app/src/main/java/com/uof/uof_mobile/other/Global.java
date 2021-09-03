@@ -12,6 +12,16 @@ public class Global {
     public static BasketManager basketManager;
     public static ArrayList<AppCompatActivity> activities = new ArrayList<>();
 
+    public static class Notification {
+        public static String CHANNEL_ID = "UOF_MOBILE";
+        public static String CHANNEL_NAME = "UOF_MOBILE";
+        public static String GROUP_ID = "com.uof.uof_mobile";
+    }
+
+    public static class Firebase {
+        public static String FCM_TOKEN = "";
+    }
+
     public static class User {
         public static String id = "";
         public static String name = "";
@@ -36,7 +46,7 @@ public class Global {
 
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + SQLite.TB_ORDER_LIST + " ("
                 + CL_ORDER_NUMBER + " TEXT PRIMARY KEY,"
-                 + CL_ORDER_ID + " TEXT, "
+                + CL_ORDER_ID + " TEXT, "
                 + CL_ORDER_COMPANY + " TEXT, "
                 + CL_ORDER_TIME + " TEXT, "
                 + CL_ORDER_INFO + " TEXT, "
@@ -54,6 +64,7 @@ public class Global {
         public static final String USER_PW = "USER_PW";
         public static final String USER_TYPE = "USER_TYPE";
         public static final String QR_IMAGE = "QR_IMAGE";
+        public static final String SP_KEY_LAST_NOTIFICATION_NUMBER = "SP_KEY_LAST_NOTIFICATION_NUMBER";
     }
 
     public static class Network {

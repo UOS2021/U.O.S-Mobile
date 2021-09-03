@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.OrderingSetItem;
+import com.uof.uof_mobile.item.OrderingSetItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

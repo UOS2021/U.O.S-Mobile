@@ -15,8 +15,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.BasketItem;
-import com.uof.uof_mobile.listitem.OrderingProductItem;
+import com.uof.uof_mobile.item.BasketItem;
+import com.uof.uof_mobile.item.OrderingProductItem;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Global;
 

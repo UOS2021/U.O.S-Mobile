@@ -21,13 +21,13 @@ import org.json.JSONObject;
 
 public class WaitingOrderDialog extends AppCompatDialog {
     private final Context context;
+    private final String companyName;
+    private final JSONObject orderData;
     private ProgressBar pbDlgWaitingOrder;
     private AppCompatTextView tvDlgWaitingOrderMessage;
     private ConstraintLayout clDlgWaitingOrderCancel;
     private AppCompatTextView tvDlgWaitingOrder2;
     private AppCompatTextView tvDlgWaitingOrder3;
-    private final String companyName;
-    private final JSONObject orderData;
     private boolean orderCancel;
 
     public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData) {

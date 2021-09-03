@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.listitem;
+package com.uof.uof_mobile.item;
 
 import org.json.JSONException;
 import org.json.JSONObject;

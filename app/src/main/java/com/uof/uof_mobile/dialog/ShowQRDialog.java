@@ -10,7 +10,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.activity.LobbyActivity;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Global;

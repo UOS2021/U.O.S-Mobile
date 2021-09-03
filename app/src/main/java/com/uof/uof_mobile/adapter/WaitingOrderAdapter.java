@@ -11,16 +11,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uof.uof_mobile.R;
-import com.uof.uof_mobile.listitem.WaitingOrderItem;
+import com.uof.uof_mobile.item.WaitingOrderItem;
 import com.uof.uof_mobile.manager.SQLiteManager;
 
 import java.util.ArrayList;
 
 public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final ArrayList<WaitingOrderItem> waitingOrderItemArrayList = new ArrayList<>();  // 주문대기 목록
-    private WaitingOrderAdapter.OnItemClickListener onItemClickListener = null;
     private final Context context;
-    private SQLiteManager sqLiteManager;
+    private final SQLiteManager sqLiteManager;
+    private WaitingOrderAdapter.OnItemClickListener onItemClickListener = null;
 
     public WaitingOrderAdapter(Context context) {
         this.context = context;
@@ -70,6 +70,10 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemViewType(int position) {
         return 0;
+    }
+
+    public ArrayList<WaitingOrderItem> getWaitingOrderItemArrayList() {
+        return waitingOrderItemArrayList;
     }
 
     // 아이템 클릭 리스너 인터페이스

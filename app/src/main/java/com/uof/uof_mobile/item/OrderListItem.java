@@ -1,4 +1,4 @@
-package com.uof.uof_mobile.listitem;
+package com.uof.uof_mobile.item;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class OrderListItem {
 
+    private final ArrayList<OrderListProductItem> orderListProductItemArrayList = new ArrayList<>();
     private String date;
     private String companyname;
     private int price;
-    private final ArrayList<OrderListProductItem> orderListProductItemArrayList = new ArrayList<>();
 
     public OrderListItem() {
 
