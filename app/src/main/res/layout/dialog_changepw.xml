@@ -17,9 +17,10 @@
             android:id="@+id/ibtn_dlgchangepw_close"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ripple_btnclose" />
+            android:background="@drawable/icon_btnclose"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:scaleType="fitCenter" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -28,7 +29,7 @@
             android:gravity="center"
             android:text="비밀번호 변경"
             android:textColor="@color/black"
-            android:textSize="20dp"></androidx.appcompat.widget.AppCompatTextView>
+            android:textSize="20dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgchangepw_apply"
