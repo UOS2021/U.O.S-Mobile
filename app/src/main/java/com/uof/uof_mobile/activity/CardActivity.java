@@ -39,7 +39,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private void init() {
-        ibtnCardClose = findViewById(R.id.ibtn_card_close);
+        ibtnCardClose = findViewById(R.id.ibtn_card_back);
         ibtnCardDelete = findViewById(R.id.ibtn_card_delete);
         ivCardBackground = findViewById(R.id.iv_card_background);
         tvCardNoCard = findViewById(R.id.tv_card_nocard);
