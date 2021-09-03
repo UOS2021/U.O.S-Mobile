@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.OrderListAdapter;
 import com.uof.uof_mobile.dialog.OrderInfoDialog;
+import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.other.Global;
 
@@ -182,7 +183,6 @@ public class OrderListActivity extends AppCompatActivity {
                 tvOrderListNoOrderList.setVisibility(View.INVISIBLE);
             });
             try {
-                /*
                 JSONObject sendData = new JSONObject();
                 sendData.put("request_code", Global.Network.Request.ORDER_LIST);
 
@@ -191,9 +191,8 @@ public class OrderListActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
-                */
-                JSONObject recvData = new JSONObject(sampleData);
+                String strRecvData = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
+                JSONObject recvData = new JSONObject(strRecvData);
 
                 String responseCode = recvData.getString("response_code");
 
