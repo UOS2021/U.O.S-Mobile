@@ -6,6 +6,9 @@ import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class UsefulFuncManager {
     // 문자열을 이미지로 변경
@@ -29,5 +32,16 @@ public class UsefulFuncManager {
     // 1000단위 구분기호 추가
     public static String convertToCommaPattern(int value) {
         return new DecimalFormat("###,###").format(value);
+    }
+
+    // 요일 구하기
+    public static String getWeekDayFromDate(String date) {
+        try {
+            return new SimpleDateFormat("EE", Locale.getDefault()).format(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
