@@ -42,7 +42,7 @@ public class OrderInfoDialog extends AppCompatDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_waitingorderinfo);
+        setContentView(R.layout.dialog_orderinfo);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
 
