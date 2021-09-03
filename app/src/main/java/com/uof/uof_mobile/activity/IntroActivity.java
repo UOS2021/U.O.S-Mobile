@@ -14,6 +14,9 @@ import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
 import com.uof.uof_mobile.other.Global;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class IntroActivity extends AppCompatActivity {
 
     @Override
@@ -74,13 +77,18 @@ public class IntroActivity extends AppCompatActivity {
                     Toast.makeText(IntroActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
                 }
             }
+        }else{
+            if (getIntent().getDataString() != null) {
+                intent.putExtra("orderNumber", getIntent().getDataString());
+            }
         }
 
-        if (getIntent().getDataString() != null) {
-            intent.putExtra("orderNumber", getIntent().getDataString());
-        }
-
-        startActivity(intent);
-        finish();
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                startActivity(intent);
+                finish();
+            }
+        }, 1000);
     }
 }
