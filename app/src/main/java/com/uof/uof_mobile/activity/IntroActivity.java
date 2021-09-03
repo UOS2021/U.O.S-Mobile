@@ -56,6 +56,7 @@ public class IntroActivity extends AppCompatActivity {
                     }
 
                     String fcmToken = task.getResult();
+                    Log.d("UOF_MOBILE_FCM", fcmToken);
                     Global.Firebase.FCM_TOKEN = fcmToken;
                 });
 
