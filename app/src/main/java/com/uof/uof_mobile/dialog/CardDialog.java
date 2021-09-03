@@ -272,7 +272,7 @@ public class CardDialog extends AppCompatDialog {
                     card.accumulate("cvc", tilDlgCardCvc.getEditText().getText().toString());
                     card.accumulate("pw", tilDlgCardPw.getEditText().getText().toString());
 
-                    message.accumulate("cardItem", card);
+                    message.accumulate("card", card);
 
                     sendData.accumulate("message", message);
 
