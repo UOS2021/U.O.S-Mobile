@@ -17,7 +17,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.uof.uof_mobile.R;
 import com.uof.uof_mobile.adapter.OrderListAdapter;
 import com.uof.uof_mobile.dialog.OrderInfoDialog;
-import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.other.Global;
 
@@ -43,7 +42,15 @@ public class OrderListActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        Global.activities.remove(this);
+        super.onDestroy();
+    }
+
     private void init() {
+        Global.activities.add(this);
+
         ibtnOrderListBack = findViewById(R.id.ibtn_orderlist_back);
         tvOrderListWaitingOrderCount = findViewById(R.id.tv_orderlist_waitingordercount);
         tvOrderListDoneOrderCount = findViewById(R.id.tv_orderlist_doneordercount);
@@ -94,6 +101,7 @@ public class OrderListActivity extends AppCompatActivity {
                 tvOrderListNoOrderList.setVisibility(View.INVISIBLE);
             });
             try {
+                /*
                 JSONObject sendData = new JSONObject();
                 sendData.put("request_code", Global.Network.Request.ORDER_LIST);
 
@@ -103,8 +111,8 @@ public class OrderListActivity extends AppCompatActivity {
                 sendData.accumulate("message", message);
 
                 String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
-
-                JSONObject recvData = new JSONObject(temp);
+                */
+                JSONObject recvData = new JSONObject(sampleData);
 
                 String responseCode = recvData.getString("response_code");
 
@@ -116,12 +124,32 @@ public class OrderListActivity extends AppCompatActivity {
                             orderListAdapter.setJson(recvData.getJSONObject("message").getJSONArray("order_list"));
                             orderListAdapter.notifyDataSetChanged();
 
+                            int waitingOrderCountDuration;
+                            int doneOrderCountDuration;
+
+                            if (waitingOrderCount < 5) {
+                                waitingOrderCountDuration = 1000;
+                            } else if (waitingOrderCount < 10) {
+                                waitingOrderCountDuration = 1500;
+                            } else {
+                                waitingOrderCountDuration = 2000;
+                            }
+
+                            if (orderListAdapter.getItemCount() - waitingOrderCount < 5) {
+                                doneOrderCountDuration = 1000;
+                            } else if (orderListAdapter.getItemCount() - waitingOrderCount < 10) {
+                                doneOrderCountDuration = 1500;
+                            } else {
+                                doneOrderCountDuration = 2000;
+                            }
+
+
                             ValueAnimator waitingOrderCountAnimator = ValueAnimator.ofInt(0, waitingOrderCount);
-                            waitingOrderCountAnimator.setDuration(2000);
+                            waitingOrderCountAnimator.setDuration(waitingOrderCountDuration);
                             waitingOrderCountAnimator.addUpdateListener(valueAnimator -> tvOrderListWaitingOrderCount.setText(String.valueOf(valueAnimator.getAnimatedValue())));
 
                             ValueAnimator doneOrderCountAnimator = ValueAnimator.ofInt(0, orderListAdapter.getItemCount() - waitingOrderCount);
-                            doneOrderCountAnimator.setDuration(2000);
+                            doneOrderCountAnimator.setDuration(doneOrderCountDuration);
                             doneOrderCountAnimator.addUpdateListener(valueAnimator -> tvOrderListDoneOrderCount.setText(String.valueOf(valueAnimator.getAnimatedValue())));
 
                             waitingOrderCountAnimator.start();
@@ -167,7 +195,7 @@ public class OrderListActivity extends AppCompatActivity {
             "            { \n" +
             "                \"date\": \"2021-01-01\"\n" +
             "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"product_list\": \n" +
+            "                , \"order\": \n" +
             "                [\n" +
             "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
             "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
@@ -179,7 +207,7 @@ public class OrderListActivity extends AppCompatActivity {
             "            , { \n" +
             "                \"date\": \"2021-01-01\"\n" +
             "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"product_list\": \n" +
+            "                , \"order\": \n" +
             "                [\n" +
             "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
             "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
@@ -191,7 +219,7 @@ public class OrderListActivity extends AppCompatActivity {
             "            , { \n" +
             "                \"date\": \"2021-01-01\"\n" +
             "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"product_list\": \n" +
+            "                , \"order\": \n" +
             "                [\n" +
             "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
             "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
@@ -203,7 +231,7 @@ public class OrderListActivity extends AppCompatActivity {
             "            , { \n" +
             "                \"date\": \"2021-01-01\"\n" +
             "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"product_list\": \n" +
+            "                , \"order\": \n" +
             "                [\n" +
             "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
             "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
@@ -215,7 +243,7 @@ public class OrderListActivity extends AppCompatActivity {
             "            , { \n" +
             "                \"date\": \"2021-01-01\"\n" +
             "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"product_list\": \n" +
+            "                , \"order\": \n" +
             "                [\n" +
             "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
             "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
@@ -227,7 +255,7 @@ public class OrderListActivity extends AppCompatActivity {
             "            , { \n" +
             "                \"date\": \"2021-01-01\"\n" +
             "                , \"company_name\": \"버거킹\"\n" +
-            "                , \"product_list\": \n" +
+            "                , \"order\": \n" +
             "                [\n" +
             "                    { \"type\": 0, \"menu\": \"팝콘\", \"submenu\": \"\", \"count\": 1, \"price\": 1000 }\n" +
             "                    ,{ \"type\": 1, \"menu\": \"콜라\", \"submenu\": \"\", \"count\": 2, \"price\": 1000 }\n" +
