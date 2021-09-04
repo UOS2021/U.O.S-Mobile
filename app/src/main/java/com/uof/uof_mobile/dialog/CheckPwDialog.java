@@ -69,7 +69,7 @@ public class CheckPwDialog extends Dialog {
                     context.startActivity(new Intent(context, SettingActivity.class));
                 } else if (responseCode.equals(Global.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
                     // 비밀번호 확인 실패
-                    Toast.makeText(context, "비밀번호 틀림", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
