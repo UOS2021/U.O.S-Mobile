@@ -30,7 +30,11 @@
             android:text="설정"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -39,4 +43,5 @@
         android:name="com.uof.uof_mobile.fragment.SettingPreferenceFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </androidx.appcompat.widget.LinearLayoutCompat>
