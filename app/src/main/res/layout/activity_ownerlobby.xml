@@ -45,24 +45,19 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_ownerlobby_ownerkind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="매장 명: "
-                android:textColor="#000"
-                android:textSize="35sp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_ownerlobby_companyname"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
                 android:text="매장 이름"
                 android:textColor="#000"
-                android:textSize="35sp" />
+                android:textSize="24sp" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -73,9 +68,9 @@
             android:background="@color/color_light"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="저장된 QRcode 전시하기"
+            android:text="저장된 QRcode\n전시하기"
             android:textColor="@color/black"
-            android:textSize="30sp"></androidx.appcompat.widget.AppCompatButton>
+            android:textSize="30sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ownerlobby_loadqr"

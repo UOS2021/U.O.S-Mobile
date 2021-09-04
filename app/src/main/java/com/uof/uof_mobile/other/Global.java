@@ -30,6 +30,7 @@ public class Global {
         public static String name = "";
         public static String phone = "";
         public static String type = "";
+        public static String companyName = "";
     }
 
     public static class SQLite {

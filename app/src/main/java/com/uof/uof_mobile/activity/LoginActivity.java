@@ -190,6 +190,10 @@ public class LoginActivity extends AppCompatActivity {
                 Global.User.phone = userData.getString("phone");
                 Global.User.type = userData.getString("type");
 
+                if(Global.User.type.equals("uofpartner")){
+                    Global.User.companyName = userData.getString("company_name");
+                }
+
                 SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
                 SharedPreferenceManager.save(Global.SharedPreference.USER_ID, Global.User.id);
                 SharedPreferenceManager.save(Global.SharedPreference.USER_PW, tilLoginPw.getEditText().getText().toString());
