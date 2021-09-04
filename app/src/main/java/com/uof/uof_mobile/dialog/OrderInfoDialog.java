@@ -1,6 +1,5 @@
 package com.uof.uof_mobile.dialog;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -67,10 +66,7 @@ public class OrderInfoDialog extends AppCompatDialog {
             totalPrice += basketItem.getTotalPrice();
         }
 
-        ValueAnimator va = ValueAnimator.ofInt(0, totalPrice);
-        va.setDuration(2000);
-        va.addUpdateListener(va1 -> tvDlgOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue()) + "원"));
-        va.start();
+        tvDlgOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
 
         waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();
         waitingOrderInfoAdapter.setBasketItemArrayList(orderListItem.getBasketItemArrayList());

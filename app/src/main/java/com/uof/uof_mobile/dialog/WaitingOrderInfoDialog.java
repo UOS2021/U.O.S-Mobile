@@ -72,10 +72,7 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
             totalPrice += basketItem.getTotalPrice();
         }
 
-        ValueAnimator va = ValueAnimator.ofInt(0, totalPrice);
-        va.setDuration(2000);
-        va.addUpdateListener(va1 -> tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue()) + "원"));
-        va.start();
+        tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
 
         waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();
         waitingOrderInfoAdapter.setBasketItemArrayList(waitingOrderItem.getBasketItemArrayList());
