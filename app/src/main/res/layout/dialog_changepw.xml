@@ -29,7 +29,8 @@
             android:gravity="center"
             android:text="비밀번호 변경"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgchangepw_apply"

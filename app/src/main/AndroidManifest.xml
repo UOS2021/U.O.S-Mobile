@@ -42,7 +42,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.LobbyActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.QRRecognitionActivity"
             android:exported="true" />

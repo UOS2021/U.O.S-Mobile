@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="카드정보"
+                android:text="결제수단"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold">

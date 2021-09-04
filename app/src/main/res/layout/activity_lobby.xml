@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="1dp"
-            android:text="현재 매장의 QR코드를 인식해주세요!"
+            android:text="매장 QR코드를 인식해주세요!"
             android:textColor="#ff0000"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,66 +96,116 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/ll_lobby_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:background="@color/color_primary"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_lobby_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibtn_lobby_card"
-                android:layout_width="120dp"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_lobby_card"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/card_icon"
+                app:layout_constraintBottom_toTopOf="@id/tv_lobby_card"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_lobby_card"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#00ff0000"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:scaleType="fitCenter"
-                android:src="@drawable/card_icon" />
+                android:text="결제수단"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_lobby_card" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_lobby_orderlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibtn_lobby_orderlist"
-                android:layout_width="120dp"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_lobby_orderlist"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/orderlist_icon"
+                app:layout_constraintBottom_toTopOf="@id/tv_lobby_orderlist"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_lobby_orderlist"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#00ff0000"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:scaleType="fitCenter"
-                android:src="@drawable/orderlist_icon" />
+                android:text="주문내역"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_lobby_orderlist" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_lobby_setting"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibtn_lobby_setting"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00ff0000"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:scaleType="fitCenter"
-                android:src="@drawable/setting_icon" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_lobby_setting"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/setting_icon"
+                app:layout_constraintBottom_toTopOf="@id/tv_lobby_setting"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_lobby_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="설정"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_lobby_setting" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

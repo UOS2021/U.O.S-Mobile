@@ -28,7 +28,8 @@
             android:gravity="center"
             android:text="전화번호 변경"
             android:textColor="@color/black"
-            android:textSize="20dp"></androidx.appcompat.widget.AppCompatTextView>
+            android:textSize="20dp"
+            android:textStyle="bold"></androidx.appcompat.widget.AppCompatTextView>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgchangephone_apply"
