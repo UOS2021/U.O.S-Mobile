@@ -68,9 +68,9 @@
             android:background="@color/color_light"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="저장된 QRcode 전시하기"
+            android:text="저장된 QRcode\n전시하기"
             android:textColor="@color/black"
-            android:textSize="30sp"></androidx.appcompat.widget.AppCompatButton>
+            android:textSize="30sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ownerlobby_loadqr"
