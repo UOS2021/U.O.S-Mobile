@@ -409,7 +409,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_register_companyname"
                             style="@style/TextInputLayout_Register"
-                            android:layout_marginBottom="8dp">
+                            android:layout_marginBottom="16dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextInputEditText_Register"
@@ -439,6 +439,7 @@
                                 android:hint="사업자번호를 입력해주세요"
                                 android:inputType="phone"
                                 android:maxLength="10" />
+
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -454,7 +455,7 @@
                             android:id="@+id/sp_register_companytype"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="16dp"
                             android:background="@drawable/background_registertypespinner"
                             android:spinnerMode="dialog"
                             android:textColor="@color/black" />
@@ -470,7 +471,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_register_companyaddress"
                             style="@style/TextInputLayout_Register"
-                            android:layout_marginBottom="8dp">
+                            android:layout_marginBottom="16dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextInputEditText_Register"
@@ -490,34 +491,41 @@
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
-                            <androidx.appcompat.widget.AppCompatButton
-                                android:id="@+id/btn_register_licenseimage"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/image"
-                                android:layout_centerHorizontal="true"
-                                android:text="이미지 선택"
-                                android:textSize="10sp" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_height="480dp"
+                            android:background="@drawable/border_licenseimage"
                             android:gravity="center"
                             android:orientation="vertical">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_register_licenseimage"
                                 android:layout_width="match_parent"
-                                android:layout_height="480dp"
-                                android:background="@drawable/border_licenseimage"
+                                android:layout_height="match_parent"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"
                                 android:scaleType="fitXY" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_register_imagemessage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="터치하여 이미지를 업로드해주세요"
+                                android:textSize="18sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
             </ScrollView>
 
             <androidx.appcompat.widget.LinearLayoutCompat

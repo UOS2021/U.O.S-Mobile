@@ -46,7 +46,20 @@ public class ChangePwDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof ChangePwDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgChangePwClose = findViewById(R.id.ibtn_dlgchangepw_close);
         tilDlgChangePwChangePw = findViewById(R.id.til_dlgchangepw_changepw);
         tvDlgChangePwApply = findViewById(R.id.tv_dlgchangepw_apply);

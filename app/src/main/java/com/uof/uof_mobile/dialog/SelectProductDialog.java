@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.dialog;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -55,7 +56,20 @@ public class SelectProductDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof SelectProductDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgSelectProductClose = findViewById(R.id.ibtn_dlgselectproduct_close);
         tvDlgSelectProductName = findViewById(R.id.tv_dlgselectproduct_name);
         ivDlgSelectProductImage = findViewById(R.id.iv_dlgselectproduct_image);
@@ -138,7 +152,10 @@ public class SelectProductDialog extends Dialog {
     }
 
     private void updatePriceInfo() {
-        tvDlgSelectProductTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(orderingProduct.getPrice() * Integer.valueOf(tilDlgSelectProductCount.getEditText().getText().toString())));
+        ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvDlgSelectProductTotalPrice.getText().toString().replace(",", "")), orderingProduct.getPrice() * Integer.valueOf(tilDlgSelectProductCount.getEditText().getText().toString()));
+        va.setDuration(1000);
+        va.addUpdateListener(va1 -> tvDlgSelectProductTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue())));
+        va.start();
     }
 
     public interface SelectProductDialogListener {

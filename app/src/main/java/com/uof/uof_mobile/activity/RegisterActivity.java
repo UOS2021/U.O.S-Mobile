@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,8 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -54,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout tilRegisterCompanyAddress;
     private LinearLayoutCompat llRegisterUofPartnerRegister;
     private AppCompatImageView ivRegisterLicenseImage;
-    private AppCompatButton btnRegisterLicenseImage;
+    private AppCompatTextView tvRegisterImageMessage;
     private ExtendedFloatingActionButton efRegisterGotoCompanyInfo;
     private ScrollView svRegisterScrollView;
     private TextView tvRegisterCompanyInfo;
@@ -68,7 +69,20 @@ public class RegisterActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        Global.activities.remove(this);
+        super.onDestroy();
+    }
+
     private void init() {
+        for (Activity activity : Global.activities) {
+            if (activity instanceof RegisterActivity) {
+                activity.finish();
+            }
+        }
+        Global.activities.add(this);
+
         //데이터 받아오기
         Intent loadIntent = getIntent();
         int registerType = loadIntent.getExtras().getInt("RegisterType");
@@ -92,8 +106,8 @@ public class RegisterActivity extends AppCompatActivity {
         tilRegisterUofPartnerPhoneNumber = findViewById(R.id.til_register_uofpartnerphonenumber);
         tilRegisterCompanyName = findViewById(R.id.til_register_companyname);
         tilRegisterLicenseNumber = findViewById(R.id.til_register_licensenumber);
-        btnRegisterLicenseImage = findViewById(R.id.btn_register_licenseimage);
         ivRegisterLicenseImage = findViewById(R.id.iv_register_licenseimage);
+        tvRegisterImageMessage = findViewById(R.id.tv_register_imagemessage);
         llRegisterUofPartnerRegister = findViewById(R.id.ll_register_uofpartnerregister);
         spRegisterCompanyType = findViewById(R.id.sp_register_companytype);
         tilRegisterCompanyAddress = findViewById(R.id.til_register_companyaddress);
@@ -560,7 +574,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         // 사업자등록증 이미지 불러오기 버튼이 눌렸을 경우
-        btnRegisterLicenseImage.setOnClickListener(view -> {
+        ivRegisterLicenseImage.setOnClickListener(view -> {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -680,6 +694,12 @@ public class RegisterActivity extends AppCompatActivity {
             } else {
                 llRegisterUofPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
             }
+        }
+
+        if (checkRegisterLicenseImage(ivRegisterLicenseImage)) {
+            tvRegisterImageMessage.setVisibility(View.GONE);
+        } else {
+            tvRegisterImageMessage.setVisibility(View.VISIBLE);
         }
     }
 

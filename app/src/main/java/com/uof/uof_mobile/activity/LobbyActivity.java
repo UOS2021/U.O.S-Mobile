@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,9 +28,9 @@ public class LobbyActivity extends AppCompatActivity {
     private AppCompatImageButton ibtnLobbyLeft;
     private RecyclerView rvLobbyWaitingOrder;
     private AppCompatImageButton ibtnLobbyRight;
-    private AppCompatImageButton ibtnLobbyCard;
-    private AppCompatImageButton ibtnLobbyOrderList;
-    private AppCompatImageButton ibtnLobbySetting;
+    private ConstraintLayout clLobbyCard;
+    private ConstraintLayout clLobbyOrderList;
+    private ConstraintLayout clLobbySetting;
     private WaitingOrderAdapter waitingOrderAdapter;
     private SQLiteManager sqLiteManager;
     private boolean isInitDone = false;
@@ -56,15 +58,20 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof LobbyActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
 
         ivLobbyRecognizeQr = findViewById(R.id.iv_lobby_recognizeqr);
         ibtnLobbyLeft = findViewById(R.id.ibtn_lobby_left);
         rvLobbyWaitingOrder = findViewById(R.id.rv_lobby_waitingorder);
         ibtnLobbyRight = findViewById(R.id.ibtn_lobby_right);
-        ibtnLobbyCard = findViewById(R.id.ibtn_lobby_card);
-        ibtnLobbyOrderList = findViewById(R.id.ibtn_lobby_orderlist);
-        ibtnLobbySetting = findViewById(R.id.ibtn_lobby_setting);
+        clLobbyCard = findViewById(R.id.cl_lobby_card);
+        clLobbyOrderList = findViewById(R.id.cl_lobby_orderlist);
+        clLobbySetting = findViewById(R.id.cl_lobby_setting);
 
         sqLiteManager = new SQLiteManager(LobbyActivity.this);
         waitingOrderAdapter = new WaitingOrderAdapter(LobbyActivity.this);
@@ -132,19 +139,19 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         // 카드관리 버튼이 눌렸을 경우
-        ibtnLobbyCard.setOnClickListener(view -> {
+        clLobbyCard.setOnClickListener(view -> {
             Intent intent = new Intent(LobbyActivity.this, CardActivity.class);
             startActivity(intent);
         });
 
         // 주문내역 버튼이 눌렸을 경우
-        ibtnLobbyOrderList.setOnClickListener(view -> {
+        clLobbyOrderList.setOnClickListener(view -> {
             Intent intent = new Intent(LobbyActivity.this, OrderListActivity.class);
             startActivity(intent);
         });
 
         // 설정 버튼이 눌렸을 경우
-        ibtnLobbySetting.setOnClickListener(view -> {
+        clLobbySetting.setOnClickListener(view -> {
             new CheckPwDialog(LobbyActivity.this, true, true).show();
         });
 

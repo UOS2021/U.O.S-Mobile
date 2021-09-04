@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -49,7 +50,20 @@ public class WaitingOrderDialog extends AppCompatDialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof WaitingOrderDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         pbDlgWaitingOrder = findViewById(R.id.pb_dlgwaitingorder);
         tvDlgWaitingOrderMessage = findViewById(R.id.tv_dlgwaitingorder_message);
         clDlgWaitingOrderCancel = findViewById(R.id.cl_dlgwaitingorder_cancel);

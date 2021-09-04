@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -38,7 +39,20 @@ public class CardActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        Global.activities.remove(this);
+        super.onDestroy();
+    }
+
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof CardActivity){
+                activity.finish();
+            }
+        }
+        Global.activities.add(this);
+
         ibtnCardClose = findViewById(R.id.ibtn_card_back);
         ibtnCardDelete = findViewById(R.id.ibtn_card_delete);
         ivCardBackground = findViewById(R.id.iv_card_background);

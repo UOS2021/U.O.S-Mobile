@@ -1,7 +1,9 @@
 package com.uof.uof_mobile.manager;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -46,8 +48,8 @@ public class SocketManager {
         try {
             socket.connect(socketAddress, timeoutMills);
             if (isSocketConnected()) {
-                printWriter = new PrintWriter(socket.getOutputStream(), true);
-                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "EUC-KR"));
+                printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8")), true);
+                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "euc-kr"));
             }
         } catch (Exception e) {
             e.printStackTrace();

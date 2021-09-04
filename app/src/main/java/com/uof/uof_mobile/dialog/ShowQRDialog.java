@@ -36,7 +36,20 @@ public class ShowQRDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof ShowQRDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgShowQrClose = findViewById(R.id.ibtn_dlgshowqr_close);
         tvDlgShowQrMessage = findViewById(R.id.tv_dlgshowqr_message);
         ivDlgShowQrImage = findViewById(R.id.iv_dlgshowqr_image);

@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -28,8 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private AppCompatButton btnLoginLogin;
     private AppCompatTextView tvLoginRegister;
     private LinearLayoutCompat llLoginLoginLayout;
-    private CheckBox cbloginispartner;
-    private AppCompatButton btnLoginPass;
+    private CheckBox cbLoginIsPartner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof LobbyActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
 
         tilLoginId = findViewById(R.id.til_login_id);
@@ -53,19 +58,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLoginLogin = findViewById(R.id.btn_login_login);
         tvLoginRegister = findViewById(R.id.tv_login_register);
         llLoginLoginLayout = findViewById(R.id.ll_login_loginlayout);
-        cbloginispartner = findViewById(R.id.cb_login_ispartner);
-        btnLoginPass = findViewById(R.id.btn_login_pass);
+        cbLoginIsPartner = findViewById(R.id.cb_login_ispartner);
 
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
+        btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.gray));
         llLoginLoginLayout.setVisibility(View.VISIBLE);
-
-
-        // 프리패스
-        btnLoginPass.setOnClickListener(view -> {
-            startActivity(new Intent(LoginActivity.this, LobbyActivity.class));
-            finish();
-        });
 
         // 로그인 - 아이디 입력란이 수정되었을 경우
         tilLoginId.getEditText().addTextChangedListener(new TextWatcher() {
@@ -83,7 +81,13 @@ public class LoginActivity extends AppCompatActivity {
                 tilLoginPw.setErrorEnabled(false);
                 tilLoginId.setError(null);
                 tilLoginPw.setError(null);
-                btnLoginLogin.setEnabled(checkLogin());
+                if (checkLogin()) {
+                    btnLoginLogin.setEnabled(true);
+                    btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                } else {
+                    btnLoginLogin.setEnabled(false);
+                    btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -103,7 +107,13 @@ public class LoginActivity extends AppCompatActivity {
                 tilLoginPw.setErrorEnabled(false);
                 tilLoginId.setError(null);
                 tilLoginPw.setError(null);
-                btnLoginLogin.setEnabled(checkLogin());
+                if (checkLogin()) {
+                    btnLoginLogin.setEnabled(true);
+                    btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                } else {
+                    btnLoginLogin.setEnabled(false);
+                    btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
             }
         });
 
@@ -142,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
         if (SharedPreferenceManager.load(Global.SharedPreference.IS_LOGINED, false)) {
             tilLoginId.getEditText().setText(SharedPreferenceManager.load(Global.SharedPreference.USER_ID, ""));
             tilLoginPw.getEditText().setText(SharedPreferenceManager.load(Global.SharedPreference.USER_PW, ""));
-            cbloginispartner.setChecked(SharedPreferenceManager.load(Global.SharedPreference.USER_TYPE, "").equals("uofpartner"));
+            cbLoginIsPartner.setChecked(SharedPreferenceManager.load(Global.SharedPreference.USER_TYPE, "").equals("uofpartner"));
             login();
         }
         SharedPreferenceManager.close();
@@ -160,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject message = new JSONObject();
             message.accumulate("id", tilLoginId.getEditText().getText().toString());
             message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
-            if (cbloginispartner.isChecked()) {
+            if (cbLoginIsPartner.isChecked()) {
                 message.accumulate("type", "uofpartner");
             } else {
                 message.accumulate("type", "customer");
@@ -189,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent loginActivityIntent = getIntent();
 
-                if (cbloginispartner.isChecked()) {
+                if (cbLoginIsPartner.isChecked()) {
                     //파트너 로그인
                     if (loginActivityIntent.getStringExtra("targetIp") != null) {
                         Toast.makeText(LoginActivity.this, "파트너는 매장 상품 구매가 불가능합니다", Toast.LENGTH_SHORT).show();

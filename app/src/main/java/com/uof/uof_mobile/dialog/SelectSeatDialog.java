@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.dialog;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class SelectSeatDialog extends Dialog {
     private LinearLayoutCompat llDlgSelectSeatSelect;
     private AppCompatTextView tvDlgSelectSeatSelect;
     private MovieSeatAdapter movieSeatAdapter;
+    private int lastTotalPrice = 0;
 
     public SelectSeatDialog(@NonNull Context context, MovieItem movieItem, SelectSeatDialog.SelectSeatDialogListener selectSeatDialogListener) {
         super(context, R.style.DialogTheme_FullScreenDialog);
@@ -57,7 +59,20 @@ public class SelectSeatDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof SelectSeatDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgSelectSeatClose = findViewById(R.id.ibtn_dlgselectseat_close);
         tvDlgSelectSeatMovie = findViewById(R.id.tv_dlgselectseat_movie);
         tvDlgSelectSeatTime = findViewById(R.id.tv_dlgselectseat_time);
@@ -99,13 +114,18 @@ public class SelectSeatDialog extends Dialog {
                 tvDlgSelectSeatSelect.setText(movieItem.getSelectSeatCount() + "자리 선택");
                 llDlgSelectSeatSelect.setEnabled(true);
                 llDlgSelectSeatSelect.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
-                tvDlgSelectSeatTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(movieItem.getTotalPrice()));
             } else {
                 tvDlgSelectSeatSelect.setText("선택");
                 llDlgSelectSeatSelect.setEnabled(false);
                 llDlgSelectSeatSelect.setBackgroundColor(context.getResources().getColor(R.color.gray));
-                tvDlgSelectSeatTotalPrice.setText("0");
             }
+
+            ValueAnimator totalPriceValueAnimator = ValueAnimator.ofInt(lastTotalPrice, movieItem.getTotalPrice());
+            totalPriceValueAnimator.setDuration(1000);
+            totalPriceValueAnimator.addUpdateListener(valueAnimator -> tvDlgSelectSeatTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) valueAnimator.getAnimatedValue())));
+            totalPriceValueAnimator.start();
+
+            lastTotalPrice = movieItem.getTotalPrice();
         });
 
         // 선택 버튼 클릭 시

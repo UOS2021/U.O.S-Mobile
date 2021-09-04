@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.adapter;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Handler;
 import android.text.Editable;
@@ -173,7 +174,11 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private void updatePriceInfo() {
             tilBasketItemCount.getEditText().setText(String.valueOf(Global.basketManager.getOrderingItemArrayList().get(position).getCount()));
-            tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
+
+            ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvBasketItemTotalPrice.getText().toString().replace(",", "").replace("원", "")), Global.basketManager.getOrderingItemArrayList().get(position).getTotalPrice());
+            va.setDuration(1000);
+            va.addUpdateListener(va1 -> tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue())));
+            va.start();
 
             if (position != RecyclerView.NO_POSITION) {
                 if (onUpdateListener != null) {

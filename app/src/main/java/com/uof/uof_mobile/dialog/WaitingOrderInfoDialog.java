@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.dialog;
 
 import android.animation.ValueAnimator;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -20,6 +21,7 @@ import com.uof.uof_mobile.item.BasketItem;
 import com.uof.uof_mobile.item.WaitingOrderItem;
 import com.uof.uof_mobile.manager.SQLiteManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
+import com.uof.uof_mobile.other.Global;
 
 public class WaitingOrderInfoDialog extends AppCompatDialog {
     private final Context context;
@@ -53,7 +55,20 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof WaitingOrderInfoDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgWaitingOrderInfoClose = findViewById(R.id.ibtn_dlgwaitingorderinfo_close);
         tvDlgWaitingOrderInfoCompanyName = findViewById(R.id.tv_dlgwaitingorderinfo_companyname);
         tvDlgWaitingOrderInfoOrderNumber = findViewById(R.id.tv_dlgwaitingorderinfo_ordernumber);
@@ -72,10 +87,7 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
             totalPrice += basketItem.getTotalPrice();
         }
 
-        ValueAnimator va = ValueAnimator.ofInt(0, totalPrice);
-        va.setDuration(2000);
-        va.addUpdateListener(va1 -> tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue()) + "원"));
-        va.start();
+        tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
 
         waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();
         waitingOrderInfoAdapter.setBasketItemArrayList(waitingOrderItem.getBasketItemArrayList());

@@ -39,7 +39,20 @@ public class CheckPwDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof CheckPwDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         tilDlgCheckPwPw = findViewById(R.id.til_dlgcheckpw_pw);
         tvDlgCheckPwCancel = findViewById(R.id.tv_dlgcheckpw_cancel);
         tvDlgCheckPwOk = findViewById(R.id.tv_dlgcheckpw_ok);
@@ -69,7 +82,7 @@ public class CheckPwDialog extends Dialog {
                     context.startActivity(new Intent(context, SettingActivity.class));
                 } else if (responseCode.equals(Global.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
                     // 비밀번호 확인 실패
-                    Toast.makeText(context, "비밀번호 틀림", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                     // 서버 연결 실패
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
