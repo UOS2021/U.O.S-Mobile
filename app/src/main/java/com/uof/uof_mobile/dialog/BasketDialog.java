@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.dialog;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -54,8 +55,8 @@ public class BasketDialog extends Dialog {
     }
 
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof BasketDialog){
+        for (Dialog dialog : Global.dialogs) {
+            if (dialog instanceof BasketDialog) {
                 dialog.dismiss();
             }
         }
@@ -82,7 +83,10 @@ public class BasketDialog extends Dialog {
 
         // 장바구니 아이템 수량 변경 시
         basketAdapter.setOnUpdateListener(() -> {
-            tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
+            ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvDlgBasketTotalPrice.getText().toString().replace(",", "")), Global.basketManager.getOrderPrice());
+            va.setDuration(1000);
+            va.addUpdateListener(va1 -> tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue())));
+            va.start();
         });
 
         // 주문하기 버튼 클릭 시
