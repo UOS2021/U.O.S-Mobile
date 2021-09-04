@@ -59,7 +59,20 @@ public class SelectSeatDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof SelectSeatDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgSelectSeatClose = findViewById(R.id.ibtn_dlgselectseat_close);
         tvDlgSelectSeatMovie = findViewById(R.id.tv_dlgselectseat_movie);
         tvDlgSelectSeatTime = findViewById(R.id.tv_dlgselectseat_time);

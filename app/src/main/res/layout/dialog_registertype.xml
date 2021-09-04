@@ -11,12 +11,15 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="가입 유형을 선택해주세요"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -33,13 +36,16 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_registertype_customer"
-                android:layout_width="96dp"
+                android:layout_width="88dp"
                 android:layout_height="96dp"
                 android:background="@android:color/transparent"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_customer" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,19 +63,23 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_registertype_uofpartner"
-                android:layout_width="96dp"
+                android:layout_width="88dp"
                 android:layout_height="96dp"
                 android:background="@android:color/transparent"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_uofpartner" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="U.O.F 파트너"
                 android:textColor="@color/black" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -79,7 +89,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_dark"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="취소"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

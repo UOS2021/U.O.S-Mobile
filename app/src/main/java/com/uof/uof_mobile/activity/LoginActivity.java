@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -45,6 +46,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof LobbyActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
 
         tilLoginId = findViewById(R.id.til_login_id);

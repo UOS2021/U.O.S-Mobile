@@ -47,7 +47,20 @@ public class BasketDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof BasketDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgBasketClose = findViewById(R.id.ibtn_dlgbasket_close);
         rvDlgBasket = findViewById(R.id.rv_dlgbasket);
         tvDlgBasketTotalPrice = findViewById(R.id.tv_dlgbasket_totalprice);

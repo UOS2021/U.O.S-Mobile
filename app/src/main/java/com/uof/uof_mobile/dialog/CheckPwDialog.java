@@ -39,7 +39,20 @@ public class CheckPwDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof CheckPwDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         tilDlgCheckPwPw = findViewById(R.id.til_dlgcheckpw_pw);
         tvDlgCheckPwCancel = findViewById(R.id.tv_dlgcheckpw_cancel);
         tvDlgCheckPwOk = findViewById(R.id.tv_dlgcheckpw_ok);

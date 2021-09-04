@@ -55,7 +55,20 @@ public class SelectProductDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof SelectProductDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgSelectProductClose = findViewById(R.id.ibtn_dlgselectproduct_close);
         tvDlgSelectProductName = findViewById(R.id.tv_dlgselectproduct_name);
         ivDlgSelectProductImage = findViewById(R.id.iv_dlgselectproduct_image);

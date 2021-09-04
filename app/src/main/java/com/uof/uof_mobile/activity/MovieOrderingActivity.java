@@ -1,9 +1,11 @@
 package com.uof.uof_mobile.activity;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -77,7 +79,13 @@ public class MovieOrderingActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof MovieOrderingActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
+
         ibtnMovieOrderingBack = findViewById(R.id.ibtn_movieordering_back);
         tvMovieOrderingCompanyName = findViewById(R.id.tv_movieordering_companyname);
         tvMovieOrderingShowMovie = findViewById(R.id.tv_movieordering_showmovie);

@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.uof.uof_mobile.R;
+import com.uof.uof_mobile.other.Global;
 
 public class RegisterTypeDialog extends Dialog {
     private final Context context;
@@ -36,7 +37,20 @@ public class RegisterTypeDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof RegisterTypeDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         btnRegisterTypeCustomer = findViewById(R.id.btn_registertype_customer);
         btnRegisterTypeUofPartner = findViewById(R.id.btn_registertype_uofpartner);
         btnRegisterTypeCancel = findViewById(R.id.btn_registertype_cancel);

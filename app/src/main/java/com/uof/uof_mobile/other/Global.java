@@ -1,5 +1,7 @@
 package com.uof.uof_mobile.other;
 
+import android.app.Dialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uof.uof_mobile.manager.BasketManager;
@@ -11,6 +13,7 @@ public class Global {
     public static SocketManager socketManager;
     public static BasketManager basketManager;
     public static ArrayList<AppCompatActivity> activities = new ArrayList<>();
+    public static ArrayList<Dialog> dialogs = new ArrayList<>();
 
     public static class Notification {
         public static String CHANNEL_ID = "UOF_MOBILE";

@@ -70,7 +70,20 @@ public class SelectSetDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof SelectSetDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnDlgSelectSetClose = findViewById(R.id.ibtn_dlgselectset_close);
         tvDlgSelectSetName = findViewById(R.id.tv_dlgselectset_name);
         ivDlgSelectSetImage = findViewById(R.id.iv_dlgselectset_image);

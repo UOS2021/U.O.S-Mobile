@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -51,7 +52,20 @@ public class CardDialog extends AppCompatDialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof CardDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
+
         ibtnAddCardClose = findViewById(R.id.ibtn_dlgcard_close);
         tilDlgCardNum = findViewById(R.id.til_dlgcard_num);
         tilDlgCardMonth = findViewById(R.id.til_dlgcard_month);

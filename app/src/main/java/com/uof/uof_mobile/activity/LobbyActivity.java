@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -57,6 +58,11 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof LobbyActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
 
         ivLobbyRecognizeQr = findViewById(R.id.iv_lobby_recognizeqr);

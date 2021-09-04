@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -34,6 +35,11 @@ public class OwnerLobbyActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof OwnerLobbyActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
 
         btnOwnerLobbyDisplayQr = findViewById(R.id.btn_ownerlobby_displayqr);

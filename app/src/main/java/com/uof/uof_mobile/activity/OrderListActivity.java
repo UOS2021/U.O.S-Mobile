@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.activity;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -50,6 +51,11 @@ public class OrderListActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof OrderListActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
 
         ibtnOrderListBack = findViewById(R.id.ibtn_orderlist_back);

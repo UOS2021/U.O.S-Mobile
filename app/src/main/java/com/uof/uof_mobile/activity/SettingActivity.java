@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,13 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for (Activity activity : Global.activities) {
+            if (activity instanceof SettingActivity) {
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
+
         ibtnSettingBack = findViewById(R.id.ibtn_setting_back);
 
         // 뒤로가기 버튼이 눌렸을 때

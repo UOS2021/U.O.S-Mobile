@@ -46,7 +46,19 @@ public class ChangePhoneDialog extends Dialog {
         init();
     }
 
+    @Override
+    public void dismiss() {
+        Global.dialogs.remove(this);
+        super.dismiss();
+    }
+
     private void init() {
+        for(Dialog dialog : Global.dialogs){
+            if(dialog instanceof ChangePhoneDialog){
+                dialog.dismiss();
+            }
+        }
+        Global.dialogs.add(this);
         ibtnDlgChangePhoneClose = findViewById(R.id.ibtn_dlgchangephone_close);
         tvDlgChangePhoneCurrentPhone = findViewById(R.id.tv_dlgchangephone_currentphone);
         tilDlgChangePhoneChangePhone = findViewById(R.id.til_dlgchangephone_changephone);

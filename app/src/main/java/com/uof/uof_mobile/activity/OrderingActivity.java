@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.activity;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -63,7 +64,13 @@ public class OrderingActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof OrderingActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
+
         ibtnOrderingBack = findViewById(R.id.ibtn_ordering_back);
         tvOrderingCompanyName = findViewById(R.id.tv_ordering_companyname);
         cgOrderingCategoryList = findViewById(R.id.cg_ordering_categorylist);

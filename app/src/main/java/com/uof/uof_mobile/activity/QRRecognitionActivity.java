@@ -1,5 +1,6 @@
 package com.uof.uof_mobile.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -23,12 +24,25 @@ public class QRRecognitionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrrecognition);
 
+        init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Global.activities.remove(this);
+        super.onDestroy();
+    }
+
+    private void init() {
+        for (Activity activity : Global.activities) {
+            if (activity instanceof QRRecognitionActivity) {
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
 
         Intent qrRecognitionActivityIntent = getIntent();
         if (qrRecognitionActivityIntent.getStringExtra("targetIp") != null) {
-            String temp1 = qrRecognitionActivityIntent.getStringExtra("targetIp");
-            String temp2 = qrRecognitionActivityIntent.getStringExtra("targetPort");
             connectToStore(qrRecognitionActivityIntent.getStringExtra("targetIp"), Integer.valueOf(qrRecognitionActivityIntent.getStringExtra("targetPort")));
         } else {
             qrScan = new IntentIntegrator(this);
@@ -37,12 +51,6 @@ public class QRRecognitionActivity extends AppCompatActivity {
             qrScan.setBeepEnabled(false);
             qrScan.initiateScan();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        Global.activities.remove(this);
-        super.onDestroy();
     }
 
     @Override
@@ -58,7 +66,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
             connectToStore(targetIp, targetPort);
         } else {
-            Toast.makeText(this, "QR 코드 인식에 실패했습니다.\n다시 시도해주세요.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "QR 코드 인식에 실패했습니다", Toast.LENGTH_LONG).show();
             finish();
         }
     }

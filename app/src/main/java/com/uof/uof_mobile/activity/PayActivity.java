@@ -1,6 +1,7 @@
 package com.uof.uof_mobile.activity;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -70,7 +71,13 @@ public class PayActivity extends AppCompatActivity {
     }
 
     private void init() {
+        for(Activity activity : Global.activities){
+            if(activity instanceof PayActivity){
+                activity.finish();
+            }
+        }
         Global.activities.add(this);
+
         ibtnPayBack = findViewById(R.id.ibtn_pay_back);
         tvPayCompanyName = findViewById(R.id.tv_pay_companyname);
         rvPayOrderList = findViewById(R.id.rv_pay_orderlist);
