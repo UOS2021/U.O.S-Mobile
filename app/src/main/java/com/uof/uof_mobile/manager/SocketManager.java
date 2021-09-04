@@ -48,9 +48,8 @@ public class SocketManager {
         try {
             socket.connect(socketAddress, timeoutMills);
             if (isSocketConnected()) {
-                //printWriter = new PrintWriter(socket.getOutputStream(), true);
                 printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8")), true);
-                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "euc-kr"));
             }
         } catch (Exception e) {
             e.printStackTrace();
