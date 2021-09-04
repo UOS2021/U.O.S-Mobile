@@ -48,7 +48,7 @@ public class OwnerLobbyActivity extends AppCompatActivity {
         tvOwnerLobbyOwnerName = findViewById(R.id.tv_ownerlobby_companyname);
 
         //매장 명 불러오는 부분
-        tvOwnerLobbyOwnerName.setText("버거킹");
+        tvOwnerLobbyOwnerName.setText(Global.User.companyName);
 
         // QR 보여주기 버튼 클릭 시
         btnOwnerLobbyDisplayQr.setOnClickListener(view -> {
