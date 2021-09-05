@@ -68,7 +68,7 @@
             android:background="@color/color_light"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="저장된 QRcode\n전시하기"
+            android:text="저장된 QR코드\n전시하기"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
@@ -82,13 +82,14 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:text="QR코드 불러오기"
             android:textColor="@color/black"
-            android:textSize="35sp"></androidx.appcompat.widget.AppCompatButton>
+            android:textSize="30sp" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ibtn_ownerlobby_setting"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_marginRight="24dp"
             android:backgroundTint="#00ff0000"
             android:scaleType="fitCenter"
             android:src="@drawable/setting_icon" />
