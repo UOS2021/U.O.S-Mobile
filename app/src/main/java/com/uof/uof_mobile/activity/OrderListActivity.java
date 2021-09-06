@@ -70,9 +70,6 @@ public class OrderListActivity extends AppCompatActivity {
 
         orderListAdapter = new OrderListAdapter();
         rvOrderList.setLayoutManager(new LinearLayoutManager(OrderListActivity.this, LinearLayoutManager.VERTICAL, false));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(OrderListActivity.this, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recyclerview_divider));
-        rvOrderList.addItemDecoration(dividerItemDecoration);
         rvOrderList.setAdapter(orderListAdapter);
 
         doUpdateOrderScreen();
