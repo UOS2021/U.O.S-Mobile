@@ -144,7 +144,9 @@
                     android:id="@+id/rv_orderlist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white" />
+                    android:background="@color/recyclerview_background"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"/>
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
