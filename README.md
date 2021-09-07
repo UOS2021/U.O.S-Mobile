@@ -171,8 +171,10 @@
 ### front-end
  -  Android Studio
  - Java
- 
- ## U.O.F-Mobile 기대효과
+
+<br><br>
+
+## U.O.F-Mobile 기대효과
 
 ### 스마트폰을 통한 Ordering System
 - 기존 키오스크와 달리 비대면으로 주문 가능
