@@ -33,6 +33,7 @@ import com.uof.uof_mobile.item.MovieItem;
 import com.uof.uof_mobile.item.OrderingProductItem;
 import com.uof.uof_mobile.item.OrderingSetItem;
 import com.uof.uof_mobile.manager.BasketManager;
+import com.uof.uof_mobile.manager.SharedPreferenceManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Global;
 
@@ -108,12 +109,16 @@ public class MovieOrderingActivity extends AppCompatActivity {
         tvMovieOrderingShowFood.setEnabled(true);
         tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(R.color.gray));
         llMovieOrderingFood.setVisibility(View.GONE);
-        Intent loadData = getIntent();
 
         try {
-            companyData = new JSONObject(loadData.getStringExtra("companyData"));
-            movieData = new JSONArray(loadData.getStringExtra("movieData"));
-            categoryData = new JSONArray(loadData.getStringExtra("categoryData"));
+            SharedPreferenceManager.open(MovieOrderingActivity.this, Global.SharedPreference.APP_DATA);
+            JSONObject message = new JSONObject(SharedPreferenceManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
+            SharedPreferenceManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
+            SharedPreferenceManager.close();
+
+            companyData = message.getJSONObject("company");
+            categoryData = message.getJSONArray("category_list");
+            movieData = message.getJSONArray("movie_list");
             tvMovieOrderingCompanyName.setText(companyData.getString("name"));
         } catch (Exception e) {
             e.printStackTrace();
