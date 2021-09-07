@@ -253,7 +253,7 @@
 </thead>
 <tbody>
     <tr>
-        <td width="100" align="center"><img src="/image/youngjin.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/youngjin.PNG" width="60" height="60"></td>
         <td width="100" align="center">손영진</td>
         <td width="150">U.O.F팀장<br>U.O.F-Mobile 개발<br>통신 소켓 구축</td>
         <td width="100" align="center">
@@ -266,7 +266,7 @@
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/sungjoon.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/sungjoon.PNG" width="60" height="60"></td>
         <td width="100" align="center">배성준</td>
         <td width="150">U.O.F-Mobile 개발<br>U.O.F-Pos Design<br>문서화 작업 등</td>
         <td width="100" align="center">
@@ -279,7 +279,7 @@
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/jongbum.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/jongbum.PNG" width="60" height="60"></td>
         <td width="100" align="center">윤종범</td>
         <td width="150">U.O.F-Mobile 개발<br>API 설계<br>Json 통신 등</td>
         <td width="100" align="center">
@@ -292,7 +292,7 @@
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/inu.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/inu.PNG" width="60" height="60"></td>
         <td width="100" align="center">이인우</td>
         <td width="150">U.O.F-Server 개발<br>U.O.F-Pos 개발<br서버 제공 등</td>
         <td width="100" align="center">
@@ -305,7 +305,7 @@
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/hyunseung.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/hyunseung.PNG" width="60" height="60"></td>
         <td width="100" align="center">유현승</td>
         <td width="150">U.O.F-Pos 개발<br>통신 소켓 구축<br서버 제공 등</td>
         <td width="100" align="center">
