@@ -162,7 +162,7 @@
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 - 권장 : 최신 버전의 크로미움 기반 브라우저
 
-##기술 스택 (Technique Used)
+## 기술 스택 (Technique Used)
 
 ### Server(back-end)
  - Node.js
