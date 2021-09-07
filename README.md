@@ -284,11 +284,11 @@
         <td width="150">U.O.F-Mobile 개발<br>API 설계<br>Json 통신 등</td>
         <td width="100" align="center">
           <a href="https://github.com/le-la">
-            <img src="http://img.shields.io/badge/le-la-655ced?style=social&logo=github"/>
+            <img src="http://img.shields.io/badge/lela-655ced?style=social&logo=github"/>
           </a>
         </td>
         <td width="175" align="center">
-          <a href="mailto:gustmd5715@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=gustmd5715@gmail.com&color=orange&style=flat-square&logo=gmail"></a>
+          <a href="mailto:home99032@naver.com"><img src="https://img.shields.io/static/v1?label=&message=home99032@naver.com&color=orange&style=flat-square&logo=gmail"></a>
         </td>
     </tr>
     <tr>
@@ -301,7 +301,7 @@
           </a>
         </td>
         <td width="175" align="center">
-          <a href="mailto:home99032@naver.com"><img src="https://img.shields.io/static/v1?label=&message=home99032@naver.com&color=yellow&style=flat-square&logo=gmail"></a>
+          <a href="mailto:bapmukza9@naver.com"><img src="https://img.shields.io/static/v1?label=&message=bapmukza9@naver.com&color=yellow&style=flat-square&logo=gmail"></a>
         </td>
     </tr>
     <tr>
@@ -314,7 +314,7 @@
           </a>
         </td>
         <td width="175" align="center">
-          <a href="mailto:bapmukza9@naver.com"><img src="https://img.shields.io/static/v1?label=&message=bapmukza9@naver.com&color=green&style=flat-square&logo=gmail"></a>
+          <a href="mailto:gustmd5715@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=gustmd5715@gmail.com&color=green&style=flat-square&logo=gmail"></a>
         </td>
     </tr>
 </tbody>
