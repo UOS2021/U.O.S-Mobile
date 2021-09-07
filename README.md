@@ -27,16 +27,16 @@
 ## 기능 설계
 
 ### Acitivty Configuration
-![액티비티 구조](/Activity_configuration.PNG)
+![액티비티 구조](/image/Activity_configuration.PNG)
 
 ### Adapter Configuration
-![어댑터 구조](/Adapter_configuration.PNG)
+![어댑터 구조](/image/Adapter_configuration.PNG)
 
 ### Dialog Configuration
-![다이얼로그 구조](/Dialog_configuration.PNG)
+![다이얼로그 구조](/image/Dialog_configuration.PNG)
 
 ### Items Configuration
-![아이템 구조](/Items_configuration.PNG)
+![아이템 구조](/image/Items_configuration.PNG)
 
 <br>
 <br>
