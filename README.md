@@ -10,8 +10,8 @@
 <p align="center">
   <img src="https://img.shields.io/github/repo-size/UOF2021/U.O.F-Mobile?style=for-the-badge"/>
   <img src="https://img.shields.io/github/license/UOF2021/U.O.F-Mobile?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/REPO-UOS_POS-informatoinal?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/>
+  <a href = "https://github.com/UOF2021/U.O.F-POS"><img src="https://img.shields.io/badge/REPO-UOS_POS-informatoinal?style=for-the-badge"/></a>
+  <a href = "https://github.com/UOF2021/U.O.F-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a>
 </p>
 <br>
 <br>
