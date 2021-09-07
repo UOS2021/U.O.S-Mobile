@@ -69,6 +69,7 @@ public class Global {
         public static final String USER_TYPE = "USER_TYPE";
         public static final String QR_IMAGE = "QR_IMAGE";
         public static final String SP_KEY_LAST_NOTIFICATION_NUMBER = "SP_KEY_LAST_NOTIFICATION_NUMBER";
+        public static final String TEMP_MESSAGE = "TEMP_MESSAGE";
     }
 
     public static class Network {
