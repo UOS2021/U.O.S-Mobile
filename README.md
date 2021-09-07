@@ -292,7 +292,7 @@
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/inu.PNG" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/inus.PNG" width="60" height="60"></td>
         <td width="100" align="center">이인우</td>
         <td width="150">U.O.F-Server 개발<br>U.O.F-Pos 개발<br서버 제공 등</td>
         <td width="100" align="center">
