@@ -4,7 +4,7 @@
 </p>
   <h1 align="center"> 내 손 안에 키오스크를 담다. <strong>UOF-Mobile</strong></h1>
 <p align="center">
- 코로나 시대에 접촉을 최소화 하여 감염병을 예방할 수 있는 언택트 기술을 적용하여 비대면으로 주문하세요.
+ 코로나 시대에 접촉을 최소화 하여 감염병을 예방할 수 있는 언택트 기술을 사용하여 비대면으로 주문하세요.
 </p>
 
 <p align="center">
@@ -44,6 +44,53 @@
 ## 기능 구현
 
 ※ 사진을 클릭 시, 확대하여 원본 이미지를 볼 수 있습니다.
+<table>
+    <tbody>
+		<tr>
+			<td colspan=3>
+				<br>
+				<b>ㆍ U.O.F Pos</b><br>
+				<br>
+			</td>
+		</tr>
+		<tr>
+        <td>
+            <div align="center">
+                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/onair_order.png"><img src="/image/onair_order.png" width="70%"></a>
+            </div>
+        </td>
+        <td width="25%">실시간 주문내역 확인 및 다양한 기능</td>
+    </tr>
+    <tr>
+        <td>
+            <div align="center">
+                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/qrcode_manage.png"><img src="/image/qrcode_manage.png" width="70%"></a>
+            </div>
+        </td>
+        <td width="30%">Pos에서 불러올 QRcode 관리</td>
+    </tr>
+	    <tr>
+        <td>
+            <div align="center">
+                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/manage_restaurant.png"><img src="/image/manage_restaurant.png" width="70%"></a>
+            </div>
+        </td>
+        <td width="30%">카테고리 및 메뉴 관리</td>
+	    </tr>
+	</tr>
+	    <tr>
+        <td>
+            <div align="center">
+                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/add_menu.png"><img src="/image/add_menu.png" width="70%"></a>
+            </div>
+        </td>
+        <td width="30%">이미지, 이름, 가격 등을 기재하여 메뉴 추가 </td>
+    </tr>
+    </tbody>
+</table>
+
+<br><br>
+
 <table>
     <tbody>
 		<tr>
@@ -171,7 +218,7 @@
  - Mysql
  - Java
  
-### front-end
+### Front-end
  -  Android Studio
  - Java
 
@@ -206,7 +253,7 @@
 </thead>
 <tbody>
     <tr>
-        <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/youngjin.png" width="60" height="60"></td>
         <td width="100" align="center">손영진</td>
         <td width="150">U.O.F팀장<br>U.O.F-Mobile 개발<br>통신 소켓 구축</td>
         <td width="100" align="center">
@@ -215,11 +262,11 @@
           </a>
         </td>
         <td width="175" align="center">
-          <a href="mailto:muyeol95@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=sonkim1001@naver.com&color=critical&style=flat-square&logo=gmail"></a>
+          <a href="mailto:sonkim1001@naver.com"><img src="https://img.shields.io/static/v1?label=&message=sonkim1001@naver.com&color=blue&style=flat-square&logo=gmail"></a>
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/sungjoon.png" width="60" height="60"></td>
         <td width="100" align="center">배성준</td>
         <td width="150">U.O.F-Mobile 개발<br>U.O.F-Pos Design<br>문서화 작업 등</td>
         <td width="100" align="center">
@@ -228,11 +275,11 @@
           </a>
         </td>
         <td width="175" align="center">
-          <a href="mailto:muyeol95@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=westofsky159@gamil.com&color=orange&style=flat-square&logo=gmail"></a>
+          <a href="mailto:westofsky159@gamil.com"><img src="https://img.shields.io/static/v1?label=&message=westofsky159@gamil.com&color=critical&style=flat-square&logo=gmail"></a>
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/jongbum.png" width="60" height="60"></td>
         <td width="100" align="center">윤종범</td>
         <td width="150">U.O.F-Mobile 개발<br>API 설계<br>Json 통신 등</td>
         <td width="100" align="center">
@@ -241,11 +288,11 @@
           </a>
         </td>
         <td width="175" align="center">
-          <a href="mailto:muyeol95@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=westofsky159@gamil.com&color=yellow&style=flat-square&logo=gmail"></a>
+          <a href="mailto:gustmd5715@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=gustmd5715@gmail.com&color=orange&style=flat-square&logo=gmail"></a>
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/inu.png" width="60" height="60"></td>
         <td width="100" align="center">이인우</td>
         <td width="150">U.O.F-Server 개발<br>U.O.F-Pos 개발<br서버 제공 등</td>
         <td width="100" align="center">
@@ -254,11 +301,11 @@
           </a>
         </td>
         <td width="175" align="center">
-          <a href="mailto:muyeol95@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=westofsky159@gamil.com&color=green&style=flat-square&logo=gmail"></a>
+          <a href="mailto:home99032@naver.com"><img src="https://img.shields.io/static/v1?label=&message=home99032@naver.com&color=yellow&style=flat-square&logo=gmail"></a>
         </td>
     </tr>
     <tr>
-        <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+        <td width="100" align="center"><img src="/image/hyunseung.png" width="60" height="60"></td>
         <td width="100" align="center">유현승</td>
         <td width="150">U.O.F-Pos 개발<br>통신 소켓 구축<br서버 제공 등</td>
         <td width="100" align="center">
@@ -267,7 +314,7 @@
           </a>
         </td>
         <td width="175" align="center">
-          <a href="mailto:muyeol95@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=westofsky159@gamil.com&color=blue&style=flat-square&logo=gmail"></a>
+          <a href="mailto:bapmukza9@naver.com"><img src="https://img.shields.io/static/v1?label=&message=bapmukza9@naver.com&color=green&style=flat-square&logo=gmail"></a>
         </td>
     </tr>
 </tbody>
