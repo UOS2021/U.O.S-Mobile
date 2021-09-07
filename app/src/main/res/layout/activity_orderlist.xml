@@ -61,71 +61,89 @@
             android:layout_height="160dp"
             android:background="@color/color_light">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="대기중인 주문"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/tv_orderlist_waitingordercount"
-                app:layout_constraintLeft_toLeftOf="@id/tv_orderlist_waitingordercount"
-                app:layout_constraintRight_toRightOf="@id/tv_orderlist_waitingordercount" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_orderlist_waitingordercount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="64sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_orderlist_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tv_orderlist_doneordercount"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintRight_toLeftOf="@id/cl_orderlist_4">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="건"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@id/tv_orderlist_waitingordercount"
-                app:layout_constraintLeft_toRightOf="@id/tv_orderlist_waitingordercount" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="대기중인 주문"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/tv_orderlist_waitingordercount"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_orderlist_waitingordercount"
+                    app:layout_constraintRight_toRightOf="@id/tv_orderlist_waitingordercount" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="완료된 주문"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/tv_orderlist_doneordercount"
-                app:layout_constraintLeft_toLeftOf="@id/tv_orderlist_doneordercount"
-                app:layout_constraintRight_toRightOf="@id/tv_orderlist_doneordercount" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_orderlist_waitingordercount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="64sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_orderlist_doneordercount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="64sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/tv_orderlist_waitingordercount"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="건"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_orderlist_waitingordercount"
+                    app:layout_constraintLeft_toRightOf="@id/tv_orderlist_waitingordercount" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="건"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@id/tv_orderlist_doneordercount"
-                app:layout_constraintLeft_toRightOf="@id/tv_orderlist_doneordercount" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_orderlist_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toRightOf="@id/cl_orderlist_3"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="완료된 주문"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/tv_orderlist_doneordercount"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_orderlist_doneordercount"
+                    app:layout_constraintRight_toRightOf="@id/tv_orderlist_doneordercount" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_orderlist_doneordercount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="64sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="건"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_orderlist_doneordercount"
+                    app:layout_constraintLeft_toRightOf="@id/tv_orderlist_doneordercount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -146,7 +164,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/recyclerview_background"
                     android:paddingTop="4dp"
-                    android:paddingBottom="4dp"/>
+                    android:paddingBottom="4dp" />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

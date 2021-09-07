@@ -25,6 +25,7 @@ import com.uof.uof_mobile.dialog.SelectSetDialog;
 import com.uof.uof_mobile.item.OrderingProductItem;
 import com.uof.uof_mobile.item.OrderingSetItem;
 import com.uof.uof_mobile.manager.BasketManager;
+import com.uof.uof_mobile.manager.SharedPreferenceManager;
 import com.uof.uof_mobile.manager.UsefulFuncManager;
 import com.uof.uof_mobile.other.Global;
 
@@ -79,11 +80,14 @@ public class OrderingActivity extends AppCompatActivity {
         tvOrderingTotalPrice = findViewById(R.id.tv_ordering_totalprice);
         tvOrderingProductCount = findViewById(R.id.tv_ordering_productcount);
         llOrderingPay = findViewById(R.id.ll_ordering_order);
-        Intent loadData = getIntent();
 
         try {
-            companyData = new JSONObject(loadData.getStringExtra("companyData"));
-            categoryData = new JSONArray(loadData.getStringExtra("categoryData"));
+            SharedPreferenceManager.open(OrderingActivity.this, Global.SharedPreference.APP_DATA);
+            JSONObject message = new JSONObject(SharedPreferenceManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
+            SharedPreferenceManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
+            SharedPreferenceManager.close();
+            companyData = message.getJSONObject("company");
+            categoryData = message.getJSONArray("category_list");
             tvOrderingCompanyName.setText(companyData.getString("name"));
         } catch (Exception e) {
             e.printStackTrace();

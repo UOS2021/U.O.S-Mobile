@@ -216,9 +216,9 @@ public class PayActivity extends AppCompatActivity {
                                             for (int loop = 0; loop < Global.activities.size(); loop++) {
                                                 if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity || Global.activities.get(loop) instanceof QRRecognitionActivity) {
                                                     Global.activities.get(loop).finish();
-                                                    finish();
                                                 }
                                             }
+                                            finish();
                                         });
                                         waitingOrderDialog.show();
                                     });
