@@ -33,6 +33,11 @@ public class QRRecognitionActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
     private void init() {
         for (Activity activity : Global.activities) {
             if (activity instanceof QRRecognitionActivity) {
