@@ -45,7 +45,7 @@
 
 ## 통신 구조
 ### Flow Chart
-![통신 구조](/image/flowchart.png)
+<a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/image/flowchart.png"><img src="./image/flowchart.png"/>
 
 
 <br>
