@@ -2,16 +2,18 @@
   <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/app/src/main/res/drawable/uof_logo.png"><img src="./app/src/main/res/drawable/uof_logo.png" width="500"/>
   <br/>
 </p>
-  <h1 align="center"> 내 손 안에 키오스크를 담다<br><strong>U.O.F</strong></h1>
+<h1 align="center"><strong>U.O.F</strong><br>내 손 안에 키오스크를 담다.</h1>
 <p align="center">
  코로나 시대에 접촉을 최소화 하여 감염병을 예방할 수 있는 언택트 기술을 사용하여 비대면으로 주문하세요.
 </p>
 
+
+
 <p align="center">
   <img src="https://img.shields.io/github/repo-size/UOF2021/U.O.F-Mobile?style=for-the-badge"/>
   <img src="https://img.shields.io/github/license/UOF2021/U.O.F-Mobile?style=for-the-badge"/>
-  <a href = "https://github.com/UOF2021/U.O.F-POS"><img src="https://img.shields.io/badge/REPO-UOS_POS-informatoinal?style=for-the-badge"/></a>
-  <a href = "https://github.com/UOF2021/U.O.F-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a>
+  <a href = "https://github.com/UOF2021/U.O.F-POS"><img src="https://img.shields.io/badge/REPO-UOF_POS-informatoinal?style=for-the-badge"/></a>
+  <a href = "https://github.com/UOF2021/U.O.F-Server"><img src="https://img.shields.io/badge/REPO-UOF_SERVER-informatoinal?style=for-the-badge"/></a>
 </p>
 <br>
 <br>
