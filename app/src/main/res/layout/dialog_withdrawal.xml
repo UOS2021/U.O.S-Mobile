@@ -59,7 +59,9 @@
             android:id="@+id/til_dlgwithdrawal_pw"
             style="@style/TextInputLayout_Register"
             android:layout_marginBottom="40dp"
-            android:hint="비밀번호를 입력해주세요">
+            android:hint="비밀번호를 입력해주세요"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"

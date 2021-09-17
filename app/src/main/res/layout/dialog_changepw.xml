@@ -59,7 +59,9 @@
             android:id="@+id/til_dlgchangepw_currentpw"
             style="@style/TextInputLayout_Register"
             android:layout_marginBottom="32dp"
-            android:hint="현재 비밀번호를 입력해주세요">
+            android:hint="현재 비밀번호를 입력해주세요"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
@@ -79,7 +81,9 @@
             style="@style/TextInputLayout_Register"
             android:hint="변경할 비밀번호를 입력해주세요"
             app:counterEnabled="true"
-            app:counterMaxLength="30">
+            app:counterMaxLength="30"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
@@ -98,7 +102,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_dlgchangepw_checkpw"
             style="@style/TextInputLayout_Register"
-            android:hint="변경할 비밀번호를 입력해주세요">
+            android:hint="변경할 비밀번호를 입력해주세요"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
