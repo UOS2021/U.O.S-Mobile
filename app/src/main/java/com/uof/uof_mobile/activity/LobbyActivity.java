@@ -152,7 +152,8 @@ public class LobbyActivity extends AppCompatActivity {
 
         // 설정 버튼이 눌렸을 경우
         clLobbySetting.setOnClickListener(view -> {
-            new CheckPwDialog(LobbyActivity.this, true, true).show();
+            Intent intent = new Intent(LobbyActivity.this, SettingActivity.class);
+            startActivity(intent);
         });
 
         Intent lobbyActivityIntent = getIntent();

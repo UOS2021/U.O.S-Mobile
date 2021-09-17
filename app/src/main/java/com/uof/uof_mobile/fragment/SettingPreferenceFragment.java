@@ -20,6 +20,7 @@ import com.uof.uof_mobile.activity.LoginActivity;
 import com.uof.uof_mobile.activity.SettingActivity;
 import com.uof.uof_mobile.dialog.ChangePhoneDialog;
 import com.uof.uof_mobile.dialog.ChangePwDialog;
+import com.uof.uof_mobile.dialog.WithdrawalDialog;
 import com.uof.uof_mobile.manager.HttpManager;
 import com.uof.uof_mobile.manager.SharedPreferenceManager;
 import com.uof.uof_mobile.other.Global;
@@ -89,60 +90,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
         // 회원탈퇴가 눌렸을 경우
         btnWithdrawal.setOnPreferenceClickListener(preference -> {
-            AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogTheme)
-                    .setTitle("U.O.F 탈퇴")
-                    .setMessage("U.O.F를 탈퇴하시겠습니까?")
-                    .setPositiveButton("예", (dialogInterface, i) -> {
-                        try {
-                            JSONObject sendData = new JSONObject();
-                            sendData.put("request_code", Global.Network.Request.WITHDRAWAL);
-
-                            JSONObject message = new JSONObject();
-                            message.accumulate("id", Global.User.id);
-                            message.accumulate("type", Global.User.type);
-
-                            sendData.accumulate("message", message);
-
-                            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
-
-                            String responseCode = recvData.getString("response_code");
-
-                            if (responseCode.equals(Global.Network.Response.WITHDRAWAL_SUCCESS)) {
-                                Toast.makeText(context, "탈퇴되었습니다", Toast.LENGTH_SHORT).show();
-                                SharedPreferenceManager.open(context, Global.SharedPreference.APP_DATA);
-                                SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, false);
-                                SharedPreferenceManager.save(Global.SharedPreference.USER_ID, "");
-                                SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
-                                SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
-                                SharedPreferenceManager.close();
-                                for (AppCompatActivity activity : Global.activities) {
-                                    if (!(activity instanceof SettingActivity)) {
-                                        activity.finish();
-                                    }
-                                }
-                                startActivity(new Intent(context, LoginActivity.class));
-                                getActivity().finish();
-                            } else if (responseCode.equals(Global.Network.Response.WITHDRAWAL_FAILED)) {
-                                // 전화번호 변경 실패
-                                Toast.makeText(context, "탈퇴 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                            } else {
-                                // 전화번호 변경 실패 - 기타 오류
-                                Toast.makeText(context, "탈퇴 실패(기타): " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .setNegativeButton("아니오", null).create();
-
-            alertDialog.setOnShowListener(dialogInterface -> {
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
-            });
-
-            alertDialog.show();
-
+            new WithdrawalDialog(context, false, true).show();
             return false;
         });
         prefs.registerOnSharedPreferenceChangeListener(prefsListener);

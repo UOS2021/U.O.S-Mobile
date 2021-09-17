@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void init() {
         for(Activity activity : Global.activities){
-            if(activity instanceof LobbyActivity){
+            if(!(activity instanceof LoginActivity)){
                 activity.finish();
             }
         }
