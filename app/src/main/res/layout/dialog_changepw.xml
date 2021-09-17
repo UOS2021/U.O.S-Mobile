@@ -49,12 +49,30 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="햔재 비밀번호"
+            android:textColor="@color/black" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_dlgchangepw_currentpw"
+            style="@style/TextInputLayout_Register"
+            android:hint="현재 비밀번호를 입력해주세요"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditText_Register"
+                android:maxLength="30"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="변경할 비밀번호"
             android:textColor="@color/black" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_dlgchangepw_changepw"
@@ -62,6 +80,24 @@
             android:hint="변경할 비밀번호를 입력해주세요"
             app:counterEnabled="true"
             app:counterMaxLength="30">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditText_Register"
+                android:maxLength="30"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 확인"
+            android:textColor="@color/black" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_dlgchangepw_checkpw"
+            style="@style/TextInputLayout_Register"
+            android:hint="변경할 비밀번호를 입력해주세요">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/TextInputEditText_Register"
