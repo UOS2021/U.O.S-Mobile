@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.uof.uof_mobile">
+    package="com.uos.uos_mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -9,52 +9,52 @@
     <application
         android:allowBackup="false"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_uof_logo"
+        android:icon="@mipmap/ic_uos_logo"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_uof_logo_round"
+        android:roundIcon="@mipmap/ic_uos_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.UOFMobile">
+        android:theme="@style/Theme.UOSMobile">
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="com.uos.uos_mobile.activity.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.OwnerLobbyActivity"
+            android:name="com.uos.uos_mobile.activity.OwnerLobbyActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.PayActivity"
+            android:name="com.uos.uos_mobile.activity.PayActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.OrderingActivity"
+            android:name="com.uos.uos_mobile.activity.OrderingActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.CardActivity"
+            android:name="com.uos.uos_mobile.activity.CardActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name="com.uos.uos_mobile.activity.SettingActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.OrderListActivity"
+            android:name="com.uos.uos_mobile.activity.OrderListActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.LobbyActivity"
+            android:name="com.uos.uos_mobile.activity.LobbyActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.QRRecognitionActivity"
+            android:name="com.uos.uos_mobile.activity.QRRecognitionActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.uos.uos_mobile.activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.MovieOrderingActivity"
+            android:name="com.uos.uos_mobile.activity.MovieOrderingActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.IntroActivity"
+            android:name="com.uos.uos_mobile.activity.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,11 +69,11 @@
 
                 <data
                     android:host="action"
-                    android:scheme="uofmobile" />
+                    android:scheme="uosmobile" />
             </intent-filter>
         </activity>
 
-        <service android:name=".other.UofFcmService">
+        <service android:name="com.uos.uos_mobile.other.UosFcmService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

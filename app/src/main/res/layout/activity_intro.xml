@@ -11,7 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="256dp"
         android:layout_height="256dp"
-        android:background="@drawable/uof_logo_reverse"
+        android:background="@drawable/uos_logo_reverse"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

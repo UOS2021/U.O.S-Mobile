@@ -77,7 +77,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="UOF 일반고객\n회원가입"
+                            android:text="UOS 일반고객\n회원가입"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="32sp"
@@ -239,9 +239,9 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <!-- U.O.F 파트너 회원가입 -->
+        <!-- U.O.S 파트너 회원가입 -->
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/ll_register_uofpartner"
+            android:id="@+id/ll_register_uospartner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -264,7 +264,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:text="UOF\n파트너 회원가입"
+                        android:text="UOS\n파트너 회원가입"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="32sp"
@@ -279,7 +279,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_uofpartnerid"
+                        android:id="@+id/til_register_uospartnerid"
                         style="@style/TextInputLayout_Register"
                         android:layout_marginBottom="8dp"
                         app:counterEnabled="true"
@@ -301,7 +301,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_uofpartnerpw"
+                        android:id="@+id/til_register_uospartnerpw"
                         style="@style/TextInputLayout_Register"
                         android:layout_marginBottom="8dp"
                         app:counterEnabled="true"
@@ -325,7 +325,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_uofpartnerpwchk"
+                        android:id="@+id/til_register_uospartnerpwchk"
                         style="@style/TextInputLayout_Register"
                         android:layout_marginBottom="8dp"
                         app:counterEnabled="true"
@@ -349,7 +349,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_uofpartnername"
+                        android:id="@+id/til_register_uospartnername"
                         style="@style/TextInputLayout_Register"
                         android:layout_marginBottom="8dp"
                         app:counterEnabled="true"
@@ -371,7 +371,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_register_uofpartnerphonenumber"
+                        android:id="@+id/til_register_uospartnerphonenumber"
                         style="@style/TextInputLayout_Register"
                         android:layout_marginBottom="30dp">
 
@@ -529,7 +529,7 @@
             </ScrollView>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/ll_register_uofpartnerregister"
+                android:id="@+id/ll_register_uospartnerregister"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:background="@color/color_primary"
