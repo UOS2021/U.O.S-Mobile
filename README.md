@@ -2,7 +2,7 @@
   <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/app/src/main/res/drawable/uof_logo.png"><img src="./app/src/main/res/drawable/uof_logo.png" width="500"/>
   <br/>
 </p>
-<h1 align="center"><strong>U.O.F</strong><br>내 손 안에 키오스크를 담다.</h1>
+<h1 align="center"><strong>U.O.S</strong><br>내 손 안에 키오스크를 담다.</h1>
 <p align="center">
  코로나 시대에 접촉을 최소화 하여 감염병을 예방할 수 있는 언택트 기술을 사용하여 비대면으로 주문하세요.
 </p>
@@ -20,7 +20,7 @@
 <br>
 
 ## 프로젝트 설명
-<p><b>U.O.F</b>는 언택트 기술을 적용하여 터치 방식의 키오스크를 대신해 Mobile 환경에서 주문을 할 수 있도록 도와주는 <strong>Untact Order Framework(U.O.F)</strong>입니다.  U.O.F는 
+<p><b>U.O.S</b>는 언택트 기술을 적용하여 터치 방식의 키오스크를 대신해 Mobile 환경에서 주문을 할 수 있도록 도와주는 <strong>Untact Order Service(U.O.S)</strong>입니다.  U.O.S는 
 업종에 구애받지 않는 스마트폰의 키오스크화를 목적으로 두고 있습니다. 음식점, 영화관, 공연장, PC방 등의 판매자가 전용 프로그램을 통해 상품을 등록할 수 있으며, 소비자는 QR코드를 통해 매장 내에서 구매 
 가능한 상품을 불러와 주문할 수 있습니다.</p>
 
@@ -59,7 +59,7 @@
 		<tr>
 			<td colspan=3>
 				<br>
-				<b>ㆍ U.O.F Pos</b><br>
+				<b>ㆍ U.O.S Pos</b><br>
 				<br>
 			</td>
 		</tr>
@@ -139,7 +139,7 @@
 		<tr>
 			<td colspan=3>
 				<br>
-				<b>ㆍ U.O.F-Mobile 유저</b><br>
+				<b>ㆍ U.O.S-Mobile 유저</b><br>
 				<br>
 			</td>
 		</tr>
@@ -191,7 +191,7 @@
 		<tr>
 			<td colspan=3>
 				<br>
-				<b>ㆍ U.O.F-Mobile 파트너</b><br>
+				<b>ㆍ U.O.S-Mobile 파트너</b><br>
 				<br>
 			</td>
 		</tr>
@@ -234,7 +234,7 @@
 
 <br><br>
 
-## U.O.F-Mobile 기대효과
+## U.O.S-Mobile 기대효과
 
 ### 스마트폰을 통한 Ordering System
 - 기존 키오스크와 달리 비대면으로 주문 가능
@@ -265,7 +265,7 @@
     <tr>
         <td width="100" align="center"><img src="/image/youngjin.PNG" width="60" height="60"></td>
         <td width="100" align="center">손영진</td>
-        <td width="150">U.O.F팀장<br>U.O.F-Mobile 개발<br>통신 소켓 구축</td>
+        <td width="150">U.O.S팀장<br>U.O.S-Mobile 개발<br>통신 소켓 구축</td>
         <td width="100" align="center">
           <a href="https://github.com/ILoveGameCoding">
             <img src="http://img.shields.io/badge/ILoveGameCoding-655ced?style=social&logo=github"/>
@@ -278,7 +278,7 @@
     <tr>
         <td width="100" align="center"><img src="/image/sungjoon.PNG" width="60" height="60"></td>
         <td width="100" align="center">배성준</td>
-        <td width="150">U.O.F-Mobile 개발<br>U.O.F-Pos Design<br>문서화 작업 등</td>
+        <td width="150">U.O.S-Mobile 개발<br>U.O.S-Pos Design<br>문서화 작업 등</td>
         <td width="100" align="center">
           <a href="https://github.com/westofsky">
             <img src="http://img.shields.io/badge/westofsky-655ced?style=social&logo=github"/>
@@ -291,7 +291,7 @@
     <tr>
         <td width="100" align="center"><img src="/image/jongbum.PNG" width="60" height="60"></td>
         <td width="100" align="center">윤종범</td>
-        <td width="150">U.O.F-Mobile 개발<br>API 설계<br>Json 통신 등</td>
+        <td width="150">U.O.S-Mobile 개발<br>API 설계<br>Json 통신 등</td>
         <td width="100" align="center">
           <a href="https://github.com/le-la">
             <img src="http://img.shields.io/badge/lela-655ced?style=social&logo=github"/>
@@ -304,7 +304,7 @@
     <tr>
         <td width="100" align="center"><img src="/image/inus.PNG" width="60" height="60"></td>
         <td width="100" align="center">이인우</td>
-        <td width="150">U.O.F-Server 개발<br>U.O.F-Pos 개발<br서버 제공 등</td>
+        <td width="150">U.O.S-Server 개발<br>U.O.S-Pos 개발<br서버 제공 등</td>
         <td width="100" align="center">
           <a href="https://github.com/bapmukza9">
             <img src="http://img.shields.io/badge/bapmukza9-655ced?style=social&logo=github"/>
@@ -317,7 +317,7 @@
     <tr>
         <td width="100" align="center"><img src="/image/hyunseung.PNG" width="60" height="60"></td>
         <td width="100" align="center">유현승</td>
-        <td width="150">U.O.F-Pos 개발<br>통신 소켓 구축<br서버 제공 등</td>
+        <td width="150">U.O.S-Pos 개발<br>통신 소켓 구축<br서버 제공 등</td>
         <td width="100" align="center">
           <a href="https://github.com/UDADDY">
             <img src="http://img.shields.io/badge/UDADDY-655ced?style=social&logo=github"/>
