@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:text="나만의 키오스크\nU.O.F"
+                android:text="나만의 키오스크\nU.O.S"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="32sp"
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:text="U.O.F 파트너 이신가요?"
+                    android:text="UOS 파트너 이신가요?"
                     android:textColor="@color/black" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -106,7 +106,7 @@
                 android:clickable="true"
                 android:fontFamily="serif"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:text="처음이시라면 UOF의 가족이 되어보세요"
+                android:text="처음이시라면 UOS의 가족이 되어보세요"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="15sp"
                 android:textStyle="bold" />

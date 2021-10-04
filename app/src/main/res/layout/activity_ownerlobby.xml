@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="U.O.F 파트너"
+            android:text="UOS 파트너"
             android:textColor="#000"
             android:textSize="50sp" />
 
