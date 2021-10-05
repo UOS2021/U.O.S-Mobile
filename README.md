@@ -1,5 +1,5 @@
 <p align = "center">
-  <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/app/src/main/res/drawable/uos_logo.png"><img src="./app/src/main/res/drawable/uof_logo.png" width="500"/>
+  <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/app/src/main/res/drawable/uos_logo.png"><img src="./app/src/main/res/drawable/uos_logo.png" width="500"/>
   <br/>
 </p>
 <h1 align="center"><strong>U.O.S</strong><br>내 손 안에 키오스크를 담다.</h1>
