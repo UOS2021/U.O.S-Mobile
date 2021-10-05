@@ -10,10 +10,10 @@
 
 
 <p align="center">
-  <img src="https://img.shields.io/github/repo-size/UOF2021/U.O.F-Mobile?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/license/UOF2021/U.O.F-Mobile?style=for-the-badge"/>
-  <a href = "https://github.com/UOF2021/U.O.F-POS"><img src="https://img.shields.io/badge/REPO-UOF_POS-informatoinal?style=for-the-badge"/></a>
-  <a href = "https://github.com/UOF2021/U.O.F-Server"><img src="https://img.shields.io/badge/REPO-UOF_SERVER-informatoinal?style=for-the-badge"/></a>
+  <img src="https://img.shields.io/github/repo-size/UOS2021/U.O.S-Mobile?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/license/UOS2021/U.O.S-Mobile?style=for-the-badge"/>
+  <a href = "https://github.com/UOS2021/U.O.S-POS"><img src="https://img.shields.io/badge/REPO-UOS_POS-informatoinal?style=for-the-badge"/></a>
+  <a href = "https://github.com/UOS2021/U.O.S-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a>
 </p>
 <br>
 <br>
@@ -45,7 +45,7 @@
 
 ## 통신 구조
 ### Flow Chart
-<a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/image/flowchart.png"><img src="./image/flowchart.png"/>
+<a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/image/flowchart.png"><img src="./image/flowchart.png"/>
 
 
 <br>
@@ -66,7 +66,7 @@
 		<tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/onair_order.png"><img src="/image/onair_order.png" width="70%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/onair_order.png"><img src="/image/onair_order.png" width="70%"></a>
             </div>
         </td>
         <td width="25%">실시간 주문내역 확인 및 다양한 기능</td>
@@ -74,7 +74,7 @@
     <tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/qrcode_manage.png"><img src="/image/qrcode_manage.png" width="70%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/qrcode_manage.png"><img src="/image/qrcode_manage.png" width="70%"></a>
             </div>
         </td>
         <td width="30%">Pos에서 불러올 QRcode 관리</td>
@@ -82,7 +82,7 @@
 	    <tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/manage_restaurant.png"><img src="/image/manage_restaurant.png" width="70%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/manage_restaurant.png"><img src="/image/manage_restaurant.png" width="70%"></a>
             </div>
         </td>
         <td width="30%">카테고리 및 메뉴 관리</td>
@@ -91,7 +91,7 @@
 	    <tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/add_menu.png"><img src="/image/add_menu.png" width="70%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/add_menu.png"><img src="/image/add_menu.png" width="70%"></a>
             </div>
         </td>
         <td width="30%">이미지, 이름, 가격 등을 기재하여 메뉴 추가 </td>
@@ -113,8 +113,8 @@
 		<tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/login.jpg"><img src="/image/login.jpg" width="25%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/login_type.jpg"><img src="/image/login_type.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/login.jpg"><img src="/image/login.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/login_type.jpg"><img src="/image/login_type.jpg" width="25%"></a>
             </div>
         </td>
         <td width="25%">유저,파트너에 따른 로그인 방식</td>
@@ -122,9 +122,9 @@
     <tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/register_user.jpg"><img src="/image/register_user.jpg" width="25%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/register_partner"><img src="/image/register_partner.jpg" width="25%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/register_partner2"><img src="/image/register_partner2.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/register_user.jpg"><img src="/image/register_user.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/register_partner"><img src="/image/register_partner.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/register_partner2"><img src="/image/register_partner2.jpg" width="25%"></a>
             </div>
         </td>
         <td width="30%">유저,파트너에 따른 회원가입 방식</td>
@@ -146,7 +146,7 @@
 		<tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_lobby.jpg"><img src="/image/user_lobby.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_lobby.jpg"><img src="/image/user_lobby.jpg" width="25%"></a>
             </div>
         </td>
         <td width="25%">로비에서 다양한 기능 수행</td>
@@ -154,9 +154,9 @@
     <tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_card.jpg"><img src="/image/user_card.jpg" width="25%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_orderlist.jpg"><img src="/image/user_orderlist.jpg" width="25%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_setting.jpg"><img src="/image/user_setting.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_card.jpg"><img src="/image/user_card.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_orderlist.jpg"><img src="/image/user_orderlist.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_setting.jpg"><img src="/image/user_setting.jpg" width="25%"></a>
             </div>
         </td>
         <td width="30%">카드 정보, 주문 내역, 설정</td>
@@ -164,8 +164,8 @@
     <tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_order.jpg"><img src="/image/user_order.jpg" width="25%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_pay.jpg"><img src="/image/user_pay.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_order.jpg"><img src="/image/user_order.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_pay.jpg"><img src="/image/user_pay.jpg" width="25%"></a>
             </div>
         </td>
         <td width="30%">메뉴 선택 및 결제</td>
@@ -173,10 +173,10 @@
         <tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_pay2.jpg"><img src="/image/user_pay2.jpg" width="20%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_paysuccess.jpg"><img src="/image/user_paysuccess.jpg" width="20%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_lobby2.jpg"><img src="/image/user_lobby2.jpg" width="20%"></a>
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/user_neworderlist.jpg"><img src="/image/user_neworderlist.jpg" width="20%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_pay2.jpg"><img src="/image/user_pay2.jpg" width="20%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_paysuccess.jpg"><img src="/image/user_paysuccess.jpg" width="20%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_lobby2.jpg"><img src="/image/user_lobby2.jpg" width="20%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/user_neworderlist.jpg"><img src="/image/user_neworderlist.jpg" width="20%"></a>
             </div>
         </td>
         <td width="30%">주문 확인</td>
@@ -198,7 +198,7 @@
 		<tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/partner_qr.jpg"><img src="/image/partner_qr.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/partner_qr.jpg"><img src="/image/partner_qr.jpg" width="25%"></a>
             </div>
         </td>
         <td width="25%">로비에서 다양한 기능 수행</td>
@@ -206,7 +206,7 @@
     <tr>
         <td>
             <div align="center">
-                <a href="https://raw.githubusercontent.com/UOF2021/U.O.F-Mobile/master/image/partner_pos.jpg"><img src="/image/partner_pos.jpg" width="25%"></a>
+                <a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/partner_pos.jpg"><img src="/image/partner_pos.jpg" width="25%"></a>
             </div>
         </td>
         <td width="30%">매장에서 불러온 QRcode 전시</td>
