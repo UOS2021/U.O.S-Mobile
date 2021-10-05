@@ -36,7 +36,7 @@ public class UosFcmService extends FirebaseMessagingService {
 
             SQLiteManager sqLiteManager = new SQLiteManager(getApplicationContext());
             sqLiteManager.openDatabase();
-            sqLiteManager.setOrderState(Integer.valueOf(orderNumber), "prepared");
+            sqLiteManager.setOrderState(Integer.valueOf(orderNumber), Global.SQLite.ORDER_STATE_PREPARED);
             sqLiteManager.closeDatabase();
 
             for (Activity activity : Global.activities) {
@@ -75,7 +75,7 @@ public class UosFcmService extends FirebaseMessagingService {
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
 
             SharedPreferenceManager.open(getApplicationContext(), Global.SharedPreference.APP_DATA);
-            int notificationNumber = SharedPreferenceManager.load(Global.SharedPreference.SP_KEY_LAST_NOTIFICATION_NUMBER, 0) + 1;
+            int notificationNumber = SharedPreferenceManager.load(Global.SharedPreference.LAST_NOTIFICATION_NUMBER, 0) + 1;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel notificationChannel = new NotificationChannel(Global.Notification.CHANNEL_ID, Global.Notification.CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
@@ -84,7 +84,7 @@ public class UosFcmService extends FirebaseMessagingService {
 
             notificationManagerCompat.notify(notificationNumber, notification.build());
             notificationManagerCompat.notify(0, notificationGroup.build());
-            SharedPreferenceManager.save(Global.SharedPreference.SP_KEY_LAST_NOTIFICATION_NUMBER, notificationNumber);
+            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_NUMBER, notificationNumber);
             SharedPreferenceManager.close();
         }
 

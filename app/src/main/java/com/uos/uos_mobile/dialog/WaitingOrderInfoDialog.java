@@ -96,7 +96,7 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
         rvDlgWaitingOrderInfo.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         rvDlgWaitingOrderInfo.setAdapter(waitingOrderInfoAdapter);
 
-        if (waitingOrderItem.getState().equals("wait")) {
+        if (waitingOrderItem.getState().equals(Global.SQLite.ORDER_STATE_WAIT)) {
             clDlgWaitingOrderInfoTake.setEnabled(false);
             clDlgWaitingOrderInfoTake.setBackgroundColor(context.getResources().getColor(R.color.gray));
         } else {
