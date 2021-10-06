@@ -26,7 +26,7 @@ public class HttpManager extends AsyncTask<String, String, String> {
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
             httpURLConnection.setRequestProperty("Accept", "application/json");
             httpURLConnection.setConnectTimeout(2000);
-            httpURLConnection.setReadTimeout(2000);
+            httpURLConnection.setReadTimeout(60000);
             httpURLConnection.connect();
 
             OutputStream outputStream = httpURLConnection.getOutputStream();
