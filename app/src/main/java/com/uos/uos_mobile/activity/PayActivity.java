@@ -257,7 +257,7 @@ public class PayActivity extends AppCompatActivity {
     public void checkPayEnable() {
         int result = PatternManager.checkCardPw(tilPayCardPw.getEditText().getText().toString());
 
-        if (result == Global.Pattern.OK) {
+        if (result == PatternManager.OK) {
             tilPayCardPw.setError(null);
             tilPayCardPw.setErrorEnabled(false);
             if (tvPayNoCard.getVisibility() == View.GONE) {
@@ -267,12 +267,12 @@ public class PayActivity extends AppCompatActivity {
                 clPayPay.setEnabled(false);
                 clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
             }
-        } else if (result == Global.Pattern.LENGTH_SHORT) {
+        } else if (result == PatternManager.LENGTH_SHORT) {
             clPayPay.setEnabled(false);
             clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
             tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
             tilPayCardPw.setErrorEnabled(true);
-        } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+        } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
             clPayPay.setEnabled(false);
             clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
             tilPayCardPw.setError("숫자만 입력가능합니다");

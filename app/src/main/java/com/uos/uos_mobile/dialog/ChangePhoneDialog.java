@@ -85,7 +85,7 @@ public class ChangePhoneDialog extends Dialog {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPhoneNumber(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == PatternManager.LENGTH_SHORT || result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilDlgChangePhoneChangePhone.setError("전화번호 형식이 맞지 않습니다");
                     tilDlgChangePhoneChangePhone.setErrorEnabled(true);
                     tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.color_light));

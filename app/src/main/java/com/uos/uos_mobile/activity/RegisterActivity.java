@@ -162,10 +162,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkId(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT) {
+                if (result == PatternManager.LENGTH_SHORT) {
                     tilRegisterCustomerId.setError("아이디는 8자리 이상이어야 합니다");
                     tilRegisterCustomerId.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerId.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilRegisterCustomerId.setErrorEnabled(true);
                 } else {
@@ -196,10 +196,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPw(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT) {
+                if (result == PatternManager.LENGTH_SHORT) {
                     tilRegisterCustomerPw.setError("비밀번호는 8자리 이상이어야 합니다");
                     tilRegisterCustomerPw.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerPw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilRegisterCustomerPw.setErrorEnabled(true);
                 } else {
@@ -269,7 +269,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkName(editable.toString());
 
-                if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerName.setError("이름은 한글만 가능합니다");
                     tilRegisterCustomerName.setErrorEnabled(true);
                 } else {
@@ -300,7 +300,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPhoneNumber(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == PatternManager.LENGTH_SHORT || result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterCustomerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
                     tilRegisterCustomerPhoneNumber.setErrorEnabled(true);
                 } else {
@@ -332,10 +332,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkId(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT) {
+                if (result == PatternManager.LENGTH_SHORT) {
                     tilRegisterUosPartnerId.setError("아이디는 8자리 이상이어야 합니다");
                     tilRegisterUosPartnerId.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUosPartnerId.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilRegisterUosPartnerId.setErrorEnabled(true);
                 } else {
@@ -366,10 +366,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPw(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT) {
+                if (result == PatternManager.LENGTH_SHORT) {
                     tilRegisterUosPartnerPw.setError("비밀번호는 8자리 이상이어야 합니다");
                     tilRegisterUosPartnerPw.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUosPartnerPw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilRegisterUosPartnerPw.setErrorEnabled(true);
                 } else {
@@ -439,7 +439,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkName(editable.toString());
 
-                if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUosPartnerName.setError("이름은 한글만 가능합니다");
                     tilRegisterUosPartnerName.setErrorEnabled(true);
                 } else {
@@ -470,7 +470,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPhoneNumber(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == PatternManager.LENGTH_SHORT || result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterUosPartnerPhoneNumber.setError("전화번호 형식이 맞지 않습니다");
                     tilRegisterUosPartnerPhoneNumber.setErrorEnabled(true);
                 } else {
@@ -522,7 +522,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkLicenseNumber(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT || result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                if (result == PatternManager.LENGTH_SHORT || result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilRegisterLicenseNumber.setError("사업자번호는 10자리 숫자입니다");
                     tilRegisterLicenseNumber.setErrorEnabled(true);
                 } else {
@@ -704,22 +704,22 @@ public class RegisterActivity extends AppCompatActivity {
 
     // 일반 고객 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인
     private boolean checkCustomerRegister() {
-        return PatternManager.checkId(tilRegisterCustomerId.getEditText().getText().toString()) == Global.Pattern.OK
-                && PatternManager.checkPw(tilRegisterCustomerPw.getEditText().getText().toString()) == Global.Pattern.OK
+        return PatternManager.checkId(tilRegisterCustomerId.getEditText().getText().toString()) == PatternManager.OK
+                && PatternManager.checkPw(tilRegisterCustomerPw.getEditText().getText().toString()) == PatternManager.OK
                 && tilRegisterCustomerPw.getEditText().getText().toString().equals(tilRegisterCustomerPwChk.getEditText().getText().toString())
-                && PatternManager.checkName(tilRegisterCustomerName.getEditText().getText().toString()) == Global.Pattern.OK
-                && PatternManager.checkPhoneNumber(tilRegisterCustomerPhoneNumber.getEditText().getText().toString()) == Global.Pattern.OK;
+                && PatternManager.checkName(tilRegisterCustomerName.getEditText().getText().toString()) == PatternManager.OK
+                && PatternManager.checkPhoneNumber(tilRegisterCustomerPhoneNumber.getEditText().getText().toString()) == PatternManager.OK;
     }
 
     // U.O.S 파트너 회원가입 시 아이디, 비밀번호, 이름 , 전화번호, 회사정보 입력 확인
     private boolean checkUosPartnerRegister() {
-        return PatternManager.checkId(tilRegisterUosPartnerId.getEditText().getText().toString()) == Global.Pattern.OK
-                && PatternManager.checkPw(tilRegisterUosPartnerPw.getEditText().getText().toString()) == Global.Pattern.OK
+        return PatternManager.checkId(tilRegisterUosPartnerId.getEditText().getText().toString()) == PatternManager.OK
+                && PatternManager.checkPw(tilRegisterUosPartnerPw.getEditText().getText().toString()) == PatternManager.OK
                 && tilRegisterUosPartnerPw.getEditText().getText().toString().equals(tilRegisterUosPartnerPwChk.getEditText().getText().toString())
-                && PatternManager.checkName(tilRegisterUosPartnerName.getEditText().getText().toString()) == Global.Pattern.OK
-                && PatternManager.checkPhoneNumber(tilRegisterUosPartnerPhoneNumber.getEditText().getText().toString()) == Global.Pattern.OK
+                && PatternManager.checkName(tilRegisterUosPartnerName.getEditText().getText().toString()) == PatternManager.OK
+                && PatternManager.checkPhoneNumber(tilRegisterUosPartnerPhoneNumber.getEditText().getText().toString()) == PatternManager.OK
                 && tilRegisterCompanyName.getEditText().getText().toString().length() > 0
-                && PatternManager.checkLicenseNumber(tilRegisterLicenseNumber.getEditText().getText().toString()) == Global.Pattern.OK
+                && PatternManager.checkLicenseNumber(tilRegisterLicenseNumber.getEditText().getText().toString()) == PatternManager.OK
                 && tilRegisterCompanyAddress.getEditText().getText().toString().length() > 0
                 && checkRegisterLicenseImage(ivRegisterLicenseImage);
     }
