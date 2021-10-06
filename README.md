@@ -45,7 +45,7 @@
 
 ## 통신 구조
 ### Flow Chart
-<a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/flowchart.png"><img src="./image/flowchart.png"/>
+<a href="https://raw.githubusercontent.com/UOS2021/U.O.S-Mobile/master/image/Network Flow Customer.png"><img src="./image/Network Flow Customer.png"/>
 
 
 <br>
