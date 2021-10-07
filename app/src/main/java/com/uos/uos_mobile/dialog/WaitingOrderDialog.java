@@ -15,10 +15,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.uos.uos_mobile.R;
 import com.uos.uos_mobile.activity.PayActivity;
+import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.other.Global;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class WaitingOrderDialog extends AppCompatDialog {
     private final Context context;
@@ -31,11 +35,14 @@ public class WaitingOrderDialog extends AppCompatDialog {
     private AppCompatTextView tvDlgWaitingOrder3;
     private boolean orderCancel;
 
-    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData) {
+    private String posAddress;
+
+    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData, String posAddress) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.companyName = companyName;
         this.orderData = orderData;
+        this.posAddress = posAddress;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -57,8 +64,8 @@ public class WaitingOrderDialog extends AppCompatDialog {
     }
 
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof WaitingOrderDialog){
+        for (Dialog dialog : Global.dialogs) {
+            if (dialog instanceof WaitingOrderDialog) {
                 dialog.dismiss();
             }
         }
@@ -74,107 +81,96 @@ public class WaitingOrderDialog extends AppCompatDialog {
 
         // 주문접수 상태 불러오기
         new Thread(() -> {
-            if (Global.socketManager.isSocketConnected()) {
-                try {
-                    String strRecvData = Global.socketManager.recv();
-                    JSONObject recvData = new JSONObject(strRecvData);
-                    String responseCode = recvData.getString("response_code");
+            try {
+                JSONObject sendData = new JSONObject();
 
-                    if (responseCode.equals(Global.Network.Response.ORDER_ACCEPT)) {
-                        // 주문이 수락되었을 때
-                        if (!orderCancel) {
-                            ((PayActivity) context).runOnUiThread(() -> {
-                                tvDlgWaitingOrderMessage.setText("결제 중입니다\n잠시만 기다려주세요...");
-                                tvDlgWaitingOrder2.setText("확인");
-                                tvDlgWaitingOrder3.setVisibility(View.GONE);
-                                clDlgWaitingOrderCancel.setEnabled(false);
-                                clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.gray));
-                            });
-                        }
+                sendData.accumulate("request_code", Global.Network.Request.ORDER_ACCEPTED_STATE);
 
-                        JSONObject sendData = new JSONObject();
-                        sendData.accumulate("request_code", Global.Network.Request.ORDER_CANCEL);
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                String responseCode = recvData.getString("response_code");
 
-                        JSONObject message = new JSONObject();
-                        message.accumulate("cancel", orderCancel);
-
-                        sendData.accumulate("message", message);
-                        Global.socketManager.send(sendData.toString());
-
-                        strRecvData = Global.socketManager.recv();
-                        recvData = new JSONObject(strRecvData);
-                        responseCode = recvData.getString("response_code");
-
+                if (responseCode.equals(Global.Network.Response.ORDER_ACCEPT)) {
+                    // 주문이 수락되었을 때
+                    if (!orderCancel) {
                         ((PayActivity) context).runOnUiThread(() -> {
-                            pbDlgWaitingOrder.setVisibility(View.GONE);
-                            clDlgWaitingOrderCancel.setEnabled(true);
-                            clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
-                        });
-
-                        if (responseCode.equals(Global.Network.Response.PAY_SUCCESS)) {
-                            // 결제 성공시
-                            int orderNumber = recvData.getJSONObject("message").getInt("order_number");
-
-                            SQLiteManager sqLiteManager = new SQLiteManager(context);
-                            sqLiteManager.openDatabase();
-                            if (sqLiteManager.saveOrder(orderNumber, companyName, orderData.getJSONObject("message"))) {
-
-                            } else {
-                                ((PayActivity) context).runOnUiThread(() -> {
-                                    Toast.makeText(context, "주문내역 저장 실패", Toast.LENGTH_SHORT).show();
-                                });
-                            }
-                            sqLiteManager.closeDatabase();
-
-                            ((PayActivity) context).runOnUiThread(() -> {
-                                tvDlgWaitingOrderMessage.setText("결제가 완료되었습니다\n주문하신 상품이 준비되면 알려드리겠습니다");
-                            });
-                        } else if (responseCode.equals(Global.Network.Response.PAY_FAILED_WRONG_PASSWORD)) {
-                            // 결제 실패시
-                            ((PayActivity) context).runOnUiThread(() -> {
-                                tvDlgWaitingOrderMessage.setText("카드 비밀번호가 틀렸습니다\n확인 후 다시 시도해주세요");
-                            });
-                        } else if (responseCode.equals(Global.Network.Response.PAY_FAILED_NOT_ENOUGH_MONEY)) {
-                            // 결제 실패시
-                            ((PayActivity) context).runOnUiThread(() -> {
-                                tvDlgWaitingOrderMessage.setText("잔액이 부족합니다\n확인 후 다시 시도해주세요");
-                            });
-                        } else if (responseCode.equals(Global.Network.Response.ORDER_CANCEL_SUCCESS)) {
-                            // 주문취소 성공시
-                            ((PayActivity) context).runOnUiThread(() -> {
-                                tvDlgWaitingOrderMessage.setText("주문이 취소되었습니다");
-                            });
-                        } else if (responseCode.equals(Global.Network.Response.ORDER_CANCEL_FAILED)) {
-                            // 주문취소 실패시
-                            ((PayActivity) context).runOnUiThread(() -> {
-                                tvDlgWaitingOrderMessage.setText("주문취소에 실패했습니다\n매장에 문의해주세요");
-                            });
-                        } else {
-                            ((PayActivity) context).runOnUiThread(() -> {
-                                tvDlgWaitingOrderMessage.setText("매장과 연결 도중 문제가 발생했습니다\n매장에 문의해주세요");
-                            });
-                        }
-                    } else if (responseCode.equals(Global.Network.Response.ORDER_REFUSE)) {
-                        // 주문이 거부되었을 때
-                        ((PayActivity) context).runOnUiThread(() -> {
+                            tvDlgWaitingOrderMessage.setText("결제 중입니다\n잠시만 기다려주세요...");
                             tvDlgWaitingOrder2.setText("확인");
                             tvDlgWaitingOrder3.setVisibility(View.GONE);
-                            pbDlgWaitingOrder.setVisibility(View.GONE);
-                            tvDlgWaitingOrderMessage.setText("현재 매장이 바빠 주문 접수가 불가능합니다\n나중에 다시 시도해주세요");
-                            clDlgWaitingOrderCancel.setEnabled(true);
-                            clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
+                            clDlgWaitingOrderCancel.setEnabled(false);
+                            clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.gray));
+                        });
+                    }
+
+                    sendData.accumulate("request_code", Global.Network.Request.ORDER_CANCEL);
+
+                    JSONObject message = new JSONObject();
+                    message.accumulate("cancel", orderCancel);
+
+                    sendData.accumulate("message", message);
+
+                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                    responseCode = recvData.getString("response_code");
+
+                    ((PayActivity) context).runOnUiThread(() -> {
+                        pbDlgWaitingOrder.setVisibility(View.GONE);
+                        clDlgWaitingOrderCancel.setEnabled(true);
+                        clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
+                    });
+
+                    if (responseCode.equals(Global.Network.Response.PAY_SUCCESS)) {
+                        // 결제 성공시
+                        int orderNumber = recvData.getJSONObject("message").getInt("order_number");
+
+                        SQLiteManager sqLiteManager = new SQLiteManager(context);
+                        sqLiteManager.openDatabase();
+                        if (sqLiteManager.saveOrder(orderNumber, companyName, orderData.getJSONObject("message"))) {
+
+                        } else {
+                            ((PayActivity) context).runOnUiThread(() -> {
+                                Toast.makeText(context, "주문내역 저장 실패", Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                        sqLiteManager.closeDatabase();
+
+                        ((PayActivity) context).runOnUiThread(() -> {
+                            tvDlgWaitingOrderMessage.setText("결제가 완료되었습니다\n주문하신 상품이 준비되면 알려드리겠습니다");
+                        });
+                    } else if (responseCode.equals(Global.Network.Response.PAY_FAILED_WRONG_PASSWORD)) {
+                        // 결제 실패시
+                        ((PayActivity) context).runOnUiThread(() -> {
+                            tvDlgWaitingOrderMessage.setText("카드 비밀번호가 틀렸습니다\n확인 후 다시 시도해주세요");
+                        });
+                    } else if (responseCode.equals(Global.Network.Response.PAY_FAILED_NOT_ENOUGH_MONEY)) {
+                        // 결제 실패시
+                        ((PayActivity) context).runOnUiThread(() -> {
+                            tvDlgWaitingOrderMessage.setText("잔액이 부족합니다\n확인 후 다시 시도해주세요");
+                        });
+                    } else if (responseCode.equals(Global.Network.Response.ORDER_CANCEL_SUCCESS)) {
+                        // 주문취소 성공시
+                        ((PayActivity) context).runOnUiThread(() -> {
+                            tvDlgWaitingOrderMessage.setText("주문이 취소되었습니다");
+                        });
+                    } else if (responseCode.equals(Global.Network.Response.ORDER_CANCEL_FAILED)) {
+                        // 주문취소 실패시
+                        ((PayActivity) context).runOnUiThread(() -> {
+                            tvDlgWaitingOrderMessage.setText("주문취소에 실패했습니다\n매장에 문의해주세요");
                         });
                     } else {
                         ((PayActivity) context).runOnUiThread(() -> {
-                            tvDlgWaitingOrder2.setText("확인");
-                            tvDlgWaitingOrder3.setVisibility(View.GONE);
-                            pbDlgWaitingOrder.setVisibility(View.GONE);
                             tvDlgWaitingOrderMessage.setText("매장과 연결 도중 문제가 발생했습니다\n매장에 문의해주세요");
-                            clDlgWaitingOrderCancel.setEnabled(true);
-                            clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
                         });
                     }
-                } catch (Exception e) {
+                } else if (responseCode.equals(Global.Network.Response.ORDER_REFUSE)) {
+                    // 주문이 거부되었을 때
+                    ((PayActivity) context).runOnUiThread(() -> {
+                        tvDlgWaitingOrder2.setText("확인");
+                        tvDlgWaitingOrder3.setVisibility(View.GONE);
+                        pbDlgWaitingOrder.setVisibility(View.GONE);
+                        tvDlgWaitingOrderMessage.setText("현재 매장이 바빠 주문 접수가 불가능합니다\n나중에 다시 시도해주세요");
+                        clDlgWaitingOrderCancel.setEnabled(true);
+                        clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
+                    });
+                } else {
                     ((PayActivity) context).runOnUiThread(() -> {
                         tvDlgWaitingOrder2.setText("확인");
                         tvDlgWaitingOrder3.setVisibility(View.GONE);
@@ -183,17 +179,13 @@ public class WaitingOrderDialog extends AppCompatDialog {
                         clDlgWaitingOrderCancel.setEnabled(true);
                         clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
                     });
-                    e.printStackTrace();
                 }
-            } else {
-                ((PayActivity) context).runOnUiThread(() -> {
-                    tvDlgWaitingOrder2.setText("확인");
-                    tvDlgWaitingOrder3.setVisibility(View.GONE);
-                    pbDlgWaitingOrder.setVisibility(View.GONE);
-                    tvDlgWaitingOrderMessage.setText("매장과 연결 도중 문제가 발생했습니다\n매장에 문의해주세요");
-                    clDlgWaitingOrderCancel.setEnabled(true);
-                    clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
-                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }).start();
 

@@ -52,6 +52,8 @@ public class PayActivity extends AppCompatActivity {
 
     private CardItem cardItem;
 
+    private String posAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +69,8 @@ public class PayActivity extends AppCompatActivity {
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof PayActivity){
+        for (Activity activity : Global.activities) {
+            if (activity instanceof PayActivity) {
                 activity.finish();
             }
         }
@@ -100,6 +102,8 @@ public class PayActivity extends AppCompatActivity {
         cardItem = new CardItem();
         removeCardData();
         new PayActivity.GetCard().start();
+
+        posAddress = getIntent().getStringExtra("posAddress");
 
         payAdapter = new PayAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(PayActivity.this, DividerItemDecoration.VERTICAL);
@@ -145,80 +149,74 @@ public class PayActivity extends AppCompatActivity {
 
         // 결제하기 버튼 눌릴 시
         clPayPay.setOnClickListener(view -> {
-            if (tvPayNoCard.getVisibility() == View.GONE) {
-                tvPayPay.setVisibility(View.INVISIBLE);
-                pbPayLoading.setVisibility(View.VISIBLE);
-                new Thread(() -> {
-                    try {
-                        JSONObject sendData = new JSONObject();
+            new Thread(() -> {
+                runOnUiThread(() -> {
+                    tvPayPay.setVisibility(View.INVISIBLE);
+                    pbPayLoading.setVisibility(View.VISIBLE);
+                });
 
-                        sendData.accumulate("request_code", Global.Network.Request.ORDER);
+                try {
+                    JSONObject sendData = new JSONObject();
 
-                        JSONObject message = new JSONObject();
+                    sendData.accumulate("request_code", Global.Network.Request.ORDER);
 
-                        message.accumulate("id", Global.User.id);
-                        message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
+                    JSONObject message = new JSONObject();
 
-                        JSONObject cardData = new JSONObject();
+                    message.accumulate("id", Global.User.id);
+                    message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
 
-                        cardData.accumulate("num", cardItem.getNum());
-                        cardData.accumulate("cvc", cardItem.getCvc());
-                        cardData.accumulate("due_date", cardItem.getDueDate());
-                        cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
+                    JSONObject cardData = new JSONObject();
 
-                        message.accumulate("card", cardData);
-                        message.accumulate("order", Global.basketManager.getJson());
+                    cardData.accumulate("num", cardItem.getNum());
+                    cardData.accumulate("cvc", cardItem.getCvc());
+                    cardData.accumulate("due_date", cardItem.getDueDate());
+                    cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
 
-                        sendData.accumulate("message", message);
+                    message.accumulate("card", cardData);
+                    message.accumulate("order", Global.basketManager.getJson());
 
-                        if (Global.socketManager.isSocketConnected()) {
-                            Global.socketManager.send(sendData.toString());
-                            String recvData = Global.socketManager.recv();
-                            JSONObject orderResult = new JSONObject(recvData);
+                    sendData.accumulate("message", message);
 
-                            if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
-                                // 주문접수 성공 시
-                                runOnUiThread(() -> {
-                                    clPayPay.setEnabled(false);
-                                    clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
-                                    waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData);
-                                    waitingOrderDialog.setOnDismissListener(dialogInterface -> {
-                                        for (int loop = 0; loop < Global.activities.size(); loop++) {
-                                            if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity || Global.activities.get(loop) instanceof QRRecognitionActivity) {
-                                                Global.activities.get(loop).finish();
-                                            }
-                                        }
-                                        finish();
-                                    });
-                                    waitingOrderDialog.show();
-                                });
-                            } else if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_FAILED)) {
-                                // 주문접수 실패 시
-                                runOnUiThread(() -> {
-                                    Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                                });
-                            } else {
-                                runOnUiThread(() -> {
-                                    Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                                });
-                            }
-                        } else {
-                            runOnUiThread(() -> {
-                                Toast.makeText(PayActivity.this, "매장 통신 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                            });
-                        }
-                    } catch (Exception e) {
+                    JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{posAddress, sendData.toString()}).get());
+
+                    if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
+                        // 주문접수 성공 시
                         runOnUiThread(() -> {
-                            Toast.makeText(PayActivity.this, "매장 통신 중 문제가 발생했습니다" + e.toString(), Toast.LENGTH_SHORT).show();
+                            clPayPay.setEnabled(false);
+                            clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+                            waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData, posAddress);
+                            waitingOrderDialog.setOnDismissListener(dialogInterface -> {
+                                for (int loop = 0; loop < Global.activities.size(); loop++) {
+                                    if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity || Global.activities.get(loop) instanceof QRRecognitionActivity) {
+                                        Global.activities.get(loop).finish();
+                                    }
+                                }
+                                finish();
+                            });
+                            waitingOrderDialog.show();
                         });
-                        e.printStackTrace();
+                    } else if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_FAILED)) {
+                        // 주문접수 실패 시
+                        runOnUiThread(() -> {
+                            Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        runOnUiThread(() -> {
+                            Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        });
                     }
-                }).start();
-            } else {
-                Toast.makeText(PayActivity.this, "등록된 카드가 없습니다. 카드 등록 후 다시 시도해주세요", Toast.LENGTH_SHORT).show();
-            }
-            tvPayPay.setVisibility(View.VISIBLE);
-            pbPayLoading.setVisibility(View.INVISIBLE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(() -> {
+                        Toast.makeText(PayActivity.this, "매장 통신 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                    });
+                }
+
+                runOnUiThread(() -> {
+                    tvPayPay.setVisibility(View.VISIBLE);
+                    pbPayLoading.setVisibility(View.INVISIBLE);
+                });
+            }).start();
         });
     }
 
