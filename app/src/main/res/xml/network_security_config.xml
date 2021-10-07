@@ -3,11 +3,8 @@
     <domain-config cleartextTrafficPermitted="true">
 
         <!-- 아래는 허용할 주소를 추가하는 예시이다 -->
-        <!--
 
-        <domain includeSubdomains="true">0.0.0.0</domain>
-
-        -->
+        <domain includeSubdomains="true">127.0.0.1</domain>
 
     </domain-config>
 </network-security-config>
