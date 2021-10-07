@@ -29,9 +29,12 @@ public class BasketDialog extends Dialog {
     private LinearLayoutCompat llDlgBasketOrder;
     private BasketAdapter basketAdapter;
 
-    public BasketDialog(@NonNull Context context) {
+    private String posAddress;
+
+    public BasketDialog(@NonNull Context context, String posAddress) {
         super(context, R.style.DialogTheme_FullScreenDialog);
         this.context = context;
+        this.posAddress = posAddress;
 
         setCanceledOnTouchOutside(false);
         setCancelable(true);
@@ -91,6 +94,8 @@ public class BasketDialog extends Dialog {
 
         // 주문하기 버튼 클릭 시
         llDlgBasketOrder.setOnClickListener(view -> {
+            Intent intent = new Intent(context, PayActivity.class);
+            intent.putExtra("posAddress", posAddress);
             context.startActivity(new Intent(context, PayActivity.class));
         });
     }

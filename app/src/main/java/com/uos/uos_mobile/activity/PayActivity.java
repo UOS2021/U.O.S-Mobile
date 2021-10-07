@@ -37,15 +37,12 @@ public class PayActivity extends AppCompatActivity {
     private AppCompatTextView tvPayCompanyName;
     private RecyclerView rvPayOrderList;
     private AppCompatTextView tvPayTotalPrice;
-    private RadioGroup rgPayPayment;
-    private RadioButton rbPayCard;
     private AppCompatTextView tvPayNoCard;
     private ConstraintLayout clPayCard;
     private AppCompatImageView ivPayCardBackground;
     private AppCompatTextView tvPayUserName;
     private AppCompatTextView tvPayCardNum;
     private TextInputLayout tilPayCardPw;
-    private RadioButton rbPayDirect;
     private ConstraintLayout clPayPay;
     private AppCompatTextView tvPayPay;
     private ContentLoadingProgressBar pbPayLoading;
@@ -54,6 +51,8 @@ public class PayActivity extends AppCompatActivity {
     private PayAdapter payAdapter;
 
     private CardItem cardItem;
+
+    private String posAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +69,8 @@ public class PayActivity extends AppCompatActivity {
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof PayActivity){
+        for (Activity activity : Global.activities) {
+            if (activity instanceof PayActivity) {
                 activity.finish();
             }
         }
@@ -81,15 +80,12 @@ public class PayActivity extends AppCompatActivity {
         tvPayCompanyName = findViewById(R.id.tv_pay_companyname);
         rvPayOrderList = findViewById(R.id.rv_pay_orderlist);
         tvPayTotalPrice = findViewById(R.id.tv_pay_totalprice);
-        rgPayPayment = findViewById(R.id.rg_pay_payment);
-        rbPayCard = findViewById(R.id.rb_pay_card);
         tvPayNoCard = findViewById(R.id.tv_pay_nocard);
         clPayCard = findViewById(R.id.cl_pay_card);
         ivPayCardBackground = findViewById(R.id.iv_pay_cardbackground);
         tvPayUserName = findViewById(R.id.tv_pay_username);
         tvPayCardNum = findViewById(R.id.tv_pay_cardnum);
         tilPayCardPw = findViewById(R.id.til_pay_cardpw);
-        rbPayDirect = findViewById(R.id.rb_pay_direct);
         clPayPay = findViewById(R.id.cl_pay_pay);
         tvPayPay = findViewById(R.id.tv_pay_pay);
         pbPayLoading = findViewById(R.id.pb_pay_loading);
@@ -107,6 +103,8 @@ public class PayActivity extends AppCompatActivity {
         removeCardData();
         new PayActivity.GetCard().start();
 
+        posAddress = getIntent().getStringExtra("posAddress");
+
         payAdapter = new PayAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(PayActivity.this, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getDrawable(R.drawable.recyclerview_divider));
@@ -114,43 +112,21 @@ public class PayActivity extends AppCompatActivity {
         rvPayOrderList.setLayoutManager(new LinearLayoutManager(PayActivity.this, LinearLayoutManager.VERTICAL, false));
         rvPayOrderList.setAdapter(payAdapter);
 
-        rbPayCard.setChecked(true);
         clPayPay.setEnabled(false);
         clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
-
-        rbPayDirect.setEnabled(false);
 
         // 뒤로가기 버튼 눌릴 시
         ibtnPayBack.setOnClickListener(view -> {
             finish();
         });
 
-        // 결제수단 변경 시
-        rgPayPayment.setOnCheckedChangeListener((radioGroup, id) -> {
-            if (id == R.id.rb_pay_card) {
-                ivPayCardBackground.setBackground(getDrawable(R.drawable.ripple_cardimage));
-                tilPayCardPw.getEditText().setEnabled(true);
-
-                checkPayEnable();
-            } else if (id == R.id.rb_pay_direct) {
-                ivPayCardBackground.setBackground(getDrawable(R.drawable.background_pay_carddisabled));
-                tilPayCardPw.getEditText().setEnabled(false);
-                tilPayCardPw.setError(null);
-                tilPayCardPw.setErrorEnabled(false);
-                clPayPay.setEnabled(true);
-                clPayPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
-            }
-        });
-
         // 카드이미지 눌릴 시
         ivPayCardBackground.setOnClickListener(view -> {
-            if (rbPayCard.isChecked()) {
-                CardDialog cardDialog = new CardDialog(PayActivity.this, true, true, cardItem);
-                cardDialog.setOnDismissListener(dialogInterface -> {
-                    new PayActivity.GetCard().start();
-                });
-                cardDialog.show();
-            }
+            CardDialog cardDialog = new CardDialog(PayActivity.this, true, true, cardItem);
+            cardDialog.setOnDismissListener(dialogInterface -> {
+                new PayActivity.GetCard().start();
+            });
+            cardDialog.show();
         });
 
         // 카드 비밀번호 입력 시
@@ -173,91 +149,81 @@ public class PayActivity extends AppCompatActivity {
 
         // 결제하기 버튼 눌릴 시
         clPayPay.setOnClickListener(view -> {
-            if (rbPayCard.isChecked()) {
-                if (tvPayNoCard.getVisibility() == View.GONE) {
+            new Thread(() -> {
+                runOnUiThread(() -> {
                     tvPayPay.setVisibility(View.INVISIBLE);
                     pbPayLoading.setVisibility(View.VISIBLE);
-                    new Thread(() -> {
-                        try {
-                            JSONObject sendData = new JSONObject();
+                });
 
-                            sendData.accumulate("request_code", Global.Network.Request.ORDER);
+                try {
+                    JSONObject sendData = new JSONObject();
 
-                            JSONObject message = new JSONObject();
+                    sendData.accumulate("request_code", Global.Network.Request.ORDER);
 
-                            message.accumulate("id", Global.User.id);
-                            message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
+                    JSONObject message = new JSONObject();
 
-                            JSONObject cardData = new JSONObject();
+                    message.accumulate("id", Global.User.id);
+                    message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
 
-                            cardData.accumulate("num", cardItem.getNum());
-                            cardData.accumulate("cvc", cardItem.getCvc());
-                            cardData.accumulate("due_date", cardItem.getDueDate());
-                            cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
+                    JSONObject cardData = new JSONObject();
 
-                            message.accumulate("card", cardData);
-                            message.accumulate("order", Global.basketManager.getJson());
+                    cardData.accumulate("num", cardItem.getNum());
+                    cardData.accumulate("cvc", cardItem.getCvc());
+                    cardData.accumulate("due_date", cardItem.getDueDate());
+                    cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
 
-                            sendData.accumulate("message", message);
+                    message.accumulate("card", cardData);
+                    message.accumulate("order", Global.basketManager.getJson());
 
-                            if (Global.socketManager.isSocketConnected()) {
-                                Global.socketManager.send(sendData.toString());
-                                String recvData = Global.socketManager.recv();
-                                JSONObject orderResult = new JSONObject(recvData);
+                    sendData.accumulate("message", message);
 
-                                if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
-                                    // 주문접수 성공 시
-                                    runOnUiThread(() -> {
-                                        clPayPay.setEnabled(false);
-                                        clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
-                                        waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData);
-                                        waitingOrderDialog.setOnDismissListener(dialogInterface -> {
-                                            for (int loop = 0; loop < Global.activities.size(); loop++) {
-                                                if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity || Global.activities.get(loop) instanceof QRRecognitionActivity) {
-                                                    Global.activities.get(loop).finish();
-                                                }
-                                            }
-                                            finish();
-                                        });
-                                        waitingOrderDialog.show();
-                                    });
-                                } else if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_FAILED)) {
-                                    // 주문접수 실패 시
-                                    runOnUiThread(() -> {
-                                        Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                                    });
-                                } else {
-                                    runOnUiThread(() -> {
-                                        Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                                    });
+                    JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{posAddress, sendData.toString()}).get());
+
+                    if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
+                        // 주문접수 성공 시
+                        runOnUiThread(() -> {
+                            clPayPay.setEnabled(false);
+                            clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+                            waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData, posAddress);
+                            waitingOrderDialog.setOnDismissListener(dialogInterface -> {
+                                for (int loop = 0; loop < Global.activities.size(); loop++) {
+                                    if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity || Global.activities.get(loop) instanceof QRRecognitionActivity) {
+                                        Global.activities.get(loop).finish();
+                                    }
                                 }
-                            } else {
-                                runOnUiThread(() -> {
-                                    Toast.makeText(PayActivity.this, "매장 통신 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                                });
-                            }
-                        } catch (Exception e) {
-                            runOnUiThread(() -> {
-                                Toast.makeText(PayActivity.this, "매장 통신 중 문제가 발생했습니다" + e.toString(), Toast.LENGTH_SHORT).show();
+                                finish();
                             });
-                            e.printStackTrace();
-                        }
-                    }).start();
-                } else {
-                    Toast.makeText(PayActivity.this, "등록된 카드가 없습니다. 카드 등록 후 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                            waitingOrderDialog.show();
+                        });
+                    } else if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_FAILED)) {
+                        // 주문접수 실패 시
+                        runOnUiThread(() -> {
+                            Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        runOnUiThread(() -> {
+                            Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(() -> {
+                        Toast.makeText(PayActivity.this, "매장 통신 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                    });
                 }
-                tvPayPay.setVisibility(View.VISIBLE);
-                pbPayLoading.setVisibility(View.INVISIBLE);
-            } else if (rbPayDirect.isChecked()) {
 
-            }
+                runOnUiThread(() -> {
+                    tvPayPay.setVisibility(View.VISIBLE);
+                    pbPayLoading.setVisibility(View.INVISIBLE);
+                });
+            }).start();
         });
     }
 
     public void checkPayEnable() {
         int result = PatternManager.checkCardPw(tilPayCardPw.getEditText().getText().toString());
 
-        if (result == Global.Pattern.OK) {
+        if (result == PatternManager.OK) {
             tilPayCardPw.setError(null);
             tilPayCardPw.setErrorEnabled(false);
             if (tvPayNoCard.getVisibility() == View.GONE) {
@@ -267,12 +233,12 @@ public class PayActivity extends AppCompatActivity {
                 clPayPay.setEnabled(false);
                 clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
             }
-        } else if (result == Global.Pattern.LENGTH_SHORT) {
+        } else if (result == PatternManager.LENGTH_SHORT) {
             clPayPay.setEnabled(false);
             clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
             tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
             tilPayCardPw.setErrorEnabled(true);
-        } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+        } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
             clPayPay.setEnabled(false);
             clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
             tilPayCardPw.setError("숫자만 입력가능합니다");

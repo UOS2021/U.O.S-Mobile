@@ -109,10 +109,10 @@ public class ChangePwDialog extends Dialog {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkPw(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT) {
+                if (result == PatternManager.LENGTH_SHORT) {
                     tilDlgChangePwChangePw.setError("바꿀 비밀번호는 8자리 이상이어야 합니다");
                     tilDlgChangePwChangePw.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilDlgChangePwChangePw.setError("알파벳, 숫자, !@#*만 사용할 수 있습니다");
                     tilDlgChangePwChangePw.setErrorEnabled(true);
                 } else {
@@ -226,7 +226,7 @@ public class ChangePwDialog extends Dialog {
 
     private void checkInputState() {
         if (tilDlgChangePwCurrentPw.getEditText().getText().toString().length() > 0
-                && PatternManager.checkPw(tilDlgChangePwChangePw.getEditText().getText().toString()) == Global.Pattern.OK
+                && PatternManager.checkPw(tilDlgChangePwChangePw.getEditText().getText().toString()) == PatternManager.OK
                 && tilDlgChangePwChangePw.getEditText().getText().toString().equals(tilDlgChangePwCheckPw.getEditText().getText().toString())) {
             tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.black));
             tvDlgChangePwApply.setEnabled(true);

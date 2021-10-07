@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.uos.uos_mobile.R;
 import com.uos.uos_mobile.item.WaitingOrderItem;
 import com.uos.uos_mobile.manager.SQLiteManager;
+import com.uos.uos_mobile.other.Global;
 
 import java.util.ArrayList;
 
@@ -39,10 +40,10 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderCompanyName.setText(waitingOrderItemArrayList.get(position).getCompanyName());
         ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderOrderNumber.setText(String.valueOf(waitingOrderItemArrayList.get(position).getOrderNumber()));
 
-        if (waitingOrderItemArrayList.get(position).getState().equals("wait")) {
+        if (waitingOrderItemArrayList.get(position).getState().equals(Global.SQLite.ORDER_STATE_WAIT)) {
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비 중입니다");
             ((WaitingOrderViewHolder) viewHolder).clWaitingOrder.setBackgroundColor(context.getResources().getColor(R.color.gray));
-        } else if (waitingOrderItemArrayList.get(position).getState().equals("prepared")) {
+        } else if (waitingOrderItemArrayList.get(position).getState().equals(Global.SQLite.ORDER_STATE_PREPARED)) {
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비되었습니다");
             ((WaitingOrderViewHolder) viewHolder).startAnimation();
         }

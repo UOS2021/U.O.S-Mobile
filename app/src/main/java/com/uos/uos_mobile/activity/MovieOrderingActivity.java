@@ -60,6 +60,8 @@ public class MovieOrderingActivity extends AppCompatActivity {
     private OrderingAdapter orderingAdapter;
     private String selectedCategory;
 
+    private String posAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +74,6 @@ public class MovieOrderingActivity extends AppCompatActivity {
     protected void onDestroy() {
         Global.activities.remove(this);
         Global.basketManager.getOrderingItemArrayList().clear();
-        if (Global.socketManager != null && Global.socketManager.isSocketConnected()) {
-            Global.socketManager.disconnect();
-        }
         super.onDestroy();
     }
 
@@ -108,6 +107,8 @@ public class MovieOrderingActivity extends AppCompatActivity {
         tvMovieOrderingShowFood.setEnabled(true);
         tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(R.color.gray));
         llMovieOrderingFood.setVisibility(View.GONE);
+
+        posAddress = getIntent().getStringExtra("posAddress");
 
         try {
             SharedPreferenceManager.open(MovieOrderingActivity.this, Global.SharedPreference.APP_DATA);
@@ -232,7 +233,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
             if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(MovieOrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this);
+                BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this, posAddress);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -245,7 +246,9 @@ public class MovieOrderingActivity extends AppCompatActivity {
             if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(MovieOrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                startActivity(new Intent(MovieOrderingActivity.this, PayActivity.class));
+                Intent intent = new Intent(MovieOrderingActivity.this, PayActivity.class);
+                intent.putExtra("payAddress", posAddress);
+                startActivity(intent);
             }
         });
 

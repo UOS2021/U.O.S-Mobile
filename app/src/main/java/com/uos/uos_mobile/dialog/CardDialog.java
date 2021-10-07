@@ -106,10 +106,10 @@ public class CardDialog extends AppCompatDialog {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkCardNumber(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT) {
+                if (result == PatternManager.LENGTH_SHORT) {
                     tilDlgCardNum.setError("카드번호는 16자리 숫자입니다");
                     tilDlgCardNum.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilDlgCardNum.setError("숫자만 입력가능합니다");
                     tilDlgCardNum.setErrorEnabled(true);
                 } else {
@@ -150,7 +150,7 @@ public class CardDialog extends AppCompatDialog {
             if (!hasFocus) {
                 int result = PatternManager.checkCardDueDateMonth(tilDlgCardMonth.getEditText().getText().toString());
 
-                if (result == Global.Pattern.OK) {
+                if (result == PatternManager.OK) {
                     int month = Integer.valueOf(tilDlgCardMonth.getEditText().getText().toString());
 
                     if (tilDlgCardMonth.getEditText().getText().toString().length() == 1) {
@@ -191,7 +191,7 @@ public class CardDialog extends AppCompatDialog {
             if (!hasFocus) {
                 int result = PatternManager.checkCardDueDateYear(tilDlgCardYear.getEditText().getText().toString());
 
-                if (result == Global.Pattern.OK && tilDlgCardYear.getEditText().getText().toString().length() == 1) {
+                if (result == PatternManager.OK && tilDlgCardYear.getEditText().getText().toString().length() == 1) {
                     tilDlgCardYear.getEditText().setText("0" + tilDlgCardYear.getEditText().getText().toString());
                 }
 
@@ -215,10 +215,10 @@ public class CardDialog extends AppCompatDialog {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkCardCvc(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT) {
+                if (result == PatternManager.LENGTH_SHORT) {
                     tilDlgCardCvc.setError("CVC는 세 자리 숫자입니다");
                     tilDlgCardCvc.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilDlgCardCvc.setError("숫자만 입력가능합니다");
                     tilDlgCardCvc.setErrorEnabled(true);
                 } else {
@@ -246,10 +246,10 @@ public class CardDialog extends AppCompatDialog {
             public void afterTextChanged(Editable editable) {
                 int result = PatternManager.checkCardPw(editable.toString());
 
-                if (result == Global.Pattern.LENGTH_SHORT) {
+                if (result == PatternManager.LENGTH_SHORT) {
                     tilDlgCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
                     tilDlgCardPw.setErrorEnabled(true);
-                } else if (result == Global.Pattern.NOT_ALLOWED_CHARACTER) {
+                } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilDlgCardPw.setError("숫자만 입력가능합니다");
                     tilDlgCardPw.setErrorEnabled(true);
                 } else {
@@ -326,11 +326,11 @@ public class CardDialog extends AppCompatDialog {
     }
 
     private boolean checkSaveButtonEnable() {
-        boolean result = (PatternManager.checkCardNumber(tilDlgCardNum.getEditText().getText().toString()) == Global.Pattern.OK
-                && PatternManager.checkCardCvc(tilDlgCardCvc.getEditText().getText().toString()) == Global.Pattern.OK
-                && PatternManager.checkCardDueDateMonth(tilDlgCardMonth.getEditText().getText().toString()) == Global.Pattern.OK
-                && PatternManager.checkCardDueDateYear(tilDlgCardYear.getEditText().getText().toString()) == Global.Pattern.OK
-                && PatternManager.checkCardPw(tilDlgCardPw.getEditText().getText().toString()) == Global.Pattern.OK);
+        boolean result = (PatternManager.checkCardNumber(tilDlgCardNum.getEditText().getText().toString()) == PatternManager.OK
+                && PatternManager.checkCardCvc(tilDlgCardCvc.getEditText().getText().toString()) == PatternManager.OK
+                && PatternManager.checkCardDueDateMonth(tilDlgCardMonth.getEditText().getText().toString()) == PatternManager.OK
+                && PatternManager.checkCardDueDateYear(tilDlgCardYear.getEditText().getText().toString()) == PatternManager.OK
+                && PatternManager.checkCardPw(tilDlgCardPw.getEditText().getText().toString()) == PatternManager.OK);
 
         saveButtonEnable(result);
 

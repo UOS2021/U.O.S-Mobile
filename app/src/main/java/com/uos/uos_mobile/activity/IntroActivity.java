@@ -47,7 +47,7 @@ public class IntroActivity extends AppCompatActivity {
             SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
             SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
             SharedPreferenceManager.save(Global.SharedPreference.IS_FIRST, false);
-            SharedPreferenceManager.save(Global.SharedPreference.SP_KEY_LAST_NOTIFICATION_NUMBER, 0);
+            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_NUMBER, 0);
         }
 
         // FCM 앱 고유 토큰 부여

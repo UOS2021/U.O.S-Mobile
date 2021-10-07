@@ -46,6 +46,8 @@ public class OrderingActivity extends AppCompatActivity {
     private OrderingAdapter orderingAdapter;
     private String selectedCategory;
 
+    private String posAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +60,6 @@ public class OrderingActivity extends AppCompatActivity {
     protected void onDestroy() {
         Global.activities.remove(this);
         Global.basketManager.getOrderingItemArrayList().clear();
-        if (Global.socketManager != null && Global.socketManager.isSocketConnected()) {
-            Global.socketManager.disconnect();
-        }
         super.onDestroy();
     }
 
@@ -80,6 +79,8 @@ public class OrderingActivity extends AppCompatActivity {
         tvOrderingTotalPrice = findViewById(R.id.tv_ordering_totalprice);
         tvOrderingProductCount = findViewById(R.id.tv_ordering_productcount);
         llOrderingPay = findViewById(R.id.ll_ordering_order);
+
+        posAddress = getIntent().getStringExtra("posAddress");
 
         try {
             SharedPreferenceManager.open(OrderingActivity.this, Global.SharedPreference.APP_DATA);
@@ -171,7 +172,7 @@ public class OrderingActivity extends AppCompatActivity {
             if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this);
+                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, posAddress);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -184,7 +185,9 @@ public class OrderingActivity extends AppCompatActivity {
             if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                startActivity(new Intent(OrderingActivity.this, PayActivity.class));
+                Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
+                intent.putExtra("payAddress", posAddress);
+                startActivity(intent);
             }
         });
     }
