@@ -144,6 +144,7 @@
                 app:layout_constraintTop_toBottomOf="@id/vi_pay_2">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_pay_4"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:background="@color/white"
@@ -223,7 +224,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_pay_card">
+                    app:layout_constraintTop_toBottomOf="@id/cl_pay_4">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"
