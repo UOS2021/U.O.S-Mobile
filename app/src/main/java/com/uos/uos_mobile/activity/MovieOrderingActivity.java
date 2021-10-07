@@ -233,7 +233,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
             if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(MovieOrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this);
+                BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this, posAddress);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
