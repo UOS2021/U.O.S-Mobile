@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.item.OrderingCategoryItem;
 import com.uos.uos_mobile.item.OrderingProductItem;
 import com.uos.uos_mobile.item.OrderingSetItem;
@@ -33,12 +33,12 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if (viewType == Global.ItemType.SET) {
             // 현재 생성할 뷰의 종류가 세트상품일 경우
-            return new SetViewHolder(layoutInflater.inflate(R.layout.item_ordering_set, parent, false));
+            return new SetViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_ordering_set, parent, false));
         } else if (viewType == Global.ItemType.PRODUCT) {
             // 현재 생성할 뷰의 종류가 단일상품일 경우
-            return new ProductViewHolder(layoutInflater.inflate(R.layout.item_ordering_product, parent, false));
+            return new ProductViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_ordering_product, parent, false));
         } else {
-            return new ProductViewHolder(layoutInflater.inflate(R.layout.item_ordering_product, parent, false));
+            return new ProductViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_ordering_product, parent, false));
         }
     }
 
@@ -141,10 +141,10 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public ProductViewHolder(View view) {
             super(view);
-            llOrderingItemProduct = view.findViewById(R.id.ll_orderingitem_product);
-            tvOrderingItemProductName = view.findViewById(R.id.tv_orderingitem_productname);
-            tvOrderingItemProductPrice = view.findViewById(R.id.tv_orderingitem_productprice);
-            ivOrderingItemProductImage = view.findViewById(R.id.iv_orderingitem_productimage);
+            llOrderingItemProduct = view.findViewById(com.uos.uos_mobile.R.id.ll_orderingitem_product);
+            tvOrderingItemProductName = view.findViewById(com.uos.uos_mobile.R.id.tv_orderingitem_productname);
+            tvOrderingItemProductPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_orderingitem_productprice);
+            ivOrderingItemProductImage = view.findViewById(com.uos.uos_mobile.R.id.iv_orderingitem_productimage);
 
             llOrderingItemProduct.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();
@@ -166,10 +166,10 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public SetViewHolder(View view) {
             super(view);
-            llOrderingItemSet = view.findViewById(R.id.ll_orderingitem_set);
-            tvOrderingItemSetName = view.findViewById(R.id.tv_orderingitem_setname);
-            tvOrderingItemSetPrice = view.findViewById(R.id.tv_orderingitem_setprice);
-            ivOrderingItemSetImage = view.findViewById(R.id.iv_orderingitem_setimage);
+            llOrderingItemSet = view.findViewById(com.uos.uos_mobile.R.id.ll_orderingitem_set);
+            tvOrderingItemSetName = view.findViewById(com.uos.uos_mobile.R.id.tv_orderingitem_setname);
+            tvOrderingItemSetPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_orderingitem_setprice);
+            ivOrderingItemSetImage = view.findViewById(com.uos.uos_mobile.R.id.iv_orderingitem_setimage);
 
             llOrderingItemSet.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();

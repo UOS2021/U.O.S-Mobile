@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.adapter.WaitingOrderInfoAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderListItem;
@@ -33,7 +33,7 @@ public class OrderInfoDialog extends AppCompatDialog {
     private SQLiteManager sqLiteManager;
 
     public OrderInfoDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, OrderListItem orderListItem) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.orderListItem = orderListItem;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
@@ -44,9 +44,9 @@ public class OrderInfoDialog extends AppCompatDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_orderinfo);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_orderinfo);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -65,11 +65,11 @@ public class OrderInfoDialog extends AppCompatDialog {
         }
         Global.dialogs.add(this);
 
-        ibtnDlgOrderInfoClose = findViewById(R.id.ibtn_dlgorderinfo_close);
-        tvDlgOrderInfoCompanyName = findViewById(R.id.tv_dlgorderinfo_companyname);
-        tvDlgOrderInfoOrderTime = findViewById(R.id.tv_dlgorderinfo_ordertime);
-        tvDlgOrderInfoOrderTotalPrice = findViewById(R.id.tv_dlgorderinfo_totalprice);
-        rvDlgOrderInfo = findViewById(R.id.rv_dlgorderinfo);
+        ibtnDlgOrderInfoClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgorderinfo_close);
+        tvDlgOrderInfoCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_companyname);
+        tvDlgOrderInfoOrderTime = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_ordertime);
+        tvDlgOrderInfoOrderTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_totalprice);
+        rvDlgOrderInfo = findViewById(com.uos.uos_mobile.R.id.rv_dlgorderinfo);
 
         sqLiteManager = new SQLiteManager(context);
 
@@ -86,7 +86,7 @@ public class OrderInfoDialog extends AppCompatDialog {
         waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();
         waitingOrderInfoAdapter.setBasketItemArrayList(orderListItem.getBasketItemArrayList());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(context.getDrawable(R.drawable.recyclerview_divider));
+        dividerItemDecoration.setDrawable(context.getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
         rvDlgOrderInfo.addItemDecoration(dividerItemDecoration);
         rvDlgOrderInfo.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         rvDlgOrderInfo.setAdapter(waitingOrderInfoAdapter);

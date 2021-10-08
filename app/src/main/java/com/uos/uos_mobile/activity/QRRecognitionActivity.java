@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SharedPreferenceManager;
 import com.uos.uos_mobile.other.Global;
@@ -22,7 +22,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qrrecognition);
+        setContentView(com.uos.uos_mobile.R.layout.activity_qrrecognition);
 
         init();
     }

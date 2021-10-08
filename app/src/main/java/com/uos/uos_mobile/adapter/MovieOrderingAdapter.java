@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
 import com.uos.uos_mobile.item.MovieItem;
 
 import org.json.JSONArray;
@@ -25,7 +24,7 @@ public class MovieOrderingAdapter extends RecyclerView.Adapter<RecyclerView.View
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        return new MovieOrderingAdapter.MovieViewHolder(layoutInflater.inflate(R.layout.item_movieordering, parent, false));
+        return new MovieOrderingAdapter.MovieViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_movieordering, parent, false));
     }
 
     @Override
@@ -88,10 +87,10 @@ public class MovieOrderingAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public MovieViewHolder(View view) {
             super(view);
-            clMovieOrdering = view.findViewById(R.id.cl_movieordering);
-            tvMovieOrderingMovie = view.findViewById(R.id.tv_movieordering_movie);
-            tvMovieOrderingTime = view.findViewById(R.id.tv_movieordering_time);
-            tvMovieOrderingTheater = view.findViewById(R.id.tv_movieordering_theater);
+            clMovieOrdering = view.findViewById(com.uos.uos_mobile.R.id.cl_movieordering);
+            tvMovieOrderingMovie = view.findViewById(com.uos.uos_mobile.R.id.tv_movieordering_movie);
+            tvMovieOrderingTime = view.findViewById(com.uos.uos_mobile.R.id.tv_movieordering_time);
+            tvMovieOrderingTheater = view.findViewById(com.uos.uos_mobile.R.id.tv_movieordering_theater);
 
             clMovieOrdering.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();

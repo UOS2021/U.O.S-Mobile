@@ -15,7 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.activity.IntroActivity;
 import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
@@ -57,19 +57,19 @@ public class UosFcmService extends FirebaseMessagingService {
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
             NotificationCompat.Builder notification = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_launcher)
                     .setContentTitle(companyName + "에서 주문하신 상품이 준비되었습니다")
                     .setContentText("카운터에서 상품을 수령해주세요")
                     .setFullScreenIntent(pendingIntent, true)
                     .setAutoCancel(true)
                     .setGroup(Global.Notification.GROUP_ID)
-                    .setSmallIcon(R.mipmap.ic_uos_logo_round);
+                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_uos_logo_round);
 
             NotificationCompat.Builder notificationGroup = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_launcher)
                     .setGroup(Global.Notification.GROUP_ID)
                     .setAutoCancel(true)
-                    .setSmallIcon(R.mipmap.ic_uos_logo_round)
+                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_uos_logo_round)
                     .setGroupSummary(true);
 
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);

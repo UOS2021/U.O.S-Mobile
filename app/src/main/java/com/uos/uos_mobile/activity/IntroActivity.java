@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.manager.SharedPreferenceManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -22,7 +22,7 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
+        setContentView(com.uos.uos_mobile.R.layout.activity_intro);
 
         init();
     }

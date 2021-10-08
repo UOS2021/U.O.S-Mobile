@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.activity.SettingActivity;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.other.Global;
@@ -34,7 +34,7 @@ public class CheckPwDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_checkpw);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_checkpw);
 
         init();
     }
@@ -53,9 +53,9 @@ public class CheckPwDialog extends Dialog {
         }
         Global.dialogs.add(this);
 
-        tilDlgCheckPwPw = findViewById(R.id.til_dlgcheckpw_pw);
-        tvDlgCheckPwCancel = findViewById(R.id.tv_dlgcheckpw_cancel);
-        tvDlgCheckPwOk = findViewById(R.id.tv_dlgcheckpw_ok);
+        tilDlgCheckPwPw = findViewById(com.uos.uos_mobile.R.id.til_dlgcheckpw_pw);
+        tvDlgCheckPwCancel = findViewById(com.uos.uos_mobile.R.id.tv_dlgcheckpw_cancel);
+        tvDlgCheckPwOk = findViewById(com.uos.uos_mobile.R.id.tv_dlgcheckpw_ok);
 
         tvDlgCheckPwCancel.setOnClickListener(view -> {
             dismiss();

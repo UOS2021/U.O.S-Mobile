@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.item.WaitingOrderItem;
 import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.other.Global;
@@ -32,7 +32,7 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        return new WaitingOrderAdapter.WaitingOrderViewHolder(layoutInflater.inflate(R.layout.item_waitingorder, parent, false));
+        return new WaitingOrderAdapter.WaitingOrderViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_waitingorder, parent, false));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (waitingOrderItemArrayList.get(position).getState().equals(Global.SQLite.ORDER_STATE_WAIT)) {
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비 중입니다");
-            ((WaitingOrderViewHolder) viewHolder).clWaitingOrder.setBackgroundColor(context.getResources().getColor(R.color.gray));
+            ((WaitingOrderViewHolder) viewHolder).clWaitingOrder.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
         } else if (waitingOrderItemArrayList.get(position).getState().equals(Global.SQLite.ORDER_STATE_PREPARED)) {
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비되었습니다");
             ((WaitingOrderViewHolder) viewHolder).startAnimation();
@@ -101,10 +101,10 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public WaitingOrderViewHolder(View view) {
             super(view);
-            clWaitingOrder = view.findViewById(R.id.cl_waitingorder);
-            tvWaitingOrderCompanyName = view.findViewById(R.id.tv_waitingorder_companyname);
-            tvWaitingOrderOrderNumber = view.findViewById(R.id.tv_waitingorder_ordernumber);
-            tvWaitingOrderMessage = view.findViewById(R.id.tv_waitingorder_message);
+            clWaitingOrder = view.findViewById(com.uos.uos_mobile.R.id.cl_waitingorder);
+            tvWaitingOrderCompanyName = view.findViewById(com.uos.uos_mobile.R.id.tv_waitingorder_companyname);
+            tvWaitingOrderOrderNumber = view.findViewById(com.uos.uos_mobile.R.id.tv_waitingorder_ordernumber);
+            tvWaitingOrderMessage = view.findViewById(com.uos.uos_mobile.R.id.tv_waitingorder_message);
 
             clWaitingOrder.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();
@@ -117,7 +117,7 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         public void startAnimation() {
-            clWaitingOrder.setBackground(context.getResources().getDrawable(R.drawable.anim_waitingorder_state));
+            clWaitingOrder.setBackground(context.getResources().getDrawable(com.uos.uos_mobile.R.drawable.anim_waitingorder_state));
             ((AnimationDrawable) clWaitingOrder.getBackground()).start();
         }
     }

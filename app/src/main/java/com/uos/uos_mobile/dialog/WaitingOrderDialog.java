@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.activity.PayActivity;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SQLiteManager;
@@ -38,7 +38,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
     private String posAddress;
 
     public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData, String posAddress) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.companyName = companyName;
         this.orderData = orderData;
@@ -51,7 +51,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_waitingorder);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_waitingorder);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         init();
@@ -71,11 +71,11 @@ public class WaitingOrderDialog extends AppCompatDialog {
         }
         Global.dialogs.add(this);
 
-        pbDlgWaitingOrder = findViewById(R.id.pb_dlgwaitingorder);
-        tvDlgWaitingOrderMessage = findViewById(R.id.tv_dlgwaitingorder_message);
-        clDlgWaitingOrderCancel = findViewById(R.id.cl_dlgwaitingorder_cancel);
-        tvDlgWaitingOrder2 = findViewById(R.id.tv_dlgwaitingorder_2);
-        tvDlgWaitingOrder3 = findViewById(R.id.tv_dlgwaitingorder_3);
+        pbDlgWaitingOrder = findViewById(com.uos.uos_mobile.R.id.pb_dlgwaitingorder);
+        tvDlgWaitingOrderMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorder_message);
+        clDlgWaitingOrderCancel = findViewById(com.uos.uos_mobile.R.id.cl_dlgwaitingorder_cancel);
+        tvDlgWaitingOrder2 = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorder_2);
+        tvDlgWaitingOrder3 = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorder_3);
 
         tvDlgWaitingOrderMessage.setText("매장에서 주문을 확인하고 있습니다\n잠시만 기다려주세요...");
 
@@ -97,7 +97,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
                             tvDlgWaitingOrder2.setText("확인");
                             tvDlgWaitingOrder3.setVisibility(View.GONE);
                             clDlgWaitingOrderCancel.setEnabled(false);
-                            clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.gray));
+                            clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
                         });
                     }
 
@@ -114,7 +114,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
                     ((PayActivity) context).runOnUiThread(() -> {
                         pbDlgWaitingOrder.setVisibility(View.GONE);
                         clDlgWaitingOrderCancel.setEnabled(true);
-                        clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
+                        clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                     });
 
                     if (responseCode.equals(Global.Network.Response.PAY_SUCCESS)) {
@@ -168,7 +168,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
                         pbDlgWaitingOrder.setVisibility(View.GONE);
                         tvDlgWaitingOrderMessage.setText("현재 매장이 바빠 주문 접수가 불가능합니다\n나중에 다시 시도해주세요");
                         clDlgWaitingOrderCancel.setEnabled(true);
-                        clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
+                        clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                     });
                 } else {
                     ((PayActivity) context).runOnUiThread(() -> {
@@ -177,7 +177,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
                         pbDlgWaitingOrder.setVisibility(View.GONE);
                         tvDlgWaitingOrderMessage.setText("매장과 연결 도중 문제가 발생했습니다\n매장에 문의해주세요");
                         clDlgWaitingOrderCancel.setEnabled(true);
-                        clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
+                        clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                     });
                 }
             } catch (InterruptedException e) {
@@ -199,7 +199,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
                 tvDlgWaitingOrder2.setText("확인");
                 tvDlgWaitingOrder3.setVisibility(View.GONE);
                 clDlgWaitingOrderCancel.setEnabled(false);
-                clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(R.color.gray));
+                clDlgWaitingOrderCancel.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
             }
         });
     }

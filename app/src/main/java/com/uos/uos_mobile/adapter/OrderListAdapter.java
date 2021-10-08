@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderListItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -60,7 +60,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        return new OrderListViewHolder(layoutInflater.inflate(R.layout.item_orderlist, parent, false));
+        return new OrderListViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_orderlist, parent, false));
     }
 
     public OrderListItem getItem(int position) {
@@ -98,11 +98,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public OrderListViewHolder(View view) {
             super(view);
-            clOrderListItem = view.findViewById(R.id.cl_orderlistitem);
-            tvOrderListItemDate = view.findViewById(R.id.tv_orderlistitem_date);
-            tvOrderListItemCompanyName = view.findViewById(R.id.tv_orderlistitem_companyname);
-            tvOrderListItemTotalPrice = view.findViewById(R.id.tv_orderlistitem_totalprice);
-            tvOrderListItemOrderSimple = view.findViewById(R.id.tv_orderlistitem_ordersimple);
+            clOrderListItem = view.findViewById(com.uos.uos_mobile.R.id.cl_orderlistitem);
+            tvOrderListItemDate = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_date);
+            tvOrderListItemCompanyName = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_companyname);
+            tvOrderListItemTotalPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_totalprice);
+            tvOrderListItemOrderSimple = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_ordersimple);
 
             clOrderListItem.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();

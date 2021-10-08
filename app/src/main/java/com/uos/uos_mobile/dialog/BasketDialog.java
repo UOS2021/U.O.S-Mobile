@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.activity.PayActivity;
 import com.uos.uos_mobile.adapter.BasketAdapter;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -32,7 +32,7 @@ public class BasketDialog extends Dialog {
     private String posAddress;
 
     public BasketDialog(@NonNull Context context, String posAddress) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.posAddress = posAddress;
 
@@ -44,9 +44,9 @@ public class BasketDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_basket);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_basket);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -65,17 +65,17 @@ public class BasketDialog extends Dialog {
         }
         Global.dialogs.add(this);
 
-        ibtnDlgBasketClose = findViewById(R.id.ibtn_dlgbasket_close);
-        rvDlgBasket = findViewById(R.id.rv_dlgbasket);
-        tvDlgBasketTotalPrice = findViewById(R.id.tv_dlgbasket_totalprice);
-        llDlgBasketOrder = findViewById(R.id.ll_dlgbasket_order);
+        ibtnDlgBasketClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgbasket_close);
+        rvDlgBasket = findViewById(com.uos.uos_mobile.R.id.rv_dlgbasket);
+        tvDlgBasketTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgbasket_totalprice);
+        llDlgBasketOrder = findViewById(com.uos.uos_mobile.R.id.ll_dlgbasket_order);
 
         tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
 
         basketAdapter = new BasketAdapter(this);
         rvDlgBasket.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(context.getResources().getDrawable(R.drawable.recyclerview_divider));
+        dividerItemDecoration.setDrawable(context.getResources().getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
         rvDlgBasket.addItemDecoration(dividerItemDecoration);
         rvDlgBasket.setAdapter(basketAdapter);
 

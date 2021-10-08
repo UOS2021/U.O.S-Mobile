@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.adapter.SetProductAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderingProductItem;
@@ -50,7 +50,7 @@ public class SelectSetDialog extends Dialog {
     private String selectedCategory;
 
     public SelectSetDialog(@NonNull Context context, OrderingSetItem setData, SelectSetDialogListener selectSetDialogListener) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.selectSetDialogListener = selectSetDialogListener;
         this.setData = setData;
@@ -63,9 +63,9 @@ public class SelectSetDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_selectset);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_selectset);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -84,18 +84,18 @@ public class SelectSetDialog extends Dialog {
         }
         Global.dialogs.add(this);
 
-        ibtnDlgSelectSetClose = findViewById(R.id.ibtn_dlgselectset_close);
-        tvDlgSelectSetName = findViewById(R.id.tv_dlgselectset_name);
-        ivDlgSelectSetImage = findViewById(R.id.iv_dlgselectset_image);
-        ibtnDlgSelectSetCountDown = findViewById(R.id.ibtn_dlgselectset_countdown);
-        tilDlgSelectSetCount = findViewById(R.id.til_dlgselectset_count);
-        ibtnDlgSelectSetCountUp = findViewById(R.id.ibtn_dlgselectset_countup);
-        tvDlgSelectSetConf = findViewById(R.id.tv_dlgselectset_conf);
-        tvDlgSelectSetDesc = findViewById(R.id.tv_dlgselectset_desc);
-        cgDlgSelectSetCategoryList = findViewById(R.id.cg_dlgselectset_categorylist);
-        rvDlgSelectSetProductList = findViewById(R.id.rv_dlgselectset_productlist);
-        clDlgSelectSetAdd = findViewById(R.id.cl_dlgselectset_add);
-        tvDlgSelectSetTotalPrice = findViewById(R.id.tv_dlgselectset_totalprice);
+        ibtnDlgSelectSetClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectset_close);
+        tvDlgSelectSetName = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectset_name);
+        ivDlgSelectSetImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgselectset_image);
+        ibtnDlgSelectSetCountDown = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectset_countdown);
+        tilDlgSelectSetCount = findViewById(com.uos.uos_mobile.R.id.til_dlgselectset_count);
+        ibtnDlgSelectSetCountUp = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectset_countup);
+        tvDlgSelectSetConf = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectset_conf);
+        tvDlgSelectSetDesc = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectset_desc);
+        cgDlgSelectSetCategoryList = findViewById(com.uos.uos_mobile.R.id.cg_dlgselectset_categorylist);
+        rvDlgSelectSetProductList = findViewById(com.uos.uos_mobile.R.id.rv_dlgselectset_productlist);
+        clDlgSelectSetAdd = findViewById(com.uos.uos_mobile.R.id.cl_dlgselectset_add);
+        tvDlgSelectSetTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectset_totalprice);
 
         try {
             tvDlgSelectSetName.setText(setData.getName());
@@ -109,7 +109,7 @@ public class SelectSetDialog extends Dialog {
             setProductAdapter.setJson(setData.getProductList());
             rvDlgSelectSetProductList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-            dividerItemDecoration.setDrawable(context.getResources().getDrawable(R.drawable.recyclerview_divider));
+            dividerItemDecoration.setDrawable(context.getResources().getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
             rvDlgSelectSetProductList.addItemDecoration(dividerItemDecoration);
             rvDlgSelectSetProductList.setAdapter(setProductAdapter);
 
@@ -117,7 +117,7 @@ public class SelectSetDialog extends Dialog {
 
             // 카테고리를 chipgroup에 추가
             for (int loop = 0; loop < setData.getProductList().length(); loop++) {
-                Chip chip = (Chip) getLayoutInflater().inflate(R.layout.chip_category, cgDlgSelectSetCategoryList, false);
+                Chip chip = (Chip) getLayoutInflater().inflate(com.uos.uos_mobile.R.layout.chip_category, cgDlgSelectSetCategoryList, false);
                 try {
                     chip.setText(setData.getProductList().getJSONObject(loop).getString("category"));
                     chip.setOnClickListener(view -> {

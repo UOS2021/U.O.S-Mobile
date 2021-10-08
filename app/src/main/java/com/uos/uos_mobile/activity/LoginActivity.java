@@ -15,7 +15,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.dialog.RegisterTypeDialog;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SharedPreferenceManager;
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(com.uos.uos_mobile.R.layout.activity_login);
 
         init();
     }
@@ -53,16 +53,16 @@ public class LoginActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        tilLoginId = findViewById(R.id.til_login_id);
-        tilLoginPw = findViewById(R.id.til_login_pw);
-        btnLoginLogin = findViewById(R.id.btn_login_login);
-        tvLoginRegister = findViewById(R.id.tv_login_register);
-        llLoginLoginLayout = findViewById(R.id.ll_login_loginlayout);
-        cbLoginIsPartner = findViewById(R.id.cb_login_ispartner);
+        tilLoginId = findViewById(com.uos.uos_mobile.R.id.til_login_id);
+        tilLoginPw = findViewById(com.uos.uos_mobile.R.id.til_login_pw);
+        btnLoginLogin = findViewById(com.uos.uos_mobile.R.id.btn_login_login);
+        tvLoginRegister = findViewById(com.uos.uos_mobile.R.id.tv_login_register);
+        llLoginLoginLayout = findViewById(com.uos.uos_mobile.R.id.ll_login_loginlayout);
+        cbLoginIsPartner = findViewById(com.uos.uos_mobile.R.id.cb_login_ispartner);
 
         // 기본 UI 상태 설정
         btnLoginLogin.setEnabled(false);
-        btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.gray));
+        btnLoginLogin.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
         llLoginLoginLayout.setVisibility(View.VISIBLE);
 
         // 로그인 - 아이디 입력란이 수정되었을 경우
@@ -83,10 +83,10 @@ public class LoginActivity extends AppCompatActivity {
                 tilLoginPw.setError(null);
                 if (checkLogin()) {
                     btnLoginLogin.setEnabled(true);
-                    btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    btnLoginLogin.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
                     btnLoginLogin.setEnabled(false);
-                    btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.gray));
+                    btnLoginLogin.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -109,10 +109,10 @@ public class LoginActivity extends AppCompatActivity {
                 tilLoginPw.setError(null);
                 if (checkLogin()) {
                     btnLoginLogin.setEnabled(true);
-                    btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    btnLoginLogin.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
                     btnLoginLogin.setEnabled(false);
-                    btnLoginLogin.setBackgroundColor(getResources().getColor(R.color.gray));
+                    btnLoginLogin.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });

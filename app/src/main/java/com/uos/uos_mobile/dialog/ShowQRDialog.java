@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.manager.SharedPreferenceManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
@@ -21,7 +21,7 @@ public class ShowQRDialog extends Dialog {
     private AppCompatImageView ivDlgShowQrImage;
 
     public ShowQRDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
@@ -31,7 +31,7 @@ public class ShowQRDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_showqr);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_showqr);
 
         init();
     }
@@ -50,9 +50,9 @@ public class ShowQRDialog extends Dialog {
         }
         Global.dialogs.add(this);
 
-        ibtnDlgShowQrClose = findViewById(R.id.ibtn_dlgshowqr_close);
-        tvDlgShowQrMessage = findViewById(R.id.tv_dlgshowqr_message);
-        ivDlgShowQrImage = findViewById(R.id.iv_dlgshowqr_image);
+        ibtnDlgShowQrClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgshowqr_close);
+        tvDlgShowQrMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgshowqr_message);
+        ivDlgShowQrImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgshowqr_image);
 
         ibtnDlgShowQrClose.setOnClickListener(view -> {
             dismiss();
@@ -64,7 +64,7 @@ public class ShowQRDialog extends Dialog {
 
         if (strQrImage.length() == 0) {
             tvDlgShowQrMessage.setText("저장된 QR 코드가 없습니다");
-            ivDlgShowQrImage.setImageDrawable(context.getDrawable(R.drawable.icon_btnclose));
+            ivDlgShowQrImage.setImageDrawable(context.getDrawable(com.uos.uos_mobile.R.drawable.icon_btnclose));
         } else {
             tvDlgShowQrMessage.setText("QR 코드를 인식하여 주문하세요");
             ivDlgShowQrImage.setImageBitmap(UsefulFuncManager.convertStringToBitmap(strQrImage));

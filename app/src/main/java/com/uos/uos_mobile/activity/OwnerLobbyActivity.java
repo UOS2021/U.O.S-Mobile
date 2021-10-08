@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.dialog.CheckPwDialog;
 import com.uos.uos_mobile.dialog.ShowQRDialog;
 import com.uos.uos_mobile.other.Global;
@@ -23,7 +23,7 @@ public class OwnerLobbyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ownerlobby);
+        setContentView(com.uos.uos_mobile.R.layout.activity_ownerlobby);
 
         init();
     }
@@ -42,10 +42,10 @@ public class OwnerLobbyActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        btnOwnerLobbyDisplayQr = findViewById(R.id.btn_ownerlobby_displayqr);
-        btnOwnerLobbyLoadQr = findViewById(R.id.btn_ownerlobby_loadqr);
-        btnOwnerLobbySetting = findViewById(R.id.ibtn_ownerlobby_setting);
-        tvOwnerLobbyOwnerName = findViewById(R.id.tv_ownerlobby_companyname);
+        btnOwnerLobbyDisplayQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_displayqr);
+        btnOwnerLobbyLoadQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_loadqr);
+        btnOwnerLobbySetting = findViewById(com.uos.uos_mobile.R.id.ibtn_ownerlobby_setting);
+        tvOwnerLobbyOwnerName = findViewById(com.uos.uos_mobile.R.id.tv_ownerlobby_companyname);
 
         //매장 명 불러오는 부분
         tvOwnerLobbyOwnerName.setText(Global.User.companyName);
