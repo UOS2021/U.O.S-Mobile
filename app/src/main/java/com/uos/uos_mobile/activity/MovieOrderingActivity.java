@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.adapter.MovieOrderingAdapter;
 import com.uos.uos_mobile.adapter.OrderingAdapter;
 import com.uos.uos_mobile.dialog.BasketDialog;
@@ -65,7 +65,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movieordering);
+        setContentView(com.uos.uos_mobile.R.layout.activity_movieordering);
 
         init();
     }
@@ -85,27 +85,27 @@ public class MovieOrderingActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        ibtnMovieOrderingBack = findViewById(R.id.ibtn_movieordering_back);
-        tvMovieOrderingCompanyName = findViewById(R.id.tv_movieordering_companyname);
-        tvMovieOrderingShowMovie = findViewById(R.id.tv_movieordering_showmovie);
-        tvMovieOrderingShowFood = findViewById(R.id.tv_movieordering_showfood);
-        llMovieOrderingMovie = findViewById(R.id.ll_movieordering_movie);
-        rvMovieOrderingMovieList = findViewById(R.id.rv_movieordering_movielist);
-        llMovieOrderingFood = findViewById(R.id.ll_movieordering_food);
-        cgMovieOrderingCategoryList = findViewById(R.id.cg_movieordering_categorylist);
-        rvMovieOrderingProductList = findViewById(R.id.rv_movieordering_productlist);
-        llMovieOrderingSelected = findViewById(R.id.ll_movieordering_selected);
-        llMovieOrderingSelected = findViewById(R.id.ll_movieordering_selected);
-        tvMovieOrderingTotalPrice = findViewById(R.id.tv_movieordering_totalprice);
-        tvMovieOrderingProductCount = findViewById(R.id.tv_movieordering_productcount);
-        llMovieOrderingPay = findViewById(R.id.ll_movieordering_order);
+        ibtnMovieOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_movieordering_back);
+        tvMovieOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_companyname);
+        tvMovieOrderingShowMovie = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_showmovie);
+        tvMovieOrderingShowFood = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_showfood);
+        llMovieOrderingMovie = findViewById(com.uos.uos_mobile.R.id.ll_movieordering_movie);
+        rvMovieOrderingMovieList = findViewById(com.uos.uos_mobile.R.id.rv_movieordering_movielist);
+        llMovieOrderingFood = findViewById(com.uos.uos_mobile.R.id.ll_movieordering_food);
+        cgMovieOrderingCategoryList = findViewById(com.uos.uos_mobile.R.id.cg_movieordering_categorylist);
+        rvMovieOrderingProductList = findViewById(com.uos.uos_mobile.R.id.rv_movieordering_productlist);
+        llMovieOrderingSelected = findViewById(com.uos.uos_mobile.R.id.ll_movieordering_selected);
+        llMovieOrderingSelected = findViewById(com.uos.uos_mobile.R.id.ll_movieordering_selected);
+        tvMovieOrderingTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_totalprice);
+        tvMovieOrderingProductCount = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_productcount);
+        llMovieOrderingPay = findViewById(com.uos.uos_mobile.R.id.ll_movieordering_order);
 
         // UI 초기 상태 설정
         tvMovieOrderingShowMovie.setEnabled(false);
-        tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(R.color.recyclerview_background));
+        tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.recyclerview_background));
         llMovieOrderingMovie.setVisibility(View.VISIBLE);
         tvMovieOrderingShowFood.setEnabled(true);
-        tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(R.color.gray));
+        tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
         llMovieOrderingFood.setVisibility(View.GONE);
 
         posAddress = getIntent().getStringExtra("posAddress");
@@ -130,7 +130,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
         movieOrderingAdapter.setJson(movieData);
         rvMovieOrderingMovieList.setLayoutManager(new LinearLayoutManager(MovieOrderingActivity.this, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(MovieOrderingActivity.this, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recyclerview_divider));
+        dividerItemDecoration.setDrawable(getResources().getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
         rvMovieOrderingMovieList.addItemDecoration(dividerItemDecoration);
         rvMovieOrderingMovieList.setAdapter(movieOrderingAdapter);
 
@@ -145,7 +145,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
 
         // 카테고리를 chipgroup에 추가
         for (int loop = 0; loop < categoryData.length(); loop++) {
-            Chip chip = (Chip) MovieOrderingActivity.this.getLayoutInflater().inflate(R.layout.chip_category, cgMovieOrderingCategoryList, false);
+            Chip chip = (Chip) MovieOrderingActivity.this.getLayoutInflater().inflate(com.uos.uos_mobile.R.layout.chip_category, cgMovieOrderingCategoryList, false);
             try {
                 chip.setText(categoryData.getJSONObject(loop).getString("category"));
                 chip.setOnClickListener(view -> {
@@ -167,7 +167,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
 
         // 뒤로가기 버튼이 눌렸을 경우
         ibtnMovieOrderingBack.setOnClickListener(view -> {
-            AlertDialog alertDialog = new AlertDialog.Builder(MovieOrderingActivity.this, R.style.AlertDialogTheme)
+            AlertDialog alertDialog = new AlertDialog.Builder(MovieOrderingActivity.this, com.uos.uos_mobile.R.style.AlertDialogTheme)
                     .setTitle("주문 취소")
                     .setMessage("주문창에서 나가시겠습니까?")
                     .setPositiveButton("확인", (dialogInterface, i) -> {
@@ -186,22 +186,22 @@ public class MovieOrderingActivity extends AppCompatActivity {
         // 영화 표시 버튼이 눌렸을 때
         tvMovieOrderingShowMovie.setOnClickListener(view -> {
             tvMovieOrderingShowMovie.setEnabled(false);
-            tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(R.color.recyclerview_background));
+            tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.recyclerview_background));
             llMovieOrderingMovie.setVisibility(View.VISIBLE);
 
             tvMovieOrderingShowFood.setEnabled(true);
-            tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(R.color.gray));
+            tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             llMovieOrderingFood.setVisibility(View.GONE);
         });
 
         // 음식 표시 버튼이 눌렸을 때
         tvMovieOrderingShowFood.setOnClickListener(view -> {
             tvMovieOrderingShowMovie.setEnabled(true);
-            tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(R.color.gray));
+            tvMovieOrderingShowMovie.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             llMovieOrderingMovie.setVisibility(View.GONE);
 
             tvMovieOrderingShowFood.setEnabled(false);
-            tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(R.color.recyclerview_background));
+            tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.recyclerview_background));
             llMovieOrderingFood.setVisibility(View.VISIBLE);
         });
 
@@ -280,14 +280,14 @@ public class MovieOrderingActivity extends AppCompatActivity {
 
         if (Global.basketManager.getOrderCount() == 0) {
             llMovieOrderingSelected.setEnabled(false);
-            llMovieOrderingSelected.setBackgroundColor(getResources().getColor(R.color.gray));
+            llMovieOrderingSelected.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             llMovieOrderingPay.setEnabled(false);
-            llMovieOrderingPay.setBackgroundColor(getResources().getColor(R.color.gray));
+            llMovieOrderingPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
         } else {
             llMovieOrderingSelected.setEnabled(true);
-            llMovieOrderingSelected.setBackgroundColor(getResources().getColor(R.color.color_primary));
+            llMovieOrderingSelected.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
             llMovieOrderingPay.setEnabled(true);
-            llMovieOrderingPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
+            llMovieOrderingPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
         }
     }
 }

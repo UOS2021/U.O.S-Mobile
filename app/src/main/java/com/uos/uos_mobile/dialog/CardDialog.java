@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.item.CardItem;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
@@ -34,7 +34,7 @@ public class CardDialog extends AppCompatDialog {
     private AppCompatTextView tvDlgCardSave;
 
     public CardDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, CardItem cardItem) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.cardItem = cardItem;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
@@ -45,9 +45,9 @@ public class CardDialog extends AppCompatDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_card);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_card);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -66,15 +66,15 @@ public class CardDialog extends AppCompatDialog {
         }
         Global.dialogs.add(this);
 
-        ibtnAddCardClose = findViewById(R.id.ibtn_dlgcard_close);
-        tilDlgCardNum = findViewById(R.id.til_dlgcard_num);
-        tilDlgCardMonth = findViewById(R.id.til_dlgcard_month);
-        tilDlgCardYear = findViewById(R.id.til_dlgcard_year);
-        tilDlgCardCvc = findViewById(R.id.til_dlgcard_cvc);
-        tilDlgCardPw = findViewById(R.id.til_dlgcard_pw);
-        tvDlgCardSave = findViewById(R.id.tv_dlgcard_save);
+        ibtnAddCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgcard_close);
+        tilDlgCardNum = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_num);
+        tilDlgCardMonth = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_month);
+        tilDlgCardYear = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_year);
+        tilDlgCardCvc = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_cvc);
+        tilDlgCardPw = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_pw);
+        tvDlgCardSave = findViewById(com.uos.uos_mobile.R.id.tv_dlgcard_save);
 
-        tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.color_light));
+        tvDlgCardSave.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_light));
 
         if (cardItem.getNum().length() > 0) {
             tilDlgCardNum.getEditText().setText(cardItem.getNum());
@@ -318,9 +318,9 @@ public class CardDialog extends AppCompatDialog {
 
     private void saveButtonEnable(boolean enable) {
         if (enable) {
-            tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.black));
+            tvDlgCardSave.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.black));
         } else {
-            tvDlgCardSave.setTextColor(context.getResources().getColor(R.color.color_light));
+            tvDlgCardSave.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_light));
         }
         tvDlgCardSave.setEnabled(enable);
     }

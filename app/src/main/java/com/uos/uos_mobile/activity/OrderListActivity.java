@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.adapter.OrderListAdapter;
 import com.uos.uos_mobile.dialog.OrderInfoDialog;
 import com.uos.uos_mobile.manager.HttpManager;
@@ -38,7 +38,7 @@ public class OrderListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_orderlist);
+        setContentView(com.uos.uos_mobile.R.layout.activity_orderlist);
 
         init();
     }
@@ -57,13 +57,13 @@ public class OrderListActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        ibtnOrderListBack = findViewById(R.id.ibtn_orderlist_back);
-        tvOrderListWaitingOrderCount = findViewById(R.id.tv_orderlist_waitingordercount);
-        tvOrderListDoneOrderCount = findViewById(R.id.tv_orderlist_doneordercount);
-        srlOrderList = findViewById(R.id.srl_orderlist);
-        rvOrderList = findViewById(R.id.rv_orderlist);
-        pbOrderList = findViewById(R.id.pb_orderlist);
-        tvOrderListNoOrderList = findViewById(R.id.tv_orderlist_noorderlist);
+        ibtnOrderListBack = findViewById(com.uos.uos_mobile.R.id.ibtn_orderlist_back);
+        tvOrderListWaitingOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_waitingordercount);
+        tvOrderListDoneOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_doneordercount);
+        srlOrderList = findViewById(com.uos.uos_mobile.R.id.srl_orderlist);
+        rvOrderList = findViewById(com.uos.uos_mobile.R.id.rv_orderlist);
+        pbOrderList = findViewById(com.uos.uos_mobile.R.id.pb_orderlist);
+        tvOrderListNoOrderList = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_noorderlist);
 
         sqLiteManager = new SQLiteManager(OrderListActivity.this);
 

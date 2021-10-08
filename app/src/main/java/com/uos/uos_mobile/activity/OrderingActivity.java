@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.adapter.OrderingAdapter;
 import com.uos.uos_mobile.dialog.BasketDialog;
 import com.uos.uos_mobile.dialog.SelectProductDialog;
@@ -51,7 +51,7 @@ public class OrderingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ordering);
+        setContentView(com.uos.uos_mobile.R.layout.activity_ordering);
 
         init();
     }
@@ -71,14 +71,14 @@ public class OrderingActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        ibtnOrderingBack = findViewById(R.id.ibtn_ordering_back);
-        tvOrderingCompanyName = findViewById(R.id.tv_ordering_companyname);
-        cgOrderingCategoryList = findViewById(R.id.cg_ordering_categorylist);
-        rvOrderingProductList = findViewById(R.id.rv_ordering_productlist);
-        llOrderingSelected = findViewById(R.id.ll_ordering_selected);
-        tvOrderingTotalPrice = findViewById(R.id.tv_ordering_totalprice);
-        tvOrderingProductCount = findViewById(R.id.tv_ordering_productcount);
-        llOrderingPay = findViewById(R.id.ll_ordering_order);
+        ibtnOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_ordering_back);
+        tvOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_ordering_companyname);
+        cgOrderingCategoryList = findViewById(com.uos.uos_mobile.R.id.cg_ordering_categorylist);
+        rvOrderingProductList = findViewById(com.uos.uos_mobile.R.id.rv_ordering_productlist);
+        llOrderingSelected = findViewById(com.uos.uos_mobile.R.id.ll_ordering_selected);
+        tvOrderingTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_ordering_totalprice);
+        tvOrderingProductCount = findViewById(com.uos.uos_mobile.R.id.tv_ordering_productcount);
+        llOrderingPay = findViewById(com.uos.uos_mobile.R.id.ll_ordering_order);
 
         posAddress = getIntent().getStringExtra("posAddress");
 
@@ -106,7 +106,7 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 카테고리를 chipgroup에 추가
         for (int loop = 0; loop < categoryData.length(); loop++) {
-            Chip chip = (Chip) OrderingActivity.this.getLayoutInflater().inflate(R.layout.chip_category, cgOrderingCategoryList, false);
+            Chip chip = (Chip) OrderingActivity.this.getLayoutInflater().inflate(com.uos.uos_mobile.R.layout.chip_category, cgOrderingCategoryList, false);
             try {
                 chip.setText(categoryData.getJSONObject(loop).getString("category"));
                 chip.setOnClickListener(view -> {
@@ -128,7 +128,7 @@ public class OrderingActivity extends AppCompatActivity {
 
         // 뒤로가기 버튼이 눌렸을 경우
         ibtnOrderingBack.setOnClickListener(view -> {
-            AlertDialog alertDialog = new AlertDialog.Builder(OrderingActivity.this, R.style.AlertDialogTheme)
+            AlertDialog alertDialog = new AlertDialog.Builder(OrderingActivity.this, com.uos.uos_mobile.R.style.AlertDialogTheme)
                     .setTitle("주문 취소")
                     .setMessage("주문창에서 나가시겠습니까?")
                     .setPositiveButton("확인", (dialogInterface, i) -> {
@@ -202,14 +202,14 @@ public class OrderingActivity extends AppCompatActivity {
 
         if (Global.basketManager.getOrderCount() == 0) {
             llOrderingSelected.setEnabled(false);
-            llOrderingSelected.setBackgroundColor(getResources().getColor(R.color.gray));
+            llOrderingSelected.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             llOrderingPay.setEnabled(false);
-            llOrderingPay.setBackgroundColor(getResources().getColor(R.color.gray));
+            llOrderingPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
         } else {
             llOrderingSelected.setEnabled(true);
-            llOrderingSelected.setBackgroundColor(getResources().getColor(R.color.color_primary));
+            llOrderingSelected.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
             llOrderingPay.setEnabled(true);
-            llOrderingPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
+            llOrderingPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
         }
     }
 }

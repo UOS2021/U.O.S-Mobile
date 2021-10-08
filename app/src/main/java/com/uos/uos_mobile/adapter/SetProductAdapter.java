@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.item.OrderingCategoryItem;
 import com.uos.uos_mobile.item.OrderingProductItem;
 
@@ -31,7 +31,7 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-        return new SetProductAdapter.SetProductViewHolder(layoutInflater.inflate(R.layout.item_setproduct, parent, false));
+        return new SetProductAdapter.SetProductViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_setproduct, parent, false));
     }
 
     @Override
@@ -165,11 +165,11 @@ public class SetProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public SetProductViewHolder(View view) {
             super(view);
-            llSetProduct = view.findViewById(R.id.ll_setproduct);
-            tvSetProductName = view.findViewById(R.id.tv_setproduct_name);
-            tvSetProductPrice = view.findViewById(R.id.tv_setproduct_price);
-            tvSetProductDesc = view.findViewById(R.id.tv_setproduct_desc);
-            rbSetProductSelected = view.findViewById(R.id.rb_setproduct_selected);
+            llSetProduct = view.findViewById(com.uos.uos_mobile.R.id.ll_setproduct);
+            tvSetProductName = view.findViewById(com.uos.uos_mobile.R.id.tv_setproduct_name);
+            tvSetProductPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_setproduct_price);
+            tvSetProductDesc = view.findViewById(com.uos.uos_mobile.R.id.tv_setproduct_desc);
+            rbSetProductSelected = view.findViewById(com.uos.uos_mobile.R.id.rb_setproduct_selected);
 
             llSetProduct.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();

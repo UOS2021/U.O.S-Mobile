@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
 import com.uos.uos_mobile.other.Global;
@@ -29,7 +29,7 @@ public class ChangePhoneDialog extends Dialog {
     private TextView tvDlgChangePhoneApply;
 
     public ChangePhoneDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
@@ -39,9 +39,9 @@ public class ChangePhoneDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_changephone);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_changephone);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -59,13 +59,13 @@ public class ChangePhoneDialog extends Dialog {
             }
         }
         Global.dialogs.add(this);
-        ibtnDlgChangePhoneClose = findViewById(R.id.ibtn_dlgchangephone_close);
-        tvDlgChangePhoneCurrentPhone = findViewById(R.id.tv_dlgchangephone_currentphone);
-        tilDlgChangePhoneChangePhone = findViewById(R.id.til_dlgchangephone_changephone);
-        tvDlgChangePhoneApply = findViewById(R.id.tv_dlgchangephone_apply);
+        ibtnDlgChangePhoneClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangephone_close);
+        tvDlgChangePhoneCurrentPhone = findViewById(com.uos.uos_mobile.R.id.tv_dlgchangephone_currentphone);
+        tilDlgChangePhoneChangePhone = findViewById(com.uos.uos_mobile.R.id.til_dlgchangephone_changephone);
+        tvDlgChangePhoneApply = findViewById(com.uos.uos_mobile.R.id.tv_dlgchangephone_apply);
 
         tvDlgChangePhoneCurrentPhone.setText(Global.User.phone);
-        tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.color_light));
+        tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_light));
         tvDlgChangePhoneApply.setEnabled(false);
 
         ibtnDlgChangePhoneClose.setOnClickListener(view -> {
@@ -88,12 +88,12 @@ public class ChangePhoneDialog extends Dialog {
                 if (result == PatternManager.LENGTH_SHORT || result == PatternManager.NOT_ALLOWED_CHARACTER) {
                     tilDlgChangePhoneChangePhone.setError("전화번호 형식이 맞지 않습니다");
                     tilDlgChangePhoneChangePhone.setErrorEnabled(true);
-                    tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.color_light));
+                    tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_light));
                     tvDlgChangePhoneApply.setEnabled(false);
                 } else {
                     tilDlgChangePhoneChangePhone.setError(null);
                     tilDlgChangePhoneChangePhone.setErrorEnabled(false);
-                    tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(R.color.black));
+                    tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.black));
                     tvDlgChangePhoneApply.setEnabled(true);
                 }
             }

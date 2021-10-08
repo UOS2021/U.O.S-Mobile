@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.adapter.PayAdapter;
 import com.uos.uos_mobile.dialog.CardDialog;
 import com.uos.uos_mobile.dialog.WaitingOrderDialog;
@@ -57,7 +57,7 @@ public class PayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pay);
+        setContentView(com.uos.uos_mobile.R.layout.activity_pay);
 
         init();
     }
@@ -76,19 +76,19 @@ public class PayActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        ibtnPayBack = findViewById(R.id.ibtn_pay_back);
-        tvPayCompanyName = findViewById(R.id.tv_pay_companyname);
-        rvPayOrderList = findViewById(R.id.rv_pay_orderlist);
-        tvPayTotalPrice = findViewById(R.id.tv_pay_totalprice);
-        tvPayNoCard = findViewById(R.id.tv_pay_nocard);
-        clPayCard = findViewById(R.id.cl_pay_card);
-        ivPayCardBackground = findViewById(R.id.iv_pay_cardbackground);
-        tvPayUserName = findViewById(R.id.tv_pay_username);
-        tvPayCardNum = findViewById(R.id.tv_pay_cardnum);
-        tilPayCardPw = findViewById(R.id.til_pay_cardpw);
-        clPayPay = findViewById(R.id.cl_pay_pay);
-        tvPayPay = findViewById(R.id.tv_pay_pay);
-        pbPayLoading = findViewById(R.id.pb_pay_loading);
+        ibtnPayBack = findViewById(com.uos.uos_mobile.R.id.ibtn_pay_back);
+        tvPayCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_pay_companyname);
+        rvPayOrderList = findViewById(com.uos.uos_mobile.R.id.rv_pay_orderlist);
+        tvPayTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_pay_totalprice);
+        tvPayNoCard = findViewById(com.uos.uos_mobile.R.id.tv_pay_nocard);
+        clPayCard = findViewById(com.uos.uos_mobile.R.id.cl_pay_card);
+        ivPayCardBackground = findViewById(com.uos.uos_mobile.R.id.iv_pay_cardbackground);
+        tvPayUserName = findViewById(com.uos.uos_mobile.R.id.tv_pay_username);
+        tvPayCardNum = findViewById(com.uos.uos_mobile.R.id.tv_pay_cardnum);
+        tilPayCardPw = findViewById(com.uos.uos_mobile.R.id.til_pay_cardpw);
+        clPayPay = findViewById(com.uos.uos_mobile.R.id.cl_pay_pay);
+        tvPayPay = findViewById(com.uos.uos_mobile.R.id.tv_pay_pay);
+        pbPayLoading = findViewById(com.uos.uos_mobile.R.id.pb_pay_loading);
 
         tvPayPay.setVisibility(View.VISIBLE);
         pbPayLoading.setVisibility(View.INVISIBLE);
@@ -107,13 +107,13 @@ public class PayActivity extends AppCompatActivity {
 
         payAdapter = new PayAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(PayActivity.this, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getDrawable(R.drawable.recyclerview_divider));
+        dividerItemDecoration.setDrawable(getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
         rvPayOrderList.addItemDecoration(dividerItemDecoration);
         rvPayOrderList.setLayoutManager(new LinearLayoutManager(PayActivity.this, LinearLayoutManager.VERTICAL, false));
         rvPayOrderList.setAdapter(payAdapter);
 
         clPayPay.setEnabled(false);
-        clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+        clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
 
         // 뒤로가기 버튼 눌릴 시
         ibtnPayBack.setOnClickListener(view -> {
@@ -183,7 +183,7 @@ public class PayActivity extends AppCompatActivity {
                         // 주문접수 성공 시
                         runOnUiThread(() -> {
                             clPayPay.setEnabled(false);
-                            clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+                            clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                             waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData, posAddress);
                             waitingOrderDialog.setOnDismissListener(dialogInterface -> {
                                 for (int loop = 0; loop < Global.activities.size(); loop++) {
@@ -228,19 +228,19 @@ public class PayActivity extends AppCompatActivity {
             tilPayCardPw.setErrorEnabled(false);
             if (tvPayNoCard.getVisibility() == View.GONE) {
                 clPayPay.setEnabled(true);
-                clPayPay.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
             } else {
                 clPayPay.setEnabled(false);
-                clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+                clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             }
         } else if (result == PatternManager.LENGTH_SHORT) {
             clPayPay.setEnabled(false);
-            clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+            clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
             tilPayCardPw.setErrorEnabled(true);
         } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
             clPayPay.setEnabled(false);
-            clPayPay.setBackgroundColor(getResources().getColor(R.color.gray));
+            clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             tilPayCardPw.setError("숫자만 입력가능합니다");
             tilPayCardPw.setErrorEnabled(true);
         }

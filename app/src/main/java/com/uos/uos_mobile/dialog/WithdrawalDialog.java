@@ -16,7 +16,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.activity.LoginActivity;
 import com.uos.uos_mobile.activity.SettingActivity;
 import com.uos.uos_mobile.manager.HttpManager;
@@ -32,7 +32,7 @@ public class WithdrawalDialog extends AppCompatDialog {
     private LinearLayoutCompat llDlgWithdrawalApply;
 
     public WithdrawalDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
@@ -42,9 +42,9 @@ public class WithdrawalDialog extends AppCompatDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_withdrawal);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_withdrawal);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -63,12 +63,12 @@ public class WithdrawalDialog extends AppCompatDialog {
         }
         Global.dialogs.add(this);
 
-        ibtnDlgWithdrawalClose = findViewById(R.id.ibtn_dlgwithdrawal_close);
-        tilDlgWithdrawalPw = findViewById(R.id.til_dlgwithdrawal_pw);
-        llDlgWithdrawalApply = findViewById(R.id.ll_dlgwithdrawal_apply);
+        ibtnDlgWithdrawalClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgwithdrawal_close);
+        tilDlgWithdrawalPw = findViewById(com.uos.uos_mobile.R.id.til_dlgwithdrawal_pw);
+        llDlgWithdrawalApply = findViewById(com.uos.uos_mobile.R.id.ll_dlgwithdrawal_apply);
 
         llDlgWithdrawalApply.setEnabled(false);
-        llDlgWithdrawalApply.setBackgroundColor(context.getResources().getColor(R.color.gray));
+        llDlgWithdrawalApply.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
 
         // 닫기 버튼이 눌렸을 경우
         ibtnDlgWithdrawalClose.setOnClickListener(view -> {
@@ -90,10 +90,10 @@ public class WithdrawalDialog extends AppCompatDialog {
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().length() == 0) {
                     llDlgWithdrawalApply.setEnabled(false);
-                    llDlgWithdrawalApply.setBackgroundColor(context.getResources().getColor(R.color.gray));
+                    llDlgWithdrawalApply.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 } else {
                     llDlgWithdrawalApply.setEnabled(true);
-                    llDlgWithdrawalApply.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
+                    llDlgWithdrawalApply.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 }
                 tilDlgWithdrawalPw.setError(null);
                 tilDlgWithdrawalPw.setErrorEnabled(false);

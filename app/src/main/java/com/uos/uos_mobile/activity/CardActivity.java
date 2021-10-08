@@ -13,7 +13,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.dialog.CardDialog;
 import com.uos.uos_mobile.item.CardItem;
 import com.uos.uos_mobile.manager.HttpManager;
@@ -34,7 +34,7 @@ public class CardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card);
+        setContentView(com.uos.uos_mobile.R.layout.activity_card);
 
         init();
     }
@@ -53,13 +53,13 @@ public class CardActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        ibtnCardClose = findViewById(R.id.ibtn_card_back);
-        ibtnCardDelete = findViewById(R.id.ibtn_card_delete);
-        ivCardBackground = findViewById(R.id.iv_card_background);
-        tvCardNoCard = findViewById(R.id.tv_card_nocard);
-        clCardUiGroup = findViewById(R.id.cl_card_uigroup);
-        tvCardUserName = findViewById(R.id.tv_card_username);
-        tvCardCardNum = findViewById(R.id.tv_card_cardnum);
+        ibtnCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_card_back);
+        ibtnCardDelete = findViewById(com.uos.uos_mobile.R.id.ibtn_card_delete);
+        ivCardBackground = findViewById(com.uos.uos_mobile.R.id.iv_card_background);
+        tvCardNoCard = findViewById(com.uos.uos_mobile.R.id.tv_card_nocard);
+        clCardUiGroup = findViewById(com.uos.uos_mobile.R.id.cl_card_uigroup);
+        tvCardUserName = findViewById(com.uos.uos_mobile.R.id.tv_card_username);
+        tvCardCardNum = findViewById(com.uos.uos_mobile.R.id.tv_card_cardnum);
 
         cardItem = new CardItem();
 
@@ -74,7 +74,7 @@ public class CardActivity extends AppCompatActivity {
 
         // 삭제 버튼이 눌렸을 경우
         ibtnCardDelete.setOnClickListener(view -> {
-            AlertDialog alertDialog = new AlertDialog.Builder(CardActivity.this, R.style.AlertDialogTheme)
+            AlertDialog alertDialog = new AlertDialog.Builder(CardActivity.this, com.uos.uos_mobile.R.style.AlertDialogTheme)
                     .setTitle("카드 제거")
                     .setMessage("카드를 제거하시겠습니까?")
                     .setPositiveButton("제거", (dialogInterface, i) -> {

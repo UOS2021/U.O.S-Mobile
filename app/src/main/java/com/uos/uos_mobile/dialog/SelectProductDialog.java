@@ -15,7 +15,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderingProductItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -36,7 +36,7 @@ public class SelectProductDialog extends Dialog {
     private AppCompatTextView tvDlgSelectProductAdd;
 
     public SelectProductDialog(@NonNull Context context, OrderingProductItem orderingProduct, SelectProductDialogListener selectProductDialogListener) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.orderingProduct = orderingProduct;
         this.selectProductDialogListener = selectProductDialogListener;
@@ -49,9 +49,9 @@ public class SelectProductDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_selectproduct);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_selectproduct);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -70,15 +70,15 @@ public class SelectProductDialog extends Dialog {
         }
         Global.dialogs.add(this);
 
-        ibtnDlgSelectProductClose = findViewById(R.id.ibtn_dlgselectproduct_close);
-        tvDlgSelectProductName = findViewById(R.id.tv_dlgselectproduct_name);
-        ivDlgSelectProductImage = findViewById(R.id.iv_dlgselectproduct_image);
-        tvDlgSelectProductDesc = findViewById(R.id.tv_dlgselectproduct_desc);
-        ibtnDlgSelectProductCountDown = findViewById(R.id.ibtn_dlgselectproduct_countdown);
-        tilDlgSelectProductCount = findViewById(R.id.til_dlgselectproduct_count);
-        ibtnDlgSelectProductCountUp = findViewById(R.id.ibtn_dlgselectproduct_countup);
-        tvDlgSelectProductTotalPrice = findViewById(R.id.tv_dlgselectproduct_totalprice);
-        tvDlgSelectProductAdd = findViewById(R.id.tv_dlgselectproduct_add);
+        ibtnDlgSelectProductClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectproduct_close);
+        tvDlgSelectProductName = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectproduct_name);
+        ivDlgSelectProductImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgselectproduct_image);
+        tvDlgSelectProductDesc = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectproduct_desc);
+        ibtnDlgSelectProductCountDown = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectproduct_countdown);
+        tilDlgSelectProductCount = findViewById(com.uos.uos_mobile.R.id.til_dlgselectproduct_count);
+        ibtnDlgSelectProductCountUp = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectproduct_countup);
+        tvDlgSelectProductTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectproduct_totalprice);
+        tvDlgSelectProductAdd = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectproduct_add);
 
         tvDlgSelectProductName.setText(orderingProduct.getName());
         ivDlgSelectProductImage.setImageBitmap(orderingProduct.getImage());

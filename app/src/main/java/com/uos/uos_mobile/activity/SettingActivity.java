@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.other.Global;
 
 public class SettingActivity extends AppCompatActivity {
@@ -15,7 +15,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(com.uos.uos_mobile.R.layout.activity_setting);
 
         init();
     }
@@ -34,7 +34,7 @@ public class SettingActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        ibtnSettingBack = findViewById(R.id.ibtn_setting_back);
+        ibtnSettingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_setting_back);
 
         // 뒤로가기 버튼이 눌렸을 때
         ibtnSettingBack.setOnClickListener(view -> {

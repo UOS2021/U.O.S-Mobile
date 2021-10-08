@@ -25,7 +25,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(com.uos.uos_mobile.R.layout.activity_register);
 
         init();
     }
@@ -87,35 +87,35 @@ public class RegisterActivity extends AppCompatActivity {
         Intent loadIntent = getIntent();
         int registerType = loadIntent.getExtras().getInt("RegisterType");
 
-        ibtnRegisterClose = findViewById(R.id.ibtn_register_close);
+        ibtnRegisterClose = findViewById(com.uos.uos_mobile.R.id.ibtn_register_close);
 
-        llRegisterCustomer = findViewById(R.id.ll_register_customer);
-        llRegisterUosPartner = findViewById(R.id.ll_register_uospartner);
+        llRegisterCustomer = findViewById(com.uos.uos_mobile.R.id.ll_register_customer);
+        llRegisterUosPartner = findViewById(com.uos.uos_mobile.R.id.ll_register_uospartner);
 
-        tilRegisterCustomerId = findViewById(R.id.til_register_customerid);
-        tilRegisterCustomerPw = findViewById(R.id.til_register_customerpw);
-        tilRegisterCustomerPwChk = findViewById(R.id.til_register_customerpwchk);
-        tilRegisterCustomerName = findViewById(R.id.til_register_customername);
-        tilRegisterCustomerPhoneNumber = findViewById(R.id.til_register_customerphonenumber);
-        llRegisterCustomerRegister = findViewById(R.id.ll_register_customerregister);
+        tilRegisterCustomerId = findViewById(com.uos.uos_mobile.R.id.til_register_customerid);
+        tilRegisterCustomerPw = findViewById(com.uos.uos_mobile.R.id.til_register_customerpw);
+        tilRegisterCustomerPwChk = findViewById(com.uos.uos_mobile.R.id.til_register_customerpwchk);
+        tilRegisterCustomerName = findViewById(com.uos.uos_mobile.R.id.til_register_customername);
+        tilRegisterCustomerPhoneNumber = findViewById(com.uos.uos_mobile.R.id.til_register_customerphonenumber);
+        llRegisterCustomerRegister = findViewById(com.uos.uos_mobile.R.id.ll_register_customerregister);
 
-        tilRegisterUosPartnerId = findViewById(R.id.til_register_uospartnerid);
-        tilRegisterUosPartnerPw = findViewById(R.id.til_register_uospartnerpw);
-        tilRegisterUosPartnerPwChk = findViewById(R.id.til_register_uospartnerpwchk);
-        tilRegisterUosPartnerName = findViewById(R.id.til_register_uospartnername);
-        tilRegisterUosPartnerPhoneNumber = findViewById(R.id.til_register_uospartnerphonenumber);
-        tilRegisterCompanyName = findViewById(R.id.til_register_companyname);
-        tilRegisterLicenseNumber = findViewById(R.id.til_register_licensenumber);
-        ivRegisterLicenseImage = findViewById(R.id.iv_register_licenseimage);
-        tvRegisterImageMessage = findViewById(R.id.tv_register_imagemessage);
-        llRegisterUosPartnerRegister = findViewById(R.id.ll_register_uospartnerregister);
-        spRegisterCompanyType = findViewById(R.id.sp_register_companytype);
-        tilRegisterCompanyAddress = findViewById(R.id.til_register_companyaddress);
+        tilRegisterUosPartnerId = findViewById(com.uos.uos_mobile.R.id.til_register_uospartnerid);
+        tilRegisterUosPartnerPw = findViewById(com.uos.uos_mobile.R.id.til_register_uospartnerpw);
+        tilRegisterUosPartnerPwChk = findViewById(com.uos.uos_mobile.R.id.til_register_uospartnerpwchk);
+        tilRegisterUosPartnerName = findViewById(com.uos.uos_mobile.R.id.til_register_uospartnername);
+        tilRegisterUosPartnerPhoneNumber = findViewById(com.uos.uos_mobile.R.id.til_register_uospartnerphonenumber);
+        tilRegisterCompanyName = findViewById(com.uos.uos_mobile.R.id.til_register_companyname);
+        tilRegisterLicenseNumber = findViewById(com.uos.uos_mobile.R.id.til_register_licensenumber);
+        ivRegisterLicenseImage = findViewById(com.uos.uos_mobile.R.id.iv_register_licenseimage);
+        tvRegisterImageMessage = findViewById(com.uos.uos_mobile.R.id.tv_register_imagemessage);
+        llRegisterUosPartnerRegister = findViewById(com.uos.uos_mobile.R.id.ll_register_uospartnerregister);
+        spRegisterCompanyType = findViewById(com.uos.uos_mobile.R.id.sp_register_companytype);
+        tilRegisterCompanyAddress = findViewById(com.uos.uos_mobile.R.id.til_register_companyaddress);
 
-        efRegisterGotoCompanyInfo = findViewById(R.id.ef_register_gotocompanyinfo);
-        svRegisterScrollView = findViewById(R.id.sv_register_scrollview);
-        tvRegisterCompanyInfo = findViewById(R.id.tv_register_companyinfo);
-        llRegisterCompany = findViewById(R.id.ll_register_company);
+        efRegisterGotoCompanyInfo = findViewById(com.uos.uos_mobile.R.id.ef_register_gotocompanyinfo);
+        svRegisterScrollView = findViewById(com.uos.uos_mobile.R.id.sv_register_scrollview);
+        tvRegisterCompanyInfo = findViewById(com.uos.uos_mobile.R.id.tv_register_companyinfo);
+        llRegisterCompany = findViewById(com.uos.uos_mobile.R.id.ll_register_company);
 
         // UI 초기 상태 설정
         // 회원가입 유형 확인
@@ -134,14 +134,14 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         spRegisterCompanyType.setPrompt("회사 유형");
-        ArrayAdapter companyType = ArrayAdapter.createFromResource(getApplicationContext(), R.array.array_companytype, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter companyType = ArrayAdapter.createFromResource(getApplicationContext(), com.uos.uos_mobile.R.array.array_companytype, android.R.layout.simple_spinner_dropdown_item);
         companyType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spRegisterCompanyType.setAdapter(companyType);
 
         llRegisterCustomerRegister.setEnabled(false);
-        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
         llRegisterUosPartnerRegister.setEnabled(false);
-        llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+        llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
 
         ibtnRegisterClose.setOnClickListener(view -> {
             finish();
@@ -175,9 +175,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
                 if (checkCustomerRegister()) {
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -217,9 +217,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
                 if (checkCustomerRegister()) {
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -240,15 +240,15 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterCustomerPwChk.setError("비밀번호가 일치하지 않습니다");
                     tilRegisterCustomerPwChk.setErrorEnabled(true);
                     llRegisterCustomerRegister.setEnabled(false);
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 } else {
                     tilRegisterCustomerPwChk.setError(null);
                     tilRegisterCustomerPwChk.setErrorEnabled(false);
                     llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
                     if (checkCustomerRegister()) {
-                        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                     } else {
-                        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                        llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                     }
                 }
             }
@@ -279,9 +279,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
                 if (checkCustomerRegister()) {
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -310,9 +310,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterCustomerRegister.setEnabled(checkCustomerRegister());
                 if (checkCustomerRegister()) {
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterCustomerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -345,9 +345,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
                 if (checkUosPartnerRegister()) {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -387,9 +387,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
                 if (checkUosPartnerRegister()) {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -410,15 +410,15 @@ public class RegisterActivity extends AppCompatActivity {
                     tilRegisterUosPartnerPwChk.setError("비밀번호가 일치하지 않습니다");
                     tilRegisterUosPartnerPwChk.setErrorEnabled(true);
                     llRegisterUosPartnerRegister.setEnabled(false);
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 } else {
                     tilRegisterUosPartnerPwChk.setError(null);
                     tilRegisterUosPartnerPwChk.setErrorEnabled(false);
                     llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
                     if (checkUosPartnerRegister()) {
-                        llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                        llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                     } else {
-                        llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                        llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                     }
                 }
             }
@@ -449,9 +449,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
                 if (checkUosPartnerRegister()) {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -480,9 +480,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
                 if (checkUosPartnerRegister()) {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -501,9 +501,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
                 if (checkUosPartnerRegister()) {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -532,9 +532,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
                 if (checkUosPartnerRegister()) {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -553,9 +553,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
                 if (checkUosPartnerRegister()) {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                 } else {
-                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                    llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                 }
             }
         });
@@ -689,9 +689,9 @@ public class RegisterActivity extends AppCompatActivity {
             ivRegisterLicenseImage.setImageURI(selectedImageUri);
             llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
             if (checkUosPartnerRegister()) {
-                llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.color_primary));
+                llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
             } else {
-                llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(R.color.gray));
+                llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             }
         }
 

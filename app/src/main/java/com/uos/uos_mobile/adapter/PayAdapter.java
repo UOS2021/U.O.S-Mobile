@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -18,7 +18,7 @@ public class PayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        return new PayAdapter.PayItemViewHolder(layoutInflater.inflate(R.layout.item_pay, parent, false));
+        return new PayAdapter.PayItemViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_pay, parent, false));
     }
 
     @Override
@@ -59,11 +59,11 @@ public class PayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public PayItemViewHolder(View view) {
             super(view);
 
-            tvPayItemMenu = view.findViewById(R.id.tv_payitem_menu);
-            tvPayItemCount = view.findViewById(R.id.tv_payitem_count);
-            tvPayItemPrice = view.findViewById(R.id.tv_payitem_price);
-            tvPayItemSubMenu = view.findViewById(R.id.tv_payitem_submenu);
-            tvPayItemTotalPrice = view.findViewById(R.id.tv_payitem_totalprice);
+            tvPayItemMenu = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_menu);
+            tvPayItemCount = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_count);
+            tvPayItemPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_price);
+            tvPayItemSubMenu = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_submenu);
+            tvPayItemTotalPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_totalprice);
         }
     }
 }

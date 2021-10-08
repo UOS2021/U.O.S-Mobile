@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.adapter.WaitingOrderAdapter;
 import com.uos.uos_mobile.dialog.WaitingOrderInfoDialog;
 import com.uos.uos_mobile.item.WaitingOrderItem;
@@ -37,7 +37,7 @@ public class LobbyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lobby);
+        setContentView(com.uos.uos_mobile.R.layout.activity_lobby);
 
         init();
     }
@@ -64,13 +64,13 @@ public class LobbyActivity extends AppCompatActivity {
         }
         Global.activities.add(this);
 
-        ivLobbyRecognizeQr = findViewById(R.id.iv_lobby_recognizeqr);
-        ibtnLobbyLeft = findViewById(R.id.ibtn_lobby_left);
-        rvLobbyWaitingOrder = findViewById(R.id.rv_lobby_waitingorder);
-        ibtnLobbyRight = findViewById(R.id.ibtn_lobby_right);
-        clLobbyCard = findViewById(R.id.cl_lobby_card);
-        clLobbyOrderList = findViewById(R.id.cl_lobby_orderlist);
-        clLobbySetting = findViewById(R.id.cl_lobby_setting);
+        ivLobbyRecognizeQr = findViewById(com.uos.uos_mobile.R.id.iv_lobby_recognizeqr);
+        ibtnLobbyLeft = findViewById(com.uos.uos_mobile.R.id.ibtn_lobby_left);
+        rvLobbyWaitingOrder = findViewById(com.uos.uos_mobile.R.id.rv_lobby_waitingorder);
+        ibtnLobbyRight = findViewById(com.uos.uos_mobile.R.id.ibtn_lobby_right);
+        clLobbyCard = findViewById(com.uos.uos_mobile.R.id.cl_lobby_card);
+        clLobbyOrderList = findViewById(com.uos.uos_mobile.R.id.cl_lobby_orderlist);
+        clLobbySetting = findViewById(com.uos.uos_mobile.R.id.cl_lobby_setting);
 
         sqLiteManager = new SQLiteManager(LobbyActivity.this);
         waitingOrderAdapter = new WaitingOrderAdapter(LobbyActivity.this);

@@ -12,7 +12,7 @@ import android.preference.PreferenceScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.activity.LoginActivity;
 import com.uos.uos_mobile.activity.SettingActivity;
 import com.uos.uos_mobile.dialog.ChangePhoneDialog;
@@ -32,7 +32,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
         context = getActivity();
 
-        addPreferencesFromResource(R.xml.settings_preference);
+        addPreferencesFromResource(com.uos.uos_mobile.R.xml.settings_preference);
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.OnSharedPreferenceChangeListener prefsListener = (sharedPreferences, key) -> {
             if (key.equals("vibration") && sharedPreferences.getBoolean("vibration", false) == true) {
@@ -41,10 +41,10 @@ public class SettingPreferenceFragment extends PreferenceFragment {
             }
         };
 
-        Preference btnChangePw = findPreference(getString(R.string.setting_change_pw));
-        Preference btnChangePhone = findPreference(getString(R.string.setting_change_phone));
-        Preference btnLogout = findPreference(getString(R.string.setting_logout));
-        Preference btnWithdrawal = findPreference(getString(R.string.setting_withdrawal));
+        Preference btnChangePw = findPreference(getString(com.uos.uos_mobile.R.string.setting_change_pw));
+        Preference btnChangePhone = findPreference(getString(com.uos.uos_mobile.R.string.setting_change_phone));
+        Preference btnLogout = findPreference(getString(com.uos.uos_mobile.R.string.setting_logout));
+        Preference btnWithdrawal = findPreference(getString(com.uos.uos_mobile.R.string.setting_withdrawal));
         PreferenceScreen btnAccountSetting = getPreferenceScreen();
 
         // 비밀번호 변경이 눌렸을 경우
@@ -92,7 +92,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference.getKey().equals(getString(R.string.setting_account))) {
+        if (preference.getKey().equals(getString(com.uos.uos_mobile.R.string.setting_account))) {
             return false;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

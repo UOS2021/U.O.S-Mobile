@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.other.Global;
 
 public class RegisterTypeDialog extends Dialog {
@@ -32,7 +32,7 @@ public class RegisterTypeDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_registertype);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_registertype);
 
         init();
     }
@@ -51,9 +51,9 @@ public class RegisterTypeDialog extends Dialog {
         }
         Global.dialogs.add(this);
 
-        btnRegisterTypeCustomer = findViewById(R.id.btn_registertype_customer);
-        btnRegisterTypeUosPartner = findViewById(R.id.btn_registertype_uospartner);
-        btnRegisterTypeCancel = findViewById(R.id.btn_registertype_cancel);
+        btnRegisterTypeCustomer = findViewById(com.uos.uos_mobile.R.id.btn_registertype_customer);
+        btnRegisterTypeUosPartner = findViewById(com.uos.uos_mobile.R.id.btn_registertype_uospartner);
+        btnRegisterTypeCancel = findViewById(com.uos.uos_mobile.R.id.btn_registertype_cancel);
 
         btnRegisterTypeCustomer.setOnClickListener(view -> {
             this.registerTypeDialogListener.onCustomerClick();
@@ -71,7 +71,7 @@ public class RegisterTypeDialog extends Dialog {
         });
 
         getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        getWindow().setBackgroundDrawableResource(R.drawable.border_registertypedialog);
+        getWindow().setBackgroundDrawableResource(com.uos.uos_mobile.R.drawable.border_registertypedialog);
     }
 
     public interface RegisterTypeDialogListener {

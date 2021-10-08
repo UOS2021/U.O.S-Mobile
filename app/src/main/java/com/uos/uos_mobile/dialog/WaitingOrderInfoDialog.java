@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.adapter.WaitingOrderInfoAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.WaitingOrderItem;
@@ -36,7 +36,7 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
     private SQLiteManager sqLiteManager;
 
     public WaitingOrderInfoDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, WaitingOrderItem waitingOrderItem) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.waitingOrderItem = waitingOrderItem;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
@@ -47,9 +47,9 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_waitingorderinfo);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_waitingorderinfo);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -68,13 +68,13 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
         }
         Global.dialogs.add(this);
 
-        ibtnDlgWaitingOrderInfoClose = findViewById(R.id.ibtn_dlgwaitingorderinfo_close);
-        tvDlgWaitingOrderInfoCompanyName = findViewById(R.id.tv_dlgwaitingorderinfo_companyname);
-        tvDlgWaitingOrderInfoOrderNumber = findViewById(R.id.tv_dlgwaitingorderinfo_ordernumber);
-        tvDlgWaitingOrderInfoOrderTime = findViewById(R.id.tv_dlgwaitingorderinfo_ordertime);
-        tvDlgWaitingOrderInfoOrderTotalPrice = findViewById(R.id.tv_dlgwaitingorderinfo_totalprice);
-        rvDlgWaitingOrderInfo = findViewById(R.id.rv_dlgwaitingorderinfo);
-        clDlgWaitingOrderInfoTake = findViewById(R.id.ll_dlgwaitingorderinfo_takeproduct);
+        ibtnDlgWaitingOrderInfoClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgwaitingorderinfo_close);
+        tvDlgWaitingOrderInfoCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorderinfo_companyname);
+        tvDlgWaitingOrderInfoOrderNumber = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorderinfo_ordernumber);
+        tvDlgWaitingOrderInfoOrderTime = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorderinfo_ordertime);
+        tvDlgWaitingOrderInfoOrderTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorderinfo_totalprice);
+        rvDlgWaitingOrderInfo = findViewById(com.uos.uos_mobile.R.id.rv_dlgwaitingorderinfo);
+        clDlgWaitingOrderInfoTake = findViewById(com.uos.uos_mobile.R.id.ll_dlgwaitingorderinfo_takeproduct);
 
         sqLiteManager = new SQLiteManager(context);
 
@@ -91,17 +91,17 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
         waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();
         waitingOrderInfoAdapter.setBasketItemArrayList(waitingOrderItem.getBasketItemArrayList());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(context.getDrawable(R.drawable.recyclerview_divider));
+        dividerItemDecoration.setDrawable(context.getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
         rvDlgWaitingOrderInfo.addItemDecoration(dividerItemDecoration);
         rvDlgWaitingOrderInfo.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         rvDlgWaitingOrderInfo.setAdapter(waitingOrderInfoAdapter);
 
         if (waitingOrderItem.getState().equals(Global.SQLite.ORDER_STATE_WAIT)) {
             clDlgWaitingOrderInfoTake.setEnabled(false);
-            clDlgWaitingOrderInfoTake.setBackgroundColor(context.getResources().getColor(R.color.gray));
+            clDlgWaitingOrderInfoTake.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
         } else {
             clDlgWaitingOrderInfoTake.setEnabled(true);
-            clDlgWaitingOrderInfoTake.setBackgroundColor(context.getResources().getColor(R.color.color_primary));
+            clDlgWaitingOrderInfoTake.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
         }
 
         // 닫기 버튼이 눌렸을 경우

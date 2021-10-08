@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.item.MovieSeatItem;
 import com.uos.uos_mobile.other.Global;
 
@@ -28,15 +28,15 @@ public class MovieSeatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
         if (viewType == Global.MovieSeat.RESERVATION_AVAILABLE) {
-            return new MovieSeatAdapter.ReservationAvailableViewHolder(layoutInflater.inflate(R.layout.item_seat_reservationavailable, parent, false));
+            return new MovieSeatAdapter.ReservationAvailableViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_reservationavailable, parent, false));
         } else if (viewType == Global.MovieSeat.ALREADY_RESERVED) {
-            return new MovieSeatAdapter.AlreadyReservedViewHolder(layoutInflater.inflate(R.layout.item_seat_alreadyreserved, parent, false));
+            return new MovieSeatAdapter.AlreadyReservedViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_alreadyreserved, parent, false));
         } else if (viewType == Global.MovieSeat.UNRESERVED_SEAT) {
-            return new MovieSeatAdapter.UnreservedSeatViewHolder(layoutInflater.inflate(R.layout.item_seat_unreservedseat, parent, false));
+            return new MovieSeatAdapter.UnreservedSeatViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_unreservedseat, parent, false));
         } else if (viewType == Global.MovieSeat.SELECTED_SEAT) {
-            return new MovieSeatAdapter.SelectedSeatViewHolder(layoutInflater.inflate(R.layout.item_seat_selectedseat, parent, false));
+            return new MovieSeatAdapter.SelectedSeatViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_selectedseat, parent, false));
         } else {
-            return new MovieSeatAdapter.NoneSeatViewHolder(layoutInflater.inflate(R.layout.item_seat_none, parent, false));
+            return new MovieSeatAdapter.NoneSeatViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_none, parent, false));
         }
     }
 
@@ -87,8 +87,8 @@ public class MovieSeatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public ReservationAvailableViewHolder(View view) {
             super(view);
-            clReservationAvailable = view.findViewById(R.id.cl_reservationavailable);
-            tvReservationAvailableCode = view.findViewById(R.id.tv_reservationavailable_code);
+            clReservationAvailable = view.findViewById(com.uos.uos_mobile.R.id.cl_reservationavailable);
+            tvReservationAvailableCode = view.findViewById(com.uos.uos_mobile.R.id.tv_reservationavailable_code);
 
             clReservationAvailable.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();
@@ -108,8 +108,8 @@ public class MovieSeatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public AlreadyReservedViewHolder(View view) {
             super(view);
-            clAlreadyReserved = view.findViewById(R.id.cl_alreadyreserved);
-            tvAlreadyReservedCode = view.findViewById(R.id.tv_alreadyreserved_code);
+            clAlreadyReserved = view.findViewById(com.uos.uos_mobile.R.id.cl_alreadyreserved);
+            tvAlreadyReservedCode = view.findViewById(com.uos.uos_mobile.R.id.tv_alreadyreserved_code);
         }
     }
 
@@ -120,8 +120,8 @@ public class MovieSeatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public UnreservedSeatViewHolder(View view) {
             super(view);
-            clUnreservedSeat = view.findViewById(R.id.cl_unreservedseat);
-            tvUnreservedSeatCode = view.findViewById(R.id.tv_unreservedseat_code);
+            clUnreservedSeat = view.findViewById(com.uos.uos_mobile.R.id.cl_unreservedseat);
+            tvUnreservedSeatCode = view.findViewById(com.uos.uos_mobile.R.id.tv_unreservedseat_code);
         }
     }
 
@@ -132,8 +132,8 @@ public class MovieSeatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public SelectedSeatViewHolder(View view) {
             super(view);
-            clSelectedSeat = view.findViewById(R.id.cl_selectedseat);
-            tvSelectedSeatCode = view.findViewById(R.id.tv_selectedseat_code);
+            clSelectedSeat = view.findViewById(com.uos.uos_mobile.R.id.cl_selectedseat);
+            tvSelectedSeatCode = view.findViewById(com.uos.uos_mobile.R.id.tv_selectedseat_code);
 
             clSelectedSeat.setOnClickListener(view1 -> {
                 int position = getAdapterPosition();

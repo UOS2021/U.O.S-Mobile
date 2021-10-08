@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
 import com.uos.uos_mobile.other.Global;
@@ -29,7 +29,7 @@ public class ChangePwDialog extends Dialog {
     private TextView tvDlgChangePwApply;
 
     public ChangePwDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable) {
-        super(context, R.style.DialogTheme_FullScreenDialog);
+        super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
@@ -39,10 +39,10 @@ public class ChangePwDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_changepw);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_changepw);
 
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setWindowAnimations(R.style.Anim_FullScreenDialog);
+        getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
@@ -61,16 +61,16 @@ public class ChangePwDialog extends Dialog {
         }
         Global.dialogs.add(this);
 
-        ibtnDlgChangePwClose = findViewById(R.id.ibtn_dlgchangepw_close);
-        tilDlgChangePwCurrentPw = findViewById(R.id.til_dlgchangepw_currentpw);
-        tilDlgChangePwChangePw = findViewById(R.id.til_dlgchangepw_changepw);
-        tilDlgChangePwCheckPw = findViewById(R.id.til_dlgchangepw_checkpw);
-        tvDlgChangePwApply = findViewById(R.id.tv_dlgchangepw_apply);
+        ibtnDlgChangePwClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangepw_close);
+        tilDlgChangePwCurrentPw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_currentpw);
+        tilDlgChangePwChangePw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_changepw);
+        tilDlgChangePwCheckPw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_checkpw);
+        tvDlgChangePwApply = findViewById(com.uos.uos_mobile.R.id.tv_dlgchangepw_apply);
 
         tilDlgChangePwChangePw.setCounterEnabled(true);
         tilDlgChangePwChangePw.setCounterMaxLength(30);
 
-        tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.color_light));
+        tvDlgChangePwApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_light));
         tvDlgChangePwApply.setEnabled(false);
 
         ibtnDlgChangePwClose.setOnClickListener(view -> {
@@ -155,7 +155,7 @@ public class ChangePwDialog extends Dialog {
         });
 
         tvDlgChangePwApply.setOnClickListener(view -> {
-            tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.color_light));
+            tvDlgChangePwApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_light));
             tvDlgChangePwApply.setEnabled(false);
             try {
                 JSONObject sendData = new JSONObject();
@@ -219,7 +219,7 @@ public class ChangePwDialog extends Dialog {
                 e.printStackTrace();
                 Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
             }
-            tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.black));
+            tvDlgChangePwApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.black));
             tvDlgChangePwApply.setEnabled(true);
         });
     }
@@ -228,10 +228,10 @@ public class ChangePwDialog extends Dialog {
         if (tilDlgChangePwCurrentPw.getEditText().getText().toString().length() > 0
                 && PatternManager.checkPw(tilDlgChangePwChangePw.getEditText().getText().toString()) == PatternManager.OK
                 && tilDlgChangePwChangePw.getEditText().getText().toString().equals(tilDlgChangePwCheckPw.getEditText().getText().toString())) {
-            tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.black));
+            tvDlgChangePwApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.black));
             tvDlgChangePwApply.setEnabled(true);
         } else {
-            tvDlgChangePwApply.setTextColor(context.getResources().getColor(R.color.color_light));
+            tvDlgChangePwApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_light));
             tvDlgChangePwApply.setEnabled(false);
         }
     }

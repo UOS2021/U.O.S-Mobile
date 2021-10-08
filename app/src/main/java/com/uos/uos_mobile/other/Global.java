@@ -5,7 +5,6 @@ import android.app.Dialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uos.uos_mobile.manager.BasketManager;
-import com.uos.uos_mobile.manager.SocketManager;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,60 @@ import java.util.ArrayList;
  */
 public class Global {
     public static BasketManager basketManager;
+
+    /**
+     * Global.activities 정적 변수는 동일한 Activity가 중복 생성되는 상황을 방지해주는 역할을 하며 생성되어 있는
+     * Activity 중 원하는 Activity를 종료할 수 있도록 도와줍니다.<br><br>
+     * 사용방법 다음과 같습니다. <br><br>
+     * 1. 아래 코드를 각 Activity의 onCreate()에 추가 (꼭 onCreate일 필요는 없으며 Activity가 생성시 실행되는
+     * 부분에만 추가하면 됩니다.)
+     * <pre>
+     * {@code
+     * for (Activity activity : Global.activities) {
+     *     if(activity instanceof CurrentActivityClass) activity.finish();
+     * }
+     * Global.activities.add(this);
+     * }
+     * </pre>
+     * 2. onDestroy() 함수를 Override하여 아래와 같이 작성
+     * <pre>
+     * {@code
+     * protected void onDestroy() {
+     *     Global.activities.remove(this);
+     *     super.onDestroy();
+     * }
+     * }
+     * </pre>
+     * 1번에 작성되어있는 코드를 이용하면 특정 시점에 현재 생성되어있는 Activity 중 특정 Activity를 종료할 수 있
+     * 습니다.
+     */
     public static ArrayList<AppCompatActivity> activities = new ArrayList<>();
+
+    /**
+     * Global.dialogs 정적 변수는 동일한 Dialog가 중복 생성되는 상황을 방지해주는 역할을 하며 생성되어 있는
+     * Dialog 중 원하는 Dialog를 종료할 수 있도록 도와줍니다.<br><br>
+     * 사용방법 다음과 같습니다. <br><br>
+     * 1. 아래 코드를 각 Dialog의 생성자 또는 onCreate()에 추가
+     * <pre>
+     * {@code
+     * for (Dialog dialog : Global.dialogs) {
+     *     if(dialog instanceof CurrentDialogClass) dialog.dismiss();
+     * }
+     * Global.dialogs.add(this);
+     * }
+     * </pre>
+     * 2. onDestroy() 함수를 Override하여 아래와 같이 작성
+     * <pre>
+     * {@code
+     * protected void onDestroy() {
+     *     Global.dialogs.remove(this);
+     *     super.onDestroy();
+     * }
+     * }
+     * </pre>
+     * 1번에 작성되어있는 코드를 이용하면 특정 시점에 현재 생성되어있는 Dialog 중 특정 Dialog를 종료할 수 있
+     * 습니다.
+     */
     public static ArrayList<Dialog> dialogs = new ArrayList<>();
 
     /**
@@ -220,7 +272,9 @@ public class Global {
         public static final String LAST_NOTIFICATION_NUMBER = "LAST_NOTIFICATION_NUMBER";
 
         /**
-         *
+         * Intent로 넘길 수 있는 데이터가 제한되어있어 이를 해결하기 위해서 사용되는 TEMP_MESSAGE입니다. 데이터를
+         * SharedPreferences에 TEMP_MESSAGE라는 키값으로 임시로 저장한 후 새로운 Activity에서 이를 불러오는
+         * 방식으로 사용할 수 있습니다.
          */
         public static final String TEMP_MESSAGE = "TEMP_MESSAGE";
     }
@@ -303,8 +357,17 @@ public class Global {
      * 추가로 생성할 상품 형식이 있을 경우 아래 클래스에 선언.
      */
     public static class ItemType {
+        /**
+         * 상품의 기본적 형태인 Product Type
+         */
         public static final int PRODUCT = 0;
+
+        /**
+         * 여러가지 하위 항목을 가지고 있는 형태인 Set Type
+         */
         public static final int SET = 1;
+
+
         public static final int MOVIE_TICKET = 2;
     }
 

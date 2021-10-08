@@ -16,7 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.uos.uos_mobile.R;
+
 import com.uos.uos_mobile.dialog.BasketDialog;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
@@ -33,7 +33,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        return new BasketItemViewHolder(layoutInflater.inflate(R.layout.item_basket, parent, false));
+        return new BasketItemViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_basket, parent, false));
     }
 
     @Override
@@ -94,15 +94,15 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public BasketItemViewHolder(View view) {
             super(view);
 
-            clBasketItem = view.findViewById(R.id.cl_basketitem);
-            tvBasketItemMenu = view.findViewById(R.id.tv_basketitem_menu);
-            ibtnBasketItemRemove = view.findViewById(R.id.ibtn_basketitem_remove);
-            tvBasketItemPrice = view.findViewById(R.id.tv_basketitem_price);
-            tvBasketItemSubMenu = view.findViewById(R.id.tv_basketitem_submenu);
-            tvBasketItemTotalPrice = view.findViewById(R.id.tv_basketitem_totalprice);
-            ibtnBasketItemCountDown = view.findViewById(R.id.ibtn_basketitem_countdown);
-            tilBasketItemCount = view.findViewById(R.id.til_basketitem_count);
-            ibtnBasketItemCountUp = view.findViewById(R.id.ibtn_basketitem_countup);
+            clBasketItem = view.findViewById(com.uos.uos_mobile.R.id.cl_basketitem);
+            tvBasketItemMenu = view.findViewById(com.uos.uos_mobile.R.id.tv_basketitem_menu);
+            ibtnBasketItemRemove = view.findViewById(com.uos.uos_mobile.R.id.ibtn_basketitem_remove);
+            tvBasketItemPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_basketitem_price);
+            tvBasketItemSubMenu = view.findViewById(com.uos.uos_mobile.R.id.tv_basketitem_submenu);
+            tvBasketItemTotalPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_basketitem_totalprice);
+            ibtnBasketItemCountDown = view.findViewById(com.uos.uos_mobile.R.id.ibtn_basketitem_countdown);
+            tilBasketItemCount = view.findViewById(com.uos.uos_mobile.R.id.til_basketitem_count);
+            ibtnBasketItemCountUp = view.findViewById(com.uos.uos_mobile.R.id.ibtn_basketitem_countup);
 
             // 삭품 제거 버튼 클릭 시
             ibtnBasketItemRemove.setOnClickListener(v -> {
