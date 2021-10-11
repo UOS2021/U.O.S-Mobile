@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -21,7 +22,7 @@ import com.uos.uos_mobile.adapter.BasketAdapter;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class BasketDialog extends Dialog {
+public class BasketDialog extends AppCompatDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgBasketClose;
     private RecyclerView rvDlgBasket;
@@ -53,17 +54,12 @@ public class BasketDialog extends Dialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for (Dialog dialog : Global.dialogs) {
-            if (dialog instanceof BasketDialog) {
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         ibtnDlgBasketClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgbasket_close);
         rvDlgBasket = findViewById(com.uos.uos_mobile.R.id.rv_dlgbasket);

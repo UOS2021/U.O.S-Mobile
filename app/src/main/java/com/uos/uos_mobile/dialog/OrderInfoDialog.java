@@ -53,17 +53,12 @@ public class OrderInfoDialog extends AppCompatDialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof OrderInfoDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         ibtnDlgOrderInfoClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgorderinfo_close);
         tvDlgOrderInfoCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_companyname);

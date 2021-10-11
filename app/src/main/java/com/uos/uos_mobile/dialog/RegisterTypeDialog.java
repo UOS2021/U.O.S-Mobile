@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 
 import com.uos.uos_mobile.other.Global;
 
-public class RegisterTypeDialog extends Dialog {
+public class RegisterTypeDialog extends AppCompatDialog {
     private final Context context;
     private final RegisterTypeDialogListener registerTypeDialogListener;
     private AppCompatImageButton btnRegisterTypeCustomer;
@@ -39,17 +40,12 @@ public class RegisterTypeDialog extends Dialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof RegisterTypeDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         btnRegisterTypeCustomer = findViewById(com.uos.uos_mobile.R.id.btn_registertype_customer);
         btnRegisterTypeUosPartner = findViewById(com.uos.uos_mobile.R.id.btn_registertype_uospartner);

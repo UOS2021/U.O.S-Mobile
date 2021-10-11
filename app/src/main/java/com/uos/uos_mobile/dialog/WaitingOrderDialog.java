@@ -59,17 +59,12 @@ public class WaitingOrderDialog extends AppCompatDialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for (Dialog dialog : Global.dialogs) {
-            if (dialog instanceof WaitingOrderDialog) {
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         pbDlgWaitingOrder = findViewById(com.uos.uos_mobile.R.id.pb_dlgwaitingorder);
         tvDlgWaitingOrderMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorder_message);

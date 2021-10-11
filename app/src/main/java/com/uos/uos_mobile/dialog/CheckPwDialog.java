@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -17,7 +18,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class CheckPwDialog extends Dialog {
+public class CheckPwDialog extends AppCompatDialog {
     private final Context context;
     private TextInputLayout tilDlgCheckPwPw;
     private AppCompatTextView tvDlgCheckPwCancel;
@@ -41,17 +42,12 @@ public class CheckPwDialog extends Dialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof CheckPwDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         tilDlgCheckPwPw = findViewById(com.uos.uos_mobile.R.id.til_dlgcheckpw_pw);
         tvDlgCheckPwCancel = findViewById(com.uos.uos_mobile.R.id.tv_dlgcheckpw_cancel);

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -20,7 +21,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class ChangePwDialog extends Dialog {
+public class ChangePwDialog extends AppCompatDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgChangePwClose;
     private TextInputLayout tilDlgChangePwCurrentPw;
@@ -49,17 +50,12 @@ public class ChangePwDialog extends Dialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for (Dialog dialog : Global.dialogs) {
-            if (dialog instanceof ChangePwDialog) {
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         ibtnDlgChangePwClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangepw_close);
         tilDlgChangePwCurrentPw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_currentpw);

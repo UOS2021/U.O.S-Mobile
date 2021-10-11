@@ -54,17 +54,12 @@ public class CardDialog extends AppCompatDialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof CardDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         ibtnAddCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgcard_close);
         tilDlgCardNum = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_num);

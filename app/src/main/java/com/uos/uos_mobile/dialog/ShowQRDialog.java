@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -14,7 +15,7 @@ import com.uos.uos_mobile.manager.SharedPreferenceManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class ShowQRDialog extends Dialog {
+public class ShowQRDialog extends AppCompatDialog {
     private final Context context;
     private AppCompatTextView tvDlgShowQrMessage;
     private AppCompatImageButton ibtnDlgShowQrClose;
@@ -38,17 +39,12 @@ public class ShowQRDialog extends Dialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof ShowQRDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         ibtnDlgShowQrClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgshowqr_close);
         tvDlgShowQrMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgshowqr_message);

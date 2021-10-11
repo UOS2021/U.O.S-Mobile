@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -21,7 +22,7 @@ import com.uos.uos_mobile.item.OrderingProductItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class SelectProductDialog extends Dialog {
+public class SelectProductDialog extends AppCompatDialog {
     private final Context context;
     private final SelectProductDialogListener selectProductDialogListener;
     private final OrderingProductItem orderingProduct;
@@ -58,17 +59,12 @@ public class SelectProductDialog extends Dialog {
 
     @Override
     public void dismiss() {
-        Global.dialogs.remove(this);
+        Global.removeDialog(this);
         super.dismiss();
     }
 
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof SelectProductDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
+        Global.addDialog(this, false);
 
         ibtnDlgSelectProductClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectproduct_close);
         tvDlgSelectProductName = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectproduct_name);
