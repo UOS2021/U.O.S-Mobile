@@ -72,18 +72,13 @@ public class MovieOrderingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof MovieOrderingActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         ibtnMovieOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_movieordering_back);
         tvMovieOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_companyname);

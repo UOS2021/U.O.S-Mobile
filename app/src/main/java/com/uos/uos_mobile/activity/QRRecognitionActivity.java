@@ -28,7 +28,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         super.onDestroy();
     }
 
@@ -38,12 +38,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
     }
 
     private void init() {
-        for (Activity activity : Global.activities) {
-            if (activity instanceof QRRecognitionActivity) {
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         Intent qrRecognitionActivityIntent = getIntent();
         if (qrRecognitionActivityIntent.getStringExtra("uosPartnerId") != null) {

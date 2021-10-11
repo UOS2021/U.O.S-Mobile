@@ -41,17 +41,12 @@ public class CardActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         super.onDestroy();
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof CardActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         ibtnCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_card_back);
         ibtnCardDelete = findViewById(com.uos.uos_mobile.R.id.ibtn_card_delete);

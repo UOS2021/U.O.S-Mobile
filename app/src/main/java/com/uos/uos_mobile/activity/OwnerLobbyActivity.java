@@ -30,24 +30,19 @@ public class OwnerLobbyActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         super.onDestroy();
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof OwnerLobbyActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         btnOwnerLobbyDisplayQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_displayqr);
         btnOwnerLobbyLoadQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_loadqr);
         btnOwnerLobbySetting = findViewById(com.uos.uos_mobile.R.id.ibtn_ownerlobby_setting);
         tvOwnerLobbyOwnerName = findViewById(com.uos.uos_mobile.R.id.tv_ownerlobby_companyname);
 
-        //매장 명 불러오는 부분
+        //매장명 불러오는 부분
         tvOwnerLobbyOwnerName.setText(Global.User.companyName);
 
         // QR 보여주기 버튼 클릭 시
@@ -65,7 +60,5 @@ public class OwnerLobbyActivity extends AppCompatActivity {
         btnOwnerLobbySetting.setOnClickListener(view -> {
             new CheckPwDialog(OwnerLobbyActivity.this, true, true).show();
         });
-
-
     }
 }

@@ -64,17 +64,12 @@ public class PayActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         super.onDestroy();
     }
 
     private void init() {
-        for (Activity activity : Global.activities) {
-            if (activity instanceof PayActivity) {
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         ibtnPayBack = findViewById(com.uos.uos_mobile.R.id.ibtn_pay_back);
         tvPayCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_pay_companyname);

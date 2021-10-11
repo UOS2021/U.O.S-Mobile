@@ -45,17 +45,12 @@ public class OrderListActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         super.onDestroy();
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof OrderListActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         ibtnOrderListBack = findViewById(com.uos.uos_mobile.R.id.ibtn_orderlist_back);
         tvOrderListWaitingOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_waitingordercount);

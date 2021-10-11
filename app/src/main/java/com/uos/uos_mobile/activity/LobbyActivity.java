@@ -22,17 +22,61 @@ import com.uos.uos_mobile.item.WaitingOrderItem;
 import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.other.Global;
 
+/**
+ * U.O.S-Mobile 메인화면을 담당하는 Activity.<br>
+ * xml: activity_lobby.xml<br><br>
+ * 메인화면 중앙에는 현재 상품 준비 중이거나 수령 대기 중인 주문이 표시되며 상단에는 QR코드 인식 버튼이, 하단에는 카
+ * 드 관리, 주문내역, 설정 버튼이 표시되어있습니다.
+ *
+ * @author Sohn Young Jin
+ * @since 1.0.0
+ */
 public class LobbyActivity extends AppCompatActivity {
+
+    /**
+     * QR코드 인식창으로 넘어가는 ImageView.
+     */
     private AppCompatImageView ivLobbyRecognizeQr;
+
+    /**
+     * 상품 준비 중, 수령 대기 중인 상품의 목록에서 왼쪽 항목으로 넘기는 ImageButton.
+     */
     private AppCompatImageButton ibtnLobbyLeft;
+
+    /**
+     * 상품 준비 중, 수령 대기 중인 상품 목록을 표시하는 RecyclerView.
+     */
     private RecyclerView rvLobbyWaitingOrder;
+
+    /**
+     * 상품 준비 중, 수령 대기 중인 상품의 목록에서 오른쪽 항목으로 넘기는 ImageButton.
+     */
     private AppCompatImageButton ibtnLobbyRight;
+
+    /**
+     * 카드 관리 Activity로 넘어가는 ConstraintLayout.
+     */
     private ConstraintLayout clLobbyCard;
+
+    /**
+     * 주문내역 Activity로 넘어가는 ConstraintLayout.
+     */
     private ConstraintLayout clLobbyOrderList;
+
+    /**
+     * 설정 Activity로 넘어가는 ConstraintLayout.
+     */
     private ConstraintLayout clLobbySetting;
+
+    /**
+     * 상품 준비 중, 수령 대기 중인 주문목록을 저장하고 관리하는 Adapter.
+     */
     private WaitingOrderAdapter waitingOrderAdapter;
-    private SQLiteManager sqLiteManager;
-    private boolean isInitDone = false;
+
+    /**
+     * LobbyActivity에서 사용할 SQLiteManager 선언.
+     */
+    private SQLiteManager sqliteManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,25 +88,26 @@ public class LobbyActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         super.onDestroy();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (isInitDone) {
+        if (ibtnLobbyLeft != null && ibtnLobbyRight != null && rvLobbyWaitingOrder != null) {
+            
+            /*
+            * updateList() 메소드에서 사용하는 변수들이 초기화되지 않았을 경우(null) NullPointerException이
+            * 생기는 것을 방지하기 위해 만들어놓은 조건문.
+            */
+            
             updateList();
         }
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof LobbyActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         ivLobbyRecognizeQr = findViewById(com.uos.uos_mobile.R.id.iv_lobby_recognizeqr);
         ibtnLobbyLeft = findViewById(com.uos.uos_mobile.R.id.ibtn_lobby_left);
@@ -72,14 +117,12 @@ public class LobbyActivity extends AppCompatActivity {
         clLobbyOrderList = findViewById(com.uos.uos_mobile.R.id.cl_lobby_orderlist);
         clLobbySetting = findViewById(com.uos.uos_mobile.R.id.cl_lobby_setting);
 
-        sqLiteManager = new SQLiteManager(LobbyActivity.this);
+        sqliteManager = new SQLiteManager(LobbyActivity.this);
         waitingOrderAdapter = new WaitingOrderAdapter(LobbyActivity.this);
 
         rvLobbyWaitingOrder.setLayoutManager(new LinearLayoutManager(LobbyActivity.this, LinearLayoutManager.HORIZONTAL, false));
         new PagerSnapHelper().attachToRecyclerView(rvLobbyWaitingOrder);
         rvLobbyWaitingOrder.setAdapter(waitingOrderAdapter);
-
-        isInitDone = true;
 
         updateList();
 
@@ -156,10 +199,9 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         Intent lobbyActivityIntent = getIntent();
-        if (lobbyActivityIntent.getStringExtra("targetIp") != null) {
+        if (lobbyActivityIntent.getStringExtra("uosPartnerId") != null) {
             Intent intent = new Intent(LobbyActivity.this, QRRecognitionActivity.class);
-            intent.putExtra("targetIp", lobbyActivityIntent.getStringExtra("targetIp"));
-            intent.putExtra("targetPort", lobbyActivityIntent.getStringExtra("targetPort"));
+            intent.putExtra("uosPartnerId", lobbyActivityIntent.getStringExtra("uosPartnerId"));
             startActivity(intent);
         }
 
@@ -178,9 +220,9 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void updateList() {
-        sqLiteManager.openDatabase();
-        waitingOrderAdapter.updateItem(sqLiteManager.loadOrder());
-        sqLiteManager.closeDatabase();
+        sqliteManager.openDatabase();
+        waitingOrderAdapter.updateItem(sqliteManager.loadOrder());
+        sqliteManager.closeDatabase();
 
         ibtnLobbyLeft.setVisibility(View.VISIBLE);
         ibtnLobbyRight.setVisibility(View.VISIBLE);

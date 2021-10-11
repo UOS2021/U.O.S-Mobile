@@ -58,18 +58,13 @@ public class OrderingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof OrderingActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         ibtnOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_ordering_back);
         tvOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_ordering_companyname);

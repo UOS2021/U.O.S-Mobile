@@ -22,17 +22,12 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.add(this);
+        Global.removeActivity(this);
         super.onDestroy();
     }
 
     private void init() {
-        for (Activity activity : Global.activities) {
-            if (activity instanceof SettingActivity) {
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         ibtnSettingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_setting_back);
 

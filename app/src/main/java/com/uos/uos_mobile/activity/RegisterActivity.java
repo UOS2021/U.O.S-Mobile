@@ -71,17 +71,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
+        Global.removeActivity(this);
         super.onDestroy();
     }
 
     private void init() {
-        for (Activity activity : Global.activities) {
-            if (activity instanceof RegisterActivity) {
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
+        Global.addActivity(this, false);
 
         //데이터 받아오기
         Intent loadIntent = getIntent();
