@@ -35,14 +35,14 @@ public class WaitingOrderDialog extends AppCompatDialog {
     private AppCompatTextView tvDlgWaitingOrder3;
     private boolean orderCancel;
 
-    private String posAddress;
+    private String uosPartnerId;
 
-    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData, String posAddress) {
+    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData, String uosPartnerId) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.companyName = companyName;
         this.orderData = orderData;
-        this.posAddress = posAddress;
+        this.uosPartnerId = uosPartnerId;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -83,8 +83,11 @@ public class WaitingOrderDialog extends AppCompatDialog {
         new Thread(() -> {
             try {
                 JSONObject sendData = new JSONObject();
+                JSONObject message = new JSONObject();
 
                 sendData.accumulate("request_code", Global.Network.Request.ORDER_ACCEPTED_STATE);
+                message.accumulate("uospartner_id", uosPartnerId);
+                sendData.accumulate("message", message);
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
                 String responseCode = recvData.getString("response_code");
@@ -101,11 +104,12 @@ public class WaitingOrderDialog extends AppCompatDialog {
                         });
                     }
 
+                    sendData = new JSONObject();
+                    message = new JSONObject();
+
                     sendData.accumulate("request_code", Global.Network.Request.ORDER_CANCEL);
-
-                    JSONObject message = new JSONObject();
+                    message.accumulate("uospartner_id", uosPartnerId);
                     message.accumulate("cancel", orderCancel);
-
                     sendData.accumulate("message", message);
 
                     recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());

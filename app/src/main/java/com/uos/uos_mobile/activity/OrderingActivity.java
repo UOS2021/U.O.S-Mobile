@@ -46,7 +46,7 @@ public class OrderingActivity extends AppCompatActivity {
     private OrderingAdapter orderingAdapter;
     private String selectedCategory;
 
-    private String posAddress;
+    private String uosPartnerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class OrderingActivity extends AppCompatActivity {
         tvOrderingProductCount = findViewById(com.uos.uos_mobile.R.id.tv_ordering_productcount);
         llOrderingPay = findViewById(com.uos.uos_mobile.R.id.ll_ordering_order);
 
-        posAddress = getIntent().getStringExtra("posAddress");
+        uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
         try {
             SharedPreferenceManager.open(OrderingActivity.this, Global.SharedPreference.APP_DATA);
@@ -172,7 +172,7 @@ public class OrderingActivity extends AppCompatActivity {
             if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, posAddress);
+                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, uosPartnerId);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -186,7 +186,7 @@ public class OrderingActivity extends AppCompatActivity {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
-                intent.putExtra("payAddress", posAddress);
+                intent.putExtra("uosPartnerId", uosPartnerId);
                 startActivity(intent);
             }
         });

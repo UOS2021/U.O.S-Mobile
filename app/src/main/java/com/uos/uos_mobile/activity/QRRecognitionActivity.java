@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SharedPreferenceManager;
 import com.uos.uos_mobile.other.Global;
@@ -47,8 +46,8 @@ public class QRRecognitionActivity extends AppCompatActivity {
         Global.activities.add(this);
 
         Intent qrRecognitionActivityIntent = getIntent();
-        if (qrRecognitionActivityIntent.getStringExtra("targetIp") != null) {
-            loadStoreProduct(qrRecognitionActivityIntent.getStringExtra("targetIp"), Integer.valueOf(qrRecognitionActivityIntent.getStringExtra("targetPort")));
+        if (qrRecognitionActivityIntent.getStringExtra("uosPartnerId") != null) {
+            loadStoreProduct(qrRecognitionActivityIntent.getStringExtra("uosPartnerId"));
         } else {
             qrScan = new IntentIntegrator(this);
             qrScan.setOrientationLocked(false);
@@ -59,10 +58,11 @@ public class QRRecognitionActivity extends AppCompatActivity {
     }
 
     /**
-     * QR코드 인식창이 종료된 후 실행되는 함수
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * QR코드 인식창이 종료된 후 실행되는 함수.
+     *
+     * @param requestCode .
+     * @param resultCode .
+     * @param data .
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -71,37 +71,34 @@ public class QRRecognitionActivity extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
         if (result != null && result.getContents() != null) {
-            
-            /*
-            * QR코드에서 데이터를 불러왔을 경우
-            * QR코드 데이터에서 ip와 port를 분리 후 해당 주소로 접속하여 상품정보를 불러옴
-            */
-            
-            String targetIp = result.getContents().substring(result.getContents().indexOf("Ip") + 3, result.getContents().indexOf("&"));
-            int targetPort = Integer.parseInt(result.getContents().substring(result.getContents().indexOf("Port") + 5));
 
-            loadStoreProduct(targetIp, targetPort);
+            /*
+             * QR코드에서 데이터를 불러왔을 경우
+             * QR코드 데이터에서 ip와 port, id를 분리 후 해당 주소로 접속하여 상품정보를 불러옴
+             */
+
+            String uosPartnerId = result.getContents().substring(result.getContents().indexOf("uosPartnerId=", 13));
+
+            loadStoreProduct(uosPartnerId);
         } else {
-            
+
             /* QR코드에서 데이터를 불러오지 못했을 경우 */
-            
+
             Toast.makeText(this, "QR코드 인식에 실패했습니다", Toast.LENGTH_LONG).show();
             finish();
         }
     }
 
     /**
-     * 매개변수로 들어온 ip와 port로 매장 포스기에 접속하여 구매 가능한 상품 목록을 불러오는 함수
+     * 매개변수로 들어온 uospartner 접속하여 구매 가능한 상품 목록을 불러오는 함수.
      *
-     * @param targetIp 접속하려는 pos기의  ip
-     * @param targetPort 접속하려는 pos기의 port
+     * @param uosPartnerId 접속하려는 매장의 U.O.S 파트너 아이디.
      */
-    private void loadStoreProduct(String targetIp, int targetPort) {
+    private void loadStoreProduct(String uosPartnerId) {
         // 퉵 통신으로 매장 정보 불러오기
         new Thread(() -> {
             JSONObject sendData = new JSONObject();
-
-            String posAddress = "http://" + targetIp + ":" + targetPort + "/post";
+            JSONObject message = new JSONObject();
 
             if (Global.User.type.equals("customer")) {
 
@@ -109,8 +106,10 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
                 try {
                     sendData.accumulate("request_code", Global.Network.Request.STORE_PRODUCT_INFO);
+                    message.accumulate("uospartner_id", uosPartnerId);
+                    sendData.accumulate("message", message);
 
-                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{posAddress, sendData.toString()}).get());
+                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                     if (recvData == null) {
 
@@ -155,7 +154,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
                         }
 
                         Intent intent = new Intent(QRRecognitionActivity.this, targetClass);
-                        intent.putExtra("posAddress", posAddress);
+                        intent.putExtra("uosPartnerId", uosPartnerId);
                         startActivity(intent);
                         finish();
                     }
@@ -172,8 +171,10 @@ public class QRRecognitionActivity extends AppCompatActivity {
 
                 try {
                     sendData.accumulate("request_code", Global.Network.Request.QR_IMAGE);
+                    message.accumulate("uospartner_id", uosPartnerId);
+                    sendData.accumulate("message", message);
 
-                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{posAddress, sendData.toString()}).get());
+                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
 
                     if (recvData == null) {
 
