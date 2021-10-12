@@ -2,6 +2,7 @@ package com.uos.uos_mobile.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,9 +72,13 @@ public class QRRecognitionActivity extends AppCompatActivity {
              * 상품정보를 불러옴
              */
 
-            String uosPartnerId = result.getContents().substring(result.getContents().indexOf("uosPartnerId=", 13));
-
-            loadStoreProduct(uosPartnerId);
+            try {
+                String uosPartnerId = result.getContents().substring(result.getContents().indexOf("uosPartnerId=") + 13, result.getContents().length() - 1);
+                loadStoreProduct(uosPartnerId);
+            } catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(QRRecognitionActivity.this, "유효하지 않은 QR코드입니다", Toast.LENGTH_SHORT).show();
+            }
         } else {
 
             /* QR코드에서 데이터를 불러오지 못했을 경우 */
@@ -89,7 +94,9 @@ public class QRRecognitionActivity extends AppCompatActivity {
      * @param uosPartnerId 접속하려는 매장의 U.O.S 파트너 아이디.
      */
     private void loadStoreProduct(String uosPartnerId) {
-        // 퉵 통신으로 매장 정보 불러오기
+
+        /* 퉵 통신으로 매장 정보 불러오기 */
+
         new Thread(() -> {
             JSONObject sendData = new JSONObject();
             JSONObject message = new JSONObject();
