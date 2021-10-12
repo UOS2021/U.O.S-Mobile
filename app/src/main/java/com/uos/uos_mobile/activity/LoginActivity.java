@@ -218,9 +218,12 @@ public class LoginActivity extends AppCompatActivity {
                     /* 만약 로그인한 사용자가 U.O.S 파트너일 경우 수신 데이터에서 매장명 추출 */
                     
                     Global.User.companyName = userData.getString("company_name");
+                    SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
+                    SharedPreferenceManager.save(Global.SharedPreference.QR_IMAGE, recvData.getJSONObject("message").getString("qr_image"));
+                    SharedPreferenceManager.close();
                 }
 
-                /* 로그인한 사용자의 데이터를 Global.*/
+                /* 로그인한 사용자의 데이터를 Global.USER에 저장 */
                 SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
                 SharedPreferenceManager.save(Global.SharedPreference.USER_ID, Global.User.id);
                 SharedPreferenceManager.save(Global.SharedPreference.USER_PW, tilLoginPw.getEditText().getText().toString());
