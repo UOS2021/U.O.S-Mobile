@@ -26,7 +26,6 @@ public class SettingActivity extends UosActivity {
 
         /* 뒤로가기 버튼이 눌렸을 때 */
         ibtnSettingBack.setOnClickListener(view -> {
-            startActivity(new Intent(SettingActivity.this, SettingActivity.class));
             finish();
         });
     }
