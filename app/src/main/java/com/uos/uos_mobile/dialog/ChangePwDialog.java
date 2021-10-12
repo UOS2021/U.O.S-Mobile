@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -20,7 +21,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class ChangePwDialog extends Dialog {
+public class ChangePwDialog extends UosDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgChangePwClose;
     private TextInputLayout tilDlgChangePwCurrentPw;
@@ -47,20 +48,7 @@ public class ChangePwDialog extends Dialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for (Dialog dialog : Global.dialogs) {
-            if (dialog instanceof ChangePwDialog) {
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
-
         ibtnDlgChangePwClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangepw_close);
         tilDlgChangePwCurrentPw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_currentpw);
         tilDlgChangePwChangePw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_changepw);
@@ -168,7 +156,7 @@ public class ChangePwDialog extends Dialog {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
@@ -184,7 +172,7 @@ public class ChangePwDialog extends Dialog {
 
                     sendData.accumulate("message", message);
 
-                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     responseCode = recvData.getString("response_code");
 

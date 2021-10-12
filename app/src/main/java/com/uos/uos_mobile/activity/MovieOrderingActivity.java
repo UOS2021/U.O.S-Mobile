@@ -39,7 +39,7 @@ import com.uos.uos_mobile.other.Global;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class MovieOrderingActivity extends AppCompatActivity {
+public class MovieOrderingActivity extends UosActivity {
     private AppCompatImageButton ibtnMovieOrderingBack;
     private AppCompatTextView tvMovieOrderingCompanyName;
     private AppCompatTextView tvMovieOrderingShowMovie;
@@ -60,7 +60,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
     private OrderingAdapter orderingAdapter;
     private String selectedCategory;
 
-    private String posAddress;
+    private String uosPartnerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +72,11 @@ public class MovieOrderingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof MovieOrderingActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
-
         ibtnMovieOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_movieordering_back);
         tvMovieOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_companyname);
         tvMovieOrderingShowMovie = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_showmovie);
@@ -108,7 +100,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
         tvMovieOrderingShowFood.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
         llMovieOrderingFood.setVisibility(View.GONE);
 
-        posAddress = getIntent().getStringExtra("posAddress");
+        uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
         try {
             SharedPreferenceManager.open(MovieOrderingActivity.this, Global.SharedPreference.APP_DATA);
@@ -233,7 +225,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
             if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(MovieOrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this, posAddress);
+                BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this, uosPartnerId);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -247,7 +239,7 @@ public class MovieOrderingActivity extends AppCompatActivity {
                 Toast.makeText(MovieOrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(MovieOrderingActivity.this, PayActivity.class);
-                intent.putExtra("payAddress", posAddress);
+                intent.putExtra("uosPartnerId", uosPartnerId);
                 startActivity(intent);
             }
         });

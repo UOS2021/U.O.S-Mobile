@@ -21,7 +21,7 @@ import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class OrderInfoDialog extends AppCompatDialog {
+public class OrderInfoDialog extends UosDialog {
     private final Context context;
     private final OrderListItem orderListItem;
     private AppCompatImageButton ibtnDlgOrderInfoClose;
@@ -51,20 +51,7 @@ public class OrderInfoDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof OrderInfoDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
-
         ibtnDlgOrderInfoClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgorderinfo_close);
         tvDlgOrderInfoCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_companyname);
         tvDlgOrderInfoOrderTime = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_ordertime);

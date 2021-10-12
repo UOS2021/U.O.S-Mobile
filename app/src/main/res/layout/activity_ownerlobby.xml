@@ -1,99 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_ownerlobby_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_ownerlobby_appname"
+            android:id="@+id/tv_ownerlobby_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="UOS 파트너"
             android:textColor="#000"
-            android:textSize="50sp" />
+            android:textSize="50sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_ownerlobby_adminpage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="관리자 화면"
-            android:textColor="#000"
-            android:textSize="35sp" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/tv_ownerlobby_companyname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="32dp"
+            android:ellipsize="end"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:maxLines="1"
+            android:text="매장 이름"
+            android:textColor="#000"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_ownerlobby_1" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_ownerlobby_companyname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="매장 이름"
-                android:textColor="#000"
-                android:textSize="24sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/ibtn_ownerlobby_setting"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_ownerlobby_1">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ownerlobby_displayqr"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="20dp"
+            android:layout_margin="32dp"
             android:background="@color/color_light"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="저장된 QR코드\n전시하기"
+            android:text="QR코드 전시하기"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_ownerlobby_loadqr"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="20dp"
-            android:background="@color/color_light"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:text="QR코드 불러오기"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibtn_ownerlobby_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginRight="24dp"
-            android:backgroundTint="#00ff0000"
-            android:scaleType="fitCenter"
-            android:src="@drawable/setting_icon" />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibtn_ownerlobby_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00ff0000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/setting_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,6 @@
     tools:context=".activity.LoginActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_login_loginlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -39,8 +38,8 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4"
             android:layout_marginTop="64dp"
+            android:layout_weight="4"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -73,7 +72,8 @@
                     android:id="@+id/til_login_pw"
                     style="@style/TextInputLayout_Register"
                     android:layout_marginBottom="30dp"
-                    app:passwordToggleEnabled="true">
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText_Register"

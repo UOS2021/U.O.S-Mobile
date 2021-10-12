@@ -9,10 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * 상품 정보를 담고 있는 클래스 <br><br>
+ * 상품 정보를 담고 있는 클래스.<br><br>
  * U.O.S-Mobile에서 사용하는 상품에 대한 최상위 클래스로 추가적인 데이터를 포함한 새로운 상품 클래스를 만들고 싶을
  * 경우에는 본 클래스를 상속받아 구현해야 합니다. 클래스를 상속받을 경우 생성자에서 type을 지정해줘야 하며 해당
- * type은 Global.ItemType 클래스에 선언 후 사용합니다. type은 추후 상품 표시 목록에서 상품 형식을 구분할 떄 사용
+ * type은 Global.ItemType 클래스에 선언 후 사용합니다. type은 추후 상품 표시 목록에서 상품 형식을 구분시 사용
  * 됩니다.
  *
  * @author Sohn Young Jin
@@ -62,10 +62,10 @@ public class OrderingProductItem {
     }
 
     /**
-     * OrderingProductItem의 명시적 생성자 <br><br>
+     * OrderingProductItem의 명시적 생성자.<br><br>
      * 매개변수로 들어온 JSONObject 객체에서 상품 정보를 추출하여 멤버 변수에 저장.
      *
-     * @param jsonObject 상품정보를 담고 있는 JSONObject 객체
+     * @param jsonObject 상품정보를 담고 있는 JSONObject 객체.
      */
     public OrderingProductItem(JSONObject jsonObject) {
         this.type = Global.ItemType.PRODUCT;

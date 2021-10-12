@@ -1,6 +1,5 @@
 package com.uos.uos_mobile.other;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,10 +14,10 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
 import com.uos.uos_mobile.activity.IntroActivity;
 import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
+import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.manager.SharedPreferenceManager;
 
@@ -39,15 +38,19 @@ public class UosFcmService extends FirebaseMessagingService {
             sqLiteManager.setOrderState(Integer.valueOf(orderNumber), Global.SQLite.ORDER_STATE_PREPARED);
             sqLiteManager.closeDatabase();
 
-            for (Activity activity : Global.activities) {
-                if (activity instanceof LobbyActivity) {
-                    activity.runOnUiThread(() -> {
-                        ((LobbyActivity) activity).updateList();
-                        ((LobbyActivity) activity).moveToOrderNumber(Integer.valueOf(orderNumber));
-                    });
-                } else if (activity instanceof OrderListActivity) {
-                    activity.runOnUiThread(() -> {
-                        ((OrderListActivity) activity).doUpdateOrderScreen();
+            final UosActivity lobbyActivity = UosActivity.get(LobbyActivity.class);
+
+            if (lobbyActivity != null) {
+                lobbyActivity.runOnUiThread(() -> {
+                    ((LobbyActivity) lobbyActivity).updateList();
+                    ((LobbyActivity) lobbyActivity).moveToOrderNumber(Integer.valueOf(orderNumber));
+                });
+            } else {
+                final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+
+                if (orderListActivity != null) {
+                    orderListActivity.runOnUiThread(() -> {
+                        ((OrderListActivity) orderListActivity).doUpdateOrderScreen();
                     });
                 }
             }

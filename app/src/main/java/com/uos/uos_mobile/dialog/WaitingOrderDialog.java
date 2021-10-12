@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-public class WaitingOrderDialog extends AppCompatDialog {
+public class WaitingOrderDialog extends UosDialog {
     private final Context context;
     private final String companyName;
     private final JSONObject orderData;
@@ -35,14 +35,14 @@ public class WaitingOrderDialog extends AppCompatDialog {
     private AppCompatTextView tvDlgWaitingOrder3;
     private boolean orderCancel;
 
-    private String posAddress;
+    private String uosPartnerId;
 
-    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData, String posAddress) {
+    public WaitingOrderDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData, String uosPartnerId) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.companyName = companyName;
         this.orderData = orderData;
-        this.posAddress = posAddress;
+        this.uosPartnerId = uosPartnerId;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -57,20 +57,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for (Dialog dialog : Global.dialogs) {
-            if (dialog instanceof WaitingOrderDialog) {
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
-
         pbDlgWaitingOrder = findViewById(com.uos.uos_mobile.R.id.pb_dlgwaitingorder);
         tvDlgWaitingOrderMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorder_message);
         clDlgWaitingOrderCancel = findViewById(com.uos.uos_mobile.R.id.cl_dlgwaitingorder_cancel);
@@ -83,10 +70,13 @@ public class WaitingOrderDialog extends AppCompatDialog {
         new Thread(() -> {
             try {
                 JSONObject sendData = new JSONObject();
+                JSONObject message = new JSONObject();
 
                 sendData.accumulate("request_code", Global.Network.Request.ORDER_ACCEPTED_STATE);
+                message.accumulate("uospartner_id", uosPartnerId);
+                sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(60000), sendData.toString()}).get());
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.ORDER_ACCEPT)) {
@@ -101,14 +91,15 @@ public class WaitingOrderDialog extends AppCompatDialog {
                         });
                     }
 
+                    sendData = new JSONObject();
+                    message = new JSONObject();
+
                     sendData.accumulate("request_code", Global.Network.Request.ORDER_CANCEL);
-
-                    JSONObject message = new JSONObject();
+                    message.accumulate("uospartner_id", uosPartnerId);
                     message.accumulate("cancel", orderCancel);
-
                     sendData.accumulate("message", message);
 
-                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
                     responseCode = recvData.getString("response_code");
 
                     ((PayActivity) context).runOnUiThread(() -> {

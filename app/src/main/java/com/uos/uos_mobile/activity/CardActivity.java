@@ -21,7 +21,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class CardActivity extends AppCompatActivity {
+public class CardActivity extends UosActivity {
     private AppCompatImageButton ibtnCardClose;
     private AppCompatImageButton ibtnCardDelete;
     private AppCompatImageView ivCardBackground;
@@ -39,19 +39,7 @@ public class CardActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.activities.remove(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof CardActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
 
         ibtnCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_card_back);
         ibtnCardDelete = findViewById(com.uos.uos_mobile.R.id.ibtn_card_delete);
@@ -141,7 +129,7 @@ public class CardActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
+                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
 
                 JSONObject recvData = new JSONObject(temp);
 
@@ -205,7 +193,7 @@ public class CardActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 

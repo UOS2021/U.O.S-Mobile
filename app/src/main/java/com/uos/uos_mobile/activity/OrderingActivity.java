@@ -32,7 +32,7 @@ import com.uos.uos_mobile.other.Global;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class OrderingActivity extends AppCompatActivity {
+public class OrderingActivity extends UosActivity {
     private AppCompatImageButton ibtnOrderingBack;
     private AppCompatTextView tvOrderingCompanyName;
     private ChipGroup cgOrderingCategoryList;
@@ -46,7 +46,7 @@ public class OrderingActivity extends AppCompatActivity {
     private OrderingAdapter orderingAdapter;
     private String selectedCategory;
 
-    private String posAddress;
+    private String uosPartnerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +58,11 @@ public class OrderingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.activities.remove(this);
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof OrderingActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
-
         ibtnOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_ordering_back);
         tvOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_ordering_companyname);
         cgOrderingCategoryList = findViewById(com.uos.uos_mobile.R.id.cg_ordering_categorylist);
@@ -80,7 +72,7 @@ public class OrderingActivity extends AppCompatActivity {
         tvOrderingProductCount = findViewById(com.uos.uos_mobile.R.id.tv_ordering_productcount);
         llOrderingPay = findViewById(com.uos.uos_mobile.R.id.ll_ordering_order);
 
-        posAddress = getIntent().getStringExtra("posAddress");
+        uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
         try {
             SharedPreferenceManager.open(OrderingActivity.this, Global.SharedPreference.APP_DATA);
@@ -172,7 +164,7 @@ public class OrderingActivity extends AppCompatActivity {
             if (Global.basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, posAddress);
+                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, uosPartnerId);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -186,7 +178,7 @@ public class OrderingActivity extends AppCompatActivity {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
-                intent.putExtra("payAddress", posAddress);
+                intent.putExtra("uosPartnerId", uosPartnerId);
                 startActivity(intent);
             }
         });

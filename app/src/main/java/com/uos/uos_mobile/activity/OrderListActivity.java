@@ -23,7 +23,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class OrderListActivity extends AppCompatActivity {
+public class OrderListActivity extends UosActivity {
     private AppCompatImageButton ibtnOrderListBack;
     private AppCompatTextView tvOrderListWaitingOrderCount;
     private AppCompatTextView tvOrderListDoneOrderCount;
@@ -43,20 +43,7 @@ public class OrderListActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.activities.remove(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        for(Activity activity : Global.activities){
-            if(activity instanceof OrderListActivity){
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
-
         ibtnOrderListBack = findViewById(com.uos.uos_mobile.R.id.ibtn_orderlist_back);
         tvOrderListWaitingOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_waitingordercount);
         tvOrderListDoneOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_doneordercount);
@@ -112,7 +99,7 @@ public class OrderListActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                String strRecvData = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
+                String strRecvData = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
                 JSONObject recvData = new JSONObject(strRecvData);
 
                 String responseCode = recvData.getString("response_code");

@@ -32,7 +32,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class PayActivity extends AppCompatActivity {
+public class PayActivity extends UosActivity {
     private AppCompatImageButton ibtnPayBack;
     private AppCompatTextView tvPayCompanyName;
     private RecyclerView rvPayOrderList;
@@ -52,7 +52,7 @@ public class PayActivity extends AppCompatActivity {
 
     private CardItem cardItem;
 
-    private String posAddress;
+    private String uosPartnerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,20 +62,7 @@ public class PayActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.activities.remove(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        for (Activity activity : Global.activities) {
-            if (activity instanceof PayActivity) {
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
-
         ibtnPayBack = findViewById(com.uos.uos_mobile.R.id.ibtn_pay_back);
         tvPayCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_pay_companyname);
         rvPayOrderList = findViewById(com.uos.uos_mobile.R.id.rv_pay_orderlist);
@@ -103,7 +90,7 @@ public class PayActivity extends AppCompatActivity {
         removeCardData();
         new PayActivity.GetCard().start();
 
-        posAddress = getIntent().getStringExtra("posAddress");
+        uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
         payAdapter = new PayAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(PayActivity.this, DividerItemDecoration.VERTICAL);
@@ -162,6 +149,7 @@ public class PayActivity extends AppCompatActivity {
 
                     JSONObject message = new JSONObject();
 
+                    message.accumulate("uospartner_id", uosPartnerId);
                     message.accumulate("id", Global.User.id);
                     message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
 
@@ -177,20 +165,16 @@ public class PayActivity extends AppCompatActivity {
 
                     sendData.accumulate("message", message);
 
-                    JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{posAddress, sendData.toString()}).get());
+                    JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
                         // 주문접수 성공 시
                         runOnUiThread(() -> {
                             clPayPay.setEnabled(false);
                             clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
-                            waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData, posAddress);
+                            waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData, uosPartnerId);
                             waitingOrderDialog.setOnDismissListener(dialogInterface -> {
-                                for (int loop = 0; loop < Global.activities.size(); loop++) {
-                                    if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity || Global.activities.get(loop) instanceof QRRecognitionActivity) {
-                                        Global.activities.get(loop).finish();
-                                    }
-                                }
+                                UosActivity.revertToActivity(LobbyActivity.class);
                                 finish();
                             });
                             waitingOrderDialog.show();
@@ -278,7 +262,7 @@ public class PayActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
+                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
 
                 JSONObject recvData = new JSONObject(temp);
 

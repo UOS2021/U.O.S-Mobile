@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -30,7 +31,7 @@ import com.uos.uos_mobile.item.OrderingSetItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class SelectSetDialog extends Dialog {
+public class SelectSetDialog extends UosDialog {
     private final Context context;
     private final SelectSetDialog.SelectSetDialogListener selectSetDialogListener;
     private final OrderingSetItem setData;
@@ -70,20 +71,7 @@ public class SelectSetDialog extends Dialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof SelectSetDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
-
         ibtnDlgSelectSetClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectset_close);
         tvDlgSelectSetName = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectset_name);
         ivDlgSelectSetImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgselectset_image);

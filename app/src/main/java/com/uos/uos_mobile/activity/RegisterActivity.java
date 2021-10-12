@@ -33,7 +33,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends UosActivity {
     private ImageButton ibtnRegisterClose;
     private LinearLayoutCompat llRegisterCustomer;
     private LinearLayoutCompat llRegisterUosPartner;
@@ -69,20 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.activities.remove(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        for (Activity activity : Global.activities) {
-            if (activity instanceof RegisterActivity) {
-                activity.finish();
-            }
-        }
-        Global.activities.add(this);
-
         //데이터 받아오기
         Intent loadIntent = getIntent();
         int registerType = loadIntent.getExtras().getInt("RegisterType");
@@ -595,7 +582,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 sendData.putOpt("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
@@ -652,7 +639,7 @@ public class RegisterActivity extends AppCompatActivity {
                 message.putOpt("company", company);
                 sendData.putOpt("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 

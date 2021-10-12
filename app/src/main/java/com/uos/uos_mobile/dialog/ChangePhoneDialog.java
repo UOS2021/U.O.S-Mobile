@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
@@ -21,7 +22,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class ChangePhoneDialog extends Dialog {
+public class ChangePhoneDialog extends UosDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgChangePhoneClose;
     private AppCompatTextView tvDlgChangePhoneCurrentPhone;
@@ -46,19 +47,7 @@ public class ChangePhoneDialog extends Dialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof ChangePhoneDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
         ibtnDlgChangePhoneClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangephone_close);
         tvDlgChangePhoneCurrentPhone = findViewById(com.uos.uos_mobile.R.id.tv_dlgchangephone_currentphone);
         tilDlgChangePhoneChangePhone = findViewById(com.uos.uos_mobile.R.id.til_dlgchangephone_changephone);
@@ -110,7 +99,7 @@ public class ChangePhoneDialog extends Dialog {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 

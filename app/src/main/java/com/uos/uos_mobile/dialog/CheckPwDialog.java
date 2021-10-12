@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -17,7 +18,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class CheckPwDialog extends Dialog {
+public class CheckPwDialog extends UosDialog {
     private final Context context;
     private TextInputLayout tilDlgCheckPwPw;
     private AppCompatTextView tvDlgCheckPwCancel;
@@ -39,20 +40,7 @@ public class CheckPwDialog extends Dialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof CheckPwDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
-
         tilDlgCheckPwPw = findViewById(com.uos.uos_mobile.R.id.til_dlgcheckpw_pw);
         tvDlgCheckPwCancel = findViewById(com.uos.uos_mobile.R.id.tv_dlgcheckpw_cancel);
         tvDlgCheckPwOk = findViewById(com.uos.uos_mobile.R.id.tv_dlgcheckpw_ok);
@@ -73,7 +61,7 @@ public class CheckPwDialog extends Dialog {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 

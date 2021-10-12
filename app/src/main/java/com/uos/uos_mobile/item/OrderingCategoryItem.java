@@ -3,7 +3,7 @@ package com.uos.uos_mobile.item;
 import java.util.ArrayList;
 
 /**
- * 카테고리 정보를 담고 있는 클래스. <br><br>
+ * 카테고리 정보를 담고 있는 클래스.<br><br>
  * OrderingCategoryItem은 특정 카테고리를 위한 클래스로 내부에는 카테고리에 포함되는 OrderingProductItem(상품
  * 정보)가 ArrayList 형태로 들어있습니다.
  *
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class OrderingCategoryItem {
     /**
-     * 카테고리 명
+     * 카테고리명.
      */
     private String category;
 
@@ -24,14 +24,15 @@ public class OrderingCategoryItem {
     /**
      * OrderingCategoryItem의 기본 생성자.
      */
-    public OrderingCategoryItem(){
+    public OrderingCategoryItem() {
 
     }
 
     /**
-     * OrderingCategoryItem의 명시적 생성자. <br><br>
-     * @param category 카테고리 이름
-     * @param orderingProductItemArrayList 카테고리가 포함하고 있는 상품에 대한 ArrayList
+     * OrderingCategoryItem의 명시적 생성자.<br><br>
+     *
+     * @param category                     카테고리 이름.
+     * @param orderingProductItemArrayList 카테고리가 포함하고 있는 상품에 대한 ArrayList.
      */
     public OrderingCategoryItem(String category, ArrayList<OrderingProductItem> orderingProductItemArrayList) {
         this.category = category;

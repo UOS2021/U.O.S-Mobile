@@ -22,7 +22,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class CardDialog extends AppCompatDialog {
+public class CardDialog extends UosDialog {
     private final Context context;
     private final CardItem cardItem;
     private AppCompatImageButton ibtnAddCardClose;
@@ -52,20 +52,7 @@ public class CardDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof CardDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
-
         ibtnAddCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgcard_close);
         tilDlgCardNum = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_num);
         tilDlgCardMonth = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_month);
@@ -290,7 +277,7 @@ public class CardDialog extends AppCompatDialog {
 
                     sendData.accumulate("message", message);
 
-                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     String responseCode = recvData.getString("response_code");
 

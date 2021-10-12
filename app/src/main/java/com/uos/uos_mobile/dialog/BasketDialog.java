@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -21,7 +22,7 @@ import com.uos.uos_mobile.adapter.BasketAdapter;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class BasketDialog extends Dialog {
+public class BasketDialog extends UosDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgBasketClose;
     private RecyclerView rvDlgBasket;
@@ -29,12 +30,12 @@ public class BasketDialog extends Dialog {
     private LinearLayoutCompat llDlgBasketOrder;
     private BasketAdapter basketAdapter;
 
-    private String posAddress;
+    private String uosPartnerId;
 
-    public BasketDialog(@NonNull Context context, String posAddress) {
+    public BasketDialog(@NonNull Context context, String uosPartnerId) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
-        this.posAddress = posAddress;
+        this.uosPartnerId = uosPartnerId;
 
         setCanceledOnTouchOutside(false);
         setCancelable(true);
@@ -51,20 +52,7 @@ public class BasketDialog extends Dialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for (Dialog dialog : Global.dialogs) {
-            if (dialog instanceof BasketDialog) {
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
-
         ibtnDlgBasketClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgbasket_close);
         rvDlgBasket = findViewById(com.uos.uos_mobile.R.id.rv_dlgbasket);
         tvDlgBasketTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgbasket_totalprice);
@@ -95,7 +83,8 @@ public class BasketDialog extends Dialog {
         // 주문하기 버튼 클릭 시
         llDlgBasketOrder.setOnClickListener(view -> {
             Intent intent = new Intent(context, PayActivity.class);
-            intent.putExtra("posAddress", posAddress);
+            intent.putExtra("Global.Network.EXTERNAL_SERVER_URL", Global.Network.EXTERNAL_SERVER_URL);
+            intent.putExtra("uosPartnerId", uosPartnerId);
             context.startActivity(new Intent(context, PayActivity.class));
         });
     }

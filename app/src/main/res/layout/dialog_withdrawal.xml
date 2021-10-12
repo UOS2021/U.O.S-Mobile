@@ -82,7 +82,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -91,14 +91,6 @@
                 android:text="1. U.O.S 탈퇴 시 더 이상 서비스를 이용하실 수 없습니다"
                 android:textColor="#FF0000"
                 android:textSize="14sp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingLeft="16dp"
-                android:text="* 탈퇴 후 1개월 이내에는 탈퇴 취소가 가능합니다"
-                android:textColor="@color/gray" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

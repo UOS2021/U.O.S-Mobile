@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -20,7 +21,7 @@ import com.uos.uos_mobile.item.MovieItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class SelectSeatDialog extends Dialog {
+public class SelectSeatDialog extends UosDialog {
     private final Context context;
     private final SelectSeatDialog.SelectSeatDialogListener selectSeatDialogListener;
     private MovieItem movieItem;
@@ -59,20 +60,7 @@ public class SelectSeatDialog extends Dialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.dialogs.remove(this);
-        super.dismiss();
-    }
-
     private void init() {
-        for(Dialog dialog : Global.dialogs){
-            if(dialog instanceof SelectSeatDialog){
-                dialog.dismiss();
-            }
-        }
-        Global.dialogs.add(this);
-
         ibtnDlgSelectSeatClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectseat_close);
         tvDlgSelectSeatMovie = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectseat_movie);
         tvDlgSelectSeatTime = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectseat_time);
@@ -97,7 +85,7 @@ public class SelectSeatDialog extends Dialog {
         }
 
         movieSeatAdapter = new MovieSeatAdapter(movieItem.getMovieSeatItemArrayList());
-        rvDlgSelectSeatSeatList.setLayoutManager(new GridLayoutManager(context, movieItem.getWidth(), GridLayoutManager.VERTICAL, false));
+        rvDlgSelectSeatSeatList.setLayoutManager(new GridLayoutManager(context, movieItem.getRow(), GridLayoutManager.VERTICAL, false));
         rvDlgSelectSeatSeatList.setAdapter(movieSeatAdapter);
 
         // 다이얼로그 종료 버튼 클릭 시
