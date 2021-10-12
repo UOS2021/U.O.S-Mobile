@@ -39,7 +39,7 @@ import com.uos.uos_mobile.other.Global;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class MovieOrderingActivity extends AppCompatActivity {
+public class MovieOrderingActivity extends UosActivity {
     private AppCompatImageButton ibtnMovieOrderingBack;
     private AppCompatTextView tvMovieOrderingCompanyName;
     private AppCompatTextView tvMovieOrderingShowMovie;
@@ -72,14 +72,11 @@ public class MovieOrderingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.removeActivity(this);
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
     private void init() {
-        Global.addActivity(this, false);
-
         ibtnMovieOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_movieordering_back);
         tvMovieOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_companyname);
         tvMovieOrderingShowMovie = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_showmovie);

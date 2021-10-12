@@ -23,7 +23,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class OrderListActivity extends AppCompatActivity {
+public class OrderListActivity extends UosActivity {
     private AppCompatImageButton ibtnOrderListBack;
     private AppCompatTextView tvOrderListWaitingOrderCount;
     private AppCompatTextView tvOrderListDoneOrderCount;
@@ -43,15 +43,7 @@ public class OrderListActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        Global.addActivity(this, false);
-
         ibtnOrderListBack = findViewById(com.uos.uos_mobile.R.id.ibtn_orderlist_back);
         tvOrderListWaitingOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_waitingordercount);
         tvOrderListDoneOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_doneordercount);

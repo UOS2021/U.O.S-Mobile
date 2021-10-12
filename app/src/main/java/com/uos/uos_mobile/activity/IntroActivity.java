@@ -26,7 +26,7 @@ import java.util.TimerTask;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class IntroActivity extends AppCompatActivity {
+public class IntroActivity extends UosActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +36,6 @@ public class IntroActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);
-        super.onDestroy();
-    }
-
     /**
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
@@ -49,7 +43,6 @@ public class IntroActivity extends AppCompatActivity {
         for (Activity activity : Global.activities) {
             activity.finish();
         }
-        Global.addActivity(this, false);
 
         SharedPreferenceManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
         if (SharedPreferenceManager.load(Global.SharedPreference.IS_FIRST, true) == true) {

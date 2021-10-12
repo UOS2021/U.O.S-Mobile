@@ -32,7 +32,7 @@ import com.uos.uos_mobile.other.Global;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class OrderingActivity extends AppCompatActivity {
+public class OrderingActivity extends UosActivity {
     private AppCompatImageButton ibtnOrderingBack;
     private AppCompatTextView tvOrderingCompanyName;
     private ChipGroup cgOrderingCategoryList;
@@ -58,14 +58,11 @@ public class OrderingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Global.removeActivity(this);
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
     private void init() {
-        Global.addActivity(this, false);
-
         ibtnOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_ordering_back);
         tvOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_ordering_companyname);
         cgOrderingCategoryList = findViewById(com.uos.uos_mobile.R.id.cg_ordering_categorylist);

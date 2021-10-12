@@ -14,7 +14,7 @@ import com.uos.uos_mobile.dialog.CheckPwDialog;
 import com.uos.uos_mobile.dialog.ShowQRDialog;
 import com.uos.uos_mobile.other.Global;
 
-public class OwnerLobbyActivity extends AppCompatActivity {
+public class OwnerLobbyActivity extends UosActivity {
     private AppCompatTextView tvOwnerLobbyOwnerName;
     private AppCompatButton btnOwnerLobbyDisplayQr;
     private AppCompatImageButton btnOwnerLobbySetting;
@@ -27,15 +27,7 @@ public class OwnerLobbyActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        Global.addActivity(this, false);
-
         btnOwnerLobbyDisplayQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_displayqr);
         btnOwnerLobbySetting = findViewById(com.uos.uos_mobile.R.id.ibtn_ownerlobby_setting);
         tvOwnerLobbyOwnerName = findViewById(com.uos.uos_mobile.R.id.tv_ownerlobby_companyname);

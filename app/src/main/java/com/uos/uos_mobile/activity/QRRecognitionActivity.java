@@ -15,7 +15,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class QRRecognitionActivity extends AppCompatActivity {
+public class QRRecognitionActivity extends UosActivity {
     private IntentIntegrator qrScan;
 
     @Override
@@ -26,20 +26,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);
-        super.onDestroy();
-    }
-
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-    }
-
     private void init() {
-        Global.addActivity(this, false);
-
         Intent qrRecognitionActivityIntent = getIntent();
         if (qrRecognitionActivityIntent.getStringExtra("uosPartnerId") != null) {
             loadStoreProduct(qrRecognitionActivityIntent.getStringExtra("uosPartnerId"));

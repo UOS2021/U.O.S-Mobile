@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.uos.uos_mobile.activity.LoginActivity;
 import com.uos.uos_mobile.activity.SettingActivity;
+import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.dialog.ChangePhoneDialog;
 import com.uos.uos_mobile.dialog.ChangePwDialog;
 import com.uos.uos_mobile.dialog.WithdrawalDialog;
@@ -71,13 +72,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
             SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
             SharedPreferenceManager.close();
 
-            for (AppCompatActivity activity : Global.activities) {
-                if (!(activity instanceof SettingActivity)) {
-                    activity.finish();
-                }
-            }
-            startActivity(new Intent(context, LoginActivity.class));
-            getActivity().finish();
+            UosActivity.startFromActivity(new Intent(context.getApplicationContext(), LoginActivity.class));
 
             return false;
         });

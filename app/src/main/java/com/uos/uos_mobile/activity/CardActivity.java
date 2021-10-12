@@ -21,7 +21,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class CardActivity extends AppCompatActivity {
+public class CardActivity extends UosActivity {
     private AppCompatImageButton ibtnCardClose;
     private AppCompatImageButton ibtnCardDelete;
     private AppCompatImageView ivCardBackground;
@@ -39,14 +39,7 @@ public class CardActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        Global.addActivity(this, false);
 
         ibtnCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_card_back);
         ibtnCardDelete = findViewById(com.uos.uos_mobile.R.id.ibtn_card_delete);

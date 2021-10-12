@@ -32,7 +32,7 @@ import org.json.JSONObject;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends UosActivity {
 
     /**
      * 아이디를 입력하는 TextInputLayout.
@@ -67,18 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);;
-        super.onDestroy();
-    }
-
     /**
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
     private void init() {
-        Global.addActivity(this, false);
-
         /* xml 파일로부터 ui 불러오기 */
         tilLoginId = findViewById(com.uos.uos_mobile.R.id.til_login_id);
         tilLoginPw = findViewById(com.uos.uos_mobile.R.id.til_login_pw);

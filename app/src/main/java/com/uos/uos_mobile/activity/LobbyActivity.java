@@ -31,7 +31,7 @@ import com.uos.uos_mobile.other.Global;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class LobbyActivity extends AppCompatActivity {
+public class LobbyActivity extends UosActivity {
 
     /**
      * QR코드 인식창으로 넘어가는 ImageView.
@@ -87,12 +87,6 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);
-        super.onDestroy();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         if (ibtnLobbyLeft != null && ibtnLobbyRight != null && rvLobbyWaitingOrder != null) {
@@ -107,8 +101,6 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     private void init() {
-        Global.addActivity(this, false);
-
         ivLobbyRecognizeQr = findViewById(com.uos.uos_mobile.R.id.iv_lobby_recognizeqr);
         ibtnLobbyLeft = findViewById(com.uos.uos_mobile.R.id.ibtn_lobby_left);
         rvLobbyWaitingOrder = findViewById(com.uos.uos_mobile.R.id.rv_lobby_waitingorder);

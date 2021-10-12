@@ -32,7 +32,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class PayActivity extends AppCompatActivity {
+public class PayActivity extends UosActivity {
     private AppCompatImageButton ibtnPayBack;
     private AppCompatTextView tvPayCompanyName;
     private RecyclerView rvPayOrderList;
@@ -62,15 +62,7 @@ public class PayActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        Global.addActivity(this, false);
-
         ibtnPayBack = findViewById(com.uos.uos_mobile.R.id.ibtn_pay_back);
         tvPayCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_pay_companyname);
         rvPayOrderList = findViewById(com.uos.uos_mobile.R.id.rv_pay_orderlist);

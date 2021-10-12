@@ -33,7 +33,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends UosActivity {
     private ImageButton ibtnRegisterClose;
     private LinearLayoutCompat llRegisterCustomer;
     private LinearLayoutCompat llRegisterUosPartner;
@@ -69,15 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    protected void onDestroy() {
-        Global.removeActivity(this);
-        super.onDestroy();
-    }
-
     private void init() {
-        Global.addActivity(this, false);
-
         //데이터 받아오기
         Intent loadIntent = getIntent();
         int registerType = loadIntent.getExtras().getInt("RegisterType");
