@@ -1,6 +1,5 @@
 package com.uos.uos_mobile.item;
 
-import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONArray;
@@ -8,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * 세트 상품 정보를 담고 있는 클래스 <br><br>
+ * 세트 상품 정보를 담고 있는 클래스.<br><br>
  * U.O.S-Mobile에서 사용하는 세트 상품에 대한 클래스로 OrderingProductItem 클래스를 상속받고 있습니다.
  *
  * @author Sohn Young Jin
@@ -33,9 +32,10 @@ public class OrderingSetItem extends OrderingProductItem {
     }
 
     /**
-     * OrderingSetItem 명시적 생성자 <br><br>
+     * OrderingSetItem 명시적 생성자.<br><br>
      * 매개변수로 들어온 JSONObject 객체에서 세트 상품 정보를 추출하여 멤버 변수에 저장.
-     * @param jsonObject 세트 상품 정보를 담고 있는 JSONObject 객체
+     *
+     * @param jsonObject 세트 상품 정보를 담고 있는 JSONObject 객체.
      */
     public OrderingSetItem(JSONObject jsonObject) {
         super();

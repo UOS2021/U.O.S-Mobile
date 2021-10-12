@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 /**
- * U.O.F-Mobile 내에서 자주 사용되는 함수들을 모아둔 클래스
+ * U.O.S-Mobile 내에서 자주 사용되는 함수들을 모아둔 클래스.
  *
  * @author Sohn Young Jin
  * @since 1.0.0
