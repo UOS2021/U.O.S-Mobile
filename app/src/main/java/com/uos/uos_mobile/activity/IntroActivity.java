@@ -27,6 +27,7 @@ public class IntroActivity extends UosActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        clear();
         super.onCreate(savedInstanceState);
         setContentView(com.uos.uos_mobile.R.layout.activity_intro);
 
@@ -37,8 +38,6 @@ public class IntroActivity extends UosActivity {
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
     private void init() {
-        clear();
-
         SharedPreferenceManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
         if (SharedPreferenceManager.load(Global.SharedPreference.IS_FIRST, true) == true) {
             
