@@ -1,13 +1,10 @@
 package com.uos.uos_mobile.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -40,9 +37,7 @@ public class IntroActivity extends UosActivity {
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
     private void init() {
-        for (Activity activity : Global.activities) {
-            activity.finish();
-        }
+        clear();
 
         SharedPreferenceManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
         if (SharedPreferenceManager.load(Global.SharedPreference.IS_FIRST, true) == true) {

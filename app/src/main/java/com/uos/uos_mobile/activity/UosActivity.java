@@ -62,9 +62,9 @@ public abstract class UosActivity extends AppCompatActivity {
      * @param targetActivity 되돌아갈 UosActivity.
      * @return boolean targetActivity가 activities에 존재할 경우 true, 존재하지 않을 경우 false 반환.
      */
-    public static boolean revertToActivity(Class targetActivity) {
+    public static boolean revertToActivity(Class targetUosActivity) {
         for (UosActivity uosActivity : activities) {
-            if (uosActivity.getClass().equals(targetActivity)) {
+            if (uosActivity.getClass().equals(targetUosActivity)) {
 
                 /* 만약 activities에 돌아가고자 하는 UosActivity가 존재할 경우 */
 
@@ -92,5 +92,28 @@ public abstract class UosActivity extends AppCompatActivity {
 
         activities.get(0).startActivity(activityIntent);
         activities.get(0).finish();
+    }
+
+    /**
+     * 현재 UosActivity.activities에 생성되어있는 모든 UosActivity를 종료.
+     */
+    public static void clear(){
+        for(UosActivity uosActivity : activities){
+            uosActivity.finish();
+            activities.remove(uosActivity);
+        }
+    }
+
+    /**
+     * 현재 UosActivity.activities에 추가되어있는 UosActivity 중 매개변수로 전달된 클래스와 동일한 클래스를 가
+     * 진 UosActivity를 반환. 만약 동일한 클래스를 가진 UosActivity가 없을 경우 Null 반환
+     */
+    public static UosActivity get(Class targetUosActivity){
+        for(UosActivity uosActivity : activities){
+            if(uosActivity.getClass().equals(targetUosActivity)){
+                return uosActivity;
+            }
+        }
+        return null;
     }
 }

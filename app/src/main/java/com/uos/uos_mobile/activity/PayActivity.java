@@ -174,11 +174,7 @@ public class PayActivity extends UosActivity {
                             clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                             waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData, uosPartnerId);
                             waitingOrderDialog.setOnDismissListener(dialogInterface -> {
-                                for (int loop = 0; loop < Global.activities.size(); loop++) {
-                                    if (Global.activities.get(loop) instanceof OrderingActivity || Global.activities.get(loop) instanceof MovieOrderingActivity || Global.activities.get(loop) instanceof QRRecognitionActivity) {
-                                        Global.activities.get(loop).finish();
-                                    }
-                                }
+                                UosActivity.revertToActivity(LobbyActivity.class);
                                 finish();
                             });
                             waitingOrderDialog.show();
