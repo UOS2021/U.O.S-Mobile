@@ -164,7 +164,7 @@ public class ChangePwDialog extends AppCompatDialog {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
@@ -180,7 +180,7 @@ public class ChangePwDialog extends AppCompatDialog {
 
                     sendData.accumulate("message", message);
 
-                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     responseCode = recvData.getString("response_code");
 

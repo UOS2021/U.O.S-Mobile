@@ -107,7 +107,7 @@ public class OrderListActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                String strRecvData = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
+                String strRecvData = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
                 JSONObject recvData = new JSONObject(strRecvData);
 
                 String responseCode = recvData.getString("response_code");

@@ -25,13 +25,13 @@ public class HttpManager extends AsyncTask<String, String, String> {
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
             httpURLConnection.setRequestProperty("Accept", "application/json");
-            httpURLConnection.setConnectTimeout(2000);
-            httpURLConnection.setReadTimeout(60000);
+            httpURLConnection.setConnectTimeout(Integer.valueOf(strings[1]));
+            httpURLConnection.setReadTimeout(Integer.valueOf(strings[2]));
             httpURLConnection.connect();
 
             OutputStream outputStream = httpURLConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-            bufferedWriter.write(strings[1]);
+            bufferedWriter.write(strings[3]);
             bufferedWriter.flush();
             bufferedWriter.close();
 

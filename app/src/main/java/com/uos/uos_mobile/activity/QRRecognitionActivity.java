@@ -68,8 +68,8 @@ public class QRRecognitionActivity extends AppCompatActivity {
         if (result != null && result.getContents() != null) {
 
             /*
-             * QR코드에서 데이터를 불러왔을 경우
-             * QR코드 데이터에서 ip와 port, id를 분리 후 해당 주소로 접속하여 상품정보를 불러옴
+             * QR코드에서 데이터를 불러왔을 경우 QR코드 데이터에서 ip와 port, id를 분리 후 해당 주소로 접속하여
+             * 상품정보를 불러옴
              */
 
             String uosPartnerId = result.getContents().substring(result.getContents().indexOf("uosPartnerId=", 13));
@@ -104,7 +104,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
                     message.accumulate("uospartner_id", uosPartnerId);
                     sendData.accumulate("message", message);
 
-                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     if (recvData == null) {
 
@@ -169,7 +169,7 @@ public class QRRecognitionActivity extends AppCompatActivity {
                     message.accumulate("uospartner_id", uosPartnerId);
                     sendData.accumulate("message", message);
 
-                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                    JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     if (recvData == null) {
 

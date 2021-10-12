@@ -200,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
             sendData.accumulate("message", message);
 
             /* HttpManager를 통해 외부서버와 http 통신 */
-            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
             String responseCode = recvData.getString("response_code");
 
             if (responseCode.equals(Global.Network.Response.LOGIN_SUCCESS)) {

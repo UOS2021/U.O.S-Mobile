@@ -173,7 +173,7 @@ public class PayActivity extends AppCompatActivity {
 
                     sendData.accumulate("message", message);
 
-                    JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get());
+                    JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
                         // 주문접수 성공 시
@@ -274,7 +274,7 @@ public class PayActivity extends AppCompatActivity {
 
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, sendData.toString()}).get();
+                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
 
                 JSONObject recvData = new JSONObject(temp);
 
