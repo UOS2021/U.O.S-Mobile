@@ -7,22 +7,58 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * 영화 정보를 담고 있는 클래스.<br><br>
+ * 영화관 자리 예약에 맞춤 설계된 클래스로 영호관 내 자리 상태에 대한 정보를 가지고 있습니다.
+ *
+ * @author Sohn Young Jin
+ * @since 1.0.0
+ */
 public class MovieItem implements Cloneable {
+    /**
+     * 영화 제목.
+     */
     private String movie;
+
+    /**
+     * 상영 시간.
+     */
     private String time;
+
+    /**
+     * 상영관.
+     */
     private String theater;
-    private int width;
-    private int height;
+
+    /**
+     * 상영관 내 좌석의 열 개수(빈 공간 포함).
+     */
+    private int row;
+
+    /**
+     * 상영관 내 좌석의 행 개수(빈 공간 포함).
+     */
+    private int col;
+
+    /**
+     * 상영관 내 모든 좌석정보에 대한 리스트.
+     */
     private ArrayList<MovieSeatItem> movieSeatItemArrayList = new ArrayList<>();
 
+    /**
+     * 장바구니에 MovieItem 저장 시 좌석정보까지 함께 저장하기 위해 Cloneable로부터 오버라이드한 함수.
+     * 
+     * @return MovieItem 현재 객체와 동일한 정보를 가지고 있는 새로운 MovieItem 객체.
+     */
+    @Override
     public MovieItem clone() {
         MovieItem movieItem = new MovieItem();
 
         movieItem.setMovie(this.movie);
         movieItem.setTheater(this.theater);
         movieItem.setTime(this.time);
-        movieItem.setWidth(this.width);
-        movieItem.setHeight(this.height);
+        movieItem.setRow(this.row);
+        movieItem.setCol(this.col);
 
         ArrayList<MovieSeatItem> movieSeatItemArrayList = new ArrayList<>();
 
@@ -63,20 +99,20 @@ public class MovieItem implements Cloneable {
         this.theater = theater;
     }
 
-    public int getWidth() {
-        return width;
+    public int getRow() {
+        return row;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    public int getHeight() {
-        return height;
+    public int getCol() {
+        return col;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setCol(int col) {
+        this.col = col;
     }
 
     public ArrayList<MovieSeatItem> getMovieSeatItemArrayList() {
@@ -92,16 +128,16 @@ public class MovieItem implements Cloneable {
             movie = recvSeatData.getString("movie");
             time = recvSeatData.getString("time");
             theater = recvSeatData.getString("theater");
-            width = recvSeatData.getInt("width");
-            height = recvSeatData.getInt("height");
+            row = recvSeatData.getInt("width");
+            col = recvSeatData.getInt("height");
 
             movieSeatItemArrayList.clear();
 
             JSONArray recvSeatList = recvSeatData.getJSONArray("seat_list");
 
             int seatCount = 0;
-            for (int loop1 = 0; loop1 < height; loop1++) {
-                for (int loop2 = 0; loop2 < width; loop2++) {
+            for (int loop1 = 0; loop1 < col; loop1++) {
+                for (int loop2 = 0; loop2 < row; loop2++) {
                     String code = Global.MovieSeat.ROW_ARR[loop1] + (loop2 + 1);
 
                     JSONObject seatData = recvSeatList.getJSONObject(seatCount);
