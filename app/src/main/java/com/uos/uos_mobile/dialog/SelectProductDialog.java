@@ -22,7 +22,7 @@ import com.uos.uos_mobile.item.OrderingProductItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class SelectProductDialog extends AppCompatDialog {
+public class SelectProductDialog extends UosDialog {
     private final Context context;
     private final SelectProductDialogListener selectProductDialogListener;
     private final OrderingProductItem orderingProduct;
@@ -57,15 +57,7 @@ public class SelectProductDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgSelectProductClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectproduct_close);
         tvDlgSelectProductName = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectproduct_name);
         ivDlgSelectProductImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgselectproduct_image);

@@ -22,7 +22,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class CardDialog extends AppCompatDialog {
+public class CardDialog extends UosDialog {
     private final Context context;
     private final CardItem cardItem;
     private AppCompatImageButton ibtnAddCardClose;
@@ -52,15 +52,7 @@ public class CardDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnAddCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgcard_close);
         tilDlgCardNum = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_num);
         tilDlgCardMonth = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_month);

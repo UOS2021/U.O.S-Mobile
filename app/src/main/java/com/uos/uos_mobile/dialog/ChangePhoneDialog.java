@@ -22,7 +22,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class ChangePhoneDialog extends AppCompatDialog {
+public class ChangePhoneDialog extends UosDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgChangePhoneClose;
     private AppCompatTextView tvDlgChangePhoneCurrentPhone;
@@ -47,15 +47,7 @@ public class ChangePhoneDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgChangePhoneClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangephone_close);
         tvDlgChangePhoneCurrentPhone = findViewById(com.uos.uos_mobile.R.id.tv_dlgchangephone_currentphone);
         tilDlgChangePhoneChangePhone = findViewById(com.uos.uos_mobile.R.id.til_dlgchangephone_changephone);

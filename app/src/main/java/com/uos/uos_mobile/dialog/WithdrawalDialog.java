@@ -19,13 +19,14 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import com.uos.uos_mobile.activity.LoginActivity;
 import com.uos.uos_mobile.activity.SettingActivity;
+import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SharedPreferenceManager;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class WithdrawalDialog extends AppCompatDialog {
+public class WithdrawalDialog extends UosDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgWithdrawalClose;
     private TextInputLayout tilDlgWithdrawalPw;
@@ -49,15 +50,7 @@ public class WithdrawalDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgWithdrawalClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgwithdrawal_close);
         tilDlgWithdrawalPw = findViewById(com.uos.uos_mobile.R.id.til_dlgwithdrawal_pw);
         llDlgWithdrawalApply = findViewById(com.uos.uos_mobile.R.id.ll_dlgwithdrawal_apply);
@@ -135,13 +128,8 @@ public class WithdrawalDialog extends AppCompatDialog {
                             SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
                             SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
                             SharedPreferenceManager.close();
-                            for (AppCompatActivity activity : Global.activities) {
-                                if (!(activity instanceof SettingActivity)) {
-                                    activity.finish();
-                                }
-                            }
-                            dismiss();
-                            context.startActivity(new Intent(context, LoginActivity.class));
+
+                            UosActivity.startFromActivity(new Intent(context.getApplicationContext(), LoginActivity.class));
                         } else if (responseCode.equals(Global.Network.Response.WITHDRAWAL_FAILED)) {
                             // 전화번호 변경 실패
                             Toast.makeText(context, "탈퇴 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();

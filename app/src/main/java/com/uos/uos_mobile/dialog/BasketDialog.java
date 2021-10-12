@@ -22,7 +22,7 @@ import com.uos.uos_mobile.adapter.BasketAdapter;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class BasketDialog extends AppCompatDialog {
+public class BasketDialog extends UosDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgBasketClose;
     private RecyclerView rvDlgBasket;
@@ -52,15 +52,7 @@ public class BasketDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgBasketClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgbasket_close);
         rvDlgBasket = findViewById(com.uos.uos_mobile.R.id.rv_dlgbasket);
         tvDlgBasketTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgbasket_totalprice);

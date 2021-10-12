@@ -21,7 +21,7 @@ import com.uos.uos_mobile.item.MovieItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class SelectSeatDialog extends AppCompatDialog {
+public class SelectSeatDialog extends UosDialog {
     private final Context context;
     private final SelectSeatDialog.SelectSeatDialogListener selectSeatDialogListener;
     private MovieItem movieItem;
@@ -60,15 +60,7 @@ public class SelectSeatDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgSelectSeatClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectseat_close);
         tvDlgSelectSeatMovie = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectseat_movie);
         tvDlgSelectSeatTime = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectseat_time);

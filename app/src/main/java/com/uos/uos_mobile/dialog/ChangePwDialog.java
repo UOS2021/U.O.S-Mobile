@@ -21,7 +21,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class ChangePwDialog extends AppCompatDialog {
+public class ChangePwDialog extends UosDialog {
     private final Context context;
     private AppCompatImageButton ibtnDlgChangePwClose;
     private TextInputLayout tilDlgChangePwCurrentPw;
@@ -48,15 +48,7 @@ public class ChangePwDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgChangePwClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangepw_close);
         tilDlgChangePwCurrentPw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_currentpw);
         tilDlgChangePwChangePw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_changepw);

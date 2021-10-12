@@ -18,7 +18,7 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
-public class CheckPwDialog extends AppCompatDialog {
+public class CheckPwDialog extends UosDialog {
     private final Context context;
     private TextInputLayout tilDlgCheckPwPw;
     private AppCompatTextView tvDlgCheckPwCancel;
@@ -40,15 +40,7 @@ public class CheckPwDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         tilDlgCheckPwPw = findViewById(com.uos.uos_mobile.R.id.til_dlgcheckpw_pw);
         tvDlgCheckPwCancel = findViewById(com.uos.uos_mobile.R.id.tv_dlgcheckpw_cancel);
         tvDlgCheckPwOk = findViewById(com.uos.uos_mobile.R.id.tv_dlgcheckpw_ok);

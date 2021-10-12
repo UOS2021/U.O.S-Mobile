@@ -22,7 +22,7 @@ import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class WaitingOrderInfoDialog extends AppCompatDialog {
+public class WaitingOrderInfoDialog extends UosDialog {
     private final Context context;
     private final WaitingOrderItem waitingOrderItem;
     private AppCompatImageButton ibtnDlgWaitingOrderInfoClose;
@@ -54,15 +54,7 @@ public class WaitingOrderInfoDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgWaitingOrderInfoClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgwaitingorderinfo_close);
         tvDlgWaitingOrderInfoCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorderinfo_companyname);
         tvDlgWaitingOrderInfoOrderNumber = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorderinfo_ordernumber);

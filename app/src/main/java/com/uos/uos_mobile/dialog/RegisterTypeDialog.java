@@ -13,7 +13,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.uos.uos_mobile.other.Global;
 
-public class RegisterTypeDialog extends AppCompatDialog {
+public class RegisterTypeDialog extends UosDialog {
     private final Context context;
     private final RegisterTypeDialogListener registerTypeDialogListener;
     private AppCompatImageButton btnRegisterTypeCustomer;
@@ -38,15 +38,7 @@ public class RegisterTypeDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         btnRegisterTypeCustomer = findViewById(com.uos.uos_mobile.R.id.btn_registertype_customer);
         btnRegisterTypeUosPartner = findViewById(com.uos.uos_mobile.R.id.btn_registertype_uospartner);
         btnRegisterTypeCancel = findViewById(com.uos.uos_mobile.R.id.btn_registertype_cancel);

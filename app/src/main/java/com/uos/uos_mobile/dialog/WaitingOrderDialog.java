@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-public class WaitingOrderDialog extends AppCompatDialog {
+public class WaitingOrderDialog extends UosDialog {
     private final Context context;
     private final String companyName;
     private final JSONObject orderData;
@@ -57,15 +57,7 @@ public class WaitingOrderDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         pbDlgWaitingOrder = findViewById(com.uos.uos_mobile.R.id.pb_dlgwaitingorder);
         tvDlgWaitingOrderMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorder_message);
         clDlgWaitingOrderCancel = findViewById(com.uos.uos_mobile.R.id.cl_dlgwaitingorder_cancel);

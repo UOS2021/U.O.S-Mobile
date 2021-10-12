@@ -31,7 +31,7 @@ import com.uos.uos_mobile.item.OrderingSetItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class SelectSetDialog extends AppCompatDialog {
+public class SelectSetDialog extends UosDialog {
     private final Context context;
     private final SelectSetDialog.SelectSetDialogListener selectSetDialogListener;
     private final OrderingSetItem setData;
@@ -71,15 +71,7 @@ public class SelectSetDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgSelectSetClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectset_close);
         tvDlgSelectSetName = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectset_name);
         ivDlgSelectSetImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgselectset_image);

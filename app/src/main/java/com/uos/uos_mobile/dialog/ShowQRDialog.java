@@ -15,7 +15,7 @@ import com.uos.uos_mobile.manager.SharedPreferenceManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class ShowQRDialog extends AppCompatDialog {
+public class ShowQRDialog extends UosDialog {
     private final Context context;
     private AppCompatTextView tvDlgShowQrMessage;
     private AppCompatImageButton ibtnDlgShowQrClose;
@@ -37,15 +37,7 @@ public class ShowQRDialog extends AppCompatDialog {
         init();
     }
 
-    @Override
-    public void dismiss() {
-        Global.removeDialog(this);
-        super.dismiss();
-    }
-
     private void init() {
-        Global.addDialog(this, false);
-
         ibtnDlgShowQrClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgshowqr_close);
         tvDlgShowQrMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgshowqr_message);
         ivDlgShowQrImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgshowqr_image);
