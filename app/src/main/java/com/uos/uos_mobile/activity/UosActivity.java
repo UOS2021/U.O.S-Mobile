@@ -32,7 +32,6 @@ public abstract class UosActivity extends AppCompatActivity {
         activities.remove(this);
 
         super.onDestroy();
-        Log.d("UOS_UOSACTIVITY", "updated activities: " + activities.toString() + "\n\n");
     }
 
     /**
@@ -52,14 +51,13 @@ public abstract class UosActivity extends AppCompatActivity {
         activities.add(this);
 
         super.onCreate(savedInstanceState);
-        Log.d("UOS_UOSACTIVITY", "updated activities: " + activities.toString() + "\n\n");
     }
 
     /**
      * 현재 activities 내에 있는 UosActivity 중 매개변수로 넘어온 클래스의 UosActivity까지 되돌리는 함수.
      * activities의 마지막 UosActivity부터 매개변수로 넘어온 Activity 사이의 모든 Activity는 종료.
      *
-     * @param targetActivity 되돌아갈 UosActivity.
+     * @param targetUosActivity 되돌아갈 UosActivity.
      * @return boolean targetActivity가 activities에 존재할 경우 true, 존재하지 않을 경우 false 반환.
      */
     public static boolean revertToActivity(Class targetUosActivity) {
