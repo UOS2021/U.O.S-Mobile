@@ -76,7 +76,7 @@ public class WaitingOrderDialog extends UosDialog {
                 message.accumulate("uospartner_id", uosPartnerId);
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(60000), sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(60000), sendData.toString()}).get());
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.ORDER_ACCEPT)) {
@@ -99,7 +99,7 @@ public class WaitingOrderDialog extends UosDialog {
                     message.accumulate("cancel", orderCancel);
                     sendData.accumulate("message", message);
 
-                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                    recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
                     responseCode = recvData.getString("response_code");
 
                     ((PayActivity) context).runOnUiThread(() -> {

@@ -15,6 +15,16 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class HttpManager extends AsyncTask<String, String, String> {
+    /**
+     * Http 통신 시 기본 연결 Timeout 시간
+     */
+    public static int DEFAULT_CONNECTION_TIMEOUT = 2000;
+
+    /**
+     * Http 통신 시 기본 수신 Timeout 시간
+     */
+    public static int DEFAULT_READ_TIMEOUT = 2000;
+
     @Override
     protected String doInBackground(String... strings) {
         try {

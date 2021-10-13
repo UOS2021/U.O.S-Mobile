@@ -89,7 +89,7 @@ public class IntroActivity extends UosActivity {
             if (uri != null) {
 
                 /*
-                 * 해당 QR코드로부터 매장 POS기의 ip와 port를 추출 후 LoginActivity로 전달
+                 * 해당 QR코드로부터 U.O.S 파트너의 ID를 추출 후 LoginActivity로 전달
                  */
 
                 try {
@@ -101,7 +101,7 @@ public class IntroActivity extends UosActivity {
             }
         } else if(getIntent().getDataString() != null){
 
-            /* 외부에서 앱이 호출되었을 경우: POS기로부터 전달받은 Notification을 클릭했을 경우 */
+            /* 외부에서 앱이 호출되었을 경우: 외부서버에서 전달받은 Notification을 클릭했을 경우 */
 
             intent.putExtra("orderNumber", getIntent().getDataString());
         }

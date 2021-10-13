@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public abstract class UosActivity extends AppCompatActivity {
+public class UosActivity extends AppCompatActivity {
 
     /**
      * 현재 생성되어있는 UosActivity 클래스를 상속받은 Activity의 목록.

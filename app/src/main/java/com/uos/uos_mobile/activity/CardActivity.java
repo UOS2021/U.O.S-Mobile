@@ -129,7 +129,7 @@ public class CardActivity extends UosActivity {
 
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
+                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
 
                 JSONObject recvData = new JSONObject(temp);
 
@@ -193,7 +193,7 @@ public class CardActivity extends UosActivity {
 
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 

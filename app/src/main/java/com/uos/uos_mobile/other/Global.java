@@ -235,16 +235,6 @@ public class Global {
         public static final String EXTERNAL_SERVER_URL = "http://211.217.202.39:8080/post";
 
         /**
-         * Http 통신 시 기본 연결 Timeout 시간
-         */
-        public static int DEFAULT_CONNECTION_TIMEOUT = 2000;
-
-        /**
-         * Http 통신 시 기본 수신 Timeout 시간
-         */
-        public static int DEFAULT_READ_TIMEOUT = 2000;
-
-        /**
          * Pos, 외부서버로 보내는 요청 코드를 모아놓은 클래스.<br><br>
          *
          * 클라이언트에서 외부서버로 데이터 요청 시 사용되는 요청코드를 모아놓은 클래스입니다.
