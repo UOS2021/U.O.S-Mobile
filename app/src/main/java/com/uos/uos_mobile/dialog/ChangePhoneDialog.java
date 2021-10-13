@@ -89,14 +89,13 @@ public class ChangePhoneDialog extends UosDialog {
         });
         tvDlgChangePhoneApply.setOnClickListener(view -> {
             try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Global.Network.Request.CHANGE_PHONE);
-
                 JSONObject message = new JSONObject();
                 message.accumulate("id", Global.User.id);
                 message.accumulate("change_phone", tilDlgChangePhoneChangePhone.getEditText().getText().toString());
                 message.accumulate("type", Global.User.type);
 
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.CHANGE_PHONE);
                 sendData.accumulate("message", message);
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());

@@ -252,29 +252,24 @@ public class CardDialog extends UosDialog {
         tvDlgCardSave.setOnClickListener(view -> {
             if (checkSaveButtonEnable()) {
                 try {
-                    JSONObject sendData = new JSONObject();
-                    sendData.put("request_code", Global.Network.Request.CARD_ADD);
-
-                    JSONObject message = new JSONObject();
-                    message.accumulate("id", Global.User.id);
-
                     JSONObject card = new JSONObject();
-
                     if (tilDlgCardMonth.getEditText().getText().toString().length() == 1) {
                         tilDlgCardMonth.getEditText().setText("0" + tilDlgCardMonth.getEditText().getText().toString());
                     }
-
                     if (tilDlgCardYear.getEditText().getText().toString().length() == 1) {
-                        tilDlgCardYear.getEditText().setText("0" + tilDlgCardMonth.getEditText().getText().toString());
+                        tilDlgCardYear.getEditText().setText("0" + tilDlgCardYear.getEditText().getText().toString());
                     }
-
                     card.accumulate("num", tilDlgCardNum.getEditText().getText().toString());
                     card.accumulate("due_date", tilDlgCardMonth.getEditText().getText().toString() + "/" + tilDlgCardYear.getEditText().getText().toString());
                     card.accumulate("cvc", tilDlgCardCvc.getEditText().getText().toString());
                     card.accumulate("pw", tilDlgCardPw.getEditText().getText().toString());
 
+                    JSONObject message = new JSONObject();
+                    message.accumulate("id", Global.User.id);
                     message.accumulate("card", card);
 
+                    JSONObject sendData = new JSONObject();
+                    sendData.accumulate("request_code", Global.Network.Request.CARD_ADD);
                     sendData.accumulate("message", message);
 
                     JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());

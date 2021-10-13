@@ -2,10 +2,7 @@ package com.uos.uos_mobile.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -25,8 +22,6 @@ import org.json.JSONObject;
  * @since 1.0.0
  */
 public class QRRecognitionActivity extends UosActivity {
-    private IntentIntegrator qrScan;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +38,9 @@ public class QRRecognitionActivity extends UosActivity {
 
             loadStoreProduct(qrRecognitionActivityIntent.getStringExtra("uosPartnerId"));
         } else {
-            
+
             /* Intent로 U.O.S 파트너 아이디가 전달되지 않았을 경우 - QR코드 인식화면 표시 */
-            
-            qrScan = new IntentIntegrator(this);
+            IntentIntegrator qrScan = new IntentIntegrator(this);
             qrScan.setOrientationLocked(false);
             qrScan.setPrompt("QR 코드를 인식해주세요");
             qrScan.setBeepEnabled(false);
@@ -54,13 +48,6 @@ public class QRRecognitionActivity extends UosActivity {
         }
     }
 
-    /**
-     * QR코드 인식창이 종료된 후 실행되는 함수.
-     *
-     * @param requestCode .
-     * @param resultCode  .
-     * @param data        .
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -77,7 +64,7 @@ public class QRRecognitionActivity extends UosActivity {
             try {
                 String uosPartnerId = result.getContents().substring(result.getContents().indexOf("uosPartnerId=") + 13, result.getContents().length() - 1);
                 loadStoreProduct(uosPartnerId);
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(QRRecognitionActivity.this, "유효하지 않은 QR코드입니다", Toast.LENGTH_SHORT).show();
             }
@@ -115,7 +102,6 @@ public class QRRecognitionActivity extends UosActivity {
                     /* Pos기로부터 수신된 데이터가 없을 경우 */
 
                     Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
-                    finish();
                 } else {
 
                     /* Pos기로부터 수신된 데이터가 있을 경우 */
@@ -127,9 +113,9 @@ public class QRRecognitionActivity extends UosActivity {
                     SharedPreferenceManager.close();
 
                     /*
-                     * 아래 if구문은 어떠한 매장에서 불러왔는지를 구분하기 위함. 만약 새로운 형태의 상품
-                     * 데이터를 가지고 있는 매장을 추가했을 경우 Global.Response에서 해당 매장에 대한
-                     * 코드를 추가하고 아래 if문에 else-if로 추가하여 구분하면 됨.
+                     * 아래 if구문은 어떠한 매장에서 불러왔는지를 구분하기 위함. 만약 새로운 형태의 상품 데이터를
+                     * 가지고 있는 매장을 추가했을 경우 Global.Response에서 해당 매장에 대한 코드를 추가하고 아
+                     * 래 if문에 else-if로 추가하여 구분하면 됨.
                      */
                     Class targetClass = null;
                     if (responseCode.equals(Global.Network.Response.STORE_PRODUCT_INFO)) {
@@ -155,8 +141,8 @@ public class QRRecognitionActivity extends UosActivity {
                     Intent intent = new Intent(QRRecognitionActivity.this, targetClass);
                     intent.putExtra("uosPartnerId", uosPartnerId);
                     startActivity(intent);
-                    finish();
                 }
+                finish();
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {

@@ -1,18 +1,15 @@
 package com.uos.uos_mobile.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 
 import com.uos.uos_mobile.dialog.CardDialog;
 import com.uos.uos_mobile.item.CardItem;
@@ -40,7 +37,6 @@ public class CardActivity extends UosActivity {
     }
 
     private void init() {
-
         ibtnCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_card_back);
         ibtnCardDelete = findViewById(com.uos.uos_mobile.R.id.ibtn_card_delete);
         ivCardBackground = findViewById(com.uos.uos_mobile.R.id.iv_card_background);
@@ -51,16 +47,16 @@ public class CardActivity extends UosActivity {
 
         cardItem = new CardItem();
 
-        // 초기 UI 상태 설정
+        /* 초기 UI 상태 설정 */
         removeCardData();
         new GetCard().start();
 
-        // 종료 버튼이 눌렸을 경우
+        /* 종료 버튼이 눌렸을 경우 */
         ibtnCardClose.setOnClickListener(view -> {
             finish();
         });
 
-        // 삭제 버튼이 눌렸을 경우
+        /* 삭제 버튼이 눌렸을 경우 */
         ibtnCardDelete.setOnClickListener(view -> {
             AlertDialog alertDialog = new AlertDialog.Builder(CardActivity.this, com.uos.uos_mobile.R.style.AlertDialogTheme)
                     .setTitle("카드 제거")
@@ -78,9 +74,8 @@ public class CardActivity extends UosActivity {
             alertDialog.show();
         });
 
-        // 카드이미지가 눌렸을 경우
+        /* 카드이미지가 눌렸을 경우 */
         ivCardBackground.setOnClickListener(view -> {
-            // 카드이미지가 눌렸을 경우
             CardDialog cardDialog = new CardDialog(CardActivity.this, true, true, cardItem);
             cardDialog.setOnDismissListener(dialogInterface -> {
                 new GetCard().start();
@@ -113,30 +108,33 @@ public class CardActivity extends UosActivity {
         super.onResume();
     }
 
+    /**
+     * Thread 클래스를 상속받아 카드 정보 요청을 보내는 클래스.
+     */
     private class GetCard extends Thread {
         @Override
         public void run() {
+
             runOnUiThread(() -> {
                 removeCardData();
                 tvCardNoCard.setText("등록된 카드를 불러오는 중입니다...");
             });
-            try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Global.Network.Request.CARD_INFO);
 
+            try {
                 JSONObject message = new JSONObject();
                 message.accumulate("id", Global.User.id);
 
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.CARD_INFO);
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
-
-                JSONObject recvData = new JSONObject(temp);
-
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.CARD_INFO)) {
-                    // 카드 불러오기 성공
+
+                    /* 카드 불러오기 성공 */
+
                     runOnUiThread(() -> {
                         try {
                             cardItem.setNum(recvData.getJSONObject("message").getString("num"));
@@ -149,18 +147,24 @@ public class CardActivity extends UosActivity {
                     });
                 } else {
                     if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
-                        // 카드 없음
+
+                        /* 카드 없음 */
+
                         runOnUiThread(() -> {
                             removeCardData();
                         });
                     } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                        // 서버 연결 실패
+
+                        /* 서버 연결 실패 */
+
                         runOnUiThread(() -> {
                             removeCardData();
                             Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                         });
                     } else {
-                        // 카드 불러오기 실패
+
+                        /* 카드 불러오기 실패 */
+
                         runOnUiThread(() -> {
                             removeCardData();
                             tvCardNoCard.setText("카드를 불러올 수 없습니다");
@@ -177,54 +181,58 @@ public class CardActivity extends UosActivity {
         }
     }
 
+    /**
+     * Thread 클래스를 상속받아 카드 제거 요청을 보내는 클래스.
+     */
     private class RemoveCard extends Thread {
         @Override
         public void run() {
+
             runOnUiThread(() -> {
                 removeCardData();
                 tvCardNoCard.setText("카드 제거중입니다...");
             });
-            try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Global.Network.Request.CARD_REMOVE);
 
+            try {
                 JSONObject message = new JSONObject();
                 message.accumulate("id", Global.User.id);
 
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.CARD_REMOVE);
                 sendData.accumulate("message", message);
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
-
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.CARD_REMOVE_SUCCESS)) {
-                    // 카드 제거 성공
+
+                    /* 카드 제거 성공 */
+
                     runOnUiThread(() -> {
                         removeCardData();
                     });
                 } else if (responseCode.equals(Global.Network.Response.CARD_REMOVE_FAILED)) {
-                    // 카드 제거 실패
+
+                    /* 카드 제거 실패 */
+
                     runOnUiThread(() -> {
                         new GetCard().start();
+                        Toast.makeText(CardActivity.this, "카드 제거 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                     });
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
+
+                    /* 서버 연결 실패 */
+
                     runOnUiThread(() -> {
                         removeCardData();
                         Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
-                    });
-                } else {
-                    // 카드 제거 실패 - 기타
-                    runOnUiThread(() -> {
-                        new GetCard().start();
                     });
                 }
             } catch (Exception e) {
                 e.printStackTrace();
 
-                new GetCard().start();
                 runOnUiThread(() -> {
-                    Toast.makeText(CardActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CardActivity.this, "카드 제거 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                 });
             }
         }

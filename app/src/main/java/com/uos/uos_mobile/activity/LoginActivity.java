@@ -180,18 +180,17 @@ public class LoginActivity extends UosActivity {
         try {
 
             /* 외부서버로 송신할 데이터 설정 */
-            JSONObject sendData = new JSONObject();
             JSONObject message = new JSONObject();
-
-            sendData.put("request_code", Global.Network.Request.LOGIN);
             message.accumulate("id", tilLoginId.getEditText().getText().toString());
             message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
-
             if (cbLoginIsPartner.isChecked()) {
                 message.accumulate("type", "uospartner");
             } else {
                 message.accumulate("type", "customer");
             }
+
+            JSONObject sendData = new JSONObject();
+            sendData.accumulate("request_code", Global.Network.Request.LOGIN);
             sendData.accumulate("message", message);
 
             /* HttpManager를 통해 외부서버와 http 통신 */
