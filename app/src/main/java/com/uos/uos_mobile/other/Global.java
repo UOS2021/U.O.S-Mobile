@@ -1,15 +1,6 @@
 package com.uos.uos_mobile.other;
 
-import android.app.Activity;
-import android.app.Dialog;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
-
-import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.manager.BasketManager;
-
-import java.util.ArrayList;
 
 /**
  * U.O.S-Mobile에서 전역적으로 사용되는 변수, 상수를 모아둔 클래스
@@ -100,9 +91,9 @@ public class Global {
         public static final String TB_ORDER_LIST = "WaitingOrderList";
 
         /**
-         * 주문번호.
+         * 주문 코드.
          */
-        public static final String CL_ORDER_NUMBER = "number";
+        public static final String CL_ORDER_CODE = "number";
 
         /**
          * 주문 회사명.
@@ -135,7 +126,7 @@ public class Global {
         public static final String ORDER_STATE_PREPARED = "prepared";
 
         /**
-         * 주문한 사용자의 아이디.
+         * 주문한 고객 아이디.
          */
         public static final String CL_ORDER_ID = "id";
 
@@ -154,7 +145,7 @@ public class Global {
          * TB_ORDER_LIST 생성 명령어.
          */
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + SQLite.TB_ORDER_LIST + " ("
-                + CL_ORDER_NUMBER + " TEXT PRIMARY KEY,"
+                + CL_ORDER_CODE + " TEXT PRIMARY KEY,"
                 + CL_ORDER_ID + " TEXT, "
                 + CL_ORDER_COMPANY + " TEXT, "
                 + CL_ORDER_TIME + " TEXT, "

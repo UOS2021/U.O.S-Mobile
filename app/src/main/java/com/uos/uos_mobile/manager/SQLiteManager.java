@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class SQLiteManager extends SQLiteOpenHelper {
-    private Context context;
     private SQLiteDatabase sqLiteDatabase;
 
     public SQLiteManager(Context context) {
@@ -146,7 +145,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public boolean saveOrder(int orderNumber, String companyName, JSONObject orderData) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Global.SQLite.CL_ORDER_COMPANY, companyName);
-        contentValues.put(Global.SQLite.CL_ORDER_NUMBER, orderNumber);
+        contentValues.put(Global.SQLite.CL_ORDER_CODE, orderNumber);
         contentValues.put(Global.SQLite.CL_ORDER_TIME, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(System.currentTimeMillis())));
         contentValues.put(Global.SQLite.CL_ORDER_INFO, orderData.toString());
         contentValues.put(Global.SQLite.CL_ORDER_STATE, Global.SQLite.ORDER_STATE_WAIT);
@@ -175,7 +174,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
                     waitingOrderItemArrayList.add(new WaitingOrderItem(
                             cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_COMPANY))
-                            , Integer.valueOf(cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_NUMBER)))
+                            , Integer.valueOf(cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_CODE)))
                             , cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_TIME))
                             , cursor.getString(cursor.getColumnIndex(Global.SQLite.CL_ORDER_STATE))
                             , basketItemArrayList));
@@ -189,17 +188,17 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     public boolean hasOrderNumber(int orderNumber) {
-        return (read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_NUMBER}, new String[]{String.valueOf(orderNumber)}, Global.SQLite.CL_ORDER_NUMBER, Global.SQLite.SORT_ASCENDING).getCount() == 1);
+        return (read(Global.SQLite.TB_ORDER_LIST, null, new String[]{Global.SQLite.CL_ORDER_CODE}, new String[]{String.valueOf(orderNumber)}, Global.SQLite.CL_ORDER_CODE, Global.SQLite.SORT_ASCENDING).getCount() == 1);
     }
 
     public boolean removeOrder(int orderNumber) {
-        return (delete(Global.SQLite.TB_ORDER_LIST, new String[]{Global.SQLite.CL_ORDER_NUMBER}, new String[]{String.valueOf(orderNumber)}) == 1);
+        return (delete(Global.SQLite.TB_ORDER_LIST, new String[]{Global.SQLite.CL_ORDER_CODE}, new String[]{String.valueOf(orderNumber)}) == 1);
     }
 
     public boolean setOrderState(int orderNumber, String state) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Global.SQLite.CL_ORDER_STATE, state);
-        return (update(Global.SQLite.TB_ORDER_LIST, contentValues, new String[]{Global.SQLite.CL_ORDER_NUMBER}, new String[]{String.valueOf(orderNumber)}) != 0);
+        return (update(Global.SQLite.TB_ORDER_LIST, contentValues, new String[]{Global.SQLite.CL_ORDER_CODE}, new String[]{String.valueOf(orderNumber)}) != 0);
     }
 
     public int getWaitingOrderCount() {
