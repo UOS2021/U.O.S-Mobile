@@ -110,7 +110,7 @@ public class WaitingOrderDialog extends UosDialog {
 
                     if (responseCode.equals(Global.Network.Response.PAY_SUCCESS)) {
                         // 결제 성공시
-                        int orderNumber = recvData.getJSONObject("message").getInt("order_number");
+                        int orderNumber = recvData.getJSONObject("message").getInt("order_code");
 
                         SQLiteManager sqLiteManager = new SQLiteManager(context);
                         sqLiteManager.openDatabase();

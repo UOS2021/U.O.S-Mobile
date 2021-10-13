@@ -31,7 +31,7 @@ public class UosFcmService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Map<String, String> recvData = remoteMessage.getData();
             String companyName = recvData.get("company_name");
-            String orderNumber = recvData.get("order_number");
+            String orderNumber = recvData.get("order_code");
 
             SQLiteManager sqLiteManager = new SQLiteManager(getApplicationContext());
             sqLiteManager.openDatabase();
