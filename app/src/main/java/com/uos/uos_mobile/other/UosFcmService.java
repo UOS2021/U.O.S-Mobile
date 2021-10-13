@@ -31,11 +31,11 @@ public class UosFcmService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Map<String, String> recvData = remoteMessage.getData();
             String companyName = recvData.get("company_name");
-            String orderNumber = recvData.get("order_code");
+            String orderCode = recvData.get("order_code");
 
             SQLiteManager sqLiteManager = new SQLiteManager(getApplicationContext());
             sqLiteManager.openDatabase();
-            sqLiteManager.setOrderState(Integer.valueOf(orderNumber), Global.SQLite.ORDER_STATE_PREPARED);
+            sqLiteManager.setOrderState(Integer.valueOf(orderCode), Global.SQLite.ORDER_STATE_PREPARED);
             sqLiteManager.closeDatabase();
 
             final UosActivity lobbyActivity = UosActivity.get(LobbyActivity.class);
@@ -43,7 +43,7 @@ public class UosFcmService extends FirebaseMessagingService {
             if (lobbyActivity != null) {
                 lobbyActivity.runOnUiThread(() -> {
                     ((LobbyActivity) lobbyActivity).updateList();
-                    ((LobbyActivity) lobbyActivity).moveToOrderNumber(Integer.valueOf(orderNumber));
+                    ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
                 });
             } else {
                 final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
@@ -56,7 +56,7 @@ public class UosFcmService extends FirebaseMessagingService {
             }
 
             Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
-            intent.setData(Uri.parse(orderNumber));
+            intent.setData(Uri.parse(orderCode));
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
             NotificationCompat.Builder notification = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)

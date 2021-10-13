@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class WaitingOrderItem {
     private String companyName;
-    private int orderNumber;
+    private int orderCode;
     private String orderTime;
     private String state;
     private ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
@@ -13,9 +13,9 @@ public class WaitingOrderItem {
 
     }
 
-    public WaitingOrderItem(String companyName, int orderNumber, String orderTime, String state, ArrayList<BasketItem> basketItemArrayList) {
+    public WaitingOrderItem(String companyName, int orderCode, String orderTime, String state, ArrayList<BasketItem> basketItemArrayList) {
         this.companyName = companyName;
-        this.orderNumber = orderNumber;
+        this.orderCode = orderCode;
         this.orderTime = orderTime;
         this.state = state;
         this.basketItemArrayList = basketItemArrayList;
@@ -29,12 +29,12 @@ public class WaitingOrderItem {
         this.companyName = companyName;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
+    public int getOrderCode() {
+        return orderCode;
     }
 
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderCode(int orderCode) {
+        this.orderCode = orderCode;
     }
 
     public String getOrderTime() {

@@ -248,11 +248,11 @@ public class LoginActivity extends UosActivity {
                         /* QR코드를 통해 앱을 실행했을 경우 */
 
                         intent.putExtra("uosPartnerId", loginActivityIntent.getStringExtra("uosPartnerId"));
-                    }else if (loginActivityIntent.getStringExtra("orderNumber") != null) {
+                    }else if (loginActivityIntent.getStringExtra("orderCode") != null) {
                         
                         /* Notofication을 통해 앱을 실행했을 경우 */
                         
-                        intent.putExtra("orderNumber", loginActivityIntent.getStringExtra("orderNumber"));
+                        intent.putExtra("orderCode", loginActivityIntent.getStringExtra("orderCode"));
                     }
                     startActivity(intent);
                 }

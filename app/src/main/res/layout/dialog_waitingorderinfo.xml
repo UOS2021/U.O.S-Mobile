@@ -54,14 +54,14 @@
             android:id="@+id/tv_dlgwaitingorderinfo_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="주문번호"
+            android:text="주문코드"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dlgwaitingorderinfo_ordernumber"
+            android:id="@+id/tv_dlgwaitingorderinfo_ordercode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -104,7 +104,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dlgwaitingorderinfo_ordernumber" />
+            app:layout_constraintTop_toBottomOf="@id/tv_dlgwaitingorderinfo_ordercode" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_dlgwaitingorderinfo"

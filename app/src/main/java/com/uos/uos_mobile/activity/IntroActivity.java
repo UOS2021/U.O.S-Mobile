@@ -103,7 +103,7 @@ public class IntroActivity extends UosActivity {
 
             /* 외부에서 앱이 호출되었을 경우: 외부서버에서 전달받은 Notification을 클릭했을 경우 */
 
-            intent.putExtra("orderNumber", getIntent().getDataString());
+            intent.putExtra("orderCode", getIntent().getDataString());
         }
 
         /* 일정 시간이 지난 후 IntroActivity 종료 및 LoginActivity로 이동 */

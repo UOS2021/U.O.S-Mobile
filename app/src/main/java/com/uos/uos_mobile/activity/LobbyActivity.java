@@ -197,19 +197,19 @@ public class LobbyActivity extends UosActivity {
             Intent intent = new Intent(LobbyActivity.this, QRRecognitionActivity.class);
             intent.putExtra("uosPartnerId", lobbyActivityIntent.getStringExtra("uosPartnerId"));
             startActivity(intent);
-        } else if (lobbyActivityIntent.getStringExtra("orderNumber") != null) {
+        } else if (lobbyActivityIntent.getStringExtra("orderCode") != null) {
             
             /* Notification을 통해 앱을 실행했을 경우 */
             
-            WaitingOrderItem waitingOrderItem = waitingOrderAdapter.getItemByOrderNumber(lobbyActivityIntent.getStringExtra("orderNumber"));
+            WaitingOrderItem waitingOrderItem = waitingOrderAdapter.getItemByOrderCode(lobbyActivityIntent.getStringExtra("orderCode"));
             if (waitingOrderItem == null) {
                 
-                /* Notification을 통해 전달받은 주문번호에 해당하는 주문이 없을 경우 */
+                /* Notification을 통해 전달받은 주문코드에 해당하는 주문이 없을 경우 */
                 
-                Toast.makeText(LobbyActivity.this, "번호가 " + lobbyActivityIntent.getStringExtra("orderNumber") + "인 주문이 없습니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LobbyActivity.this, "번호가 " + lobbyActivityIntent.getStringExtra("orderCode") + "인 주문이 없습니다", Toast.LENGTH_SHORT).show();
             } else {
 
-                /* Notification을 통해 전달받은 주문번호에 해당하는 주문이 있을 경우 */
+                /* Notification을 통해 전달받은 주문코드에 해당하는 주문이 있을 경우 */
 
                 WaitingOrderInfoDialog waitingOrderInfoDialog = new WaitingOrderInfoDialog(LobbyActivity.this, false, true, waitingOrderItem);
                 waitingOrderInfoDialog.setOnDismissListener(dialogInterface -> {
@@ -251,14 +251,14 @@ public class LobbyActivity extends UosActivity {
     }
 
     /**
-     * 전달받은 주문번호에 해당하는 주문이 있을 경우 해당 주문으로 RecyclerView 항목을 스크롤.
+     * 전달받은 주문코드에 해당하는 주문이 있을 경우 해당 주문으로 RecyclerView 항목을 스크롤.
      * 
-     * @param orderNumber 주문번호.
+     * @param orderCode 주문코드.
      */
-    public void moveToOrderNumber(int orderNumber) {
+    public void moveToOrderCode(int orderCode) {
         int position = 0;
         for (WaitingOrderItem waitingOrderItem : waitingOrderAdapter.getWaitingOrderItemArrayList()) {
-            if (waitingOrderItem.getOrderNumber() == orderNumber) {
+            if (waitingOrderItem.getOrderCode() == orderCode) {
                 rvLobbyWaitingOrder.smoothScrollToPosition(position);
                 break;
             }
