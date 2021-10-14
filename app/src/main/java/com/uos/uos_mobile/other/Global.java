@@ -1,15 +1,6 @@
 package com.uos.uos_mobile.other;
 
-import android.app.Activity;
-import android.app.Dialog;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
-
-import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.manager.BasketManager;
-
-import java.util.ArrayList;
 
 /**
  * U.O.S-Mobile에서 전역적으로 사용되는 변수, 상수를 모아둔 클래스
@@ -33,11 +24,6 @@ public class Global {
          * Notification 채널명.
          */
         public static String CHANNEL_NAME = "UOS_MOBILE";
-
-        /**
-         * Notification 그룹 아이디.
-         */
-        public static String GROUP_ID = "com.uos.uos_mobile";
     }
 
     /**
@@ -100,9 +86,9 @@ public class Global {
         public static final String TB_ORDER_LIST = "WaitingOrderList";
 
         /**
-         * 주문번호.
+         * 주문 코드.
          */
-        public static final String CL_ORDER_NUMBER = "number";
+        public static final String CL_ORDER_CODE = "number";
 
         /**
          * 주문 회사명.
@@ -135,7 +121,7 @@ public class Global {
         public static final String ORDER_STATE_PREPARED = "prepared";
 
         /**
-         * 주문한 사용자의 아이디.
+         * 주문한 고객 아이디.
          */
         public static final String CL_ORDER_ID = "id";
 
@@ -154,7 +140,7 @@ public class Global {
          * TB_ORDER_LIST 생성 명령어.
          */
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + SQLite.TB_ORDER_LIST + " ("
-                + CL_ORDER_NUMBER + " TEXT PRIMARY KEY,"
+                + CL_ORDER_CODE + " TEXT PRIMARY KEY,"
                 + CL_ORDER_ID + " TEXT, "
                 + CL_ORDER_COMPANY + " TEXT, "
                 + CL_ORDER_TIME + " TEXT, "
@@ -211,7 +197,7 @@ public class Global {
         /**
          * 마지막 Notification의 번호. Notification이 중복되지 않도록 하기 위해 사용.
          */
-        public static final String LAST_NOTIFICATION_NUMBER = "LAST_NOTIFICATION_NUMBER";
+        public static final String LAST_NOTIFICATION_ID = "LAST_NOTIFICATOIN_ID";
 
         /**
          * Intent로 넘길 수 있는 데이터가 제한되어있어 이를 해결하기 위해서 사용되는 TEMP_MESSAGE 데이터를
@@ -233,16 +219,6 @@ public class Global {
          * 외부서버 주소.
          */
         public static final String EXTERNAL_SERVER_URL = "http://211.217.202.39:8080/post";
-
-        /**
-         * Http 통신 시 기본 연결 Timeout 시간
-         */
-        public static int DEFAULT_CONNECTION_TIMEOUT = 2000;
-
-        /**
-         * Http 통신 시 기본 수신 Timeout 시간
-         */
-        public static int DEFAULT_READ_TIMEOUT = 2000;
 
         /**
          * Pos, 외부서버로 보내는 요청 코드를 모아놓은 클래스.<br><br>

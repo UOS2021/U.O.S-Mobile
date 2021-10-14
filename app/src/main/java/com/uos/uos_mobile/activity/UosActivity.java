@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public abstract class UosActivity extends AppCompatActivity {
+public class UosActivity extends AppCompatActivity {
 
     /**
      * 현재 생성되어있는 UosActivity 클래스를 상속받은 Activity의 목록.
@@ -32,7 +32,6 @@ public abstract class UosActivity extends AppCompatActivity {
         activities.remove(this);
 
         super.onDestroy();
-        Log.d("UOS_UOSACTIVITY", "updated activities: " + activities.toString() + "\n\n");
     }
 
     /**
@@ -52,14 +51,13 @@ public abstract class UosActivity extends AppCompatActivity {
         activities.add(this);
 
         super.onCreate(savedInstanceState);
-        Log.d("UOS_UOSACTIVITY", "updated activities: " + activities.toString() + "\n\n");
     }
 
     /**
      * 현재 activities 내에 있는 UosActivity 중 매개변수로 넘어온 클래스의 UosActivity까지 되돌리는 함수.
      * activities의 마지막 UosActivity부터 매개변수로 넘어온 Activity 사이의 모든 Activity는 종료.
      *
-     * @param targetActivity 되돌아갈 UosActivity.
+     * @param targetUosActivity 되돌아갈 UosActivity.
      * @return boolean targetActivity가 activities에 존재할 경우 true, 존재하지 않을 경우 false 반환.
      */
     public static boolean revertToActivity(Class targetUosActivity) {
@@ -107,6 +105,9 @@ public abstract class UosActivity extends AppCompatActivity {
     /**
      * 현재 UosActivity.activities에 추가되어있는 UosActivity 중 매개변수로 전달된 클래스와 동일한 클래스를 가
      * 진 UosActivity를 반환. 만약 동일한 클래스를 가진 UosActivity가 없을 경우 Null 반환
+     * 
+     * @param targetUosActivity 가져올 UosActivity의 클래스.
+     * @return UosActivity activities에 있는 UosActivity 객체.
      */
     public static UosActivity get(Class targetUosActivity){
         for(UosActivity uosActivity : activities){

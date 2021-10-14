@@ -38,7 +38,7 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderCompanyName.setText(waitingOrderItemArrayList.get(position).getCompanyName());
-        ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderOrderNumber.setText(String.valueOf(waitingOrderItemArrayList.get(position).getOrderNumber()));
+        ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderOrderCode.setText(String.valueOf(waitingOrderItemArrayList.get(position).getOrderCode()));
 
         if (waitingOrderItemArrayList.get(position).getState().equals(Global.SQLite.ORDER_STATE_WAIT)) {
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비 중입니다");
@@ -77,9 +77,9 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return waitingOrderItemArrayList;
     }
 
-    public WaitingOrderItem getItemByOrderNumber(String orderNumber) {
+    public WaitingOrderItem getItemByOrderCode(String orderCode) {
         for (WaitingOrderItem waitingOrderItem : waitingOrderItemArrayList) {
-            if (waitingOrderItem.getOrderNumber() == Integer.valueOf(orderNumber)) {
+            if (waitingOrderItem.getOrderCode() == Integer.valueOf(orderCode)) {
                 return waitingOrderItem;
             }
         }
@@ -96,14 +96,14 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public class WaitingOrderViewHolder extends RecyclerView.ViewHolder {
         public ConstraintLayout clWaitingOrder;
         public AppCompatTextView tvWaitingOrderCompanyName;
-        public AppCompatTextView tvWaitingOrderOrderNumber;
+        public AppCompatTextView tvWaitingOrderOrderCode;
         public AppCompatTextView tvWaitingOrderMessage;
 
         public WaitingOrderViewHolder(View view) {
             super(view);
             clWaitingOrder = view.findViewById(com.uos.uos_mobile.R.id.cl_waitingorder);
             tvWaitingOrderCompanyName = view.findViewById(com.uos.uos_mobile.R.id.tv_waitingorder_companyname);
-            tvWaitingOrderOrderNumber = view.findViewById(com.uos.uos_mobile.R.id.tv_waitingorder_ordernumber);
+            tvWaitingOrderOrderCode = view.findViewById(com.uos.uos_mobile.R.id.tv_waitingorder_ordercode);
             tvWaitingOrderMessage = view.findViewById(com.uos.uos_mobile.R.id.tv_waitingorder_message);
 
             clWaitingOrder.setOnClickListener(view1 -> {

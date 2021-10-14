@@ -71,8 +71,7 @@ public class RegisterActivity extends UosActivity {
 
     private void init() {
         //데이터 받아오기
-        Intent loadIntent = getIntent();
-        int registerType = loadIntent.getExtras().getInt("RegisterType");
+        int registerType = getIntent().getExtras().getInt("RegisterType");
 
         ibtnRegisterClose = findViewById(com.uos.uos_mobile.R.id.ibtn_register_close);
 
@@ -571,18 +570,17 @@ public class RegisterActivity extends UosActivity {
         llRegisterCustomerRegister.setOnClickListener(view -> {
             // 회원가입 창일 경우
             try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Global.Network.Request.REGISTER_CUSTOMER);
-
                 JSONObject message = new JSONObject();
-                message.put("id", tilRegisterCustomerId.getEditText().getText().toString());
-                message.put("pw", tilRegisterCustomerPw.getEditText().getText().toString());
-                message.put("name", tilRegisterCustomerName.getEditText().getText().toString());
-                message.put("phone", tilRegisterCustomerPhoneNumber.getEditText().getText().toString());
+                message.accumulate("id", tilRegisterCustomerId.getEditText().getText().toString());
+                message.accumulate("pw", tilRegisterCustomerPw.getEditText().getText().toString());
+                message.accumulate("name", tilRegisterCustomerName.getEditText().getText().toString());
+                message.accumulate("phone", tilRegisterCustomerPhoneNumber.getEditText().getText().toString());
 
-                sendData.putOpt("message", message);
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.REGISTER_CUSTOMER);
+                sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 
@@ -620,26 +618,25 @@ public class RegisterActivity extends UosActivity {
         llRegisterUosPartnerRegister.setOnClickListener(view -> {
             // 회원가입 창일 경우
             try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Global.Network.Request.REGISTER_UOSPARTNER);
+                JSONObject company = new JSONObject();
+                company.accumulate("name", tilRegisterCompanyName.getEditText().getText().toString());
+                company.accumulate("license_num", tilRegisterCompanyName.getEditText().getText().toString());
+                company.accumulate("type", spRegisterCompanyType.getSelectedItem().toString());
+                company.accumulate("address", tilRegisterCompanyAddress.getEditText().getText().toString());
+                company.accumulate("license_img", UsefulFuncManager.convertBitmapToString(((BitmapDrawable) ivRegisterLicenseImage.getDrawable()).getBitmap()));
 
                 JSONObject message = new JSONObject();
-                message.put("id", tilRegisterUosPartnerId.getEditText().getText().toString());
-                message.put("pw", tilRegisterUosPartnerPw.getEditText().getText().toString());
-                message.put("name", tilRegisterUosPartnerName.getEditText().getText().toString());
-                message.put("phone", tilRegisterUosPartnerPhoneNumber.getEditText().getText().toString());
+                message.accumulate("id", tilRegisterUosPartnerId.getEditText().getText().toString());
+                message.accumulate("pw", tilRegisterUosPartnerPw.getEditText().getText().toString());
+                message.accumulate("name", tilRegisterUosPartnerName.getEditText().getText().toString());
+                message.accumulate("phone", tilRegisterUosPartnerPhoneNumber.getEditText().getText().toString());
+                message.accumulate("company", company);
 
-                JSONObject company = new JSONObject();
-                company.put("name", tilRegisterCompanyName.getEditText().getText().toString());
-                company.put("license_num", tilRegisterCompanyName.getEditText().getText().toString());
-                company.put("type", spRegisterCompanyType.getSelectedItem().toString());
-                company.put("address", tilRegisterCompanyAddress.getEditText().getText().toString());
-                company.put("license_img", UsefulFuncManager.convertBitmapToString(((BitmapDrawable) ivRegisterLicenseImage.getDrawable()).getBitmap()));
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.REGISTER_UOSPARTNER);
+                sendData.accumulate("message", message);
 
-                message.putOpt("company", company);
-                sendData.putOpt("message", message);
-
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                 String responseCode = recvData.getString("response_code");
 

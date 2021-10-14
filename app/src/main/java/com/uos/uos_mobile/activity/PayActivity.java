@@ -143,29 +143,24 @@ public class PayActivity extends UosActivity {
                 });
 
                 try {
-                    JSONObject sendData = new JSONObject();
-
-                    sendData.accumulate("request_code", Global.Network.Request.ORDER);
-
-                    JSONObject message = new JSONObject();
-
-                    message.accumulate("uospartner_id", uosPartnerId);
-                    message.accumulate("id", Global.User.id);
-                    message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
-
                     JSONObject cardData = new JSONObject();
-
                     cardData.accumulate("num", cardItem.getNum());
                     cardData.accumulate("cvc", cardItem.getCvc());
                     cardData.accumulate("due_date", cardItem.getDueDate());
                     cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
 
+                    JSONObject message = new JSONObject();
+                    message.accumulate("uospartner_id", uosPartnerId);
+                    message.accumulate("customer_id", Global.User.id);
+                    message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
                     message.accumulate("card", cardData);
                     message.accumulate("order", Global.basketManager.getJson());
 
+                    JSONObject sendData = new JSONObject();
+                    sendData.accumulate("request_code", Global.Network.Request.ORDER);
                     sendData.accumulate("message", message);
 
-                    JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                    JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
                         // 주문접수 성공 시
@@ -255,14 +250,14 @@ public class PayActivity extends UosActivity {
             });
             try {
                 JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Global.Network.Request.CARD_INFO);
+                sendData.accumulate("request_code", Global.Network.Request.CARD_INFO);
 
                 JSONObject message = new JSONObject();
                 message.accumulate("id", Global.User.id);
 
                 sendData.accumulate("message", message);
 
-                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
+                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
 
                 JSONObject recvData = new JSONObject(temp);
 

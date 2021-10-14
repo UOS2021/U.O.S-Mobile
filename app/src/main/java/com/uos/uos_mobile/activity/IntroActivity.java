@@ -1,7 +1,10 @@
 package com.uos.uos_mobile.activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -48,14 +51,25 @@ public class IntroActivity extends UosActivity {
             SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
             SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
             SharedPreferenceManager.save(Global.SharedPreference.IS_FIRST, false);
-            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_NUMBER, 0);
+            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
 
+            /*
+             * NotificationChannel 생성
+             */
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+                /* Android 8.0 이상일 경우 */
+                
+                NotificationChannel channel = new NotificationChannel(Global.Notification.CHANNEL_ID, Global.Notification.CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+                channel.setDescription("UOS 푸시알림입니다");
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
+            }
 
             /*
              * Firebase Cloud Messaging을 위한 Token 생성
              * Token은 앱 최초 설치시에만 부여
             */
-
             FirebaseMessaging.getInstance().getToken()
                     .addOnCompleteListener(task -> {
                         if (!task.isSuccessful()) {
@@ -89,7 +103,7 @@ public class IntroActivity extends UosActivity {
             if (uri != null) {
 
                 /*
-                 * 해당 QR코드로부터 매장 POS기의 ip와 port를 추출 후 LoginActivity로 전달
+                 * 해당 QR코드로부터 U.O.S 파트너의 ID를 추출 후 LoginActivity로 전달
                  */
 
                 try {
@@ -101,9 +115,9 @@ public class IntroActivity extends UosActivity {
             }
         } else if(getIntent().getDataString() != null){
 
-            /* 외부에서 앱이 호출되었을 경우: POS기로부터 전달받은 Notification을 클릭했을 경우 */
+            /* 외부에서 앱이 호출되었을 경우: 외부서버에서 전달받은 Notification을 클릭했을 경우 */
 
-            intent.putExtra("orderNumber", getIntent().getDataString());
+            intent.putExtra("orderCode", getIntent().getDataString());
         }
 
         /* 일정 시간이 지난 후 IntroActivity 종료 및 LoginActivity로 이동 */

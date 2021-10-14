@@ -60,12 +60,12 @@ public class OrderListActivity extends UosActivity {
 
         doUpdateOrderScreen();
 
-        // 뒤로가기 버튼 눌릴 시
+        /* 뒤로가기 버튼 눌릴 시 */
         ibtnOrderListBack.setOnClickListener(view -> {
             finish();
         });
 
-        // 주문목록 아이템이 눌릴 시
+        /* 주문목록 아이템이 눌릴 시 */
         orderListAdapter.setOnItemClickListener((view, position) -> new OrderInfoDialog(OrderListActivity.this, false, true, orderListAdapter.getItem(position)).show());
 
         // 새로고침 스크롤 발생 시
@@ -91,15 +91,14 @@ public class OrderListActivity extends UosActivity {
                 tvOrderListNoOrderList.setVisibility(View.INVISIBLE);
             });
             try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Global.Network.Request.ORDER_LIST);
-
                 JSONObject message = new JSONObject();
                 message.accumulate("id", Global.User.id);
 
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.ORDER_LIST);
                 sendData.accumulate("message", message);
 
-                String strRecvData = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
+                String strRecvData = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
                 JSONObject recvData = new JSONObject(strRecvData);
 
                 String responseCode = recvData.getString("response_code");

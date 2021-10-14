@@ -21,7 +21,10 @@ import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SharedPreferenceManager;
 import com.uos.uos_mobile.other.Global;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * U.O.S-Mobile의 로그인을 담당하고 있는 Activity.<br>
@@ -177,22 +180,21 @@ public class LoginActivity extends UosActivity {
         try {
 
             /* 외부서버로 송신할 데이터 설정 */
-            JSONObject sendData = new JSONObject();
             JSONObject message = new JSONObject();
-
-            sendData.put("request_code", Global.Network.Request.LOGIN);
             message.accumulate("id", tilLoginId.getEditText().getText().toString());
             message.accumulate("pw", tilLoginPw.getEditText().getText().toString());
-
             if (cbLoginIsPartner.isChecked()) {
                 message.accumulate("type", "uospartner");
             } else {
                 message.accumulate("type", "customer");
             }
+
+            JSONObject sendData = new JSONObject();
+            sendData.accumulate("request_code", Global.Network.Request.LOGIN);
             sendData.accumulate("message", message);
 
             /* HttpManager를 통해 외부서버와 http 통신 */
-            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
             String responseCode = recvData.getString("response_code");
 
             if (responseCode.equals(Global.Network.Response.LOGIN_SUCCESS)) {
@@ -207,7 +209,7 @@ public class LoginActivity extends UosActivity {
 
                 if(Global.User.type.equals("uospartner")){
                     
-                    /* 만약 로그인한 사용자가 U.O.S 파트너일 경우 수신 데이터에서 매장명 추출 */
+                    /* 만약 로그인한 사용자가 U.O.S 파트너일 경우 수신 데이터에서 매장명과 QR코드 추출 */
                     
                     Global.User.companyName = userData.getString("company_name");
                     SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
@@ -230,7 +232,10 @@ public class LoginActivity extends UosActivity {
                     /* U.O.S 파트너가 로그인일 경우 */
 
                     if (loginActivityIntent.getStringExtra("uosPartnerId") != null) {
-                        Toast.makeText(LoginActivity.this, "파트너는 매장 상품 구매가 불가능합니다", Toast.LENGTH_SHORT).show();
+
+                        /* QR코드를 통해 앱에 접속했을 경우 */
+
+                        Toast.makeText(LoginActivity.this, "UOS 파트너는 매장 상품 구매가 불가능합니다", Toast.LENGTH_SHORT).show();
                     }
                     startActivity(new Intent(LoginActivity.this, OwnerLobbyActivity.class));
                 } else {
@@ -239,10 +244,15 @@ public class LoginActivity extends UosActivity {
 
                     Intent intent = new Intent(LoginActivity.this, LobbyActivity.class);
                     if (loginActivityIntent.getStringExtra("uosPartnerId") != null) {
+
+                        /* QR코드를 통해 앱을 실행했을 경우 */
+
                         intent.putExtra("uosPartnerId", loginActivityIntent.getStringExtra("uosPartnerId"));
-                    }
-                    if (loginActivityIntent.getStringExtra("orderNumber") != null) {
-                        intent.putExtra("orderNumber", loginActivityIntent.getStringExtra("orderNumber"));
+                    }else if (loginActivityIntent.getStringExtra("orderCode") != null) {
+                        
+                        /* Notofication을 통해 앱을 실행했을 경우 */
+                        
+                        intent.putExtra("orderCode", loginActivityIntent.getStringExtra("orderCode"));
                     }
                     startActivity(intent);
                 }
@@ -270,10 +280,14 @@ public class LoginActivity extends UosActivity {
 
                 Toast.makeText(LoginActivity.this, "로그인 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
             }
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
-            Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
         btnLoginLogin.setEnabled(true);
     }
 

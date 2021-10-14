@@ -16,6 +16,7 @@
   <a href = "https://github.com/UOS2021/U.O.S-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a>
 </p>
 <br>
+API GUIDE: https://ilovegamecoding.github.io/U.O.S-Mobile
 <br>
 <br>
 

@@ -1,11 +1,8 @@
 package com.uos.uos_mobile.other;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,71 +26,80 @@ public class UosFcmService extends FirebaseMessagingService {
         Log.d("UOS_MOBILE_FCM", "From: " + remoteMessage.getFrom());
 
         if (remoteMessage.getData().size() > 0) {
+            
+            /* FCM이 data 형식으로 왔을 경우 */
+            
             Map<String, String> recvData = remoteMessage.getData();
-            String companyName = recvData.get("company_name");
-            String orderNumber = recvData.get("order_number");
+            String type = recvData.get("type");
 
-            SQLiteManager sqLiteManager = new SQLiteManager(getApplicationContext());
-            sqLiteManager.openDatabase();
-            sqLiteManager.setOrderState(Integer.valueOf(orderNumber), Global.SQLite.ORDER_STATE_PREPARED);
-            sqLiteManager.closeDatabase();
+            Intent intent = new Intent(this, IntroActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+            NotificationCompat.Builder notificationCompatBuilder = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
+                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_uos_logo_round)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
 
-            final UosActivity lobbyActivity = UosActivity.get(LobbyActivity.class);
+            if(type.equals("order")){
+                
+                /* 상품이 준비되었다는 FCM일 경우 */
+                
+                String companyName = recvData.get("company_name");
+                String orderCode = recvData.get("order_code");
 
-            if (lobbyActivity != null) {
-                lobbyActivity.runOnUiThread(() -> {
-                    ((LobbyActivity) lobbyActivity).updateList();
-                    ((LobbyActivity) lobbyActivity).moveToOrderNumber(Integer.valueOf(orderNumber));
-                });
-            } else {
-                final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+                SQLiteManager sqLiteManager = new SQLiteManager(getApplicationContext());
+                sqLiteManager.openDatabase();
+                sqLiteManager.setOrderState(Integer.valueOf(orderCode), Global.SQLite.ORDER_STATE_PREPARED);
+                sqLiteManager.closeDatabase();
 
-                if (orderListActivity != null) {
-                    orderListActivity.runOnUiThread(() -> {
-                        ((OrderListActivity) orderListActivity).doUpdateOrderScreen();
+                final UosActivity lobbyActivity = UosActivity.get(LobbyActivity.class);
+
+                if (lobbyActivity != null) {
+                    lobbyActivity.runOnUiThread(() -> {
+                        ((LobbyActivity) lobbyActivity).updateList();
+                        ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
                     });
+                } else {
+                    final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+
+                    if (orderListActivity != null) {
+                        orderListActivity.runOnUiThread(() -> {
+                            ((OrderListActivity) orderListActivity).doUpdateOrderScreen();
+                        });
+                    }
                 }
+
+                intent.setData(Uri.parse(orderCode));
+
+                notificationCompatBuilder
+                        .setContentTitle(companyName + "에서 주문하신 상품이 준비되었습니다")
+                        .setContentText("카운터에서 상품을 수령해주세요 (주문코드: " + orderCode + ")");
+            }else if(type.equals("alert")){
+
+                /* 방역동선 관련된 알림일 경우 */
+
+                String companyName = recvData.get("company_name");
+                String message = recvData.get("message");
+
+                notificationCompatBuilder
+                        .setContentTitle("UOS 재난 알리미")
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText("고객님께서 방문하셨던 " + companyName + "매장에서 확진자가 발생했습니다. " + message))
+                        .setContentText(companyName + "에서 확진자 발생");
             }
 
-            Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
-            intent.setData(Uri.parse(orderNumber));
-            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-            NotificationCompat.Builder notification = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
-                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_launcher)
-                    .setContentTitle(companyName + "에서 주문하신 상품이 준비되었습니다")
-                    .setContentText("카운터에서 상품을 수령해주세요")
-                    .setFullScreenIntent(pendingIntent, true)
-                    .setAutoCancel(true)
-                    .setGroup(Global.Notification.GROUP_ID)
-                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_uos_logo_round);
-
-            NotificationCompat.Builder notificationGroup = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
-                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_launcher)
-                    .setGroup(Global.Notification.GROUP_ID)
-                    .setAutoCancel(true)
-                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_uos_logo_round)
-                    .setGroupSummary(true);
+            SharedPreferenceManager.open(this, "");
+            int notificationId = SharedPreferenceManager.load(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
+            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, notificationId + 1);
+            SharedPreferenceManager.close();
 
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-
-            SharedPreferenceManager.open(getApplicationContext(), Global.SharedPreference.APP_DATA);
-            int notificationNumber = SharedPreferenceManager.load(Global.SharedPreference.LAST_NOTIFICATION_NUMBER, 0) + 1;
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel notificationChannel = new NotificationChannel(Global.Notification.CHANNEL_ID, Global.Notification.CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-                notificationManagerCompat.createNotificationChannel(notificationChannel);
-            }
-
-            notificationManagerCompat.notify(notificationNumber, notification.build());
-            notificationManagerCompat.notify(0, notificationGroup.build());
-            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_NUMBER, notificationNumber);
-            SharedPreferenceManager.close();
+            notificationManagerCompat.notify(notificationId, notificationCompatBuilder.build());
         }
 
         if (remoteMessage.getNotification() != null) {
             Log.d("UOS_MOBILE_FCM", "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            Toast.makeText(getApplicationContext(), remoteMessage.getNotification().getBody(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, remoteMessage.getNotification().getBody(), Toast.LENGTH_SHORT).show();
         }
     }
 }

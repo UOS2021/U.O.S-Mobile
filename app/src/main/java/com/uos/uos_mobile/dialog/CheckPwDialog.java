@@ -51,31 +51,37 @@ public class CheckPwDialog extends UosDialog {
 
         tvDlgCheckPwOk.setOnClickListener(view -> {
             try {
-                JSONObject sendData = new JSONObject();
-                sendData.put("request_code", Global.Network.Request.CHECK_PW);
-
                 JSONObject message = new JSONObject();
                 message.accumulate("id", Global.User.id);
                 message.accumulate("pw", tilDlgCheckPwPw.getEditText().getText().toString());
                 message.accumulate("type", Global.User.type);
 
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.CHECK_PW);
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(Global.Network.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(Global.Network.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
-
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.CHECKPW_SUCCESS)) {
-                    // 비밀번호 확인 성공
+
+                    /* 비밀번호 확인 성공 */
+
                     context.startActivity(new Intent(context, SettingActivity.class));
                 } else if (responseCode.equals(Global.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
-                    // 비밀번호 확인 실패
+
+                    /* 비밀번호 확인 실패 */
+
                     Toast.makeText(context, "비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
+
+                    /* 서버 연결 실패 */
+
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    // 비밀번호 확인 실패 - 기타 오류
+
+                    /* 비밀번호 확인 실패 - 기타 오류 */
+
                     Toast.makeText(context, "비밀번호 확인 실패(기타)", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
