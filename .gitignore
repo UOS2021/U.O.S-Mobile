@@ -17,3 +17,4 @@ local.properties
 /uos_mobile.jks
 /app/release/app-release.apk
 /app/release/output-metadata.json
+/docs/*.zip
