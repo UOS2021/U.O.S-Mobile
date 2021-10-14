@@ -24,11 +24,6 @@ public class Global {
          * Notification 채널명.
          */
         public static String CHANNEL_NAME = "UOS_MOBILE";
-
-        /**
-         * Notification 그룹 아이디.
-         */
-        public static String GROUP_ID = "com.uos.uos_mobile";
     }
 
     /**
