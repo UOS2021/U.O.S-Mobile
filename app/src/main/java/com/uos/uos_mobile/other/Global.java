@@ -202,7 +202,7 @@ public class Global {
         /**
          * 마지막 Notification의 번호. Notification이 중복되지 않도록 하기 위해 사용.
          */
-        public static final String LAST_NOTIFICATION_NUMBER = "LAST_NOTIFICATION_NUMBER";
+        public static final String LAST_NOTIFICATION_ID = "LAST_NOTIFICATOIN_ID";
 
         /**
          * Intent로 넘길 수 있는 데이터가 제한되어있어 이를 해결하기 위해서 사용되는 TEMP_MESSAGE 데이터를
