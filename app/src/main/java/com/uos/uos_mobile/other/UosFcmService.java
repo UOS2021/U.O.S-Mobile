@@ -11,7 +11,6 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.uos.uos_mobile.R;
 import com.uos.uos_mobile.activity.IntroActivity;
 import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
@@ -37,7 +36,7 @@ public class UosFcmService extends FirebaseMessagingService {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
             NotificationCompat.Builder notificationCompatBuilder = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_uos_logo_round)
+                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_uos_logo_round)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true);

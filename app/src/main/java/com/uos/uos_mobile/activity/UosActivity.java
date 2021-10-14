@@ -105,6 +105,9 @@ public class UosActivity extends AppCompatActivity {
     /**
      * 현재 UosActivity.activities에 추가되어있는 UosActivity 중 매개변수로 전달된 클래스와 동일한 클래스를 가
      * 진 UosActivity를 반환. 만약 동일한 클래스를 가진 UosActivity가 없을 경우 Null 반환
+     * 
+     * @param targetUosActivity 가져올 UosActivity의 클래스.
+     * @return UosActivity activities에 있는 UosActivity 객체.
      */
     public static UosActivity get(Class targetUosActivity){
         for(UosActivity uosActivity : activities){

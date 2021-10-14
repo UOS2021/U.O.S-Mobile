@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.uos.uos_mobile.activity"},{"l":"com.uos.uos_mobile.adapter"},{"l":"com.uos.uos_mobile.dialog"},{"l":"com.uos.uos_mobile.fragment"},{"l":"com.uos.uos_mobile.item"},{"l":"com.uos.uos_mobile.manager"},{"l":"com.uos.uos_mobile.other"}]
