@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 
 import java.util.Timer;
@@ -41,17 +41,17 @@ public class IntroActivity extends UosActivity {
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
     private void init() {
-        SharedPreferenceManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
-        if (SharedPreferenceManager.load(Global.SharedPreference.IS_FIRST, true) == true) {
+        SharedPreferencesManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
+        if ((Boolean)SharedPreferencesManager.load(Global.SharedPreference.IS_FIRST, true) == true) {
             
             /* 만약 앱이 최초 실행일 경우 기본 데이터 초기화 */
             
-            SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, false);
-            SharedPreferenceManager.save(Global.SharedPreference.USER_ID, "");
-            SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
-            SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
-            SharedPreferenceManager.save(Global.SharedPreference.IS_FIRST, false);
-            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
+            SharedPreferencesManager.save(Global.SharedPreference.IS_LOGINED, false);
+            SharedPreferencesManager.save(Global.SharedPreference.USER_ID, "");
+            SharedPreferencesManager.save(Global.SharedPreference.USER_PW, "");
+            SharedPreferencesManager.save(Global.SharedPreference.USER_TYPE, "");
+            SharedPreferencesManager.save(Global.SharedPreference.IS_FIRST, false);
+            SharedPreferencesManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
 
             /*
              * NotificationChannel 생성

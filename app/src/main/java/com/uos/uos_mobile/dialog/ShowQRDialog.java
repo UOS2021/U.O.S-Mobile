@@ -1,17 +1,15 @@
 package com.uos.uos_mobile.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -47,8 +45,8 @@ public class ShowQRDialog extends UosDialog {
         });
 
         // QR 코드 Resource 변경하는 부분
-        SharedPreferenceManager.open(context, Global.SharedPreference.APP_DATA);
-        String strQrImage = SharedPreferenceManager.load(Global.SharedPreference.QR_IMAGE, "");
+        SharedPreferencesManager.open(context, Global.SharedPreference.APP_DATA);
+        String strQrImage = (String)SharedPreferencesManager.load(Global.SharedPreference.QR_IMAGE, "");
 
         if (strQrImage.length() == 0) {
             tvDlgShowQrMessage.setText("저장된 QR 코드가 없습니다");

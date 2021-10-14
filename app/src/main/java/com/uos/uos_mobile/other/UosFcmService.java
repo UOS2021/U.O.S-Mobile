@@ -16,7 +16,7 @@ import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
 import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.manager.SQLiteManager;
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 
 import java.util.Map;
 
@@ -88,10 +88,10 @@ public class UosFcmService extends FirebaseMessagingService {
                         .setContentText(companyName + "에서 확진자 발생");
             }
 
-            SharedPreferenceManager.open(this, "");
-            int notificationId = SharedPreferenceManager.load(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
-            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, notificationId + 1);
-            SharedPreferenceManager.close();
+            SharedPreferencesManager.open(this, "");
+            int notificationId = (Integer)SharedPreferencesManager.load(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
+            SharedPreferencesManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, notificationId + 1);
+            SharedPreferencesManager.close();
 
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
             notificationManagerCompat.notify(notificationId, notificationCompatBuilder.build());

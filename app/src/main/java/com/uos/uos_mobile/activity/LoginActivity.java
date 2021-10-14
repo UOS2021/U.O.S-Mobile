@@ -1,24 +1,20 @@
 package com.uos.uos_mobile.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import com.uos.uos_mobile.dialog.RegisterTypeDialog;
 import com.uos.uos_mobile.manager.HttpManager;
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONException;
@@ -156,18 +152,18 @@ public class LoginActivity extends UosActivity {
                     }).show();
         });
 
-        SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
-        if (SharedPreferenceManager.load(Global.SharedPreference.IS_LOGINED, false)) {
+        SharedPreferencesManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
+        if ((Boolean)SharedPreferencesManager.load(Global.SharedPreference.IS_LOGINED, false)) {
 
             /* 자동 로그인이 활성화 되어있을 경우 */
 
-            tilLoginId.getEditText().setText(SharedPreferenceManager.load(Global.SharedPreference.USER_ID, ""));
-            tilLoginPw.getEditText().setText(SharedPreferenceManager.load(Global.SharedPreference.USER_PW, ""));
-            cbLoginIsPartner.setChecked(SharedPreferenceManager.load(Global.SharedPreference.USER_TYPE, "").equals("uospartner"));
+            tilLoginId.getEditText().setText((String)SharedPreferencesManager.load(Global.SharedPreference.USER_ID, ""));
+            tilLoginPw.getEditText().setText((String)SharedPreferencesManager.load(Global.SharedPreference.USER_PW, ""));
+            cbLoginIsPartner.setChecked(((String)SharedPreferencesManager.load(Global.SharedPreference.USER_TYPE, "")).equals("uospartner"));
 
             login();
         }
-        SharedPreferenceManager.close();
+        SharedPreferencesManager.close();
     }
 
     /**
@@ -212,18 +208,18 @@ public class LoginActivity extends UosActivity {
                     /* 만약 로그인한 사용자가 U.O.S 파트너일 경우 수신 데이터에서 매장명과 QR코드 추출 */
                     
                     Global.User.companyName = userData.getString("company_name");
-                    SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
-                    SharedPreferenceManager.save(Global.SharedPreference.QR_IMAGE, recvData.getJSONObject("message").getString("qr_image"));
-                    SharedPreferenceManager.close();
+                    SharedPreferencesManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
+                    SharedPreferencesManager.save(Global.SharedPreference.QR_IMAGE, recvData.getJSONObject("message").getString("qr_image"));
+                    SharedPreferencesManager.close();
                 }
 
                 /* 로그인한 사용자의 데이터를 Global.USER에 저장 */
-                SharedPreferenceManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
-                SharedPreferenceManager.save(Global.SharedPreference.USER_ID, Global.User.id);
-                SharedPreferenceManager.save(Global.SharedPreference.USER_PW, tilLoginPw.getEditText().getText().toString());
-                SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, Global.User.type);
-                SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, true);
-                SharedPreferenceManager.close();
+                SharedPreferencesManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
+                SharedPreferencesManager.save(Global.SharedPreference.USER_ID, Global.User.id);
+                SharedPreferencesManager.save(Global.SharedPreference.USER_PW, tilLoginPw.getEditText().getText().toString());
+                SharedPreferencesManager.save(Global.SharedPreference.USER_TYPE, Global.User.type);
+                SharedPreferencesManager.save(Global.SharedPreference.IS_LOGINED, true);
+                SharedPreferencesManager.close();
 
                 Intent loginActivityIntent = getIntent();
 

@@ -1,6 +1,5 @@
 package com.uos.uos_mobile.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,19 +9,15 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
-import com.google.android.material.internal.TextWatcherAdapter;
 import com.google.android.material.textfield.TextInputLayout;
 
 import com.uos.uos_mobile.activity.LoginActivity;
-import com.uos.uos_mobile.activity.SettingActivity;
 import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.manager.HttpManager;
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -125,12 +120,12 @@ public class WithdrawalDialog extends UosDialog {
                             /* 회원탈퇴 성공 */
 
                             Toast.makeText(context, "탈퇴되었습니다", Toast.LENGTH_SHORT).show();
-                            SharedPreferenceManager.open(context, Global.SharedPreference.APP_DATA);
-                            SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, false);
-                            SharedPreferenceManager.save(Global.SharedPreference.USER_ID, "");
-                            SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
-                            SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
-                            SharedPreferenceManager.close();
+                            SharedPreferencesManager.open(context, Global.SharedPreference.APP_DATA);
+                            SharedPreferencesManager.save(Global.SharedPreference.IS_LOGINED, false);
+                            SharedPreferencesManager.save(Global.SharedPreference.USER_ID, "");
+                            SharedPreferencesManager.save(Global.SharedPreference.USER_PW, "");
+                            SharedPreferencesManager.save(Global.SharedPreference.USER_TYPE, "");
+                            SharedPreferencesManager.close();
 
                             UosActivity.startFromActivity(new Intent(context.getApplicationContext(), LoginActivity.class));
                         } else if (responseCode.equals(Global.Network.Response.WITHDRAWAL_FAILED)) {

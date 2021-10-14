@@ -1,14 +1,12 @@
 package com.uos.uos_mobile.activity;
 
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -25,7 +23,7 @@ import com.uos.uos_mobile.dialog.SelectSetDialog;
 import com.uos.uos_mobile.item.OrderingProductItem;
 import com.uos.uos_mobile.item.OrderingSetItem;
 import com.uos.uos_mobile.manager.BasketManager;
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -75,10 +73,10 @@ public class OrderingActivity extends UosActivity {
         uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
         try {
-            SharedPreferenceManager.open(OrderingActivity.this, Global.SharedPreference.APP_DATA);
-            JSONObject message = new JSONObject(SharedPreferenceManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
-            SharedPreferenceManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
-            SharedPreferenceManager.close();
+            SharedPreferencesManager.open(OrderingActivity.this, Global.SharedPreference.APP_DATA);
+            JSONObject message = new JSONObject((String)SharedPreferencesManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
+            SharedPreferencesManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
+            SharedPreferencesManager.close();
             companyData = message.getJSONObject("company");
             categoryData = message.getJSONArray("category_list");
             tvOrderingCompanyName.setText(companyData.getString("name"));

@@ -10,16 +10,13 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.uos.uos_mobile.activity.LoginActivity;
-import com.uos.uos_mobile.activity.SettingActivity;
 import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.dialog.ChangePhoneDialog;
 import com.uos.uos_mobile.dialog.ChangePwDialog;
 import com.uos.uos_mobile.dialog.WithdrawalDialog;
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 
 
@@ -65,12 +62,12 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
         // 로그아웃이 눌렸을 경우
         btnLogout.setOnPreferenceClickListener(preference -> {
-            SharedPreferenceManager.open(context, Global.SharedPreference.APP_DATA);
-            SharedPreferenceManager.save(Global.SharedPreference.IS_LOGINED, false);
-            SharedPreferenceManager.save(Global.SharedPreference.USER_ID, "");
-            SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
-            SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
-            SharedPreferenceManager.close();
+            SharedPreferencesManager.open(context, Global.SharedPreference.APP_DATA);
+            SharedPreferencesManager.save(Global.SharedPreference.IS_LOGINED, false);
+            SharedPreferencesManager.save(Global.SharedPreference.USER_ID, "");
+            SharedPreferencesManager.save(Global.SharedPreference.USER_PW, "");
+            SharedPreferencesManager.save(Global.SharedPreference.USER_TYPE, "");
+            SharedPreferencesManager.close();
 
             UosActivity.startFromActivity(new Intent(context.getApplicationContext(), LoginActivity.class));
 
