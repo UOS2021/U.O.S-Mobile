@@ -1,7 +1,10 @@
 package com.uos.uos_mobile.activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -48,14 +51,25 @@ public class IntroActivity extends UosActivity {
             SharedPreferenceManager.save(Global.SharedPreference.USER_PW, "");
             SharedPreferenceManager.save(Global.SharedPreference.USER_TYPE, "");
             SharedPreferenceManager.save(Global.SharedPreference.IS_FIRST, false);
-            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_NUMBER, 0);
+            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
 
+            /*
+             * NotificationChannel 생성
+             */
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+                /* Android 8.0 이상일 경우 */
+                
+                NotificationChannel channel = new NotificationChannel(Global.Notification.CHANNEL_ID, Global.Notification.CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+                channel.setDescription("UOS 푸시알림입니다");
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
+            }
 
             /*
              * Firebase Cloud Messaging을 위한 Token 생성
              * Token은 앱 최초 설치시에만 부여
             */
-
             FirebaseMessaging.getInstance().getToken()
                     .addOnCompleteListener(task -> {
                         if (!task.isSuccessful()) {
