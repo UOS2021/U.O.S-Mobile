@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.PayActivity;
+import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -117,6 +119,7 @@ public class WaitingPayDialog extends UosDialog {
 
                         ((PayActivity) context).runOnUiThread(() -> {
                             tvDlgWaitingOrderMessage.setText("결제가 완료되었습니다\n주문하신 상품이 준비되면 알려드리겠습니다");
+                            ((LobbyActivity)UosActivity.get(LobbyActivity.class)).updateList();
                         });
                     } else if (responseCode.equals(Global.Network.Response.PAY_FAIL_WRONG_PASSWORD)) {
 
