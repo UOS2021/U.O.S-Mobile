@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderListItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -74,13 +73,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         if(orderListItemArrayList.get(position).getState() == 1){
             ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText("준비중");
-            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(R.drawable.border_orderstate_preparing);
+            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_preparing);
         } else if(orderListItemArrayList.get(position).getState() == 1){
             ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText("수령대기");
-            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(R.drawable.border_orderstate_prepared);
+            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_prepared);
         } else if(orderListItemArrayList.get(position).getState() == 3){
             ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText("완료");
-            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(R.drawable.border_orderstate_done);
+            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_done);
         }
 
         ((OrderListViewHolder) viewHolder).tvOrderListItemCompanyName.setText(orderListItemArrayList.get(position).getCompanyName());
