@@ -285,7 +285,7 @@ public class LobbyActivity extends UosActivity {
      *
      * @param orderCode 주문코드.
      */
-    public void moveToOrderCode(int orderCode) {
+    public void moveToOrderCode(String orderCode) {
         int position = 0;
         for (WaitingOrderItem waitingOrderItem : waitingOrderAdapter.getWaitingOrderItemArrayList()) {
             if (waitingOrderItem.getOrderCode().equals(orderCode)) {
