@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class UosDialog extends AppCompatDialog {
+public abstract class UosDialog extends AppCompatDialog {
 
     /**
      * 현재 생성되어있는 UosDialog 클래스를 상속받은 Dialog의 목록.

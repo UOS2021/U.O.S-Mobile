@@ -47,7 +47,6 @@ public class WaitingPayDialog extends UosDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(com.uos.uos_mobile.R.layout.dialog_waitingpay);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
@@ -55,9 +54,9 @@ public class WaitingPayDialog extends UosDialog {
     }
 
     /**
-     * Activity 실행 시 데이터 및 UI를 초기화하는 함수.
+     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
-    private void init() {
+    protected void init() {
         pbDlgWaitingOrder = findViewById(com.uos.uos_mobile.R.id.pb_dlgwaitingorder);
         tvDlgWaitingOrderMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorder_message);
         clDlgWaitingOrderCancel = findViewById(com.uos.uos_mobile.R.id.cl_dlgwaitingorder_cancel);

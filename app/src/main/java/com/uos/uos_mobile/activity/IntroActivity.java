@@ -31,15 +31,15 @@ public class IntroActivity extends UosActivity {
     protected void onCreate(Bundle savedInstanceState) {
         clear();
         super.onCreate(savedInstanceState);
-        setContentView(com.uos.uos_mobile.R.layout.activity_intro);
-
-        init();
     }
 
     /**
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
-    private void init() {
+    @Override
+    protected void init() {
+        setContentView(com.uos.uos_mobile.R.layout.activity_intro);
+
         SharedPreferencesManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
         if ((Boolean)SharedPreferencesManager.load(Global.SharedPreference.IS_FIRST, true) == true) {
             

@@ -15,15 +15,13 @@ public class OwnerLobbyActivity extends UosActivity {
     private AppCompatButton btnOwnerLobbyDisplayQr;
     private AppCompatImageButton btnOwnerLobbySetting;
 
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_ownerlobby);
 
-        init();
-    }
-
-    private void init() {
         btnOwnerLobbyDisplayQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_displayqr);
         btnOwnerLobbySetting = findViewById(com.uos.uos_mobile.R.id.ibtn_ownerlobby_setting);
         tvOwnerLobbyOwnerName = findViewById(com.uos.uos_mobile.R.id.tv_ownerlobby_companyname);

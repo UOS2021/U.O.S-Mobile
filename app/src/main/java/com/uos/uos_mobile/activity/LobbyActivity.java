@@ -75,15 +75,13 @@ public class LobbyActivity extends UosActivity {
      */
     private WaitingOrderAdapter waitingOrderAdapter;
 
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_lobby);
 
-        init();
-    }
-
-    private void init() {
         /* xml 파일로부터 ui 불러오기 */
         ivLobbyRecognizeQr = findViewById(com.uos.uos_mobile.R.id.iv_lobby_recognizeqr);
         ibtnLobbyLeft = findViewById(com.uos.uos_mobile.R.id.ibtn_lobby_left);

@@ -46,7 +46,6 @@ public class SelectProductDialog extends UosDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(com.uos.uos_mobile.R.layout.dialog_selectproduct);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
@@ -54,7 +53,10 @@ public class SelectProductDialog extends UosDialog {
         init();
     }
 
-    private void init() {
+    /**
+     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    protected void init() {
         ibtnDlgSelectProductClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectproduct_close);
         tvDlgSelectProductName = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectproduct_name);
         ivDlgSelectProductImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgselectproduct_image);

@@ -57,18 +57,13 @@ public class LoginActivity extends UosActivity {
      */
     private CheckBox cbLoginIsPartner;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(com.uos.uos_mobile.R.layout.activity_login);
-
-        init();
-    }
-
     /**
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
-    private void init() {
+    @Override
+    protected void init() {
+        setContentView(com.uos.uos_mobile.R.layout.activity_login);
+
         /* xml 파일로부터 ui 불러오기 */
         tilLoginId = findViewById(com.uos.uos_mobile.R.id.til_login_id);
         tilLoginPw = findViewById(com.uos.uos_mobile.R.id.til_login_pw);
@@ -167,7 +162,7 @@ public class LoginActivity extends UosActivity {
 
     /**
      * 전체적인 로그인 과정을 모아놓은 함수. 아이디, 비밀번호 입력란에 입력된 데이터와 사용자 구분 체크박스의 데이터
-     * 로 송신 데이터를 만들어 외부서버로 전송하고 반환된 결과에 따라 각각 처리하는 역할읗 담당하고 있습니다.
+     * 로 송신 데이터를 만들어 외부서버로 전송하고 반환된 결과에 따라 각각 처리하는 역할을 담당하고 있습니다.
      */
     private void login() {
         btnLoginLogin.setEnabled(false);

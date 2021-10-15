@@ -33,7 +33,10 @@ public class RegisterTypeDialog extends UosDialog {
         init();
     }
 
-    private void init() {
+    /**
+     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    protected void init() {
         btnRegisterTypeCustomer = findViewById(com.uos.uos_mobile.R.id.btn_registertype_customer);
         btnRegisterTypeUosPartner = findViewById(com.uos.uos_mobile.R.id.btn_registertype_uospartner);
         btnRegisterTypeCancel = findViewById(com.uos.uos_mobile.R.id.btn_registertype_cancel);

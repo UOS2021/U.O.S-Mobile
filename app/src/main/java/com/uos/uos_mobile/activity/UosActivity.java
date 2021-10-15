@@ -16,21 +16,21 @@ import java.util.ArrayList;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class UosActivity extends AppCompatActivity {
+public abstract class UosActivity extends AppCompatActivity {
 
     /**
      * 현재 생성되어있는 UosActivity 클래스를 상속받은 Activity의 목록.
      */
-    private static ArrayList<UosActivity> activities = new ArrayList<>();
+    public static ArrayList<UosActivity> activities = new ArrayList<>();
 
     /**
      * onDestroy 호출 시 activities 목록에서 현재 UosActivity 제거.
      */
     @Override
     protected void onDestroy() {
-        activities.remove(this);
-
         super.onDestroy();
+
+        activities.remove(this);
     }
 
     /**
@@ -50,6 +50,8 @@ public class UosActivity extends AppCompatActivity {
         activities.add(this);
 
         super.onCreate(savedInstanceState);
+
+        init();
     }
 
     /**
@@ -116,4 +118,10 @@ public class UosActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수. onCreate() 함수의 가장 마지막
+     * 에서 실행.
+     */
+    protected abstract void init();
 }

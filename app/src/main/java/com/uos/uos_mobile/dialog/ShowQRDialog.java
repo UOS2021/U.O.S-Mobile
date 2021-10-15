@@ -28,13 +28,15 @@ public class ShowQRDialog extends UosDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(com.uos.uos_mobile.R.layout.dialog_showqr);
 
         init();
     }
 
-    private void init() {
+    /**
+     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    protected void init() {
         ibtnDlgShowQrClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgshowqr_close);
         tvDlgShowQrMessage = findViewById(com.uos.uos_mobile.R.id.tv_dlgshowqr_message);
         ivDlgShowQrImage = findViewById(com.uos.uos_mobile.R.id.iv_dlgshowqr_image);

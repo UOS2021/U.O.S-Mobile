@@ -46,20 +46,18 @@ public class OrderingActivity extends UosActivity {
     private String uosPartnerId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(com.uos.uos_mobile.R.layout.activity_ordering);
-
-        init();
-    }
-
-    @Override
     protected void onDestroy() {
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
-    private void init() {
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    @Override
+    protected void init() {
+        setContentView(com.uos.uos_mobile.R.layout.activity_ordering);
+
         ibtnOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_ordering_back);
         tvOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_ordering_companyname);
         cgOrderingCategoryList = findViewById(com.uos.uos_mobile.R.id.cg_ordering_categorylist);

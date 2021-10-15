@@ -28,15 +28,13 @@ public class CardActivity extends UosActivity {
     private AppCompatTextView tvCardCardNum;
     private CardItem cardItem;
 
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_card);
 
-        init();
-    }
-
-    private void init() {
         ibtnCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_card_back);
         ibtnCardDelete = findViewById(com.uos.uos_mobile.R.id.ibtn_card_delete);
         ivCardBackground = findViewById(com.uos.uos_mobile.R.id.iv_card_background);

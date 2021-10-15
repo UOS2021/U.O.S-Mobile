@@ -40,7 +40,6 @@ public class WithdrawalDialog extends UosDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(com.uos.uos_mobile.R.layout.dialog_withdrawal);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
@@ -48,7 +47,10 @@ public class WithdrawalDialog extends UosDialog {
         init();
     }
 
-    private void init() {
+    /**
+     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    protected void init() {
         ibtnDlgWithdrawalClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgwithdrawal_close);
         tilDlgWithdrawalPw = findViewById(com.uos.uos_mobile.R.id.til_dlgwithdrawal_pw);
         llDlgWithdrawalApply = findViewById(com.uos.uos_mobile.R.id.ll_dlgwithdrawal_apply);

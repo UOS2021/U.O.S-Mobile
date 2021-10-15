@@ -60,20 +60,18 @@ public class MovieOrderingActivity extends UosActivity {
     private String uosPartnerId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(com.uos.uos_mobile.R.layout.activity_movieordering);
-
-        init();
-    }
-
-    @Override
     protected void onDestroy() {
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
-    private void init() {
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    @Override
+    protected void init() {
+        setContentView(com.uos.uos_mobile.R.layout.activity_movieordering);
+
         ibtnMovieOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_movieordering_back);
         tvMovieOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_companyname);
         tvMovieOrderingShowMovie = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_showmovie);
