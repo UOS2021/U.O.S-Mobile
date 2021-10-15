@@ -81,7 +81,7 @@ public class OrderListActivity extends UosActivity {
             });
             try {
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Global.User.id);
+                message.accumulate("customer_id", Global.User.id);
 
                 JSONObject sendData = new JSONObject();
                 sendData.accumulate("request_code", Global.Network.Request.ORDER_LIST);

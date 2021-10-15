@@ -574,7 +574,7 @@ public class RegisterActivity extends UosActivity {
         llRegisterCustomerRegister.setOnClickListener(view -> {
             try {
                 JSONObject message = new JSONObject();
-                message.accumulate("id", tilRegisterCustomerId.getEditText().getText().toString());
+                message.accumulate("customer_id", tilRegisterCustomerId.getEditText().getText().toString());
                 message.accumulate("pw", tilRegisterCustomerPw.getEditText().getText().toString());
                 message.accumulate("name", tilRegisterCustomerName.getEditText().getText().toString());
                 message.accumulate("phone", tilRegisterCustomerPhoneNumber.getEditText().getText().toString());
@@ -637,7 +637,7 @@ public class RegisterActivity extends UosActivity {
                 company.accumulate("license_img", UsefulFuncManager.convertBitmapToString(((BitmapDrawable) ivRegisterLicenseImage.getDrawable()).getBitmap()));
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", tilRegisterUosPartnerId.getEditText().getText().toString());
+                message.accumulate("uospartner_id", tilRegisterUosPartnerId.getEditText().getText().toString());
                 message.accumulate("pw", tilRegisterUosPartnerPw.getEditText().getText().toString());
                 message.accumulate("name", tilRegisterUosPartnerName.getEditText().getText().toString());
                 message.accumulate("phone", tilRegisterUosPartnerPhoneNumber.getEditText().getText().toString());

@@ -262,7 +262,7 @@ public class CardDialog extends UosDialog {
                     card.accumulate("pw", tilDlgCardPw.getEditText().getText().toString());
 
                     JSONObject message = new JSONObject();
-                    message.accumulate("id", Global.User.id);
+                    message.accumulate("customer_id", Global.User.id);
                     message.accumulate("card", card);
 
                     JSONObject sendData = new JSONObject();
@@ -281,7 +281,7 @@ public class CardDialog extends UosDialog {
                         Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                     } else {
                         // 카드등록 실패 - 기타 오류
-                        Toast.makeText(context, "카드등록 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "카드를 등록하는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
