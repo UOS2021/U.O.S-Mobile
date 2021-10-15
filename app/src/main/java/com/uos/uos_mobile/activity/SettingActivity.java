@@ -11,6 +11,7 @@ public class SettingActivity extends UosActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.uos.uos_mobile.R.layout.activity_setting);
+        setTheme(com.uos.uos_mobile.R.style.SettingsFragmentStyle);
 
         init();
     }
