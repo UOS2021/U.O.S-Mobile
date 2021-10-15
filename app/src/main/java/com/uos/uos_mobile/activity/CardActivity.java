@@ -146,7 +146,7 @@ public class CardActivity extends UosActivity {
                         }
                     });
                 } else {
-                    if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
+                    if (responseCode.equals(Global.Network.Response.CARD_NO_INFO)) {
 
                         /* 카드 없음 */
 
@@ -210,14 +210,6 @@ public class CardActivity extends UosActivity {
 
                     runOnUiThread(() -> {
                         removeCardData();
-                    });
-                } else if (responseCode.equals(Global.Network.Response.CARD_REMOVE_FAILED)) {
-
-                    /* 카드 제거 실패 */
-
-                    runOnUiThread(() -> {
-                        new GetCard().start();
-                        Toast.makeText(CardActivity.this, "카드 제거 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                     });
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
 

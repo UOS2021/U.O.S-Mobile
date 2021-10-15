@@ -1,6 +1,5 @@
 package com.uos.uos_mobile.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,20 +17,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class RegisterActivity extends UosActivity {
     private ImageButton ibtnRegisterClose;
@@ -103,21 +103,23 @@ public class RegisterActivity extends UosActivity {
         tvRegisterCompanyInfo = findViewById(com.uos.uos_mobile.R.id.tv_register_companyinfo);
         llRegisterCompany = findViewById(com.uos.uos_mobile.R.id.ll_register_company);
 
-        // UI 초기 상태 설정
-        // 회원가입 유형 확인
+        /* 회원가입 유형 확인 */
         if (registerType == 0) {
-            // 일반 고객
+
+            /* 일반고객 회원가입일 경우*/
+
             llRegisterCustomer.setVisibility(View.VISIBLE);
             llRegisterUosPartner.setVisibility(View.GONE);
             efRegisterGotoCompanyInfo.setVisibility(View.GONE);
         } else {
-            // U.O.S 파트너
+
+            /* U.O.S 파트너 회원가입일 경우*/
+
             llRegisterUosPartner.setVisibility(View.VISIBLE);
             llRegisterCustomer.setVisibility(View.GONE);
             efRegisterGotoCompanyInfo.setVisibility(View.VISIBLE);
             llRegisterCompany.setVisibility(View.GONE);
         }
-
 
         spRegisterCompanyType.setPrompt("회사 유형");
         ArrayAdapter companyType = ArrayAdapter.createFromResource(getApplicationContext(), com.uos.uos_mobile.R.array.array_companytype, android.R.layout.simple_spinner_dropdown_item);
@@ -133,8 +135,9 @@ public class RegisterActivity extends UosActivity {
             finish();
         });
 
-        //// 일반 고객
-        // 회원가입 - 아이디 입력란이 수정되었을 경우
+        /* 일반 고객
+         * 회원가입 - 아이디 입력란이 수정되었을 경우
+         */
         tilRegisterCustomerId.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -168,7 +171,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 비밀번호 입력란이 수정되었을 경우
+        /* 회원가입 - 비밀번호 입력란이 수정되었을 경우 */
         tilRegisterCustomerPw.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -210,7 +213,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 비밀번호 재확인 입력란이 수정되었을 경우
+        /* 회원가입 - 비밀번호 재확인 입력란이 수정되었을 경우 */
         tilRegisterCustomerPwChk.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -241,7 +244,7 @@ public class RegisterActivity extends UosActivity {
         });
 
 
-        // 회원가입 - 이름 입력란이 수정되었을 경우
+        /* 회원가입 - 이름 입력란이 수정되었을 경우 */
         tilRegisterCustomerName.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -272,7 +275,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 전화번호 입력란이 수정되었을 경우
+        /* 회원가입 - 전화번호 입력란이 수정되었을 경우 */
         tilRegisterCustomerPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -303,8 +306,9 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        //// U.O.S 파트너
-        // 회원가입 - 아이디 입력란이 수정되었을 경우
+        /* U.O.S 파트너 회원가입
+         * 회원가입 - 아이디 입력란이 수정되었을 경우
+         */
         tilRegisterUosPartnerId.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -338,7 +342,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 비밀번호 입력란이 수정되었을 경우
+        /* 회원가입 - 비밀번호 입력란이 수정되었을 경우 */
         tilRegisterUosPartnerPw.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -380,7 +384,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 비밀번호 재확인 입력란이 수정되었을 경우
+        /* 회원가입 - 비밀번호 재확인 입력란이 수정되었을 경우 */
         tilRegisterUosPartnerPwChk.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -411,7 +415,7 @@ public class RegisterActivity extends UosActivity {
         });
 
 
-        // 회원가입 - 이름 입력란이 수정되었을 경우
+        /* 회원가입 - 이름 입력란이 수정되었을 경우 */
         tilRegisterUosPartnerName.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -442,7 +446,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 전화번호 입력란이 수정되었을 경우
+        /* 회원가입 - 전화번호 입력란이 수정되었을 경우 */
         tilRegisterUosPartnerPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -473,7 +477,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 회사명 입력란이 수정되었을 경우
+        /* 회원가입 - 회사명 입력란이 수정되었을 경우 */
         tilRegisterCompanyName.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -494,7 +498,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 사업자번호 입력란이 수정되었을 경우
+        /* 회원가입 - 사업자번호 입력란이 수정되었을 경우 */
         tilRegisterLicenseNumber.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -525,7 +529,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회원가입 - 주소 입력란이 수정되었을 경우
+        /* 회원가입 - 주소 입력란이 수정되었을 경우 */
         tilRegisterCompanyAddress.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -546,7 +550,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 회사 유형 Spinner에서 특정 item이 선택되었을 경우
+        /* 회사 유형 Spinner에서 특정 item이 선택되었을 경우 */
         spRegisterCompanyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -558,7 +562,7 @@ public class RegisterActivity extends UosActivity {
             }
         });
 
-        // 사업자등록증 이미지 불러오기 버튼이 눌렸을 경우
+        /* 사업자등록증 이미지 불러오기 버튼이 눌렸을 경우 */
         ivRegisterLicenseImage.setOnClickListener(view -> {
             Intent intent = new Intent();
             intent.setType("image/*");
@@ -566,9 +570,8 @@ public class RegisterActivity extends UosActivity {
             startActivityForResult(intent, 1);
         });
 
-        // 일반고객 회원가입 버튼이 눌렸을 경우
+        /* 일반고객 회원가입 버튼이 눌렸을 경우 */
         llRegisterCustomerRegister.setOnClickListener(view -> {
-            // 회원가입 창일 경우
             try {
                 JSONObject message = new JSONObject();
                 message.accumulate("id", tilRegisterCustomerId.getEditText().getText().toString());
@@ -585,38 +588,46 @@ public class RegisterActivity extends UosActivity {
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.REGISTER_SUCCESS)) {
-                    // 회원가입 성공 - 로그인창 표시
+
+                    /* 회원가입 성공 - 로그인창 표시 */
+
                     Toast.makeText(RegisterActivity.this, "가입되었습니다. 해당 계정으로 로그인해주세요.", Toast.LENGTH_SHORT).show();
                     finish();
-                } else if (responseCode.equals(Global.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
-                    // 회원가입 실패 - 아이디 중복
+                } else if (responseCode.equals(Global.Network.Response.REGISTER_FAIL_ID_DUPLICATE)) {
+
+                    /* 회원가입 실패 - 아이디 중복 */
+
                     tilRegisterCustomerId.setError("해당 아이디는 이미 사용중입니다");
                     tilRegisterCustomerId.setErrorEnabled(true);
                     tilRegisterCustomerId.getEditText().setFocusableInTouchMode(true);
                     tilRegisterCustomerId.getEditText().requestFocus();
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
+
+                    /* 서버 연결 실패 */
+
                     Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    // 회원가입 실패 - 기타 오류
+
+                    /* 회원가입 실패 - 기타 오류 */
+
                     Toast.makeText(RegisterActivity.this, "회원가입 실패: " + recvData.toString(), Toast.LENGTH_SHORT).show();
                 }
-            } catch (Exception e) {
+            } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "회원가입 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // U.O.S 파트너 회사 정보 입력 버튼이 눌렀을 경우
+        /* U.O.S 파트너 회사 정보 입력 버튼이 눌렀을 경우 */
         efRegisterGotoCompanyInfo.setOnClickListener(view -> {
             llRegisterCompany.setVisibility(View.VISIBLE);
             svRegisterScrollView.smoothScrollTo(0, llRegisterCompany.getTop());
             efRegisterGotoCompanyInfo.setVisibility(View.GONE);
 
         });
-        // U.O.S 파트너 회원가입 버튼이 눌렸을 경우
+
+        /* U.O.S 파트너 회원가입 버튼이 눌렸을 경우 */
         llRegisterUosPartnerRegister.setOnClickListener(view -> {
-            // 회원가입 창일 경우
             try {
                 JSONObject company = new JSONObject();
                 company.accumulate("name", tilRegisterCompanyName.getEditText().getText().toString());
@@ -641,25 +652,33 @@ public class RegisterActivity extends UosActivity {
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.REGISTER_SUCCESS)) {
-                    // 회원가입 성공 - 로그인창 표시
+
+                    /* 회원가입 성공 - 로그인창 표시 */
+
                     Toast.makeText(RegisterActivity.this, "가입되었습니다. 해당 계정으로 로그인해주세요.", Toast.LENGTH_SHORT).show();
                     finish();
-                } else if (responseCode.equals(Global.Network.Response.REGISTER_FAILED_ID_DUPLICATE)) {
-                    // 회원가입 실패 - 아이디 중복
+                } else if (responseCode.equals(Global.Network.Response.REGISTER_FAIL_ID_DUPLICATE)) {
+
+                    /* 회원가입 실패 - 아이디 중복 */
+
                     tilRegisterUosPartnerId.setError("해당 아이디는 이미 사용중입니다");
                     tilRegisterUosPartnerId.setErrorEnabled(true);
                     tilRegisterUosPartnerId.getEditText().setFocusableInTouchMode(true);
                     tilRegisterUosPartnerId.getEditText().requestFocus();
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
+
+                    /* 서버 연결 실패 */
+
                     Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    // 회원가입 실패 - 기타 오류
+
+                    /* 회원가입 실패 - 기타 오류 */
+
                     Toast.makeText(RegisterActivity.this, "회원가입 실패: " + recvData.toString(), Toast.LENGTH_SHORT).show();
                 }
-            } catch (Exception e) {
+            } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "회원가입 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -667,8 +686,11 @@ public class RegisterActivity extends UosActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            //이미지 업로드
+
+            /* 이미지 업로드 */
+
             Uri selectedImageUri = data.getData();
             ivRegisterLicenseImage.setImageURI(selectedImageUri);
             llRegisterUosPartnerRegister.setEnabled(checkUosPartnerRegister());
@@ -680,13 +702,19 @@ public class RegisterActivity extends UosActivity {
         }
 
         if (checkRegisterLicenseImage(ivRegisterLicenseImage)) {
+
+            /* 사업자등록증 이미지가 선택되어있을 경우 */
+
             tvRegisterImageMessage.setVisibility(View.GONE);
         } else {
+
+            /* 사업자등록증 이미지가 선택되어있지 않을 경우 */
+
             tvRegisterImageMessage.setVisibility(View.VISIBLE);
         }
     }
 
-    // 일반 고객 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인
+    /* 일반 고객 회원가입 시 아이디, 비밀번호, 이름, 전화번호 확인 */
     private boolean checkCustomerRegister() {
         return PatternManager.checkId(tilRegisterCustomerId.getEditText().getText().toString()) == PatternManager.OK
                 && PatternManager.checkPw(tilRegisterCustomerPw.getEditText().getText().toString()) == PatternManager.OK
@@ -695,7 +723,7 @@ public class RegisterActivity extends UosActivity {
                 && PatternManager.checkPhoneNumber(tilRegisterCustomerPhoneNumber.getEditText().getText().toString()) == PatternManager.OK;
     }
 
-    // U.O.S 파트너 회원가입 시 아이디, 비밀번호, 이름 , 전화번호, 회사정보 입력 확인
+    /* U.O.S 파트너 회원가입 시 아이디, 비밀번호, 이름 , 전화번호, 회사정보 입력 확인 */
     private boolean checkUosPartnerRegister() {
         return PatternManager.checkId(tilRegisterUosPartnerId.getEditText().getText().toString()) == PatternManager.OK
                 && PatternManager.checkPw(tilRegisterUosPartnerPw.getEditText().getText().toString()) == PatternManager.OK
@@ -708,7 +736,7 @@ public class RegisterActivity extends UosActivity {
                 && checkRegisterLicenseImage(ivRegisterLicenseImage);
     }
 
-    // 회원가입 - 사업자등록증 첨부 확인
+    /* 회원가입 - 사업자등록증 첨부 확인 */
     private boolean checkRegisterLicenseImage(ImageView ivLicenseImage) {
         Drawable drawable = ivLicenseImage.getDrawable();
         boolean result = (drawable != null);

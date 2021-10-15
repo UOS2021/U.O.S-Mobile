@@ -1,15 +1,11 @@
 package com.uos.uos_mobile.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -20,17 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
-
 import com.uos.uos_mobile.adapter.PayAdapter;
 import com.uos.uos_mobile.dialog.CardDialog;
-import com.uos.uos_mobile.dialog.WaitingOrderDialog;
+import com.uos.uos_mobile.dialog.WaitingPayDialog;
 import com.uos.uos_mobile.item.CardItem;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class PayActivity extends UosActivity {
     private AppCompatImageButton ibtnPayBack;
@@ -46,7 +44,7 @@ public class PayActivity extends UosActivity {
     private ConstraintLayout clPayPay;
     private AppCompatTextView tvPayPay;
     private ContentLoadingProgressBar pbPayLoading;
-    private WaitingOrderDialog waitingOrderDialog;
+    private WaitingPayDialog waitingPayDialog;
 
     private PayAdapter payAdapter;
 
@@ -102,12 +100,12 @@ public class PayActivity extends UosActivity {
         clPayPay.setEnabled(false);
         clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
 
-        // 뒤로가기 버튼 눌릴 시
+        /* 뒤로가기 버튼이 눌릴 경우 */
         ibtnPayBack.setOnClickListener(view -> {
             finish();
         });
 
-        // 카드이미지 눌릴 시
+        /* 카드영역이 눌릴 경우 */
         ivPayCardBackground.setOnClickListener(view -> {
             CardDialog cardDialog = new CardDialog(PayActivity.this, true, true, cardItem);
             cardDialog.setOnDismissListener(dialogInterface -> {
@@ -116,7 +114,7 @@ public class PayActivity extends UosActivity {
             cardDialog.show();
         });
 
-        // 카드 비밀번호 입력 시
+        /* 카드 비밀번호를 입력할 경우 */
         tilPayCardPw.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -134,7 +132,7 @@ public class PayActivity extends UosActivity {
             }
         });
 
-        // 결제하기 버튼 눌릴 시
+        /* 결제하기 버튼이 눌릴 경우 */
         clPayPay.setOnClickListener(view -> {
             new Thread(() -> {
                 runOnUiThread(() -> {
@@ -152,7 +150,6 @@ public class PayActivity extends UosActivity {
                     JSONObject message = new JSONObject();
                     message.accumulate("uospartner_id", uosPartnerId);
                     message.accumulate("customer_id", Global.User.id);
-                    message.accumulate("fcm_token", Global.Firebase.FCM_TOKEN);
                     message.accumulate("card", cardData);
                     message.accumulate("order", Global.basketManager.getJson());
 
@@ -163,31 +160,31 @@ public class PayActivity extends UosActivity {
                     JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
                     if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
-                        // 주문접수 성공 시
+
+                        /* 주문접수 성공 */
+
                         runOnUiThread(() -> {
                             clPayPay.setEnabled(false);
                             clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
-                            waitingOrderDialog = new WaitingOrderDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData, uosPartnerId);
-                            waitingOrderDialog.setOnDismissListener(dialogInterface -> {
+                            waitingPayDialog = new WaitingPayDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString(), sendData, uosPartnerId);
+                            waitingPayDialog.setOnDismissListener(dialogInterface -> {
                                 UosActivity.revertToActivity(LobbyActivity.class);
                                 finish();
                             });
-                            waitingOrderDialog.show();
-                        });
-                    } else if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_FAILED)) {
-                        // 주문접수 실패 시
-                        runOnUiThread(() -> {
-                            Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                            waitingPayDialog.show();
                         });
                     } else {
+
+                        /* 주문 접수 실패 */
+
                         runOnUiThread(() -> {
                             Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
                         });
                     }
-                } catch (Exception e) {
+                } catch (JSONException | InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                     runOnUiThread(() -> {
-                        Toast.makeText(PayActivity.this, "매장 통신 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
                     });
                 }
 
@@ -275,22 +272,28 @@ public class PayActivity extends UosActivity {
                             e.printStackTrace();
                         }
                     });
-                } else if (responseCode.equals(Global.Network.Response.CARD_NOINFO)) {
-                    // 카드 없음
+                } else if (responseCode.equals(Global.Network.Response.CARD_NO_INFO)) {
+
+                    /* 카드 없음 */
+
                     runOnUiThread(() -> {
                         removeCardData();
                     });
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
+
+                    /* 서버 연결 실패 */
+
                     runOnUiThread(() -> {
                         removeCardData();
                         Toast.makeText(PayActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                     });
                 } else {
-                    // 카드 불러오기 실패
+
+                    /* 카드 불러오기 실패 */
+
                     runOnUiThread(() -> {
                         removeCardData();
-                        tvPayNoCard.setText("카드를 불러올 수 없습니다");
+                        tvPayNoCard.setText("카드를 불러오는 도중 오류가 발생했습니다");
                     });
                 }
             } catch (Exception e) {
