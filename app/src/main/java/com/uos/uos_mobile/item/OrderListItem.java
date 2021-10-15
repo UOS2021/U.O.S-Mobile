@@ -10,11 +10,13 @@ public class OrderListItem {
     private String date;
     private String time;
     private String companyName;
+    private int state;
     private int totalPrice = 0;
 
-    public OrderListItem(String companyName, String date, ArrayList<BasketItem> basketItemArrayList) {
+    public OrderListItem(String companyName, String date, int state, ArrayList<BasketItem> basketItemArrayList) {
         this.companyName = companyName;
         this.date = date.substring(0, 10) + " (" + UsefulFuncManager.getWeekDayFromDate(date) + ")";
+        this.state = state;
         this.time = date.substring(11);
         this.basketItemArrayList = basketItemArrayList;
         for (BasketItem basketItem : this.basketItemArrayList) {
@@ -32,6 +34,14 @@ public class OrderListItem {
 
     public String getDate() {
         return date;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public void setDate(String date) {
