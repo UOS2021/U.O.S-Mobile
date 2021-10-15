@@ -32,6 +32,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
         context = getActivity();
 
+        addPreferencesFromResource(com.uos.uos_mobile.R.xml.settings_preference);
         Preference btnChangePw = findPreference(getString(com.uos.uos_mobile.R.string.setting_change_pw));
         Preference btnChangePhone = findPreference(getString(com.uos.uos_mobile.R.string.setting_change_phone));
         Preference btnLogout = findPreference(getString(com.uos.uos_mobile.R.string.setting_logout));
