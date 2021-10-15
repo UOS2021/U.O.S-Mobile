@@ -15,7 +15,6 @@ import com.uos.uos_mobile.activity.IntroActivity;
 import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
 import com.uos.uos_mobile.activity.UosActivity;
-import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.manager.SharedPreferencesManager;
 
 import java.util.Map;
@@ -48,17 +47,12 @@ public class UosFcmService extends FirebaseMessagingService {
                 String companyName = recvData.get("company_name");
                 String orderCode = recvData.get("order_code");
 
-                SQLiteManager sqLiteManager = new SQLiteManager(getApplicationContext());
-                sqLiteManager.openDatabase();
-                sqLiteManager.setOrderState(Integer.valueOf(orderCode), Global.SQLite.ORDER_STATE_PREPARED);
-                sqLiteManager.closeDatabase();
-
                 final UosActivity lobbyActivity = UosActivity.get(LobbyActivity.class);
 
                 if (lobbyActivity != null) {
                     lobbyActivity.runOnUiThread(() -> {
                         ((LobbyActivity) lobbyActivity).updateList();
-                        ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
+                        ((LobbyActivity) lobbyActivity).moveToOrderCode(orderCode);
                     });
                 } else {
                     final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
