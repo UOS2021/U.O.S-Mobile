@@ -83,20 +83,6 @@ public class LobbyActivity extends UosActivity {
         init();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (ibtnLobbyLeft != null && ibtnLobbyRight != null && rvLobbyWaitingOrder != null) {
-
-            /*
-             * updateList() 메소드에서 사용하는 변수들이 초기화되지 않았을 경우(null) NullPointerException이
-             * 발생하는 것을 방지하기 위해 만들어놓은 조건문.
-             */
-
-            updateList();
-        }
-    }
-
     private void init() {
         /* xml 파일로부터 ui 불러오기 */
         ivLobbyRecognizeQr = findViewById(com.uos.uos_mobile.R.id.iv_lobby_recognizeqr);
@@ -116,6 +102,8 @@ public class LobbyActivity extends UosActivity {
         rvLobbyWaitingOrder.setAdapter(waitingOrderAdapter);
 
         /* LobbyActivity 첫 실행 시 주문 상태 업데이트 */
+        ibtnLobbyLeft.setVisibility(View.INVISIBLE);
+        ibtnLobbyRight.setVisibility(View.INVISIBLE);
         updateList();
 
         /* QR 인식 버튼이 눌렸을 경우 */
