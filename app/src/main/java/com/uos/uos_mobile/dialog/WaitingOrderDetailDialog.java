@@ -3,6 +3,7 @@ package com.uos.uos_mobile.dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -16,11 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.uos.uos_mobile.adapter.WaitingOrderInfoAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.WaitingOrderItem;
-import com.uos.uos_mobile.manager.SQLiteManager;
+import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
-public class WaitingOrderInfoDialog extends UosDialog {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
+public class WaitingOrderDetailDialog extends UosDialog {
     private final Context context;
     private final WaitingOrderItem waitingOrderItem;
     private AppCompatImageButton ibtnDlgWaitingOrderInfoClose;
@@ -31,9 +37,8 @@ public class WaitingOrderInfoDialog extends UosDialog {
     private RecyclerView rvDlgWaitingOrderInfo;
     private ConstraintLayout clDlgWaitingOrderInfoTake;
     private WaitingOrderInfoAdapter waitingOrderInfoAdapter;
-    private SQLiteManager sqLiteManager;
 
-    public WaitingOrderInfoDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, WaitingOrderItem waitingOrderItem) {
+    public WaitingOrderDetailDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, WaitingOrderItem waitingOrderItem) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.waitingOrderItem = waitingOrderItem;
@@ -45,7 +50,7 @@ public class WaitingOrderInfoDialog extends UosDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(com.uos.uos_mobile.R.layout.dialog_waitingorderinfo);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_waitingorderdetail);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
@@ -61,9 +66,7 @@ public class WaitingOrderInfoDialog extends UosDialog {
         rvDlgWaitingOrderInfo = findViewById(com.uos.uos_mobile.R.id.rv_dlgwaitingorderinfo);
         clDlgWaitingOrderInfoTake = findViewById(com.uos.uos_mobile.R.id.ll_dlgwaitingorderinfo_takeproduct);
 
-        sqLiteManager = new SQLiteManager(context);
-
-        tvDlgWaitingOrderInfoCompanyName.setText(waitingOrderItem.getCompanyName());
+        tvDlgWaitingOrderInfoCompanyName.setText(waitingOrderItem.getCompany());
         tvDlgWaitingOrderInfoOrderTime.setText(String.valueOf(waitingOrderItem.getOrderTime()));
         tvDlgWaitingOrderInfoOrderCode.setText(String.valueOf(waitingOrderItem.getOrderCode()));
         int totalPrice = 0;
@@ -81,7 +84,7 @@ public class WaitingOrderInfoDialog extends UosDialog {
         rvDlgWaitingOrderInfo.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         rvDlgWaitingOrderInfo.setAdapter(waitingOrderInfoAdapter);
 
-        if (waitingOrderItem.getState().equals(Global.SQLite.ORDER_STATE_WAIT)) {
+        if (waitingOrderItem.getState().equals(Global.Order.PREPARING)) {
             clDlgWaitingOrderInfoTake.setEnabled(false);
             clDlgWaitingOrderInfoTake.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
         } else {
@@ -96,9 +99,33 @@ public class WaitingOrderInfoDialog extends UosDialog {
 
         // 상품 수령 완료 버튼이 눌렸을 경우
         clDlgWaitingOrderInfoTake.setOnClickListener(view -> {
-            sqLiteManager.openDatabase();
-            sqLiteManager.removeOrder(waitingOrderItem.getOrderCode());
-            sqLiteManager.closeDatabase();
+            try {
+                JSONObject message = new JSONObject();
+                message.accumulate("order_code", waitingOrderItem.getOrderCode());
+
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.CUSTOMER_TOOK_PRODUCT);
+                sendData.accumulate("message", message);
+
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                String responseCode = recvData.getString("response_code");
+
+                if (responseCode.equals(Global.Network.Response.CHANGE_ORDER_STATE_SUCCESS)) {
+
+                    /* 상품수령완료 */
+
+                    
+                } else {
+
+                    /* 상품수령완료 실패 */
+
+                    
+                }
+
+            } catch (JSONException | InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                Toast.makeText(context, "상품 수령 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+            }
             dismiss();
         });
     }
