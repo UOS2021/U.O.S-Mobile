@@ -10,22 +10,21 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.uos.uos_mobile.item.WaitingOrderItem;
-import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.other.Global;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
 public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final ArrayList<WaitingOrderItem> waitingOrderItemArrayList = new ArrayList<>();  // 주문대기 목록
     private final Context context;
-    private final SQLiteManager sqLiteManager;
     private WaitingOrderAdapter.OnItemClickListener onItemClickListener = null;
 
     public WaitingOrderAdapter(Context context) {
         this.context = context;
-        this.sqLiteManager = new SQLiteManager(this.context);
     }
 
     @Override
@@ -40,10 +39,16 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderCompanyName.setText(waitingOrderItemArrayList.get(position).getCompanyName());
         ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderOrderCode.setText(String.valueOf(waitingOrderItemArrayList.get(position).getOrderCode()));
 
-        if (waitingOrderItemArrayList.get(position).getState().equals(Global.SQLite.ORDER_STATE_WAIT)) {
+        if (waitingOrderItemArrayList.get(position).getState().equals(Global.Order.PREPARING)) {
+
+            /* 상품이 준비 중일 경우 */
+
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비 중입니다");
             ((WaitingOrderViewHolder) viewHolder).clWaitingOrder.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
-        } else if (waitingOrderItemArrayList.get(position).getState().equals(Global.SQLite.ORDER_STATE_PREPARED)) {
+        } else if (waitingOrderItemArrayList.get(position).getState().equals(Global.Order.PREPARED)) {
+            
+            /* 상품이 준비되었을 경우 */
+            
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비되었습니다");
             ((WaitingOrderViewHolder) viewHolder).startAnimation();
         }
@@ -62,9 +67,16 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return waitingOrderItemArrayList.get(position);
     }
 
-    public void updateItem(ArrayList<WaitingOrderItem> waitingOrderItemArrayList) {
-        this.waitingOrderItemArrayList.clear();
-        this.waitingOrderItemArrayList.addAll(waitingOrderItemArrayList);
+    public void updateItemWithJson(JSONArray waitingOrders) {
+        waitingOrderItemArrayList.clear();
+
+        for (int loop = 0; loop < waitingOrders.length(); loop++) {
+            try {
+                waitingOrderItemArrayList.add(new WaitingOrderItem(waitingOrders.getJSONObject(loop)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -79,7 +91,7 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public WaitingOrderItem getItemByOrderCode(String orderCode) {
         for (WaitingOrderItem waitingOrderItem : waitingOrderItemArrayList) {
-            if (waitingOrderItem.getOrderCode() == Integer.valueOf(orderCode)) {
+            if (waitingOrderItem.getOrderCode().equals(orderCode)) {
                 return waitingOrderItem;
             }
         }
