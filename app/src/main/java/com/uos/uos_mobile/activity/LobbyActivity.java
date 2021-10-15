@@ -14,9 +14,15 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uos.uos_mobile.adapter.WaitingOrderAdapter;
-import com.uos.uos_mobile.dialog.WaitingOrderInfoDialog;
+import com.uos.uos_mobile.dialog.WaitingOrderDetailDialog;
 import com.uos.uos_mobile.item.WaitingOrderItem;
-import com.uos.uos_mobile.manager.SQLiteManager;
+import com.uos.uos_mobile.manager.HttpManager;
+import com.uos.uos_mobile.other.Global;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * U.O.S-Mobile 메인화면을 담당하는 Activity.<br>
@@ -69,11 +75,6 @@ public class LobbyActivity extends UosActivity {
      */
     private WaitingOrderAdapter waitingOrderAdapter;
 
-    /**
-     * LobbyActivity에서 사용할 SQLiteManager 선언.
-     */
-    private SQLiteManager sqliteManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +108,6 @@ public class LobbyActivity extends UosActivity {
         clLobbySetting = findViewById(com.uos.uos_mobile.R.id.cl_lobby_setting);
 
         /* 변수 초기화 */
-        sqliteManager = new SQLiteManager(LobbyActivity.this);
         waitingOrderAdapter = new WaitingOrderAdapter(LobbyActivity.this);
 
         /* 주문상태 목록을 보여주는 RecyclerView 초기화 */
@@ -156,11 +156,11 @@ public class LobbyActivity extends UosActivity {
 
         /* 주문대기 목록 아이템이 눌렸을 경우 */
         waitingOrderAdapter.setOnItemClickListener((view, position) -> {
-            WaitingOrderInfoDialog waitingOrderInfoDialog = new WaitingOrderInfoDialog(LobbyActivity.this, false, true, waitingOrderAdapter.getItem(position));
-            waitingOrderInfoDialog.setOnDismissListener(dialogInterface -> {
+            WaitingOrderDetailDialog waitingOrderDetailDialog = new WaitingOrderDetailDialog(LobbyActivity.this, false, true, waitingOrderAdapter.getItem(position));
+            waitingOrderDetailDialog.setOnDismissListener(dialogInterface -> {
                 updateList();
             });
-            waitingOrderInfoDialog.show();
+            waitingOrderDetailDialog.show();
         });
 
         /* 우측 버튼이 눌렸을 경우 */
@@ -198,24 +198,24 @@ public class LobbyActivity extends UosActivity {
             intent.putExtra("uosPartnerId", lobbyActivityIntent.getStringExtra("uosPartnerId"));
             startActivity(intent);
         } else if (lobbyActivityIntent.getStringExtra("orderCode") != null) {
-            
+
             /* Notification을 통해 앱을 실행했을 경우 */
-            
+
             WaitingOrderItem waitingOrderItem = waitingOrderAdapter.getItemByOrderCode(lobbyActivityIntent.getStringExtra("orderCode"));
             if (waitingOrderItem == null) {
-                
+
                 /* Notification을 통해 전달받은 주문코드에 해당하는 주문이 없을 경우 */
-                
+
                 Toast.makeText(LobbyActivity.this, "번호가 " + lobbyActivityIntent.getStringExtra("orderCode") + "인 주문이 없습니다", Toast.LENGTH_SHORT).show();
             } else {
 
                 /* Notification을 통해 전달받은 주문코드에 해당하는 주문이 있을 경우 */
 
-                WaitingOrderInfoDialog waitingOrderInfoDialog = new WaitingOrderInfoDialog(LobbyActivity.this, false, true, waitingOrderItem);
-                waitingOrderInfoDialog.setOnDismissListener(dialogInterface -> {
+                WaitingOrderDetailDialog waitingOrderDetailDialog = new WaitingOrderDetailDialog(LobbyActivity.this, false, true, waitingOrderItem);
+                waitingOrderDetailDialog.setOnDismissListener(dialogInterface -> {
                     updateList();
                 });
-                waitingOrderInfoDialog.show();
+                waitingOrderDetailDialog.show();
             }
         }
     }
@@ -224,41 +224,71 @@ public class LobbyActivity extends UosActivity {
      * LobbyActivity에 있는 주문목록을 업데이트.
      */
     public void updateList() {
-        sqliteManager.openDatabase();
-        waitingOrderAdapter.updateItem(sqliteManager.loadOrder());
-        sqliteManager.closeDatabase();
+        new Thread(() -> {
+            try {
+                JSONObject message = new JSONObject();
+                message.accumulate("customer_id", Global.User.id);
 
-        ibtnLobbyLeft.setVisibility(View.VISIBLE);
-        ibtnLobbyRight.setVisibility(View.VISIBLE);
+                JSONObject sendData = new JSONObject();
+                sendData.accumulate("request_code", Global.Network.Request.WAITING_ORDER_LIST);
+                sendData.accumulate("message", message);
 
-        if (waitingOrderAdapter.getItemCount() < 2) {
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                String responseCode = recvData.getString("response_code");
 
-            /* 주문목록이 1개 이하일 경우 */
+                runOnUiThread(() -> {
+                    if (responseCode.equals(Global.Network.Response.WAITING_ORDER_LIST)) {
 
-            ibtnLobbyLeft.setVisibility(View.INVISIBLE);
-            ibtnLobbyRight.setVisibility(View.INVISIBLE);
-        } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findFirstVisibleItemPosition() == 0) {
+                        /*  */
 
-            /* 현재 표시중인 주문목록이 첫 번째 주문일 경우 - 왼쪽 스크롤 버튼 숨기기 */
+                        try {
+                            waitingOrderAdapter.updateItemWithJson(recvData.getJSONObject("message").getJSONArray("orders"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(LobbyActivity.this, "대기중인 주문을 불러오는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                    }
 
-            ibtnLobbyLeft.setVisibility(View.INVISIBLE);
-        } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findLastVisibleItemPosition() == waitingOrderAdapter.getItemCount() - 1) {
+                    ibtnLobbyLeft.setVisibility(View.VISIBLE);
+                    ibtnLobbyRight.setVisibility(View.VISIBLE);
 
-            /* 현재 표시중인 주문목록이 마지막 주문일 경우 - 오른쪽 스크롤 버튼 숨기기 */
+                    if (waitingOrderAdapter.getItemCount() < 2) {
 
-            ibtnLobbyRight.setVisibility(View.INVISIBLE);
-        }
+                        /* 주문목록이 1개 이하일 경우 */
+
+                        ibtnLobbyLeft.setVisibility(View.INVISIBLE);
+                        ibtnLobbyRight.setVisibility(View.INVISIBLE);
+                    } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findFirstVisibleItemPosition() == 0) {
+
+                        /* 현재 표시중인 주문목록이 첫 번째 주문일 경우 - 왼쪽 스크롤 버튼 숨기기 */
+
+                        ibtnLobbyLeft.setVisibility(View.INVISIBLE);
+                    } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findLastVisibleItemPosition() == waitingOrderAdapter.getItemCount() - 1) {
+
+                        /* 현재 표시중인 주문목록이 마지막 주문일 경우 - 오른쪽 스크롤 버튼 숨기기 */
+
+                        ibtnLobbyRight.setVisibility(View.INVISIBLE);
+                    }
+                });
+            } catch (JSONException | InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    Toast.makeText(LobbyActivity.this, "대기중인 주문을 불러오는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                });
+            }
+        }).start();
     }
 
     /**
      * 전달받은 주문코드에 해당하는 주문이 있을 경우 해당 주문으로 RecyclerView 항목을 스크롤.
-     * 
+     *
      * @param orderCode 주문코드.
      */
     public void moveToOrderCode(int orderCode) {
         int position = 0;
         for (WaitingOrderItem waitingOrderItem : waitingOrderAdapter.getWaitingOrderItemArrayList()) {
-            if (waitingOrderItem.getOrderCode() == orderCode) {
+            if (waitingOrderItem.getOrderCode().equals(orderCode)) {
                 rvLobbyWaitingOrder.smoothScrollToPosition(position);
                 break;
             }
