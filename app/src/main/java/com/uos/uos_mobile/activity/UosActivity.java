@@ -24,7 +24,7 @@ public abstract class UosActivity extends AppCompatActivity {
     public static ArrayList<UosActivity> activities = new ArrayList<>();
 
     /**
-     * onDestroy 호출 시 activities 목록에서 현재 UosActivity 제거.
+     * onDestroy() 호출 시 activities 목록에서 현재 UosActivity 제거.
      */
     @Override
     protected void onDestroy() {
@@ -34,7 +34,7 @@ public abstract class UosActivity extends AppCompatActivity {
     }
 
     /**
-     * onCreate 호출 시 UosActivity.activities에 현재 클래스와 동일한 클래스가 존재할 경우 해당 UosActivity를
+     * onCreate() 호출 시 UosActivity.activities에 현재 클래스와 동일한 클래스가 존재할 경우 해당 UosActivity를
      * 종료 및 UosActivity.activities에서 제거한 후 현재 UosActivity를 UosActivity.activities에 추가.
      */
     @Override

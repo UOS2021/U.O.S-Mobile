@@ -39,16 +39,17 @@ public class ChangePwDialog extends UosDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(com.uos.uos_mobile.R.layout.dialog_changepw);
-
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
 
         init();
     }
 
-    private void init() {
+    /**
+     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    protected void init() {
         ibtnDlgChangePwClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangepw_close);
         tilDlgChangePwCurrentPw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_currentpw);
         tilDlgChangePwChangePw = findViewById(com.uos.uos_mobile.R.id.til_dlgchangepw_changepw);

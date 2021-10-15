@@ -32,6 +32,9 @@ public abstract class UosDialog extends AppCompatDialog {
         addDialog();
     }
 
+    /**
+     * dismiss() 호출 시 dialogs 목록에서 현재 UosDialog 제거.
+     */
     @Override
     public void dismiss() {
         dialogs.remove(this);
