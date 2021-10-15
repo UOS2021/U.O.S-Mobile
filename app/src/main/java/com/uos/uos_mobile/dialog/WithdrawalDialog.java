@@ -13,14 +13,16 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
-
 import com.uos.uos_mobile.activity.LoginActivity;
 import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class WithdrawalDialog extends UosDialog {
     private final Context context;
@@ -93,78 +95,38 @@ public class WithdrawalDialog extends UosDialog {
                 message.accumulate("type", Global.User.type);
 
                 JSONObject sendData = new JSONObject();
-                sendData.accumulate("request_code", Global.Network.Request.CHECK_PW);
+                sendData.accumulate("request_code", Global.Network.Request.WITHDRAWAL);
                 sendData.accumulate("message", message);
 
                 JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
                 String responseCode = recvData.getString("response_code");
 
-                if (responseCode.equals(Global.Network.Response.CHECKPW_SUCCESS)) {
+                if (responseCode.equals(Global.Network.Response.WITHDRAWAL_SUCCESS)) {
 
-                    /* 비밀번호 확인 성공 */
+                    /* 회원탈퇴 성공 */
 
-                    try {
-                        message = new JSONObject();
-                        message.accumulate("id", Global.User.id);
-                        message.accumulate("type", Global.User.type);
+                    Toast.makeText(context, "탈퇴되었습니다", Toast.LENGTH_SHORT).show();
+                    SharedPreferencesManager.open(context, Global.SharedPreference.APP_DATA);
+                    SharedPreferencesManager.save(Global.SharedPreference.IS_LOGINED, false);
+                    SharedPreferencesManager.save(Global.SharedPreference.USER_ID, "");
+                    SharedPreferencesManager.save(Global.SharedPreference.USER_PW, "");
+                    SharedPreferencesManager.save(Global.SharedPreference.USER_TYPE, "");
+                    SharedPreferencesManager.close();
 
-                        sendData = new JSONObject();
-                        sendData.accumulate("request_code", Global.Network.Request.WITHDRAWAL);
-                        sendData.accumulate("message", message);
+                    UosActivity.startFromActivity(new Intent(context.getApplicationContext(), LoginActivity.class));
+                } else if (responseCode.equals(Global.Network.Response.WITHDRAWAL_FAIL_PW_NOT_CORRECT)) {
 
-                        recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
-                        responseCode = recvData.getString("response_code");
+                    /* 회원탈퇴 실패 - 비밀번호 불일치 */
 
-                        if (responseCode.equals(Global.Network.Response.WITHDRAWAL_SUCCESS)) {
-
-                            /* 회원탈퇴 성공 */
-
-                            Toast.makeText(context, "탈퇴되었습니다", Toast.LENGTH_SHORT).show();
-                            SharedPreferencesManager.open(context, Global.SharedPreference.APP_DATA);
-                            SharedPreferencesManager.save(Global.SharedPreference.IS_LOGINED, false);
-                            SharedPreferencesManager.save(Global.SharedPreference.USER_ID, "");
-                            SharedPreferencesManager.save(Global.SharedPreference.USER_PW, "");
-                            SharedPreferencesManager.save(Global.SharedPreference.USER_TYPE, "");
-                            SharedPreferencesManager.close();
-
-                            UosActivity.startFromActivity(new Intent(context.getApplicationContext(), LoginActivity.class));
-                        } else if (responseCode.equals(Global.Network.Response.WITHDRAWAL_FAILED)) {
-
-                            /* 전화번호 변경 실패 */
-
-                            Toast.makeText(context, "탈퇴 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                        } else {
-
-                            /* 전화번호 변경 실패 - 기타 오류 */
-
-                            Toast.makeText(context, "탈퇴 실패(기타): " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(context, "탈퇴되었습니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (responseCode.equals(Global.Network.Response.LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT)) {
 
-                        /* 비밀번호 확인 실패 */
+                    /* 회원탈퇴 실패 - 기타 오류 */
 
-                        tilDlgWithdrawalPw.setError("비밀번호가 일치하지 않습니다");
-                        tilDlgWithdrawalPw.setErrorEnabled(true);
-                    } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-
-                        /* 서버 연결 실패 */
-
-                        Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
-                    } else {
-
-                        /* 비밀번호 확인 실패 - 기타 오류 */
-
-                        Toast.makeText(context, "비밀번호 확인 실패(기타)", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(context, "회원탈퇴 중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                 }
-            } catch (Exception e) {
+            } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
