@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderListItem;
+import com.uos.uos_mobile.item.WaitingOrderItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONArray;
@@ -49,6 +50,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         new OrderListItem(
                                 orderData.getString("company_name")
                                 , orderData.getString("date")
+                                , orderData.getInt("state")
                                 , basketItemArrayList));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -78,6 +80,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemCount() {
         return orderListItemArrayList.size();
+    }
+
+    public int getItemCount(int state){
+        int count = 0;
+        for(OrderListItem orderListItem : orderListItemArrayList){
+            if(orderListItem.getState() == state){
+                count++;
+            }
+        }
+        return count;
     }
 
     public void setOnItemClickListener(OrderListAdapter.OnItemClickListener onItemClickListener) {
