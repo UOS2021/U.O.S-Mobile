@@ -69,6 +69,7 @@ public class SharedPreferencesManager {
      *
      * @param key          불러올 데이터의 키값.
      * @param defaultValue 데이터가 없을 경우의 기본값.
+     * @return Object SharedPreferences에서 키 값에 해당하는 데이터.
      */
     public static Object load(String key, Object defaultValue) {
         if (defaultValue instanceof Integer) {

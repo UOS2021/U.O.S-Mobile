@@ -145,7 +145,7 @@ public class PatternManager {
     /**
      * 카드 CVC 입력 조건을 검사하는 함수.
      *
-     * @param cardPw 입력 조건을 검사할 카드 CVC.
+     * @param cvc 입력 조건을 검사할 카드 CVC.
      * @return int 입력 조건 검사 결과 값.
      */
     public static int checkCardCvc(String cvc) {
