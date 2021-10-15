@@ -67,94 +67,6 @@ public class Global {
     }
 
     /**
-     * SQLiteManager에서 사용하는 상수를 모아놓은 클래스.
-     */
-    public static class SQLite {
-        /**
-         * 데이터베이스 버전.
-         */
-        public static final int DB_VERSION = 1;
-
-        /**
-         * 수령 대기중인 상품이 들어있는 데이터베이스명.
-         */
-        public static final String DB_ORDER_LIST = "WaitingOrderList.db";
-
-        /**
-         * 수령 대기중인 상품이 들어있는 테이블명.
-         */
-        public static final String TB_ORDER_LIST = "WaitingOrderList";
-
-        /**
-         * 주문 코드.
-         */
-        public static final String CL_ORDER_CODE = "number";
-
-        /**
-         * 주문 회사명.
-         */
-        public static final String CL_ORDER_COMPANY = "company";
-
-        /**
-         * 주문 시간.
-         */
-        public static final String CL_ORDER_TIME = "time";
-
-        /**
-         * 주문 정보.
-         */
-        public static final String CL_ORDER_INFO = "info";
-
-        /**
-         * 주문 상태.
-         */
-        public static final String CL_ORDER_STATE = "state";
-
-        /**
-         * 주문 상태 - 상품 준비중.
-         */
-        public static final String ORDER_STATE_WAIT = "wait";
-
-        /**
-         * 주문 상태 - 상품 수령 대기중.
-         */
-        public static final String ORDER_STATE_PREPARED = "prepared";
-
-        /**
-         * 주문한 고객 아이디.
-         */
-        public static final String CL_ORDER_ID = "id";
-
-
-        /**
-         * 정렬방식 - 오름차순.
-         */
-        public static final String SORT_ASCENDING = "ASC";
-
-        /**
-         * 정렬방식 - 내림차순.
-         */
-        public static final String SORT_DECENDING = "DESC";
-
-        /**
-         * TB_ORDER_LIST 생성 명령어.
-         */
-        public static final String SQL_CREATE_TABLE = "CREATE TABLE " + SQLite.TB_ORDER_LIST + " ("
-                + CL_ORDER_CODE + " TEXT PRIMARY KEY,"
-                + CL_ORDER_ID + " TEXT, "
-                + CL_ORDER_COMPANY + " TEXT, "
-                + CL_ORDER_TIME + " TEXT, "
-                + CL_ORDER_INFO + " TEXT, "
-                + CL_ORDER_STATE + " TEXT)";
-
-        /**
-         * TB_ORDER_LIST 제거 명령어.
-         */
-        public static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS "
-                + SQLite.TB_ORDER_LIST;
-    }
-
-    /**
      * SharePreferences에서 사용하는 상수를 모아놓은 클래스.
      */
     public static class SharedPreference {
@@ -229,19 +141,20 @@ public class Global {
             public static final String REGISTER_CUSTOMER = "0001";
             public static final String REGISTER_UOSPARTNER = "0002";
             public static final String LOGIN = "0003";
-            public static final String CHECK_PW = "0004";
-            public static final String CHANGE_PW = "0005";
-            public static final String CHANGE_PHONE = "0006";
-            public static final String WITHDRAWAL = "0007";
-            public static final String CARD_INFO = "0008";
-            public static final String CARD_ADD = "0009";
-            public static final String CARD_REMOVE = "0010";
-            public static final String ORDER = "0011";
-            public static final String ORDER_CANCEL = "0012";
-            public static final String ORDER_LIST = "0013";
-            public static final String STORE_PRODUCT_INFO = "0014";
-            public static final String QR_IMAGE = "0015";
-            public static final String ORDER_ACCEPTED_STATE = "0016";
+            public static final String CHANGE_PW = "0004";
+            public static final String CHANGE_PHONE = "0005";
+            public static final String WITHDRAWAL = "0006";
+            public static final String CARD_INFO = "0007";
+            public static final String CARD_ADD = "0008";
+            public static final String CARD_REMOVE = "0009";
+            public static final String ORDER = "0010";
+            public static final String ORDER_CANCEL = "0011";
+            public static final String ORDER_LIST = "0012";
+            public static final String STORE_PRODUCT_INFO = "0013";
+            public static final String ORDER_ACCEPTED_STATE = "0014";
+            public static final String WAITING_ORDER_LIST = "0015";
+            public static final String CUSTOMER_TOOK_PRODUCT = "0016";
+            public static final String CUSTOMER_LOGOUT = "0017";
         }
 
         /**
@@ -254,37 +167,32 @@ public class Global {
             public static final String UNKNOWN_ERROR = "-1";
             public static final String SERVER_NOT_ONLINE = "-2";
             public static final String REGISTER_SUCCESS = "0001";
-            public static final String REGISTER_FAILED_ID_DUPLICATE = "0002";
-            public static final String LOGIN_SUCCESS = "0003";
-            public static final String CHECKPW_SUCCESS = "0004";
-            public static final String LOGIN_FAILED_ID_NOT_EXIST = "0005";
-            public static final String LOGIN_CHECKPW_FAILED_PW_NOT_CORRECT = "0006";
+            public static final String REGISTER_FAIL_ID_DUPLICATE = "0002";
+            public static final String LOGIN_SUCCESS_CUSTOMER = "0003";
+            public static final String LOGIN_SUCCESS_UOSPARTNER = "0004";
+            public static final String LOGIN_FAIL_ID_NOT_EXIST = "0005";
+            public static final String LOGIN_FAIL_PW_NOT_CORRECT = "0006";
             public static final String STORE_PRODUCT_INFO = "0007";
             public static final String THEATER_PRODUCT_INFO = "0008";
             public static final String ORDER_SUCCESS = "0009";
-            public static final String ORDER_FAILED = "0010";
-            public static final String ORDER_ACCEPT = "0011";
-            public static final String ORDER_REFUSE = "0012";
-            public static final String ORDER_LIST = "0013";
-            public static final String CHANGE_PW_SUCCESS = "0014";
-            public static final String CHANGE_PW_FAILED = "0015";
-            public static final String CHANGE_PHONE_SUCCESS = "0016";
-            public static final String CHANGE_PHONE_FAILED = "0017";
-            public static final String WITHDRAWAL_SUCCESS = "0018";
-            public static final String WITHDRAWAL_FAILED = "0019";
-            public static final String CARD_ADD_SUCCESS = "0020";
-            public static final String CARD_ADD_FAILED = "0021";
-            public static final String CARD_REMOVE_SUCCESS = "0022";
-            public static final String CARD_REMOVE_FAILED = "0023";
-            public static final String CARD_INFO = "0024";
-            public static final String CARD_NOINFO = "0025";
-            public static final String ORDER_CANCEL_SUCCESS = "0026";
-            public static final String ORDER_CANCEL_FAILED = "0027";
-            public static final String QR_IMAGE_SUCCESS = "0028";
-            public static final String QR_IMAGE_FAILED = "0029";
-            public static final String PAY_SUCCESS = "0030";
-            public static final String PAY_FAILED_WRONG_PASSWORD = "0031";
-            public static final String PAY_FAILED_NOT_ENOUGH_MONEY = "0032";
+            public static final String ORDER_ACCEPT = "0010";
+            public static final String ORDER_REFUSE = "0011";
+            public static final String ORDER_LIST = "0012";
+            public static final String CHANGE_PW_SUCCESS = "0013";
+            public static final String CHANGE_PW_FAIL_PW_NOT_CORRECT = "0014";
+            public static final String CHANGE_PHONE_SUCCESS = "0015";
+            public static final String WITHDRAWAL_SUCCESS = "0016";
+            public static final String WITHDRAWAL_FAIL_PW_NOT_CORRECT = "0017";
+            public static final String CARD_ADD_SUCCESS = "0018";
+            public static final String CARD_REMOVE_SUCCESS = "0019";
+            public static final String CARD_INFO = "0020";
+            public static final String CARD_NO_INFO = "0021";
+            public static final String ORDER_CANCEL_SUCCESS = "0022";
+            public static final String PAY_SUCCESS = "0023";
+            public static final String PAY_FAIL_WRONG_PASSWORD = "0024";
+            public static final String WAITING_ORDER_LIST = "0025";
+            public static final String CHANGE_ORDER_STATE_SUCCESS = "0026";
+            public static final String CUSTOMER_LOGOUT_SUCCESS = "0027";
         }
     }
 
@@ -308,6 +216,13 @@ public class Global {
          * 좌석예약 기능이 있는 Movie Type.
          */
         public static final int MOVIE_TICKET = 2;
+    }
+
+    public static class Order{
+        public static final int WAITING_ACCEPT = 0;
+        public static final int PREPARING = 1;
+        public static final int PREPARED = 2;
+        public static final int CUSOMER_TOOK_PRODUCT = 3;
     }
 
     public static class MovieSeat {
