@@ -71,9 +71,9 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
                         Toast.makeText(context, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show();
                     } else {
-                        
+
                         /* 로그아웃 실패 시 */
-                        
+
                         Toast.makeText(context, "로그아웃 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException | InterruptedException | ExecutionException e) {

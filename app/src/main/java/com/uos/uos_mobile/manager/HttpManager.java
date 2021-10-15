@@ -27,7 +27,6 @@ import java.net.URL;
  * 위와 같이 사용할 수 있으며 반환값은 통신 결과에 대한 String 입니다.
  * </pre>
  *
- *
  * @author Sohn Young Jin
  * @since 1.0.0
  */
@@ -44,7 +43,7 @@ public class HttpManager extends AsyncTask<String, String, String> {
 
     /**
      * HttpManager를 사용하여 통신하는 함수.<br>
-     *
+     * <p>
      * 매개변수로 전달되는 String 배열의 값은 다음과 같다.<br>
      * string[0]: 접속할 URL<br>
      * string[1]: connect timeout<br>

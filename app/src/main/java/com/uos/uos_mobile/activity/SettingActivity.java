@@ -1,14 +1,8 @@
 package com.uos.uos_mobile.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-
-
-import com.uos.uos_mobile.other.Global;
 
 public class SettingActivity extends UosActivity {
     private AppCompatImageButton ibtnSettingBack;

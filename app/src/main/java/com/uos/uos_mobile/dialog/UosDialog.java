@@ -1,12 +1,8 @@
 package com.uos.uos_mobile.dialog;
 
 import android.content.Context;
-import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatDialog;
-
-import com.uos.uos_mobile.activity.UosActivity;
-import com.uos.uos_mobile.dialog.UosDialog;
 
 import java.util.ArrayList;
 

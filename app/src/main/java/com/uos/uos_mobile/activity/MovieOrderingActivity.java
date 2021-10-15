@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-
 import com.uos.uos_mobile.adapter.MovieOrderingAdapter;
 import com.uos.uos_mobile.adapter.OrderingAdapter;
 import com.uos.uos_mobile.dialog.BasketDialog;

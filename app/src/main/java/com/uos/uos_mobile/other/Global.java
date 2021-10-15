@@ -10,7 +10,7 @@ import com.uos.uos_mobile.manager.BasketManager;
  */
 public class Global {
     public static BasketManager basketManager;
-    
+
     /**
      * U.O.S-Mobile내 Notification에 대한 정보를 가지고 있는 정적 클래스.
      */
@@ -122,7 +122,7 @@ public class Global {
 
     /**
      * 네트워크 통신 간 사용되는 상수를 모아놓은 클래스.<br><br>
-     *
+     * <p>
      * 네트워크 통신시 사용되는 외부서버의 주소, 클라이언트의 요청코드, POS와 외부서버의 응답코드 클래스가 포함되어
      * 있습니다.
      */
@@ -134,7 +134,7 @@ public class Global {
 
         /**
          * Pos, 외부서버로 보내는 요청 코드를 모아놓은 클래스.<br><br>
-         *
+         * <p>
          * 클라이언트에서 외부서버로 데이터 요청 시 사용되는 요청코드를 모아놓은 클래스입니다.
          */
         public static class Request {
@@ -159,7 +159,7 @@ public class Global {
 
         /**
          * Pos, 외부서버에서 오는 응답 코드를 모아놓은 클래스.<br><br>
-         *
+         * <p>
          * Pos, 외부서버로부터 요청에 대한 응답을 수신받을 때 응답결과를 구분하기 위한 응답코드를 모아놓은 클래스입
          * 니다.
          */
@@ -198,7 +198,7 @@ public class Global {
 
     /**
      * 상품 종류가 선언 되어있는 클래스.<br><br>
-     *
+     * <p>
      * 추가로 생성할 상품 형식이 있을 경우 아래 클래스에 선언합니다.
      */
     public static class ItemType {
@@ -218,7 +218,7 @@ public class Global {
         public static final int MOVIE_TICKET = 2;
     }
 
-    public static class Order{
+    public static class Order {
         public static final int WAITING_ACCEPT = 0;
         public static final int PREPARING = 1;
         public static final int PREPARED = 2;

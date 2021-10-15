@@ -36,16 +36,16 @@ public class OrderListItem {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public int getState() {
         return state;
     }
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getCompanyName() {

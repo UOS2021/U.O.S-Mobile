@@ -1,19 +1,16 @@
 package com.uos.uos_mobile.dialog;
 
 import android.animation.ValueAnimator;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.uos.uos_mobile.adapter.MovieSeatAdapter;
 import com.uos.uos_mobile.item.BasketItem;

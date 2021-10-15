@@ -1,17 +1,12 @@
 package com.uos.uos_mobile.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
-
-
-import com.uos.uos_mobile.other.Global;
 
 public class RegisterTypeDialog extends UosDialog {
     private final Context context;

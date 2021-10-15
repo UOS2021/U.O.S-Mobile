@@ -1,7 +1,6 @@
 package com.uos.uos_mobile.dialog;
 
 import android.animation.ValueAnimator;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +10,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -23,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
-
 import com.uos.uos_mobile.adapter.SetProductAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderingProductItem;

@@ -47,7 +47,7 @@ public class MovieItem implements Cloneable {
 
     /**
      * 장바구니에 MovieItem 저장 시 좌석정보까지 함께 저장하기 위해 Cloneable로부터 오버라이드한 함수.
-     * 
+     *
      * @return MovieItem 현재 객체와 동일한 정보를 가지고 있는 새로운 MovieItem 객체.
      */
     @Override

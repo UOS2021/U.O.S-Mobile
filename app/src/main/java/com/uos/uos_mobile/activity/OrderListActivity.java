@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-
 import com.uos.uos_mobile.adapter.OrderListAdapter;
 import com.uos.uos_mobile.dialog.OrderDetailDialog;
 import com.uos.uos_mobile.manager.HttpManager;

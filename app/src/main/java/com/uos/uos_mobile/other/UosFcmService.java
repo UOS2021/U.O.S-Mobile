@@ -25,9 +25,9 @@ public class UosFcmService extends FirebaseMessagingService {
         Log.d("UOS_MOBILE_FCM", "From: " + remoteMessage.getFrom());
 
         if (remoteMessage.getData().size() > 0) {
-            
+
             /* FCM이 data 형식으로 왔을 경우 */
-            
+
             Map<String, String> recvData = remoteMessage.getData();
             String type = recvData.get("type");
 
@@ -40,10 +40,10 @@ public class UosFcmService extends FirebaseMessagingService {
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true);
 
-            if(type.equals("order")){
-                
+            if (type.equals("order")) {
+
                 /* 상품이 준비되었다는 FCM일 경우 */
-                
+
                 String companyName = recvData.get("company_name");
                 String orderCode = recvData.get("order_code");
 
@@ -69,7 +69,7 @@ public class UosFcmService extends FirebaseMessagingService {
                 notificationCompatBuilder
                         .setContentTitle(companyName + "에서 주문하신 상품이 준비되었습니다")
                         .setContentText("카운터에서 상품을 수령해주세요 (주문코드: " + orderCode + ")");
-            }else if(type.equals("alert")){
+            } else if (type.equals("alert")) {
 
                 /* 방역동선 관련된 알림일 경우 */
 
@@ -83,7 +83,7 @@ public class UosFcmService extends FirebaseMessagingService {
             }
 
             SharedPreferencesManager.open(this, "");
-            int notificationId = (Integer)SharedPreferencesManager.load(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
+            int notificationId = (Integer) SharedPreferencesManager.load(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
             SharedPreferencesManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, notificationId + 1);
             SharedPreferencesManager.close();
 

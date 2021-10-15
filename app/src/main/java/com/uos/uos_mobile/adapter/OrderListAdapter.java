@@ -9,10 +9,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderListItem;
-import com.uos.uos_mobile.item.WaitingOrderItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 
 import org.json.JSONArray;
@@ -82,10 +80,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return orderListItemArrayList.size();
     }
 
-    public int getItemCount(int state){
+    public int getItemCount(int state) {
         int count = 0;
-        for(OrderListItem orderListItem : orderListItemArrayList){
-            if(orderListItem.getState() == state){
+        for (OrderListItem orderListItem : orderListItemArrayList) {
+            if (orderListItem.getState() == state) {
                 count++;
             }
         }

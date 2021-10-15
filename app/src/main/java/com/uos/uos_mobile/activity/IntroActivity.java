@@ -10,7 +10,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-
 import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 

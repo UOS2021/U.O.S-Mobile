@@ -119,6 +119,7 @@ public class QRRecognitionActivity extends UosActivity {
                      */
                     Class targetClass = null;
                     if (responseCode.equals(Global.Network.Response.STORE_PRODUCT_INFO)) {
+
                         /* 일반 매장일 경우 */
 
                         targetClass = OrderingActivity.class;

@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.uos.uos_mobile.item.MovieSeatItem;
 import com.uos.uos_mobile.other.Global;
 

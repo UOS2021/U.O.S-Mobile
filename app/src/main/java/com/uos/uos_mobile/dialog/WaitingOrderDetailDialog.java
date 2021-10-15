@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.uos.uos_mobile.adapter.WaitingOrderInfoAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.WaitingOrderItem;
@@ -66,7 +65,7 @@ public class WaitingOrderDetailDialog extends UosDialog {
         rvDlgWaitingOrderInfo = findViewById(com.uos.uos_mobile.R.id.rv_dlgwaitingorderinfo);
         clDlgWaitingOrderInfoTake = findViewById(com.uos.uos_mobile.R.id.ll_dlgwaitingorderinfo_takeproduct);
 
-        tvDlgWaitingOrderInfoCompanyName.setText(waitingOrderItem.getCompany());
+        tvDlgWaitingOrderInfoCompanyName.setText(waitingOrderItem.getCompanyName());
         tvDlgWaitingOrderInfoOrderTime.setText(String.valueOf(waitingOrderItem.getOrderTime()));
         tvDlgWaitingOrderInfoOrderCode.setText(String.valueOf(waitingOrderItem.getOrderCode()));
         int totalPrice = 0;

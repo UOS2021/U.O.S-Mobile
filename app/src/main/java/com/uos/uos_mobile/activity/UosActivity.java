@@ -2,7 +2,6 @@ package com.uos.uos_mobile.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
