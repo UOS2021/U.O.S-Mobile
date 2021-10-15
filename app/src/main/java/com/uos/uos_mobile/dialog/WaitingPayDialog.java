@@ -32,7 +32,7 @@ public class WaitingPayDialog extends UosDialog {
     private AppCompatTextView tvDlgWaitingOrder3;
     private boolean orderCancel;
 
-    private String uosPartnerId;
+    private final String uosPartnerId;
 
     public WaitingPayDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName, JSONObject orderData, String uosPartnerId) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
@@ -80,13 +80,13 @@ public class WaitingPayDialog extends UosDialog {
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.ORDER_ACCEPT)) {
-                    
+
                     /* 주문이 수락되었을 경우 */
-                    
+
                     if (!orderCancel) {
-                        
+
                         /* 주문을 취소하지 않았을 경우 */
-                        
+
                         ((PayActivity) context).runOnUiThread(() -> {
                             tvDlgWaitingOrderMessage.setText("결제 중입니다\n잠시만 기다려주세요...");
                             tvDlgWaitingOrder2.setText("확인");
@@ -119,7 +119,7 @@ public class WaitingPayDialog extends UosDialog {
 
                         ((PayActivity) context).runOnUiThread(() -> {
                             tvDlgWaitingOrderMessage.setText("결제가 완료되었습니다\n주문하신 상품이 준비되면 알려드리겠습니다");
-                            ((LobbyActivity)UosActivity.get(LobbyActivity.class)).updateList();
+                            ((LobbyActivity) UosActivity.get(LobbyActivity.class)).updateList();
                         });
                     } else if (responseCode.equals(Global.Network.Response.PAY_FAIL_WRONG_PASSWORD)) {
 

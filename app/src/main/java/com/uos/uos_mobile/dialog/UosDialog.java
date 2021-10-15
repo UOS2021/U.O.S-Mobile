@@ -18,15 +18,9 @@ public class UosDialog extends AppCompatDialog {
     /**
      * 현재 생성되어있는 UosDialog 클래스를 상속받은 Dialog의 목록.
      */
-    private static ArrayList<UosDialog> dialogs = new ArrayList<>();
+    private static final ArrayList<UosDialog> dialogs = new ArrayList<>();
 
-    @Override
-    public void dismiss() {
-        dialogs.remove(this);
-        super.dismiss();
-    }
-
-    public UosDialog(Context context){
+    public UosDialog(Context context) {
         super(context);
 
         addDialog();
@@ -38,11 +32,17 @@ public class UosDialog extends AppCompatDialog {
         addDialog();
     }
 
+    @Override
+    public void dismiss() {
+        dialogs.remove(this);
+        super.dismiss();
+    }
+
     /**
      * UosDialog.dialogs에 동일한 클래스가 있을 경우 해당 UosDialog를 종료 및 UosDialog.dialogs에서 제거하고
      * 현재 UosDialog를 UosDialog.dialogs에 추가.
      */
-    protected void addDialog(){
+    protected void addDialog() {
         for (UosDialog dialog : dialogs) {
             if (dialog.getClass().equals(this.getClass())) {
 

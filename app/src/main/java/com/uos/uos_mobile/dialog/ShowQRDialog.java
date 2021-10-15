@@ -45,7 +45,7 @@ public class ShowQRDialog extends UosDialog {
 
         // QR 코드 Resource 변경하는 부분
         SharedPreferencesManager.open(context, Global.SharedPreference.APP_DATA);
-        String strQrImage = (String)SharedPreferencesManager.load(Global.SharedPreference.QR_IMAGE, "");
+        String strQrImage = (String) SharedPreferencesManager.load(Global.SharedPreference.QR_IMAGE, "");
 
         if (strQrImage.length() == 0) {
             tvDlgShowQrMessage.setText("저장된 QR 코드가 없습니다");

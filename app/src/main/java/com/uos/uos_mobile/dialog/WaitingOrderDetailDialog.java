@@ -113,12 +113,12 @@ public class WaitingOrderDetailDialog extends UosDialog {
 
                     /* 상품수령완료 */
 
-                    
+
                 } else {
 
                     /* 상품수령완료 실패 */
 
-                    
+
                 }
 
             } catch (JSONException | InterruptedException | ExecutionException e) {
