@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.uos.uos_mobile.manager.HttpManager;
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -22,15 +22,14 @@ import org.json.JSONObject;
  * @since 1.0.0
  */
 public class QRRecognitionActivity extends UosActivity {
+
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_qrrecognition);
 
-        init();
-    }
-
-    private void init() {
         Intent qrRecognitionActivityIntent = getIntent();
         if (qrRecognitionActivityIntent.getStringExtra("uosPartnerId") != null) {
 
@@ -108,9 +107,9 @@ public class QRRecognitionActivity extends UosActivity {
 
                     String responseCode = recvData.getString("response_code");
 
-                    SharedPreferenceManager.open(QRRecognitionActivity.this, Global.SharedPreference.APP_DATA);
-                    SharedPreferenceManager.save(Global.SharedPreference.TEMP_MESSAGE, recvData.getJSONObject("message").toString());
-                    SharedPreferenceManager.close();
+                    SharedPreferencesManager.open(QRRecognitionActivity.this, Global.SharedPreference.APP_DATA);
+                    SharedPreferencesManager.save(Global.SharedPreference.TEMP_MESSAGE, recvData.getJSONObject("message").toString());
+                    SharedPreferencesManager.close();
 
                     /*
                      * 아래 if구문은 어떠한 매장에서 불러왔는지를 구분하기 위함. 만약 새로운 형태의 상품 데이터를
@@ -119,6 +118,7 @@ public class QRRecognitionActivity extends UosActivity {
                      */
                     Class targetClass = null;
                     if (responseCode.equals(Global.Network.Response.STORE_PRODUCT_INFO)) {
+
                         /* 일반 매장일 경우 */
 
                         targetClass = OrderingActivity.class;

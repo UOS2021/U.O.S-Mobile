@@ -15,8 +15,7 @@ import com.uos.uos_mobile.activity.IntroActivity;
 import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
 import com.uos.uos_mobile.activity.UosActivity;
-import com.uos.uos_mobile.manager.SQLiteManager;
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 
 import java.util.Map;
 
@@ -26,9 +25,9 @@ public class UosFcmService extends FirebaseMessagingService {
         Log.d("UOS_MOBILE_FCM", "From: " + remoteMessage.getFrom());
 
         if (remoteMessage.getData().size() > 0) {
-            
+
             /* FCM이 data 형식으로 왔을 경우 */
-            
+
             Map<String, String> recvData = remoteMessage.getData();
             String type = recvData.get("type");
 
@@ -41,24 +40,19 @@ public class UosFcmService extends FirebaseMessagingService {
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true);
 
-            if(type.equals("order")){
-                
+            if (type.equals("order")) {
+
                 /* 상품이 준비되었다는 FCM일 경우 */
-                
+
                 String companyName = recvData.get("company_name");
                 String orderCode = recvData.get("order_code");
-
-                SQLiteManager sqLiteManager = new SQLiteManager(getApplicationContext());
-                sqLiteManager.openDatabase();
-                sqLiteManager.setOrderState(Integer.valueOf(orderCode), Global.SQLite.ORDER_STATE_PREPARED);
-                sqLiteManager.closeDatabase();
 
                 final UosActivity lobbyActivity = UosActivity.get(LobbyActivity.class);
 
                 if (lobbyActivity != null) {
                     lobbyActivity.runOnUiThread(() -> {
                         ((LobbyActivity) lobbyActivity).updateList();
-                        ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
+                        ((LobbyActivity) lobbyActivity).moveToOrderCode(orderCode);
                     });
                 } else {
                     final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
@@ -75,7 +69,7 @@ public class UosFcmService extends FirebaseMessagingService {
                 notificationCompatBuilder
                         .setContentTitle(companyName + "에서 주문하신 상품이 준비되었습니다")
                         .setContentText("카운터에서 상품을 수령해주세요 (주문코드: " + orderCode + ")");
-            }else if(type.equals("alert")){
+            } else if (type.equals("alert")) {
 
                 /* 방역동선 관련된 알림일 경우 */
 
@@ -88,10 +82,10 @@ public class UosFcmService extends FirebaseMessagingService {
                         .setContentText(companyName + "에서 확진자 발생");
             }
 
-            SharedPreferenceManager.open(this, "");
-            int notificationId = SharedPreferenceManager.load(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
-            SharedPreferenceManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, notificationId + 1);
-            SharedPreferenceManager.close();
+            SharedPreferencesManager.open(this, "");
+            int notificationId = (Integer) SharedPreferencesManager.load(Global.SharedPreference.LAST_NOTIFICATION_ID, 0);
+            SharedPreferencesManager.save(Global.SharedPreference.LAST_NOTIFICATION_ID, notificationId + 1);
+            SharedPreferencesManager.close();
 
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
             notificationManagerCompat.notify(notificationId, notificationCompatBuilder.build());

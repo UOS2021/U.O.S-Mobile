@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="U.O.S 탈퇴"
+            android:text="회원탈퇴"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -94,36 +94,66 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_dlgwithdrawal_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2. U.O.S 탈퇴 시 일부 데이터는 활용될 수 있습니다"
                 android:textColor="#FF0000"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_dlgwithdrawal_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="32dp"
+                android:text="*  "
+                android:textColor="@color/gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_dlgwithdrawal_1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_dlgwithdrawal_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="감염병 예방 및 방역동선 관리를 위해 사용자의 방문정보는 삭제되지 않습니다."
+                android:textColor="@color/gray"
+                app:layout_constraintLeft_toRightOf="@id/tv_dlgwithdrawal_2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_dlgwithdrawal_1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_dlgwithdrawal_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingLeft="16dp"
-                android:text="* 감염병 예방 및 방역동선 관리를 위해 사용자의 방문\n   정보는 삭제되지 않습니다"
-                android:textColor="@color/gray" />
+                android:paddingLeft="32dp"
+                android:text="*  "
+                android:textColor="@color/gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_dlgwithdrawal_3" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:paddingLeft="16dp"
-                android:text="* 방문정보 외 기타 데이터(사용자 아이디, 비밀번호,\n   이름 등)의 데이터는 삭제됩니다"
-                android:textColor="@color/gray" />
+                android:text="방문정보 외 기타 데이터(사용자 아이디, 비밀번호, 이름 등)는 삭제됩니다."
+                android:textColor="@color/gray"
+                app:layout_constraintLeft_toRightOf="@id/tv_dlgwithdrawal_4"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_dlgwithdrawal_3" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

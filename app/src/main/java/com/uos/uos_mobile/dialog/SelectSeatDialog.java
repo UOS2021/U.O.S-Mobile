@@ -1,19 +1,16 @@
 package com.uos.uos_mobile.dialog;
 
 import android.animation.ValueAnimator;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.uos.uos_mobile.adapter.MovieSeatAdapter;
 import com.uos.uos_mobile.item.BasketItem;
@@ -52,7 +49,6 @@ public class SelectSeatDialog extends UosDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(com.uos.uos_mobile.R.layout.dialog_selectseat);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
@@ -60,7 +56,10 @@ public class SelectSeatDialog extends UosDialog {
         init();
     }
 
-    private void init() {
+    /**
+     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    protected void init() {
         ibtnDlgSelectSeatClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgselectseat_close);
         tvDlgSelectSeatMovie = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectseat_movie);
         tvDlgSelectSeatTime = findViewById(com.uos.uos_mobile.R.id.tv_dlgselectseat_time);

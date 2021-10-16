@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderListItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -49,6 +48,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         new OrderListItem(
                                 orderData.getString("company_name")
                                 , orderData.getString("date")
+                                , orderData.getInt("state")
                                 , basketItemArrayList));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -70,6 +70,18 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText(orderListItemArrayList.get(position).getDate());
+
+        if(orderListItemArrayList.get(position).getState() == 1){
+            ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText("준비중");
+            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_preparing);
+        } else if(orderListItemArrayList.get(position).getState() == 1){
+            ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText("수령대기");
+            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_prepared);
+        } else if(orderListItemArrayList.get(position).getState() == 3){
+            ((OrderListViewHolder) viewHolder).tvOrderListItemDate.setText("완료");
+            ((OrderListViewHolder) viewHolder).clOrderListItemOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_done);
+        }
+
         ((OrderListViewHolder) viewHolder).tvOrderListItemCompanyName.setText(orderListItemArrayList.get(position).getCompanyName());
         ((OrderListViewHolder) viewHolder).tvOrderListItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(orderListItemArrayList.get(position).getTotalPrice()) + "원");
         ((OrderListViewHolder) viewHolder).tvOrderListItemOrderSimple.setText(orderListItemArrayList.get(position).getOrderSimple());
@@ -78,6 +90,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemCount() {
         return orderListItemArrayList.size();
+    }
+
+    public int getItemCount(int state) {
+        int count = 0;
+        for (OrderListItem orderListItem : orderListItemArrayList) {
+            if (orderListItem.getState() == state) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public void setOnItemClickListener(OrderListAdapter.OnItemClickListener onItemClickListener) {
@@ -92,6 +114,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public class OrderListViewHolder extends RecyclerView.ViewHolder {
         public ConstraintLayout clOrderListItem;
         public AppCompatTextView tvOrderListItemDate;
+        public ConstraintLayout clOrderListItemOrderState;
+        public AppCompatTextView tvOrderListItemOrderState;
         public AppCompatTextView tvOrderListItemCompanyName;
         public AppCompatTextView tvOrderListItemTotalPrice;
         public AppCompatTextView tvOrderListItemOrderSimple;
@@ -100,6 +124,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(view);
             clOrderListItem = view.findViewById(com.uos.uos_mobile.R.id.cl_orderlistitem);
             tvOrderListItemDate = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_date);
+            clOrderListItemOrderState = view.findViewById(com.uos.uos_mobile.R.id.cl_orderlistitem_orderstate);
+            tvOrderListItemOrderState = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_orderstate);
             tvOrderListItemCompanyName = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_companyname);
             tvOrderListItemTotalPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_totalprice);
             tvOrderListItemOrderSimple = view.findViewById(com.uos.uos_mobile.R.id.tv_orderlistitem_ordersimple);

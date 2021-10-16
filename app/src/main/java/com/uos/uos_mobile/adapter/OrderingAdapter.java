@@ -10,7 +10,6 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.uos.uos_mobile.item.OrderingCategoryItem;
 import com.uos.uos_mobile.item.OrderingProductItem;
 import com.uos.uos_mobile.item.OrderingSetItem;

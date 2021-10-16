@@ -1,24 +1,20 @@
 package com.uos.uos_mobile.activity;
 
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-
 import com.uos.uos_mobile.adapter.OrderListAdapter;
-import com.uos.uos_mobile.dialog.OrderInfoDialog;
+import com.uos.uos_mobile.dialog.OrderDetailDialog;
 import com.uos.uos_mobile.manager.HttpManager;
-import com.uos.uos_mobile.manager.SQLiteManager;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
@@ -33,17 +29,14 @@ public class OrderListActivity extends UosActivity {
     private AppCompatTextView tvOrderListNoOrderList;
     private OrderListAdapter orderListAdapter;
     private boolean isFirstLoad = true;
-    private SQLiteManager sqLiteManager;
 
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_orderlist);
 
-        init();
-    }
-
-    private void init() {
         ibtnOrderListBack = findViewById(com.uos.uos_mobile.R.id.ibtn_orderlist_back);
         tvOrderListWaitingOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_waitingordercount);
         tvOrderListDoneOrderCount = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_doneordercount);
@@ -51,8 +44,6 @@ public class OrderListActivity extends UosActivity {
         rvOrderList = findViewById(com.uos.uos_mobile.R.id.rv_orderlist);
         pbOrderList = findViewById(com.uos.uos_mobile.R.id.pb_orderlist);
         tvOrderListNoOrderList = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_noorderlist);
-
-        sqLiteManager = new SQLiteManager(OrderListActivity.this);
 
         orderListAdapter = new OrderListAdapter();
         rvOrderList.setLayoutManager(new LinearLayoutManager(OrderListActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -66,7 +57,7 @@ public class OrderListActivity extends UosActivity {
         });
 
         /* 주문목록 아이템이 눌릴 시 */
-        orderListAdapter.setOnItemClickListener((view, position) -> new OrderInfoDialog(OrderListActivity.this, false, true, orderListAdapter.getItem(position)).show());
+        orderListAdapter.setOnItemClickListener((view, position) -> new OrderDetailDialog(OrderListActivity.this, false, true, orderListAdapter.getItem(position)).show());
 
         // 새로고침 스크롤 발생 시
         srlOrderList.setOnRefreshListener(() -> doUpdateOrderScreen());
@@ -79,10 +70,6 @@ public class OrderListActivity extends UosActivity {
     public class UpdateOrderScreen extends Thread {
         @Override
         public void run() {
-            sqLiteManager.openDatabase();
-            int waitingOrderCount = sqLiteManager.getWaitingOrderCount();
-            sqLiteManager.closeDatabase();
-
             runOnUiThread(() -> {
                 if (isFirstLoad) {
                     pbOrderList.setVisibility(View.VISIBLE);
@@ -92,15 +79,13 @@ public class OrderListActivity extends UosActivity {
             });
             try {
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Global.User.id);
+                message.accumulate("customer_id", Global.User.id);
 
                 JSONObject sendData = new JSONObject();
                 sendData.accumulate("request_code", Global.Network.Request.ORDER_LIST);
                 sendData.accumulate("message", message);
 
-                String strRecvData = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get();
-                JSONObject recvData = new JSONObject(strRecvData);
-
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.ORDER_LIST)) {
@@ -110,6 +95,8 @@ public class OrderListActivity extends UosActivity {
                             rvOrderList.setVisibility(View.VISIBLE);
                             orderListAdapter.setJson(recvData.getJSONObject("message").getJSONArray("order_list"));
                             orderListAdapter.notifyDataSetChanged();
+
+                            int waitingOrderCount = orderListAdapter.getItemCount(Global.Order.PREPARING);
 
                             int waitingOrderCountDuration;
                             int doneOrderCountDuration;

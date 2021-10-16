@@ -100,7 +100,7 @@
             android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_dlgchangepw_checkpw"
+            android:id="@+id/til_dlgchangepw_changepwcheck"
             style="@style/TextInputLayout_Register"
             android:hint="변경할 비밀번호를 입력해주세요"
             app:passwordToggleEnabled="true"

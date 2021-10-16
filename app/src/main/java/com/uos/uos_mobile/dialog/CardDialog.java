@@ -1,6 +1,5 @@
 package com.uos.uos_mobile.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,12 +8,10 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textfield.TextInputLayout;
-
 import com.uos.uos_mobile.item.CardItem;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
@@ -44,7 +41,6 @@ public class CardDialog extends UosDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(com.uos.uos_mobile.R.layout.dialog_card);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         getWindow().setWindowAnimations(com.uos.uos_mobile.R.style.Anim_FullScreenDialog);
@@ -52,7 +48,10 @@ public class CardDialog extends UosDialog {
         init();
     }
 
-    private void init() {
+    /**
+     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    protected void init() {
         ibtnAddCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgcard_close);
         tilDlgCardNum = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_num);
         tilDlgCardMonth = findViewById(com.uos.uos_mobile.R.id.til_dlgcard_month);
@@ -265,7 +264,7 @@ public class CardDialog extends UosDialog {
                     card.accumulate("pw", tilDlgCardPw.getEditText().getText().toString());
 
                     JSONObject message = new JSONObject();
-                    message.accumulate("id", Global.User.id);
+                    message.accumulate("customer_id", Global.User.id);
                     message.accumulate("card", card);
 
                     JSONObject sendData = new JSONObject();
@@ -279,15 +278,12 @@ public class CardDialog extends UosDialog {
                     if (responseCode.equals(Global.Network.Response.CARD_ADD_SUCCESS)) {
                         // 카드등록 성공
                         //Toast.makeText(context, "카드가 등록되었습니다", Toast.LENGTH_SHORT).show();
-                    } else if (responseCode.equals(Global.Network.Response.CARD_ADD_FAILED)) {
-                        // 카드등록 실패
-                        Toast.makeText(context, "카드등록 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
                     } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
                         // 서버 연결 실패
                         Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                     } else {
                         // 카드등록 실패 - 기타 오류
-                        Toast.makeText(context, "카드등록 실패: " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "카드를 등록하는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

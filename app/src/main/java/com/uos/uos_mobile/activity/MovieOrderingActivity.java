@@ -1,7 +1,6 @@
 package com.uos.uos_mobile.activity;
 
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -20,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-
 import com.uos.uos_mobile.adapter.MovieOrderingAdapter;
 import com.uos.uos_mobile.adapter.OrderingAdapter;
 import com.uos.uos_mobile.dialog.BasketDialog;
@@ -32,7 +29,7 @@ import com.uos.uos_mobile.item.MovieItem;
 import com.uos.uos_mobile.item.OrderingProductItem;
 import com.uos.uos_mobile.item.OrderingSetItem;
 import com.uos.uos_mobile.manager.BasketManager;
-import com.uos.uos_mobile.manager.SharedPreferenceManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -63,20 +60,18 @@ public class MovieOrderingActivity extends UosActivity {
     private String uosPartnerId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(com.uos.uos_mobile.R.layout.activity_movieordering);
-
-        init();
-    }
-
-    @Override
     protected void onDestroy() {
         Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
-    private void init() {
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
+    @Override
+    protected void init() {
+        setContentView(com.uos.uos_mobile.R.layout.activity_movieordering);
+
         ibtnMovieOrderingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_movieordering_back);
         tvMovieOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_companyname);
         tvMovieOrderingShowMovie = findViewById(com.uos.uos_mobile.R.id.tv_movieordering_showmovie);
@@ -103,10 +98,10 @@ public class MovieOrderingActivity extends UosActivity {
         uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
         try {
-            SharedPreferenceManager.open(MovieOrderingActivity.this, Global.SharedPreference.APP_DATA);
-            JSONObject message = new JSONObject(SharedPreferenceManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
-            SharedPreferenceManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
-            SharedPreferenceManager.close();
+            SharedPreferencesManager.open(MovieOrderingActivity.this, Global.SharedPreference.APP_DATA);
+            JSONObject message = new JSONObject((String)SharedPreferencesManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
+            SharedPreferencesManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
+            SharedPreferencesManager.close();
 
             companyData = message.getJSONObject("company");
             categoryData = message.getJSONArray("category_list");

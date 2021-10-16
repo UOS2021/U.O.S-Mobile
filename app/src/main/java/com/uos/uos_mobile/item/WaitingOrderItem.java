@@ -1,10 +1,14 @@
 package com.uos.uos_mobile.item;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class WaitingOrderItem {
     private String companyName;
-    private int orderCode;
+    private String orderCode;
     private String orderTime;
     private String state;
     private ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
@@ -13,12 +17,22 @@ public class WaitingOrderItem {
 
     }
 
-    public WaitingOrderItem(String companyName, int orderCode, String orderTime, String state, ArrayList<BasketItem> basketItemArrayList) {
-        this.companyName = companyName;
-        this.orderCode = orderCode;
-        this.orderTime = orderTime;
-        this.state = state;
-        this.basketItemArrayList = basketItemArrayList;
+    public WaitingOrderItem(JSONObject waitingOrder) {
+        try {
+            companyName = waitingOrder.getString("company_name");
+            orderCode = waitingOrder.getString("order_code");
+            orderTime = waitingOrder.getString("order_time");
+            state = waitingOrder.getString("state");
+
+            basketItemArrayList.clear();
+            JSONArray orderData = waitingOrder.getJSONArray("order_data");
+            for (int loop = 0; loop < orderData.length(); loop++) {
+                JSONObject orderItem = orderData.getJSONObject(loop);
+                basketItemArrayList.add(new BasketItem(orderItem.getInt("type"), orderItem.getString("menu"), orderItem.getString("submenu"), orderItem.getInt("price"), orderItem.getInt("count")));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getCompanyName() {
@@ -29,11 +43,11 @@ public class WaitingOrderItem {
         this.companyName = companyName;
     }
 
-    public int getOrderCode() {
+    public String getOrderCode() {
         return orderCode;
     }
 
-    public void setOrderCode(int orderCode) {
+    public void setOrderCode(String orderCode) {
         this.orderCode = orderCode;
     }
 

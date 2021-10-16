@@ -1,16 +1,12 @@
 package com.uos.uos_mobile.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
-
-import com.uos.uos_mobile.dialog.CheckPwDialog;
 import com.uos.uos_mobile.dialog.ShowQRDialog;
 import com.uos.uos_mobile.other.Global;
 
@@ -19,15 +15,13 @@ public class OwnerLobbyActivity extends UosActivity {
     private AppCompatButton btnOwnerLobbyDisplayQr;
     private AppCompatImageButton btnOwnerLobbySetting;
 
+    /**
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_ownerlobby);
 
-        init();
-    }
-
-    private void init() {
         btnOwnerLobbyDisplayQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_displayqr);
         btnOwnerLobbySetting = findViewById(com.uos.uos_mobile.R.id.ibtn_ownerlobby_setting);
         tvOwnerLobbyOwnerName = findViewById(com.uos.uos_mobile.R.id.tv_ownerlobby_companyname);
@@ -42,7 +36,8 @@ public class OwnerLobbyActivity extends UosActivity {
 
         /* 설정 버튼 클릭 시 */
         btnOwnerLobbySetting.setOnClickListener(view -> {
-            new CheckPwDialog(OwnerLobbyActivity.this, true, true).show();
+            Intent intent = new Intent(OwnerLobbyActivity.this, SettingActivity.class);
+            startActivity(intent);
         });
     }
 }
