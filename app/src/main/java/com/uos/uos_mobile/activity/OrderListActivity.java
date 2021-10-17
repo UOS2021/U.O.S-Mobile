@@ -97,6 +97,7 @@ public class OrderListActivity extends UosActivity {
 
                             int waitingOrderCount = orderAdapter.getItemCount(Global.Order.PREPARING);
                             waitingOrderCount += orderAdapter.getItemCount(Global.Order.PREPARED);
+                            waitingOrderCount += orderAdapter.getItemCount(Global.Order.WAITING_ACCEPT);
 
                             int waitingOrderCountDuration;
                             int doneOrderCountDuration;
@@ -122,7 +123,7 @@ public class OrderListActivity extends UosActivity {
                             waitingOrderCountAnimator.setDuration(waitingOrderCountDuration);
                             waitingOrderCountAnimator.addUpdateListener(valueAnimator -> tvOrderListWaitingOrderCount.setText(String.valueOf(valueAnimator.getAnimatedValue())));
 
-                            ValueAnimator doneOrderCountAnimator = ValueAnimator.ofInt(0, orderAdapter.getItemCount() - waitingOrderCount);
+                            ValueAnimator doneOrderCountAnimator = ValueAnimator.ofInt(0, orderAdapter.getItemCount() - waitingOrderCount - orderAdapter.getItemCount(Global.Order.CANCELED));
                             doneOrderCountAnimator.setDuration(doneOrderCountDuration);
                             doneOrderCountAnimator.addUpdateListener(valueAnimator -> tvOrderListDoneOrderCount.setText(String.valueOf(valueAnimator.getAnimatedValue())));
 
