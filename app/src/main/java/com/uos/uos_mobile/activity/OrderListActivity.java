@@ -48,7 +48,7 @@ public class OrderListActivity extends UosActivity {
         rvOrderList.setLayoutManager(new LinearLayoutManager(OrderListActivity.this, LinearLayoutManager.VERTICAL, false));
         rvOrderList.setAdapter(orderAdapter);
 
-        doUpdateOrderScreen();
+        updateList();
 
         /* 뒤로가기 버튼 눌릴 시 */
         ibtnOrderListBack.setOnClickListener(view -> {
@@ -59,10 +59,10 @@ public class OrderListActivity extends UosActivity {
         orderAdapter.setOnItemClickListener((view, position) -> new OrderDetailDialog(OrderListActivity.this, false, true, orderAdapter.getItem(position)).show());
 
         // 새로고침 스크롤 발생 시
-        srlOrderList.setOnRefreshListener(() -> doUpdateOrderScreen());
+        srlOrderList.setOnRefreshListener(() -> updateList());
     }
 
-    public void doUpdateOrderScreen() {
+    public void updateList() {
         new UpdateOrderScreen().start();
     }
 
