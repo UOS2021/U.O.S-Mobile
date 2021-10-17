@@ -41,7 +41,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         if(orderItemArrayList.get(position).getState() == 0){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("접수 대기중");
-            ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_preparing);
+            ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_waitingaccept);
         } else if(orderItemArrayList.get(position).getState() == 1){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("준비중");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_preparing);
@@ -53,7 +53,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_done);
         } else if(orderItemArrayList.get(position).getState() == 4){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("취소");
-            ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_done);
+            ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_canceled);
         }
 
         ((OrderViewHolder) viewHolder).tvOrderCompanyName.setText(orderItemArrayList.get(position).getCompanyName());
