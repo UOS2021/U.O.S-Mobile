@@ -39,14 +39,20 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 + Integer.valueOf(orderItemArrayList.get(position).getDate().substring(8, 10)) + "일 ("
                 + UsefulFuncManager.getWeekDayFromDate(orderItemArrayList.get(position).getDate()) + ")");
 
-        if(orderItemArrayList.get(position).getState() == 1){
+        if(orderItemArrayList.get(position).getState() == 0){
+            ((OrderViewHolder) viewHolder).tvOrderState.setText("접수 대기중");
+            ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_preparing);
+        } else if(orderItemArrayList.get(position).getState() == 1){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("준비중");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_preparing);
         } else if(orderItemArrayList.get(position).getState() == 2){
-            ((OrderViewHolder) viewHolder).tvOrderState.setText("수령대기");
+            ((OrderViewHolder) viewHolder).tvOrderState.setText("수령 대기중");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_prepared);
         } else if(orderItemArrayList.get(position).getState() == 3){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("완료");
+            ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_done);
+        } else if(orderItemArrayList.get(position).getState() == 4){
+            ((OrderViewHolder) viewHolder).tvOrderState.setText("취소");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_done);
         }
 
