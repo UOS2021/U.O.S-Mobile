@@ -232,7 +232,8 @@ public class Global extends Application {
         public static final int WAITING_ACCEPT = 0;
         public static final int PREPARING = 1;
         public static final int PREPARED = 2;
-        public static final int CUSOMER_TOOK_PRODUCT = 3;
+        public static final int DONE = 3;
+        public static final int CANCELED = 4;
     }
 
     public static class MovieSeat {
