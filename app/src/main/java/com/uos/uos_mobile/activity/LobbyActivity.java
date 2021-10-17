@@ -1,7 +1,6 @@
 package com.uos.uos_mobile.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,8 +13,8 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uos.uos_mobile.adapter.WaitingOrderAdapter;
-import com.uos.uos_mobile.dialog.WaitingOrderDetailDialog;
-import com.uos.uos_mobile.item.WaitingOrderItem;
+import com.uos.uos_mobile.dialog.OrderDetailDialog;
+import com.uos.uos_mobile.item.OrderItem;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -142,11 +141,11 @@ public class LobbyActivity extends UosActivity {
 
         /* 주문대기 목록 아이템이 눌렸을 경우 */
         waitingOrderAdapter.setOnItemClickListener((view, position) -> {
-            WaitingOrderDetailDialog waitingOrderDetailDialog = new WaitingOrderDetailDialog(LobbyActivity.this, false, true, waitingOrderAdapter.getItem(position));
-            waitingOrderDetailDialog.setOnDismissListener(dialogInterface -> {
+            OrderDetailDialog orderDetailDialog = new OrderDetailDialog(LobbyActivity.this, false, true, waitingOrderAdapter.getItem(position));
+            orderDetailDialog.setOnDismissListener(dialogInterface -> {
                 updateList();
             });
-            waitingOrderDetailDialog.show();
+            orderDetailDialog.show();
         });
 
         /* 우측 버튼이 눌렸을 경우 */
@@ -187,8 +186,8 @@ public class LobbyActivity extends UosActivity {
 
             /* Notification을 통해 앱을 실행했을 경우 */
 
-            WaitingOrderItem waitingOrderItem = waitingOrderAdapter.getItemByOrderCode(lobbyActivityIntent.getStringExtra("orderCode"));
-            if (waitingOrderItem == null) {
+            OrderItem orderItem = waitingOrderAdapter.getItemByOrderCode(lobbyActivityIntent.getIntExtra("orderCode", 0));
+            if (orderItem == null) {
 
                 /* Notification을 통해 전달받은 주문코드에 해당하는 주문이 없을 경우 */
 
@@ -197,11 +196,11 @@ public class LobbyActivity extends UosActivity {
 
                 /* Notification을 통해 전달받은 주문코드에 해당하는 주문이 있을 경우 */
 
-                WaitingOrderDetailDialog waitingOrderDetailDialog = new WaitingOrderDetailDialog(LobbyActivity.this, false, true, waitingOrderItem);
-                waitingOrderDetailDialog.setOnDismissListener(dialogInterface -> {
+                OrderDetailDialog orderDetailDialog = new OrderDetailDialog(LobbyActivity.this, false, true, orderItem);
+                orderDetailDialog.setOnDismissListener(dialogInterface -> {
                     updateList();
                 });
-                waitingOrderDetailDialog.show();
+                orderDetailDialog.show();
             }
         }
     }
@@ -228,7 +227,7 @@ public class LobbyActivity extends UosActivity {
                         /*  */
 
                         try {
-                            waitingOrderAdapter.updateItemWithJson(recvData.getJSONObject("message").getJSONArray("orders"));
+                            waitingOrderAdapter.setJson(recvData.getJSONObject("message").getJSONArray("order_list"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -271,10 +270,10 @@ public class LobbyActivity extends UosActivity {
      *
      * @param orderCode 주문코드.
      */
-    public void moveToOrderCode(String orderCode) {
+    public void moveToOrderCode(int orderCode) {
         int position = 0;
-        for (WaitingOrderItem waitingOrderItem : waitingOrderAdapter.getWaitingOrderItemArrayList()) {
-            if (waitingOrderItem.getOrderCode().equals(orderCode)) {
+        for (OrderItem orderItem : waitingOrderAdapter.getOrderItemArrayList()) {
+            if (orderItem.getOrderCode() == orderCode) {
                 rvLobbyWaitingOrder.smoothScrollToPosition(position);
                 break;
             }

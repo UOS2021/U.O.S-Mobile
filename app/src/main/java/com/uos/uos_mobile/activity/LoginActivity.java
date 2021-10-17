@@ -217,7 +217,7 @@ public class LoginActivity extends UosActivity {
 
                     /* Notofication을 통해 앱을 실행했을 경우 */
 
-                    intent.putExtra("orderCode", loginActivityIntent.getStringExtra("orderCode"));
+                    intent.putExtra("orderCode", loginActivityIntent.getIntExtra("orderCode", 0));
                 }
                 startActivity(intent);
                 finish();

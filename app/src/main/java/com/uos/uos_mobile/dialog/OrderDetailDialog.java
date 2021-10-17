@@ -11,25 +11,26 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.adapter.WaitingOrderInfoAdapter;
+import com.uos.uos_mobile.adapter.OrderProductAdapter;
 import com.uos.uos_mobile.item.BasketItem;
-import com.uos.uos_mobile.item.OrderListItem;
+import com.uos.uos_mobile.item.OrderItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 
 public class OrderDetailDialog extends UosDialog {
     private final Context context;
-    private final OrderListItem orderListItem;
-    private AppCompatImageButton ibtnDlgOrderInfoClose;
-    private AppCompatTextView tvDlgOrderInfoCompanyName;
-    private AppCompatTextView tvDlgOrderInfoOrderTime;
-    private AppCompatTextView tvDlgOrderInfoOrderTotalPrice;
-    private RecyclerView rvDlgOrderInfo;
-    private WaitingOrderInfoAdapter waitingOrderInfoAdapter;
+    private final OrderItem orderItem;
+    private AppCompatImageButton ibtnDlgWaitingOrderInfoClose;
+    private AppCompatTextView tvDlgWaitingOrderInfoCompanyName;
+    private AppCompatTextView tvDlgWaitingOrderInfoOrderDate;
+    private AppCompatTextView tvDlgWaitingOrderInfoOrderCode;
+    private AppCompatTextView tvDlgWaitingOrderInfoOrderTotalPrice;
+    private RecyclerView rvDlgWaitingOrderInfo;
+    private OrderProductAdapter orderProductAdapter;
 
-    public OrderDetailDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, OrderListItem orderListItem) {
+    public OrderDetailDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, OrderItem orderItem) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
-        this.orderListItem = orderListItem;
+        this.orderItem = orderItem;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -48,32 +49,34 @@ public class OrderDetailDialog extends UosDialog {
      * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
     protected void init() {
-        ibtnDlgOrderInfoClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgorderinfo_close);
-        tvDlgOrderInfoCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_companyname);
-        tvDlgOrderInfoOrderTime = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_ordertime);
-        tvDlgOrderInfoOrderTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderinfo_totalprice);
-        rvDlgOrderInfo = findViewById(com.uos.uos_mobile.R.id.rv_dlgorderinfo);
+        ibtnDlgWaitingOrderInfoClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgorderdetail_close);
+        tvDlgWaitingOrderInfoCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_companyname);
+        tvDlgWaitingOrderInfoOrderCode = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_ordercode);
+        tvDlgWaitingOrderInfoOrderDate = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_date);
+        tvDlgWaitingOrderInfoOrderTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_totalprice);
+        rvDlgWaitingOrderInfo = findViewById(com.uos.uos_mobile.R.id.rv_dlgorderdetail);
 
-        tvDlgOrderInfoCompanyName.setText(orderListItem.getCompanyName());
-        tvDlgOrderInfoOrderTime.setText(orderListItem.getDate() + " " + orderListItem.getTime());
-
+        tvDlgWaitingOrderInfoCompanyName.setText(orderItem.getCompanyName());
+        tvDlgWaitingOrderInfoOrderDate.setText(String.valueOf(orderItem.getDate()));
+        tvDlgWaitingOrderInfoOrderCode.setText(String.valueOf(orderItem.getOrderCode()));
         int totalPrice = 0;
-        for (BasketItem basketItem : orderListItem.getBasketItemArrayList()) {
+        for (BasketItem basketItem : orderItem.getBasketItemArrayList()) {
             totalPrice += basketItem.getTotalPrice();
         }
 
-        tvDlgOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
+        tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
 
-        waitingOrderInfoAdapter = new WaitingOrderInfoAdapter();
-        waitingOrderInfoAdapter.setBasketItemArrayList(orderListItem.getBasketItemArrayList());
+        orderProductAdapter = new OrderProductAdapter();
+        orderProductAdapter.setBasketItemArrayList(orderItem.getBasketItemArrayList());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(context.getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
-        rvDlgOrderInfo.addItemDecoration(dividerItemDecoration);
-        rvDlgOrderInfo.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        rvDlgOrderInfo.setAdapter(waitingOrderInfoAdapter);
+        rvDlgWaitingOrderInfo.addItemDecoration(dividerItemDecoration);
+        rvDlgWaitingOrderInfo.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        rvDlgWaitingOrderInfo.setAdapter(orderProductAdapter);
+
 
         // 닫기 버튼이 눌렸을 경우
-        ibtnDlgOrderInfoClose.setOnClickListener(view -> {
+        ibtnDlgWaitingOrderInfoClose.setOnClickListener(view -> {
             dismiss();
         });
     }

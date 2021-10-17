@@ -1,7 +1,6 @@
 package com.uos.uos_mobile.activity;
 
 import android.animation.ValueAnimator;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.uos.uos_mobile.adapter.OrderListAdapter;
+import com.uos.uos_mobile.adapter.OrderAdapter;
 import com.uos.uos_mobile.dialog.OrderDetailDialog;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.other.Global;
@@ -27,7 +26,7 @@ public class OrderListActivity extends UosActivity {
     private RecyclerView rvOrderList;
     private ProgressBar pbOrderList;
     private AppCompatTextView tvOrderListNoOrderList;
-    private OrderListAdapter orderListAdapter;
+    private OrderAdapter orderAdapter;
     private boolean isFirstLoad = true;
 
     /**
@@ -45,9 +44,9 @@ public class OrderListActivity extends UosActivity {
         pbOrderList = findViewById(com.uos.uos_mobile.R.id.pb_orderlist);
         tvOrderListNoOrderList = findViewById(com.uos.uos_mobile.R.id.tv_orderlist_noorderlist);
 
-        orderListAdapter = new OrderListAdapter();
+        orderAdapter = new OrderAdapter();
         rvOrderList.setLayoutManager(new LinearLayoutManager(OrderListActivity.this, LinearLayoutManager.VERTICAL, false));
-        rvOrderList.setAdapter(orderListAdapter);
+        rvOrderList.setAdapter(orderAdapter);
 
         doUpdateOrderScreen();
 
@@ -57,7 +56,7 @@ public class OrderListActivity extends UosActivity {
         });
 
         /* 주문목록 아이템이 눌릴 시 */
-        orderListAdapter.setOnItemClickListener((view, position) -> new OrderDetailDialog(OrderListActivity.this, false, true, orderListAdapter.getItem(position)).show());
+        orderAdapter.setOnItemClickListener((view, position) -> new OrderDetailDialog(OrderListActivity.this, false, true, orderAdapter.getItem(position)).show());
 
         // 새로고침 스크롤 발생 시
         srlOrderList.setOnRefreshListener(() -> doUpdateOrderScreen());
@@ -93,10 +92,11 @@ public class OrderListActivity extends UosActivity {
                     runOnUiThread(() -> {
                         try {
                             rvOrderList.setVisibility(View.VISIBLE);
-                            orderListAdapter.setJson(recvData.getJSONObject("message").getJSONArray("order_list"));
-                            orderListAdapter.notifyDataSetChanged();
+                            orderAdapter.setJson(recvData.getJSONObject("message").getJSONArray("order_list"));
+                            orderAdapter.notifyDataSetChanged();
 
-                            int waitingOrderCount = orderListAdapter.getItemCount(Global.Order.PREPARING);
+                            int waitingOrderCount = orderAdapter.getItemCount(Global.Order.PREPARING);
+                            waitingOrderCount += orderAdapter.getItemCount(Global.Order.PREPARED);
 
                             int waitingOrderCountDuration;
                             int doneOrderCountDuration;
@@ -109,9 +109,9 @@ public class OrderListActivity extends UosActivity {
                                 waitingOrderCountDuration = 2000;
                             }
 
-                            if (orderListAdapter.getItemCount() - waitingOrderCount < 5) {
+                            if (orderAdapter.getItemCount() - waitingOrderCount < 5) {
                                 doneOrderCountDuration = 1000;
-                            } else if (orderListAdapter.getItemCount() - waitingOrderCount < 10) {
+                            } else if (orderAdapter.getItemCount() - waitingOrderCount < 10) {
                                 doneOrderCountDuration = 1500;
                             } else {
                                 doneOrderCountDuration = 2000;
@@ -122,7 +122,7 @@ public class OrderListActivity extends UosActivity {
                             waitingOrderCountAnimator.setDuration(waitingOrderCountDuration);
                             waitingOrderCountAnimator.addUpdateListener(valueAnimator -> tvOrderListWaitingOrderCount.setText(String.valueOf(valueAnimator.getAnimatedValue())));
 
-                            ValueAnimator doneOrderCountAnimator = ValueAnimator.ofInt(0, orderListAdapter.getItemCount() - waitingOrderCount);
+                            ValueAnimator doneOrderCountAnimator = ValueAnimator.ofInt(0, orderAdapter.getItemCount() - waitingOrderCount);
                             doneOrderCountAnimator.setDuration(doneOrderCountDuration);
                             doneOrderCountAnimator.addUpdateListener(valueAnimator -> tvOrderListDoneOrderCount.setText(String.valueOf(valueAnimator.getAnimatedValue())));
 
@@ -151,7 +151,7 @@ public class OrderListActivity extends UosActivity {
                     srlOrderList.setRefreshing(false);
                     srlOrderList.setEnabled(true);
                 }
-                if (orderListAdapter.getItemCount() == 0) {
+                if (orderAdapter.getItemCount() == 0) {
                     tvOrderListNoOrderList.setVisibility(View.VISIBLE);
                 } else {
                     tvOrderListNoOrderList.setVisibility(View.INVISIBLE);

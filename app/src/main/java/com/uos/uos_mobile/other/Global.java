@@ -1,5 +1,9 @@
 package com.uos.uos_mobile.other;
 
+import android.app.Application;
+
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.uos.uos_mobile.manager.BasketManager;
 
 /**
@@ -8,8 +12,14 @@ import com.uos.uos_mobile.manager.BasketManager;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class Global {
+public class Global extends Application {
     public static BasketManager basketManager;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    }
 
     /**
      * U.O.S-Mobile내 Notification에 대한 정보를 가지고 있는 정적 클래스.
@@ -232,7 +242,5 @@ public class Global {
         public static final int UNRESERVED_SEAT = 2;
         public static final int SELECTED_SEAT = 3;
         public static String[] ROW_ARR = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
-        public enum ROW {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
     }
 }

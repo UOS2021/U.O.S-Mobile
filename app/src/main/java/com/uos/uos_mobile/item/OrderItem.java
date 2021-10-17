@@ -1,27 +1,44 @@
 package com.uos.uos_mobile.item;
 
-import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class OrderListItem {
-    private ArrayList<BasketItem> basketItemArrayList;
+public class OrderItem {
+    private ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
     private String date;
-    private String time;
     private String companyName;
     private int state;
-    private int totalPrice = 0;
+    private int orderCode;
+    private int totalPrice;
 
-    public OrderListItem(String companyName, String date, int state, ArrayList<BasketItem> basketItemArrayList) {
-        this.companyName = companyName;
-        this.date = date.substring(0, 10) + " (" + UsefulFuncManager.getWeekDayFromDate(date) + ")";
-        this.state = state;
-        this.time = date.substring(11);
-        this.basketItemArrayList = basketItemArrayList;
-        for (BasketItem basketItem : this.basketItemArrayList) {
-            totalPrice += basketItem.getTotalPrice();
+    public OrderItem(JSONObject orderData) {
+        try {
+            state = orderData.getInt("state");
+            date = orderData.getString("date");
+            companyName = orderData.getString("company_name");
+            totalPrice = orderData.getInt("total_price");
+            orderCode = orderData.getInt("order_code");
+
+            JSONArray productList = orderData.getJSONArray("product_list");
+            for (int loop = 0; loop < productList.length(); loop++) {
+                basketItemArrayList.add(new BasketItem(productList.getJSONObject(loop)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+    }
+
+    public int getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(int orderCode) {
+        this.orderCode = orderCode;
     }
 
     public ArrayList<BasketItem> getBasketItemArrayList() {
@@ -64,18 +81,12 @@ public class OrderListItem {
         this.totalPrice = totalPrice;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getOrderSimple() {
         String result = "";
+
         int maximumPrice = 0;
         int totalItemCount = 0;
+
         for (BasketItem basketItem : basketItemArrayList) {
             if (maximumPrice < basketItem.getPrice()) {
                 maximumPrice = basketItem.getPrice();
@@ -89,7 +100,11 @@ public class OrderListItem {
         }
 
         if (totalItemCount > 1) {
-            result += " 외 " + (totalItemCount - 1) + "개";
+            if(basketItemArrayList.size() == 1){
+                result += " " + (totalItemCount - 1) + "개";
+            }else{
+                result += " 외 " + (totalItemCount - 1) + "개";
+            }
         }
 
         return result;

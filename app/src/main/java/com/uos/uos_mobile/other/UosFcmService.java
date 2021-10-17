@@ -52,7 +52,7 @@ public class UosFcmService extends FirebaseMessagingService {
                 if (lobbyActivity != null) {
                     lobbyActivity.runOnUiThread(() -> {
                         ((LobbyActivity) lobbyActivity).updateList();
-                        ((LobbyActivity) lobbyActivity).moveToOrderCode(orderCode);
+                        ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
                     });
                 } else {
                     final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);

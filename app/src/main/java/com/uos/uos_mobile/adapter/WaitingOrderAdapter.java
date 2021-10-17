@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.item.WaitingOrderItem;
+import com.uos.uos_mobile.item.OrderItem;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONArray;
@@ -19,7 +19,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final ArrayList<WaitingOrderItem> waitingOrderItemArrayList = new ArrayList<>();  // 주문대기 목록
+    private final ArrayList<OrderItem> orderItemArrayList = new ArrayList<>();  // 주문대기 목록
     private final Context context;
     private WaitingOrderAdapter.OnItemClickListener onItemClickListener = null;
 
@@ -36,16 +36,16 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderCompanyName.setText(waitingOrderItemArrayList.get(position).getCompanyName());
-        ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderOrderCode.setText(String.valueOf(waitingOrderItemArrayList.get(position).getOrderCode()));
+        ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderCompanyName.setText(orderItemArrayList.get(position).getCompanyName());
+        ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderOrderCode.setText(String.valueOf(orderItemArrayList.get(position).getOrderCode()));
 
-        if (waitingOrderItemArrayList.get(position).getState().equals(Global.Order.PREPARING)) {
+        if (orderItemArrayList.get(position).getState() == Global.Order.PREPARING) {
 
             /* 상품이 준비 중일 경우 */
 
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비 중입니다");
             ((WaitingOrderViewHolder) viewHolder).clWaitingOrder.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
-        } else if (waitingOrderItemArrayList.get(position).getState().equals(Global.Order.PREPARED)) {
+        } else if (orderItemArrayList.get(position).getState() == Global.Order.PREPARED) {
 
             /* 상품이 준비되었을 경우 */
 
@@ -60,19 +60,19 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return waitingOrderItemArrayList.size();
+        return orderItemArrayList.size();
     }
 
-    public WaitingOrderItem getItem(int position) {
-        return waitingOrderItemArrayList.get(position);
+    public OrderItem getItem(int position) {
+        return orderItemArrayList.get(position);
     }
 
-    public void updateItemWithJson(JSONArray waitingOrders) {
-        waitingOrderItemArrayList.clear();
+    public void setJson(JSONArray orderListData) {
+        orderItemArrayList.clear();
 
-        for (int loop = 0; loop < waitingOrders.length(); loop++) {
+        for (int loop = 0; loop < orderListData.length(); loop++) {
             try {
-                waitingOrderItemArrayList.add(new WaitingOrderItem(waitingOrders.getJSONObject(loop)));
+                orderItemArrayList.add(new OrderItem(orderListData.getJSONObject(loop)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -85,14 +85,14 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return 0;
     }
 
-    public ArrayList<WaitingOrderItem> getWaitingOrderItemArrayList() {
-        return waitingOrderItemArrayList;
+    public ArrayList<OrderItem> getOrderItemArrayList() {
+        return orderItemArrayList;
     }
 
-    public WaitingOrderItem getItemByOrderCode(String orderCode) {
-        for (WaitingOrderItem waitingOrderItem : waitingOrderItemArrayList) {
-            if (waitingOrderItem.getOrderCode().equals(orderCode)) {
-                return waitingOrderItem;
+    public OrderItem getItemByOrderCode(int orderCode) {
+        for (OrderItem orderItem : orderItemArrayList) {
+            if (orderItem.getOrderCode() == orderCode) {
+                return orderItem;
             }
         }
 
