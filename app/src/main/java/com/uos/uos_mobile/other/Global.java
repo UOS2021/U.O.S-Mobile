@@ -185,8 +185,8 @@ public class Global extends Application {
             public static final String STORE_PRODUCT_INFO = "0007";
             public static final String THEATER_PRODUCT_INFO = "0008";
             public static final String ORDER_SUCCESS = "0009";
-            public static final String ORDER_ACCEPT = "0010";
-            public static final String ORDER_REFUSE = "0011";
+            public static final String FCM_ORDER_ACCEPT = "0010";
+            public static final String FCM_ORDER_REFUSE = "0011";
             public static final String ORDER_LIST = "0012";
             public static final String CHANGE_PW_SUCCESS = "0013";
             public static final String CHANGE_PW_FAIL_PW_NOT_CORRECT = "0014";
@@ -203,6 +203,8 @@ public class Global extends Application {
             public static final String WAITING_ORDER_LIST = "0025";
             public static final String CHANGE_ORDER_STATE_SUCCESS = "0026";
             public static final String CUSTOMER_LOGOUT_SUCCESS = "0027";
+            public static final String FCM_ORDER_PREPARED = "0028";
+            public static final String FCM_QUARANTINE_NOTICE = "0029";
         }
     }
 
