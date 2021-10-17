@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_dlgwaitingorder_1"
+        android:id="@+id/cl_dlgwaitingorderaccept_1"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/color_primary"
@@ -31,12 +31,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/cl_dlgwaitingorder_ok"
-        app:layout_constraintTop_toBottomOf="@id/cl_dlgwaitingorder_1">
+        app:layout_constraintBottom_toTopOf="@id/cl_dlgwaitingorderaccept_ok"
+        app:layout_constraintTop_toBottomOf="@id/cl_dlgwaitingorderaccept_1">
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dlgwaitingorder_explain"
+            android:id="@+id/tv_dlgwaitingorderaccept_explain"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="64dp"
@@ -53,7 +53,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_dlgwaitingorder_ok"
+        android:id="@+id/cl_dlgwaitingorderaccept_ok"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="@color/color_primary"
