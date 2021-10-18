@@ -29,7 +29,7 @@ public class UosFcmService extends FirebaseMessagingService {
             /* FCM이 data 형식으로 왔을 경우 */
 
             Map<String, String> recvData = remoteMessage.getData();
-            String type = recvData.get("type");
+            String responseCode = recvData.get("response_code");
 
             Intent intent = new Intent(this, IntroActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -40,9 +40,38 @@ public class UosFcmService extends FirebaseMessagingService {
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true);
 
-            if (type.equals("order")) {
+            if (responseCode.equals(Global.Network.Response.FCM_ORDER_ACCEPT)) {
 
-                /* 상품이 준비되었다는 FCM일 경우 */
+                /* 주문이 수락되었다는 알림일 경우 */
+                String companyName = recvData.get("company_name");
+                String orderCode = recvData.get("order_code");
+
+                final UosActivity lobbyActivity = UosActivity.get(LobbyActivity.class);
+
+                if (lobbyActivity != null) {
+                    lobbyActivity.runOnUiThread(() -> {
+                        ((LobbyActivity) lobbyActivity).updateList();
+                        ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
+                    });
+                } else {
+                    final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+
+                    if (orderListActivity != null) {
+                        orderListActivity.runOnUiThread(() -> {
+                            ((OrderListActivity) orderListActivity).updateList();
+                        });
+                    }
+                }
+
+                intent.setData(Uri.parse(orderCode));
+
+                notificationCompatBuilder
+                        .setContentTitle(companyName + "에서 주문을 수락하였습니다")
+                        .setContentText("상품이 준비되는 동안 기다려주세요 (주문코드: " + orderCode + ")");
+
+            } else if (responseCode.equals(Global.Network.Response.FCM_ORDER_REFUSE)) {
+
+                /* 주문이 거절되었다는 알림일 경우 */
 
                 String companyName = recvData.get("company_name");
                 String orderCode = recvData.get("order_code");
@@ -59,7 +88,37 @@ public class UosFcmService extends FirebaseMessagingService {
 
                     if (orderListActivity != null) {
                         orderListActivity.runOnUiThread(() -> {
-                            ((OrderListActivity) orderListActivity).doUpdateOrderScreen();
+                            ((OrderListActivity) orderListActivity).updateList();
+                        });
+                    }
+                }
+
+                intent.setData(Uri.parse(orderCode));
+
+                notificationCompatBuilder
+                        .setContentTitle(companyName + "에서 주문을 거절하였습니다")
+                        .setContentText("현재 매장이 바쁩니다. 다음에 다시 주문해주세요.");
+
+            } else if (responseCode.equals(Global.Network.Response.FCM_ORDER_PREPARED)) {
+
+                /* 상품이 준비되었다는 알림일 경우 */
+
+                String companyName = recvData.get("company_name");
+                String orderCode = recvData.get("order_code");
+
+                final UosActivity lobbyActivity = UosActivity.get(LobbyActivity.class);
+
+                if (lobbyActivity != null) {
+                    lobbyActivity.runOnUiThread(() -> {
+                        ((LobbyActivity) lobbyActivity).updateList();
+                        ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
+                    });
+                } else {
+                    final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+
+                    if (orderListActivity != null) {
+                        orderListActivity.runOnUiThread(() -> {
+                            ((OrderListActivity) orderListActivity).updateList();
                         });
                     }
                 }
@@ -69,7 +128,7 @@ public class UosFcmService extends FirebaseMessagingService {
                 notificationCompatBuilder
                         .setContentTitle(companyName + "에서 주문하신 상품이 준비되었습니다")
                         .setContentText("카운터에서 상품을 수령해주세요 (주문코드: " + orderCode + ")");
-            } else if (type.equals("alert")) {
+            } else if (responseCode.equals(Global.Network.Response.FCM_QUARANTINE_NOTICE)) {
 
                 /* 방역동선 관련된 알림일 경우 */
 
