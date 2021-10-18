@@ -64,31 +64,30 @@ public class IntroActivity extends UosActivity {
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 notificationManager.createNotificationChannel(channel);
             }
-
-            /*
-             * Firebase Cloud Messaging을 위한 Token 생성
-             * Token은 앱 최초 설치시에만 부여
-            */
-            FirebaseMessaging.getInstance().getToken()
-                    .addOnCompleteListener(task -> {
-                        if (!task.isSuccessful()) {
-
-                            /* FCM Token 생성 실패 시 */
-
-                            Log.w("UOS_MOBILE_FCM", "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-
-                        String fcmToken = task.getResult();
-                        Log.d("UOS_MOBILE_FCM", fcmToken);
-
-                        /*
-                         * 생성된 FCM Token을 Global.Firebase.FCM_TOKEN에 저장.
-                         * 저장된 토큰은 주문 시 Pos기에 전송하여 Notification을 받는 용도로 사용.
-                         */
-                        Global.Firebase.FCM_TOKEN = fcmToken;
-                    });
         }
+
+        /*
+         * Firebase Cloud Messaging을 위한 Token 생성
+         */
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+
+                        /* FCM Token 생성 실패 시 */
+
+                        Log.w("UOS_MOBILE_FCM", "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    String fcmToken = task.getResult();
+                    Log.d("UOS_MOBILE_FCM", fcmToken);
+
+                    /*
+                     * 생성된 FCM Token을 Global.Firebase.FCM_TOKEN에 저장.
+                     * 저장된 토큰은 주문 시 Pos기에 전송하여 Notification을 받는 용도로 사용.
+                     */
+                    Global.Firebase.FCM_TOKEN = fcmToken;
+                });
 
 
         Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
