@@ -1,31 +1,47 @@
 package com.uos.uos_mobile.dialog;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.uos.uos_mobile.R;
 import com.uos.uos_mobile.adapter.OrderProductAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderItem;
+import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
+import com.uos.uos_mobile.other.Global;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class OrderDetailDialog extends UosDialog {
     private final Context context;
     private final OrderItem orderItem;
-    private AppCompatImageButton ibtnDlgWaitingOrderInfoClose;
-    private AppCompatTextView tvDlgWaitingOrderInfoCompanyName;
-    private AppCompatTextView tvDlgWaitingOrderInfoOrderDate;
-    private AppCompatTextView tvDlgWaitingOrderInfoOrderCode;
-    private AppCompatTextView tvDlgWaitingOrderInfoOrderTotalPrice;
-    private RecyclerView rvDlgWaitingOrderInfo;
+    private AppCompatImageButton ibtnDlgOrderDetailClose;
+    private AppCompatTextView tvDlgOrderDetailCompanyName;
+    private AppCompatTextView tvDlgOrderDetailOrderDate;
+    private AppCompatTextView tvDlgOrderDetailOrderCode;
+    private ConstraintLayout clDlgOrderDetailCancelOrder;
+    private AppCompatTextView tvDlgOrderDetailOrderTotalPrice;
+    private RecyclerView rvDlgOrderDetail;
     private OrderProductAdapter orderProductAdapter;
+
+    private boolean isCancelProcessRunning = false;
 
     public OrderDetailDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, OrderItem orderItem) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
@@ -49,35 +65,106 @@ public class OrderDetailDialog extends UosDialog {
      * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
     protected void init() {
-        ibtnDlgWaitingOrderInfoClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgorderdetail_close);
-        tvDlgWaitingOrderInfoCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_companyname);
-        tvDlgWaitingOrderInfoOrderCode = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_ordercode);
-        tvDlgWaitingOrderInfoOrderDate = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_date);
-        tvDlgWaitingOrderInfoOrderTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_totalprice);
-        rvDlgWaitingOrderInfo = findViewById(com.uos.uos_mobile.R.id.rv_dlgorderdetail);
+        ibtnDlgOrderDetailClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgorderdetail_close);
+        tvDlgOrderDetailCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_companyname);
+        tvDlgOrderDetailOrderCode = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_ordercode);
+        tvDlgOrderDetailOrderDate = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_date);
+        clDlgOrderDetailCancelOrder = findViewById(com.uos.uos_mobile.R.id.cl_dlgorderdetail_cancelorder);
+        tvDlgOrderDetailOrderTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgorderdetail_totalprice);
+        rvDlgOrderDetail = findViewById(com.uos.uos_mobile.R.id.rv_dlgorderdetail);
 
-        tvDlgWaitingOrderInfoCompanyName.setText(orderItem.getCompanyName());
-        tvDlgWaitingOrderInfoOrderDate.setText(String.valueOf(orderItem.getDate()));
-        tvDlgWaitingOrderInfoOrderCode.setText(String.valueOf(orderItem.getOrderCode()));
+        tvDlgOrderDetailCompanyName.setText(orderItem.getCompanyName());
+        tvDlgOrderDetailOrderDate.setText(String.valueOf(orderItem.getDate()));
+        tvDlgOrderDetailOrderCode.setText(String.valueOf(orderItem.getOrderCode()));
         int totalPrice = 0;
         for (BasketItem basketItem : orderItem.getBasketItemArrayList()) {
             totalPrice += basketItem.getTotalPrice();
         }
 
-        tvDlgWaitingOrderInfoOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
+        tvDlgOrderDetailOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
 
         orderProductAdapter = new OrderProductAdapter();
         orderProductAdapter.setBasketItemArrayList(orderItem.getBasketItemArrayList());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(context.getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
-        rvDlgWaitingOrderInfo.addItemDecoration(dividerItemDecoration);
-        rvDlgWaitingOrderInfo.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        rvDlgWaitingOrderInfo.setAdapter(orderProductAdapter);
+        rvDlgOrderDetail.addItemDecoration(dividerItemDecoration);
+        rvDlgOrderDetail.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        rvDlgOrderDetail.setAdapter(orderProductAdapter);
 
+        if(orderItem.getState() == Global.Order.WAITING_ACCEPT){
+            clDlgOrderDetailCancelOrder.setVisibility(View.VISIBLE);
+        }else{
+            clDlgOrderDetailCancelOrder.setVisibility(View.INVISIBLE);
+        }
 
         // 닫기 버튼이 눌렸을 경우
-        ibtnDlgWaitingOrderInfoClose.setOnClickListener(view -> {
+        ibtnDlgOrderDetailClose.setOnClickListener(view -> {
             dismiss();
+        });
+
+        clDlgOrderDetailCancelOrder.setOnClickListener(view -> {
+            clDlgOrderDetailCancelOrder.setEnabled(false);
+            AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogTheme)
+                    .setTitle(tvDlgOrderDetailCompanyName.getText().toString() + " 주문취소")
+                    .setMessage("주문(" + tvDlgOrderDetailOrderCode.getText().toString() + ")을 취소하시겠습니까?")
+                    .setPositiveButton("예", (dialogInterface, i) -> {
+                        try {
+                            isCancelProcessRunning = true;
+                            JSONObject message = new JSONObject();
+                            message.accumulate("order_code", Integer.valueOf(tvDlgOrderDetailOrderCode.getText().toString()));
+
+                            JSONObject sendData = new JSONObject();
+                            sendData.accumulate("request_code", Global.Network.Request.CANCEL_ORDER);
+                            sendData.accumulate("message", message);
+
+                            JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                            String responseCode = recvData.getString("response_code");
+
+                            if (responseCode.equals(Global.Network.Response.CANCEL_ORDER_SUCCESS)) {
+
+                                /* 주문취소 성공 */
+
+                                Toast.makeText(context, "주문이 취소되었습니다", Toast.LENGTH_SHORT).show();
+
+                                dismiss();
+                            } else if (responseCode.equals(Global.Network.Response.CANCEL_ORDER_FAIL_ALREADY_ACCEPT)) {
+
+                                /* 주문취소 실패 */
+
+                                Toast.makeText(context, "이미 매장에서 접수된 주문입니다", Toast.LENGTH_SHORT).show();
+
+                            } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
+
+                                /* 서버 연결 실패 */
+
+                                Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                            } else {
+
+                                /* 주문취소 실패 - 기타 오류 */
+
+                                Toast.makeText(context, "주문취소 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException | InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                            Toast.makeText(context, "주문취소 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        }
+                        isCancelProcessRunning = false;
+                        clDlgOrderDetailCancelOrder.setEnabled(true);
+                    })
+                    .setNegativeButton("아니오", null).create();
+
+            alertDialog.setOnShowListener(dialogInterface -> {
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+            });
+
+            alertDialog.setOnDismissListener(dialog -> {
+                if (!isCancelProcessRunning) {
+                    clDlgOrderDetailCancelOrder.setEnabled(true);
+                }
+            });
+
+            alertDialog.show();
         });
     }
 }

@@ -43,7 +43,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((OrderViewHolder) viewHolder).tvOrderState.setText("접수 대기중");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_waitingaccept);
         } else if(orderItemArrayList.get(position).getState() == 1){
-            ((OrderViewHolder) viewHolder).tvOrderState.setText("준비중");
+            ((OrderViewHolder) viewHolder).tvOrderState.setText("상품 준비중");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_preparing);
         } else if(orderItemArrayList.get(position).getState() == 2){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("수령 대기중");

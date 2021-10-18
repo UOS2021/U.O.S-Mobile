@@ -122,14 +122,47 @@
             android:background="@color/black"
             app:layout_constraintBottom_toTopOf="@id/tv_dlgorderdetail_totalprice" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_dlgorderdetail_cancelorder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/border_cancelorder"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_dlgorderdetail_totalprice"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_dlgorderdetail_totalprice"
+            app:layout_constraintTop_toTopOf="@id/tv_dlgorderdetail_totalprice">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="주문취소"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dlgorderdetail_totalprice"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:text="000,000원"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@id/cl_dlgorderdetail_cancelorder"
             app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
