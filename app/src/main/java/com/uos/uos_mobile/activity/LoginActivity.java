@@ -229,7 +229,7 @@ public class LoginActivity extends UosActivity {
                 Global.User.id = tilLoginId.getEditText().getText().toString();
                 Global.User.name = userData.getString("name");
                 Global.User.phone = userData.getString("phone");
-                Global.User.type = "customer";
+                Global.User.type = "uospartner";
                 Global.User.companyName = userData.getString("company_name");
                 SharedPreferencesManager.open(LoginActivity.this, Global.SharedPreference.APP_DATA);
                 SharedPreferencesManager.save(Global.SharedPreference.QR_IMAGE, recvData.getJSONObject("message").getString("qr_img"));
