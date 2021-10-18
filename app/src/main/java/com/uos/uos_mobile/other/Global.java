@@ -158,7 +158,7 @@ public class Global extends Application {
             public static final String CARD_ADD = "0008";
             public static final String CARD_REMOVE = "0009";
             public static final String ORDER = "0010";
-            public static final String ORDER_CANCEL = "0011";
+            public static final String CANCEL_ORDER = "0011";
             public static final String ORDER_LIST = "0012";
             public static final String STORE_PRODUCT_INFO = "0013";
             public static final String ORDER_ACCEPTED_STATE = "0014";
@@ -197,7 +197,7 @@ public class Global extends Application {
             public static final String CARD_REMOVE_SUCCESS = "0019";
             public static final String CARD_INFO = "0020";
             public static final String CARD_NO_INFO = "0021";
-            public static final String ORDER_CANCEL_SUCCESS = "0022";
+            public static final String CANCEL_ORDER_SUCCESS = "0022";
             public static final String PAY_SUCCESS = "0023";
             public static final String PAY_FAIL_WRONG_PASSWORD = "0024";
             public static final String WAITING_ORDER_LIST = "0025";
@@ -205,6 +205,7 @@ public class Global extends Application {
             public static final String CUSTOMER_LOGOUT_SUCCESS = "0027";
             public static final String FCM_ORDER_PREPARED = "0028";
             public static final String FCM_QUARANTINE_NOTICE = "0029";
+            public static final String CANCEL_ORDER_FAIL_ALREADY_ACCEPT = "0029";
         }
     }
 
