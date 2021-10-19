@@ -82,7 +82,6 @@ public class BasketDialog extends UosDialog {
         // 주문하기 버튼 클릭 시
         llDlgBasketOrder.setOnClickListener(view -> {
             Intent intent = new Intent(context, PayActivity.class);
-            intent.putExtra("Global.Network.EXTERNAL_SERVER_URL", Global.Network.EXTERNAL_SERVER_URL);
             intent.putExtra("uosPartnerId", uosPartnerId);
             context.startActivity(new Intent(context, PayActivity.class));
         });
