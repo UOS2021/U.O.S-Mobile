@@ -15,6 +15,8 @@ import com.uos.uos_mobile.activity.IntroActivity;
 import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
 import com.uos.uos_mobile.activity.UosActivity;
+import com.uos.uos_mobile.dialog.OrderDetailDialog;
+import com.uos.uos_mobile.dialog.UosDialog;
 import com.uos.uos_mobile.manager.SharedPreferencesManager;
 
 import java.util.Map;
@@ -51,16 +53,20 @@ public class UosFcmService extends FirebaseMessagingService {
                 if (lobbyActivity != null) {
                     lobbyActivity.runOnUiThread(() -> {
                         ((LobbyActivity) lobbyActivity).updateList();
-                        ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
                     });
-                } else {
-                    final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+                }
 
-                    if (orderListActivity != null) {
-                        orderListActivity.runOnUiThread(() -> {
-                            ((OrderListActivity) orderListActivity).updateList();
-                        });
-                    }
+                final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+                if (orderListActivity != null) {
+                    orderListActivity.runOnUiThread(() -> {
+                        ((OrderListActivity) orderListActivity).updateList();
+                    });
+                }
+
+                final UosDialog orderDetailDialog = UosDialog.get(OrderDetailDialog.class);
+
+                if (orderDetailDialog != null) {
+                    ((OrderDetailDialog)orderDetailDialog).updateOrderState(Integer.valueOf(orderCode), Global.Order.PREPARING);
                 }
 
                 intent.setData(Uri.parse(orderCode));
@@ -81,16 +87,19 @@ public class UosFcmService extends FirebaseMessagingService {
                 if (lobbyActivity != null) {
                     lobbyActivity.runOnUiThread(() -> {
                         ((LobbyActivity) lobbyActivity).updateList();
-                        ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
                     });
-                } else {
-                    final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+                }
 
-                    if (orderListActivity != null) {
-                        orderListActivity.runOnUiThread(() -> {
-                            ((OrderListActivity) orderListActivity).updateList();
-                        });
-                    }
+                final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+                if (orderListActivity != null) {
+                    orderListActivity.runOnUiThread(() -> {
+                        ((OrderListActivity) orderListActivity).updateList();
+                    });
+                }
+
+                final UosDialog orderDetailDialog = UosDialog.get(OrderDetailDialog.class);
+                if (orderDetailDialog != null) {
+                    ((OrderDetailDialog)orderDetailDialog).updateOrderState(Integer.valueOf(orderCode), -1);
                 }
 
                 intent.setData(Uri.parse(orderCode));
@@ -113,14 +122,14 @@ public class UosFcmService extends FirebaseMessagingService {
                         ((LobbyActivity) lobbyActivity).updateList();
                         ((LobbyActivity) lobbyActivity).moveToOrderCode(Integer.valueOf(orderCode));
                     });
-                } else {
-                    final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+                }
 
-                    if (orderListActivity != null) {
-                        orderListActivity.runOnUiThread(() -> {
-                            ((OrderListActivity) orderListActivity).updateList();
-                        });
-                    }
+                final UosActivity orderListActivity = UosActivity.get(OrderListActivity.class);
+
+                if (orderListActivity != null) {
+                    orderListActivity.runOnUiThread(() -> {
+                        ((OrderListActivity) orderListActivity).updateList();
+                    });
                 }
 
                 intent.setData(Uri.parse(orderCode));
