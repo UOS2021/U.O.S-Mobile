@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uos.uos_mobile.R;
+import com.uos.uos_mobile.activity.OrderListActivity;
 import com.uos.uos_mobile.adapter.OrderProductAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderItem;
@@ -91,13 +92,13 @@ public class OrderDetailDialog extends UosDialog {
         rvDlgOrderDetail.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         rvDlgOrderDetail.setAdapter(orderProductAdapter);
 
-        if(orderItem.getState() == Global.Order.WAITING_ACCEPT){
+        if (orderItem.getState() == Global.Order.WAITING_ACCEPT) {
             clDlgOrderDetailCancelOrder.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             clDlgOrderDetailCancelOrder.setVisibility(View.INVISIBLE);
         }
 
-        // 닫기 버튼이 눌렸을 경우
+        /* 닫기 버튼이 눌렸을 경우 */
         ibtnDlgOrderDetailClose.setOnClickListener(view -> {
             dismiss();
         });
@@ -127,12 +128,6 @@ public class OrderDetailDialog extends UosDialog {
                                 Toast.makeText(context, "주문이 취소되었습니다", Toast.LENGTH_SHORT).show();
 
                                 dismiss();
-                            } else if (responseCode.equals(Global.Network.Response.CANCEL_ORDER_FAIL_ALREADY_ACCEPT)) {
-
-                                /* 주문취소 실패 */
-
-                                Toast.makeText(context, "이미 매장에서 접수된 주문입니다", Toast.LENGTH_SHORT).show();
-
                             } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
 
                                 /* 서버 연결 실패 */
@@ -165,6 +160,29 @@ public class OrderDetailDialog extends UosDialog {
             });
 
             alertDialog.show();
+        });
+    }
+
+    /**
+     * FCM 데이터 수신 시 OrderState에 따른 OrderDetailDialog의 UI 업데이트를 위한 함수.
+     *
+     * @param orderCode 주문코드.
+     * @param orderState 주문상태.
+     */
+    public void updateOrderState(int orderCode, int orderState) {
+        ((OrderListActivity)context).runOnUiThread(() -> {
+            if (orderItem.getOrderCode() == orderCode) {
+                
+                /* OrderDetailDialog에서 표시되고 있는 주문과 FCM으로 수신된 주문의 주문코드가 동일할 경우 */
+                
+                if (orderItem.getState() == Global.Order.WAITING_ACCEPT && orderState == Global.Order.PREPARING) {
+                    Toast.makeText(context, "주문이 접수되었습니다", Toast.LENGTH_SHORT).show();
+                    clDlgOrderDetailCancelOrder.setVisibility(View.INVISIBLE);
+                } else if (orderItem.getOrderCode() == orderCode && orderState == -1) {
+                    Toast.makeText(context, "주문이 거절되었습니다", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
+            }
         });
     }
 }
