@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uos.uos_mobile.R;
 import com.uos.uos_mobile.activity.OrderListActivity;
+import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.adapter.OrderProductAdapter;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderItem;
@@ -126,6 +127,8 @@ public class OrderDetailDialog extends UosDialog {
                                 /* 주문취소 성공 */
 
                                 Toast.makeText(context, "주문이 취소되었습니다", Toast.LENGTH_SHORT).show();
+
+                                ((OrderListActivity)UosActivity.get(OrderListActivity.class)).updateList();
 
                                 dismiss();
                             } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
