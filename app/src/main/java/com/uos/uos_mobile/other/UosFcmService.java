@@ -38,7 +38,7 @@ public class UosFcmService extends FirebaseMessagingService {
             SharedPreferencesManager.close();
 
             NotificationCompat.Builder notificationCompatBuilder = new NotificationCompat.Builder(this, Global.Notification.CHANNEL_ID)
-                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.ic_uos_logo_round)
+                    .setSmallIcon(com.uos.uos_mobile.R.mipmap.icon_uos_round)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setAutoCancel(true);
 
