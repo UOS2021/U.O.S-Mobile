@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uos.uos_mobile.item.OrderItem;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
+import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,20 +40,23 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 + Integer.valueOf(orderItemArrayList.get(position).getDate().substring(8, 10)) + "일 ("
                 + UsefulFuncManager.getWeekDayFromDate(orderItemArrayList.get(position).getDate()) + ")");
 
-        if(orderItemArrayList.get(position).getState() == 0){
+        if(orderItemArrayList.get(position).getState() == Global.Order.WAITING_ACCEPT){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("접수 대기중");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_waitingaccept);
-        } else if(orderItemArrayList.get(position).getState() == 1){
+        } else if(orderItemArrayList.get(position).getState() == Global.Order.PREPARING){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("상품 준비중");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_preparing);
-        } else if(orderItemArrayList.get(position).getState() == 2){
+        } else if(orderItemArrayList.get(position).getState() == Global.Order.PREPARED){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("수령 대기중");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_prepared);
-        } else if(orderItemArrayList.get(position).getState() == 3){
+        } else if(orderItemArrayList.get(position).getState() == Global.Order.DONE){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("완료");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_done);
-        } else if(orderItemArrayList.get(position).getState() == 4){
+        } else if(orderItemArrayList.get(position).getState() == Global.Order.CANCELED){
             ((OrderViewHolder) viewHolder).tvOrderState.setText("취소");
+            ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_canceled);
+        } else if(orderItemArrayList.get(position).getState() == Global.Order.REFUSED){
+            ((OrderViewHolder) viewHolder).tvOrderState.setText("거절");
             ((OrderViewHolder) viewHolder).clOrderState.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_orderstate_canceled);
         }
 
