@@ -8,13 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class WaitingOrderAcceptDialog extends UosDialog {
+public class PaidDialog extends UosDialog {
     private final Context context;
     private final String companyName;
     private AppCompatTextView tvDlgWaitingOrderAcceptExplain;
     private ConstraintLayout clDlgWaitingOrderAcceptOk;
 
-    public WaitingOrderAcceptDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName) {
+    public PaidDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.companyName = companyName;
