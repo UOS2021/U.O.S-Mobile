@@ -187,7 +187,12 @@ public class LobbyActivity extends UosActivity {
     }
 
     /**
-     * LobbyActivity에 있는 주문목록을 업데이트.
+     * LobbyActivity에 있는 주문목록을 업데이트합니다. 매개변수로 전달된 주문코드가 -1이 아닐 경우 해당 주문으로
+     * 리스트를 스크롤하며 showOrderDetail이 True일 경우 OrderDetailDialog에 전달된 주문코드에 해당하는 주문의
+     * 세부정보를 수정합니다.
+     *
+     * @param orderCode 주문코드.
+     * @param showOrderDetail 주문에 대한 세부정보 표시 여부.
      */
     public void updateList(int orderCode, boolean showOrderDetail) {
         new Thread(() -> {
