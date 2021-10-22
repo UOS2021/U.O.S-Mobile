@@ -1,5 +1,9 @@
 package com.uos.uos_mobile.other;
 
+import android.app.Application;
+
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.uos.uos_mobile.manager.BasketManager;
 
 /**
@@ -8,8 +12,14 @@ import com.uos.uos_mobile.manager.BasketManager;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class Global {
+public class Global extends Application {
     public static BasketManager basketManager;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    }
 
     /**
      * U.O.S-Mobile내 Notification에 대한 정보를 가지고 있는 정적 클래스.
@@ -148,7 +158,7 @@ public class Global {
             public static final String CARD_ADD = "0008";
             public static final String CARD_REMOVE = "0009";
             public static final String ORDER = "0010";
-            public static final String ORDER_CANCEL = "0011";
+            public static final String CANCEL_ORDER = "0011";
             public static final String ORDER_LIST = "0012";
             public static final String STORE_PRODUCT_INFO = "0013";
             public static final String ORDER_ACCEPTED_STATE = "0014";
@@ -175,8 +185,8 @@ public class Global {
             public static final String STORE_PRODUCT_INFO = "0007";
             public static final String THEATER_PRODUCT_INFO = "0008";
             public static final String ORDER_SUCCESS = "0009";
-            public static final String ORDER_ACCEPT = "0010";
-            public static final String ORDER_REFUSE = "0011";
+            public static final String FCM_ORDER_ACCEPT = "0010";
+            public static final String FCM_ORDER_REFUSE = "0011";
             public static final String ORDER_LIST = "0012";
             public static final String CHANGE_PW_SUCCESS = "0013";
             public static final String CHANGE_PW_FAIL_PW_NOT_CORRECT = "0014";
@@ -187,12 +197,15 @@ public class Global {
             public static final String CARD_REMOVE_SUCCESS = "0019";
             public static final String CARD_INFO = "0020";
             public static final String CARD_NO_INFO = "0021";
-            public static final String ORDER_CANCEL_SUCCESS = "0022";
+            public static final String CANCEL_ORDER_SUCCESS = "0022";
             public static final String PAY_SUCCESS = "0023";
             public static final String PAY_FAIL_WRONG_PASSWORD = "0024";
             public static final String WAITING_ORDER_LIST = "0025";
             public static final String CHANGE_ORDER_STATE_SUCCESS = "0026";
             public static final String CUSTOMER_LOGOUT_SUCCESS = "0027";
+            public static final String FCM_ORDER_PREPARED = "0028";
+            public static final String FCM_QUARANTINE_NOTICE = "0029";
+            public static final String CANCEL_ORDER_FAIL_ALREADY_ACCEPT = "0030";
         }
     }
 
@@ -222,7 +235,8 @@ public class Global {
         public static final int WAITING_ACCEPT = 0;
         public static final int PREPARING = 1;
         public static final int PREPARED = 2;
-        public static final int CUSOMER_TOOK_PRODUCT = 3;
+        public static final int DONE = 3;
+        public static final int CANCELED = 4;
     }
 
     public static class MovieSeat {
@@ -232,7 +246,5 @@ public class Global {
         public static final int UNRESERVED_SEAT = 2;
         public static final int SELECTED_SEAT = 3;
         public static String[] ROW_ARR = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
-        public enum ROW {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
     }
 }

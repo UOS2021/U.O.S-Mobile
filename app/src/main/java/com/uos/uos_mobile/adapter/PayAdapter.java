@@ -58,11 +58,11 @@ public class PayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public PayItemViewHolder(View view) {
             super(view);
 
-            tvPayItemMenu = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_menu);
-            tvPayItemCount = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_count);
-            tvPayItemPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_price);
-            tvPayItemSubMenu = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_submenu);
-            tvPayItemTotalPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_payitem_totalprice);
+            tvPayItemMenu = view.findViewById(com.uos.uos_mobile.R.id.tv_orderitem_menu);
+            tvPayItemCount = view.findViewById(com.uos.uos_mobile.R.id.tv_orderitem_count);
+            tvPayItemPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_orderitem_price);
+            tvPayItemSubMenu = view.findViewById(com.uos.uos_mobile.R.id.tv_orderitem_submenu);
+            tvPayItemTotalPrice = view.findViewById(com.uos.uos_mobile.R.id.tv_orderitem_totalprice);
         }
     }
 }

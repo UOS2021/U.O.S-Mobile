@@ -13,7 +13,6 @@ public class SettingActivity extends UosActivity {
     @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_setting);
-        setTheme(com.uos.uos_mobile.R.style.SettingsFragmentStyle);
 
         ibtnSettingBack = findViewById(com.uos.uos_mobile.R.id.ibtn_setting_back);
 

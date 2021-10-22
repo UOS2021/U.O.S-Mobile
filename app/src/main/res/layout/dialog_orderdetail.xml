@@ -6,7 +6,7 @@
     android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_dlgorderinfo_1"
+        android:id="@+id/cl_dlgorderdetail_1"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/color_primary"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibtn_dlgorderinfo_close"
+            android:id="@+id/ibtn_dlgorderdetail_close"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@drawable/icon_btnclose"
@@ -27,11 +27,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dlgorderinfo_companyname"
+            android:id="@+id/tv_dlgorderdetail_companyname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="TextView"
+            android:text="회사명"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -48,32 +48,55 @@
         android:layout_height="0dp"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_dlgorderinfo_1">
+        app:layout_constraintTop_toBottomOf="@id/cl_dlgorderdetail_1">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dlgorderinfo_2"
+            android:id="@+id/tv_dlgorderdetail_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="주문시간"
+            android:text="주문코드"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dlgorderinfo_ordertime"
+            android:id="@+id/tv_dlgorderdetail_ordercode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="0000-00-00 00:00:00"
+            android:text="0000"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dlgorderinfo_2" />
+            app:layout_constraintTop_toBottomOf="@id/tv_dlgorderdetail_1" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dlgorderinfo_3"
+            android:id="@+id/tv_dlgorderdetail_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="주문시간"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_dlgorderdetail_date"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dlgorderdetail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:paddingLeft="8dp"
+            android:text="0000-00-00 00:00:00"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_dlgorderdetail_2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dlgorderdetail_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -81,35 +104,67 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dlgorderinfo_ordertime" />
+            app:layout_constraintTop_toBottomOf="@id/tv_dlgorderdetail_ordercode" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_dlgorderinfo"
+            android:id="@+id/rv_dlgorderdetail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@id/vi_dlgorderinfo_1"
-            app:layout_constraintTop_toBottomOf="@id/tv_dlgorderinfo_3" />
+            app:layout_constraintBottom_toTopOf="@id/vi_dlgorderdetail_1"
+            app:layout_constraintTop_toBottomOf="@id/tv_dlgorderdetail_3" />
 
         <View
-            android:id="@+id/vi_dlgorderinfo_1"
+            android:id="@+id/vi_dlgorderdetail_1"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginBottom="8dp"
             android:background="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/tv_dlgorderinfo_totalprice" />
+            app:layout_constraintBottom_toTopOf="@id/tv_dlgorderdetail_totalprice" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_dlgorderdetail_cancelorder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/border_cancelorder"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_dlgorderdetail_totalprice"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_dlgorderdetail_totalprice"
+            app:layout_constraintTop_toTopOf="@id/tv_dlgorderdetail_totalprice">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="주문취소"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_dlgorderinfo_totalprice"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_dlgorderdetail_totalprice"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:text="000,000원"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@id/cl_dlgorderdetail_cancelorder"
             app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
