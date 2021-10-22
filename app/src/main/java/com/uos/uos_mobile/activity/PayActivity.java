@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uos.uos_mobile.adapter.PayAdapter;
 import com.uos.uos_mobile.dialog.CardDialog;
-import com.uos.uos_mobile.dialog.WaitingOrderAcceptDialog;
+import com.uos.uos_mobile.dialog.PaidDialog;
 import com.uos.uos_mobile.item.CardItem;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
@@ -43,7 +43,7 @@ public class PayActivity extends UosActivity {
     private ConstraintLayout clPayPay;
     private AppCompatTextView tvPayPay;
     private ContentLoadingProgressBar pbPayLoading;
-    private WaitingOrderAcceptDialog waitingOrderAcceptDialog;
+    private PaidDialog paidDialog;
 
     private PayAdapter payAdapter;
 
@@ -163,12 +163,12 @@ public class PayActivity extends UosActivity {
                         runOnUiThread(() -> {
                             clPayPay.setEnabled(false);
                             clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
-                            waitingOrderAcceptDialog = new WaitingOrderAcceptDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
-                            waitingOrderAcceptDialog.setOnDismissListener(dialogInterface -> {
+                            paidDialog = new PaidDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
+                            paidDialog.setOnDismissListener(dialogInterface -> {
                                 UosActivity.revertToActivity(LobbyActivity.class);
                                 finish();
                             });
-                            waitingOrderAcceptDialog.show();
+                            paidDialog.show();
                         });
                     } else {
 
