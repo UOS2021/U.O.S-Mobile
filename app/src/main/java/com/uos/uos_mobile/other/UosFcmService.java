@@ -2,6 +2,7 @@ package com.uos.uos_mobile.other;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -41,6 +42,16 @@ public class UosFcmService extends FirebaseMessagingService {
                     .setSmallIcon(com.uos.uos_mobile.R.mipmap.icon_uos_round)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setAutoCancel(true);
+
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+
+                /* API Level이 21 ~ 25(Lollipop ~ Nougat)일 경우 Notification에 setVibrate 설정
+                 * API Level 26 미만 버전의 경우 Notification에 setVibrate도 함께 설정해야 Headup
+                 * Notification 표시 가능
+                 */
+
+                notificationCompatBuilder.setVibrate(new long[0]);
+            }
 
             if (responseCode.equals(Global.Network.Response.FCM_QUARANTINE_NOTICE)) {
 
