@@ -101,7 +101,6 @@ public class LobbyActivity extends UosActivity {
         /* LobbyActivity 첫 실행 시 주문 상태 업데이트 */
         ibtnLobbyLeft.setVisibility(View.INVISIBLE);
         ibtnLobbyRight.setVisibility(View.INVISIBLE);
-        updateList();
 
         /* QR 인식 버튼이 눌렸을 경우 */
         ivLobbyRecognizeQr.setOnClickListener(view -> {
@@ -143,7 +142,7 @@ public class LobbyActivity extends UosActivity {
         waitingOrderAdapter.setOnItemClickListener((view, position) -> {
             OrderDetailDialog orderDetailDialog = new OrderDetailDialog(LobbyActivity.this, false, true, waitingOrderAdapter.getItem(position));
             orderDetailDialog.setOnDismissListener(dialogInterface -> {
-                updateList();
+                updateList(-1, false);
             });
             orderDetailDialog.show();
         });
@@ -182,33 +181,15 @@ public class LobbyActivity extends UosActivity {
             Intent intent = new Intent(LobbyActivity.this, QRRecognitionActivity.class);
             intent.putExtra("uosPartnerId", lobbyActivityIntent.getStringExtra("uosPartnerId"));
             startActivity(intent);
-        } else if (lobbyActivityIntent.getStringExtra("orderCode") != null) {
-
-            /* Notification을 통해 앱을 실행했을 경우 */
-
-            OrderItem orderItem = waitingOrderAdapter.getItemByOrderCode(lobbyActivityIntent.getIntExtra("orderCode", 0));
-            if (orderItem == null) {
-
-                /* Notification을 통해 전달받은 주문코드에 해당하는 주문이 없을 경우 */
-
-                Toast.makeText(LobbyActivity.this, "번호가 " + lobbyActivityIntent.getStringExtra("orderCode") + "인 주문이 없습니다", Toast.LENGTH_SHORT).show();
-            } else {
-
-                /* Notification을 통해 전달받은 주문코드에 해당하는 주문이 있을 경우 */
-
-                OrderDetailDialog orderDetailDialog = new OrderDetailDialog(LobbyActivity.this, false, true, orderItem);
-                orderDetailDialog.setOnDismissListener(dialogInterface -> {
-                    updateList();
-                });
-                orderDetailDialog.show();
-            }
         }
+
+        updateList(lobbyActivityIntent.getIntExtra("orderCode", -1), true);
     }
 
     /**
      * LobbyActivity에 있는 주문목록을 업데이트.
      */
-    public void updateList() {
+    public void updateList(int orderCode, boolean showOrderDetail) {
         new Thread(() -> {
             try {
                 JSONObject message = new JSONObject();
@@ -224,49 +205,78 @@ public class LobbyActivity extends UosActivity {
                 runOnUiThread(() -> {
                     if (responseCode.equals(Global.Network.Response.WAITING_ORDER_LIST)) {
 
-                        /*  */
+                        /* 주문대기 목록을 성공적으로 불러왔을 경우  */
 
                         try {
                             waitingOrderAdapter.setJson(recvData.getJSONObject("message").getJSONArray("order_list"));
+
+                            if (orderCode != -1) {
+
+                                /* 주문코드가 있을 경우 - 지정한 주문으로 RecyclerView 스크롤 */
+
+                                moveToOrderCode(orderCode);
+
+                                if (showOrderDetail) {
+
+                                    /* 주문 세부정보를 보여줘야할 경우 - 준비된 상품 */
+
+                                    OrderItem orderItem = waitingOrderAdapter.getItemByOrderCode(orderCode);
+                                    if (orderItem == null) {
+
+                                        /* 주문코드에 해당하는 주문이 없을 경우 */
+
+                                        Toast.makeText(LobbyActivity.this, "번호가 " + orderCode + "인 주문이 없습니다", Toast.LENGTH_SHORT).show();
+                                    } else {
+
+                                        /* 주문코드에 해당하는 주문이 있을 경우 */
+
+                                        new OrderDetailDialog(LobbyActivity.this, false, true, orderItem).show();
+                                    }
+                                }
+                            }
+
+                            ibtnLobbyLeft.setVisibility(View.VISIBLE);
+                            ibtnLobbyRight.setVisibility(View.VISIBLE);
+
+                            if (waitingOrderAdapter.getItemCount() < 2) {
+
+                                /* 주문목록이 1개 이하일 경우 */
+
+                                ibtnLobbyLeft.setVisibility(View.INVISIBLE);
+                                ibtnLobbyRight.setVisibility(View.INVISIBLE);
+                            } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findFirstVisibleItemPosition() == 0) {
+
+                                /* 현재 표시중인 주문목록이 첫 번째 주문일 경우 - 왼쪽 스크롤 버튼 숨기기 */
+
+                                ibtnLobbyLeft.setVisibility(View.INVISIBLE);
+                            } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findLastVisibleItemPosition() == waitingOrderAdapter.getItemCount() - 1) {
+
+                                /* 현재 표시중인 주문목록이 마지막 주문일 경우 - 오른쪽 스크롤 버튼 숨기기 */
+
+                                ibtnLobbyRight.setVisibility(View.INVISIBLE);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(LobbyActivity.this, "대기 중인 주문을 불러오는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(LobbyActivity.this, "대기중인 주문을 불러오는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
-                    }
 
-                    ibtnLobbyLeft.setVisibility(View.VISIBLE);
-                    ibtnLobbyRight.setVisibility(View.VISIBLE);
+                        /* 주문대기 목록을 불러오지 못했을 경우  */
 
-                    if (waitingOrderAdapter.getItemCount() < 2) {
-
-                        /* 주문목록이 1개 이하일 경우 */
-
-                        ibtnLobbyLeft.setVisibility(View.INVISIBLE);
-                        ibtnLobbyRight.setVisibility(View.INVISIBLE);
-                    } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findFirstVisibleItemPosition() == 0) {
-
-                        /* 현재 표시중인 주문목록이 첫 번째 주문일 경우 - 왼쪽 스크롤 버튼 숨기기 */
-
-                        ibtnLobbyLeft.setVisibility(View.INVISIBLE);
-                    } else if (((LinearLayoutManager) rvLobbyWaitingOrder.getLayoutManager()).findLastVisibleItemPosition() == waitingOrderAdapter.getItemCount() - 1) {
-
-                        /* 현재 표시중인 주문목록이 마지막 주문일 경우 - 오른쪽 스크롤 버튼 숨기기 */
-
-                        ibtnLobbyRight.setVisibility(View.INVISIBLE);
+                        Toast.makeText(LobbyActivity.this, "대기 중인 주문을 불러오는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                     }
                 });
             } catch (JSONException | InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {
-                    Toast.makeText(LobbyActivity.this, "대기중인 주문을 불러오는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LobbyActivity.this, "대기 중인 주문을 불러오는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                 });
             }
         }).start();
     }
 
     /**
-     * 전달받은 주문코드에 해당하는 주문이 있을 경우 해당 주문으로 RecyclerView 항목을 스크롤.
+     * 전달받은 주문코드를 가진 주문이 있을 경우 해당 주문으로 RecyclerView 항목을 스크롤.
      *
      * @param orderCode 주문코드.
      */
