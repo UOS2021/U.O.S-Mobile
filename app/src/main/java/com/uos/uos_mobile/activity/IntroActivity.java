@@ -34,17 +34,17 @@ public class IntroActivity extends UosActivity {
     }
 
     /**
-     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수입니다.
      */
     @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_intro);
 
         SharedPreferencesManager.open(IntroActivity.this, Global.SharedPreference.APP_DATA);
-        if ((Boolean)SharedPreferencesManager.load(Global.SharedPreference.IS_FIRST, true) == true) {
-            
+        if ((Boolean) SharedPreferencesManager.load(Global.SharedPreference.IS_FIRST, true) == true) {
+
             /* 만약 앱이 최초 실행일 경우 기본 데이터 초기화 */
-            
+
             SharedPreferencesManager.save(Global.SharedPreference.IS_LOGINED, false);
             SharedPreferencesManager.save(Global.SharedPreference.USER_ID, "");
             SharedPreferencesManager.save(Global.SharedPreference.USER_PW, "");
@@ -55,10 +55,10 @@ public class IntroActivity extends UosActivity {
             /*
              * NotificationChannel 생성
              */
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
                 /* Android 8.0 이상일 경우 */
-                
+
                 NotificationChannel channel = new NotificationChannel(Global.Notification.CHANNEL_ID, Global.Notification.CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
                 channel.setDescription("UOS 푸시알림입니다");
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
@@ -93,9 +93,9 @@ public class IntroActivity extends UosActivity {
         Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
 
         if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
-            
+
             /* 외부에서 앱이 호출되었을 경우: 카메라를 통해 U.O.S QR코드를 인식했을 경우 */
-            
+
             Uri uri = getIntent().getData();
 
             if (uri != null) {
@@ -111,11 +111,16 @@ public class IntroActivity extends UosActivity {
                     Toast.makeText(IntroActivity.this, "등록되지 않은 매장입니다", Toast.LENGTH_SHORT).show();
                 }
             }
-        } else if(getIntent().getDataString() != null){
+        } else if (getIntent().getIntExtra("orderCode", -1) != -1) {
 
-            /* 외부에서 앱이 호출되었을 경우: 외부서버에서 전달받은 Notification을 클릭했을 경우 */
+            /* 외부에서 앱이 호출되었을 경우: 외부서버에서 전달받은 주문 수락, 상품 준비됨에 해당하는
+             * Notification을 클릭했을 경우
+             */
 
-            intent.putExtra("orderCode", getIntent().getDataString());
+            int orderCode = getIntent().getIntExtra("orderCode", -1);
+            if(orderCode != -1){
+                intent.putExtra("orderCode", orderCode);
+            }
         }
 
         /* 일정 시간이 지난 후 IntroActivity 종료 및 LoginActivity로 이동 */

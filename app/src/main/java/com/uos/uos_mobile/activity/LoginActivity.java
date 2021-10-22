@@ -213,11 +213,11 @@ public class LoginActivity extends UosActivity {
                     /* QR코드를 통해 앱을 실행했을 경우 */
 
                     intent.putExtra("uosPartnerId", loginActivityIntent.getStringExtra("uosPartnerId"));
-                } else if (loginActivityIntent.getStringExtra("orderCode") != null) {
+                } else if (loginActivityIntent.getIntExtra("orderCode", -1) != -1) {
 
                     /* Notofication을 통해 앱을 실행했을 경우 */
 
-                    intent.putExtra("orderCode", loginActivityIntent.getIntExtra("orderCode", 0));
+                    intent.putExtra("orderCode", loginActivityIntent.getIntExtra("orderCode", -1));
                 }
                 startActivity(intent);
                 finish();
@@ -281,12 +281,9 @@ public class LoginActivity extends UosActivity {
 
                 Toast.makeText(LoginActivity.this, "로그인 시도 중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+            Toast.makeText(LoginActivity.this, "로그인 시도 중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
         }
 
         btnLoginLogin.setEnabled(true);
