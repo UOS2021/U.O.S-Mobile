@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -17,10 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uos.uos_mobile.R;
+import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
 import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.adapter.OrderProductAdapter;
-import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.OrderItem;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -78,12 +79,8 @@ public class OrderDetailDialog extends UosDialog {
         tvDlgOrderDetailCompanyName.setText(orderItem.getCompanyName());
         tvDlgOrderDetailOrderDate.setText(String.valueOf(orderItem.getDate()));
         tvDlgOrderDetailOrderCode.setText(String.valueOf(orderItem.getOrderCode()));
-        int totalPrice = 0;
-        for (BasketItem basketItem : orderItem.getBasketItemArrayList()) {
-            totalPrice += basketItem.getTotalPrice();
-        }
 
-        tvDlgOrderDetailOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(totalPrice) + "원");
+        tvDlgOrderDetailOrderTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(orderItem.getTotalPrice()) + "원");
 
         orderProductAdapter = new OrderProductAdapter();
         orderProductAdapter.setBasketItemArrayList(orderItem.getBasketItemArrayList());
@@ -94,8 +91,14 @@ public class OrderDetailDialog extends UosDialog {
         rvDlgOrderDetail.setAdapter(orderProductAdapter);
 
         if (orderItem.getState() == Global.Order.WAITING_ACCEPT) {
+
+            /* 주문 수락 또는 거절 대기중일 경우 */
+
             clDlgOrderDetailCancelOrder.setVisibility(View.VISIBLE);
         } else {
+
+            /* 주문이 이미 수락된 상태일 경우 */
+
             clDlgOrderDetailCancelOrder.setVisibility(View.INVISIBLE);
         }
 
@@ -128,7 +131,7 @@ public class OrderDetailDialog extends UosDialog {
 
                                 Toast.makeText(context, "주문이 취소되었습니다", Toast.LENGTH_SHORT).show();
 
-                                ((OrderListActivity)UosActivity.get(OrderListActivity.class)).updateList();
+                                ((OrderListActivity) UosActivity.get(OrderListActivity.class)).updateList();
 
                                 dismiss();
                             } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
@@ -167,25 +170,38 @@ public class OrderDetailDialog extends UosDialog {
     }
 
     /**
-     * FCM 데이터 수신 시 OrderState에 따른 OrderDetailDialog의 UI 업데이트를 위한 함수.
+     * FCM 데이터 수신 시 ResponseCode에 따라 OrderDetailDialog 내 UI를 업데이트합니다.
      *
-     * @param orderCode 주문코드.
-     * @param orderState 주문상태.
+     * @param orderCode    주문코드.
+     * @param responseCode 주문상태.
      */
-    public void updateOrderState(int orderCode, int orderState) {
-        ((OrderListActivity)context).runOnUiThread(() -> {
-            if (orderItem.getOrderCode() == orderCode) {
-                
-                /* OrderDetailDialog에서 표시되고 있는 주문과 FCM으로 수신된 주문의 주문코드가 동일할 경우 */
-                
-                if (orderItem.getState() == Global.Order.WAITING_ACCEPT && orderState == Global.Order.PREPARING) {
+    public void updateOrderState(int orderCode, String responseCode) {
+        if (orderItem.getOrderCode() == orderCode) {
+
+            /* OrderDetailDialog에서 표시되고 있는 주문과 FCM으로 수신된 주문의 주문코드가 동일할 경우 */
+
+            AppCompatActivity activity = UosActivity.get(OrderListActivity.class);
+            if (activity != null) {
+
+                /* OrderListActivity에서 호출된 OrderDetailDialog가 아닐 경우 */
+
+                activity = UosActivity.get(LobbyActivity.class);
+            }
+            activity.runOnUiThread(() -> {
+                if (responseCode.equals(Global.Network.Response.FCM_ORDER_ACCEPT)) {
+
+                    /* 주문이 접수되었다는 알림에 관한 업데이트가 필요한 경우 */
+
                     Toast.makeText(context, "주문이 접수되었습니다", Toast.LENGTH_SHORT).show();
                     clDlgOrderDetailCancelOrder.setVisibility(View.INVISIBLE);
-                } else if (orderItem.getOrderCode() == orderCode && orderState == -1) {
+                } else if (responseCode.equals(Global.Network.Response.FCM_ORDER_REFUSE)) {
+
+                    /* 주문이 거절되었다는 알림에 관한 업데이트가 필요한 경우 */
+
                     Toast.makeText(context, "주문이 거절되었습니다", Toast.LENGTH_SHORT).show();
                     dismiss();
                 }
-            }
-        });
+            });
+        }
     }
 }
