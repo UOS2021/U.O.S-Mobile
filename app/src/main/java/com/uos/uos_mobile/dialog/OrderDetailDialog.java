@@ -199,7 +199,7 @@ public class OrderDetailDialog extends UosDialog {
                     /* 주문이 거절되었다는 알림에 관한 업데이트가 필요한 경우 */
 
                     Toast.makeText(context, "주문이 거절되었습니다", Toast.LENGTH_SHORT).show();
-                    dismiss();
+                    clDlgOrderDetailCancelOrder.setVisibility(View.INVISIBLE);
                 }
             });
         }
