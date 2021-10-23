@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uos.uos_mobile.adapter.PayAdapter;
 import com.uos.uos_mobile.dialog.CardDialog;
-import com.uos.uos_mobile.dialog.PaidDialog;
+import com.uos.uos_mobile.dialog.PayResultDialog;
 import com.uos.uos_mobile.item.CardItem;
 import com.uos.uos_mobile.manager.BasketManager;
 import com.uos.uos_mobile.manager.HttpManager;
@@ -44,7 +44,7 @@ public class PayActivity extends UosActivity {
     private ConstraintLayout clPayPay;
     private AppCompatTextView tvPayPay;
     private ContentLoadingProgressBar pbPayLoading;
-    private PaidDialog paidDialog;
+    private PayResultDialog payResultDialog;
 
     private PayAdapter payAdapter;
 
@@ -168,12 +168,12 @@ public class PayActivity extends UosActivity {
                         runOnUiThread(() -> {
                             clPayPay.setEnabled(false);
                             clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
-                            paidDialog = new PaidDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
-                            paidDialog.setOnDismissListener(dialogInterface -> {
+                            payResultDialog = new PayResultDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
+                            payResultDialog.setOnDismissListener(dialogInterface -> {
                                 UosActivity.revertToActivity(LobbyActivity.class);
                                 finish();
                             });
-                            paidDialog.show();
+                            payResultDialog.show();
                         });
                     } else {
 

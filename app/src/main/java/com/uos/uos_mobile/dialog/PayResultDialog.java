@@ -8,13 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class PaidDialog extends UosDialog {
+public class PayResultDialog extends UosDialog {
     private final Context context;
     private final String companyName;
     private AppCompatTextView tvDlgWaitingOrderAcceptExplain;
     private ConstraintLayout clDlgWaitingOrderAcceptOk;
 
-    public PaidDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName) {
+    public PayResultDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.companyName = companyName;
@@ -25,7 +25,7 @@ public class PaidDialog extends UosDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.uos.uos_mobile.R.layout.dialog_waitingorderaccept);
+        setContentView(com.uos.uos_mobile.R.layout.dialog_payresult);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         init();
