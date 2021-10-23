@@ -45,9 +45,10 @@ public class OrderingActivity extends UosActivity {
 
     private String uosPartnerId;
 
+    private BasketManager basketManager;
+
     @Override
     protected void onDestroy() {
-        Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
@@ -87,7 +88,7 @@ public class OrderingActivity extends UosActivity {
         orderingAdapter.setJson(categoryData);
         rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
         rvOrderingProductList.setAdapter(orderingAdapter);
-        Global.basketManager = new BasketManager(tvOrderingCompanyName.getText().toString());
+        basketManager = new BasketManager(tvOrderingCompanyName.getText().toString());
 
         updatePriceInfo();
 
@@ -139,7 +140,7 @@ public class OrderingActivity extends UosActivity {
                 // 선택된 아이템이 단일상품일 경우
                 new SelectProductDialog(OrderingActivity.this, orderingProductItem, (orderingItem) -> {
                     if (orderingItem.getCount() >= 1) {
-                        Global.basketManager.addItem(orderingItem);
+                        basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
                 }).show();
@@ -147,7 +148,7 @@ public class OrderingActivity extends UosActivity {
                 // 선택된 아이템이 세트상품일 경우
                 new SelectSetDialog(OrderingActivity.this, (OrderingSetItem) orderingProductItem, (orderingItem) -> {
                     if (orderingItem.getCount() >= 1) {
-                        Global.basketManager.addItem(orderingItem);
+                        basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
                 }).show();
@@ -156,10 +157,10 @@ public class OrderingActivity extends UosActivity {
 
         // 선택정보창 버튼이 눌렸을 경우
         llOrderingSelected.setOnClickListener(view -> {
-            if (Global.basketManager.getOrderCount() == 0) {
+            if (basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, uosPartnerId);
+                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, uosPartnerId, basketManager);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -169,25 +170,26 @@ public class OrderingActivity extends UosActivity {
 
         // 결제 버튼이 눌렸을 경우
         llOrderingPay.setOnClickListener(view -> {
-            if (Global.basketManager.getOrderCount() == 0) {
+            if (basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
                 intent.putExtra("uosPartnerId", uosPartnerId);
+                intent.putExtra("basketManager", basketManager);
                 startActivity(intent);
             }
         });
     }
 
     private void updatePriceInfo() {
-        ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvOrderingTotalPrice.getText().toString().replace(",", "")), Global.basketManager.getOrderPrice());
+        ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvOrderingTotalPrice.getText().toString().replace(",", "")), basketManager.getOrderPrice());
         va.setDuration(1000);
         va.addUpdateListener(va1 -> tvOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue())));
         va.start();
 
-        tvOrderingProductCount.setText(String.valueOf(Global.basketManager.getOrderCount()));
+        tvOrderingProductCount.setText(String.valueOf(basketManager.getOrderCount()));
 
-        if (Global.basketManager.getOrderCount() == 0) {
+        if (basketManager.getOrderCount() == 0) {
             llOrderingSelected.setEnabled(false);
             llOrderingSelected.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             llOrderingPay.setEnabled(false);

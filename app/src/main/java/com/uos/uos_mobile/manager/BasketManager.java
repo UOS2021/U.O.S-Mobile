@@ -5,9 +5,10 @@ import com.uos.uos_mobile.item.BasketItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BasketManager {
+public class BasketManager implements Serializable {
     private ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
     private String companyName;
 

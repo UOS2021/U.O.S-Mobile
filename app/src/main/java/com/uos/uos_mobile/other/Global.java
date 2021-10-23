@@ -13,7 +13,6 @@ import com.uos.uos_mobile.manager.BasketManager;
  * @since 1.0.0
  */
 public class Global extends Application {
-    public static BasketManager basketManager;
 
     @Override
     public void onCreate() {

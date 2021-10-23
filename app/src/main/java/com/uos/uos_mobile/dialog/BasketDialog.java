@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uos.uos_mobile.activity.PayActivity;
 import com.uos.uos_mobile.adapter.BasketAdapter;
+import com.uos.uos_mobile.manager.BasketManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -29,10 +30,13 @@ public class BasketDialog extends UosDialog {
 
     private String uosPartnerId;
 
-    public BasketDialog(@NonNull Context context, String uosPartnerId) {
+    private BasketManager basketManager;
+
+    public BasketDialog(@NonNull Context context, String uosPartnerId, BasketManager basketManager) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.uosPartnerId = uosPartnerId;
+        this.basketManager = basketManager;
 
         setCanceledOnTouchOutside(false);
         setCancelable(true);
@@ -57,9 +61,9 @@ public class BasketDialog extends UosDialog {
         tvDlgBasketTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgbasket_totalprice);
         llDlgBasketOrder = findViewById(com.uos.uos_mobile.R.id.ll_dlgbasket_order);
 
-        tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()));
+        tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()));
 
-        basketAdapter = new BasketAdapter(this);
+        basketAdapter = new BasketAdapter(this, basketManager);
         rvDlgBasket.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(context.getResources().getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
@@ -73,7 +77,7 @@ public class BasketDialog extends UosDialog {
 
         // 장바구니 아이템 수량 변경 시
         basketAdapter.setOnUpdateListener(() -> {
-            ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvDlgBasketTotalPrice.getText().toString().replace(",", "")), Global.basketManager.getOrderPrice());
+            ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvDlgBasketTotalPrice.getText().toString().replace(",", "")), basketManager.getOrderPrice());
             va.setDuration(1000);
             va.addUpdateListener(va1 -> tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue())));
             va.start();
@@ -83,6 +87,7 @@ public class BasketDialog extends UosDialog {
         llDlgBasketOrder.setOnClickListener(view -> {
             Intent intent = new Intent(context, PayActivity.class);
             intent.putExtra("uosPartnerId", uosPartnerId);
+            intent.putExtra("basketManager", basketManager);
             context.startActivity(new Intent(context, PayActivity.class));
         });
     }

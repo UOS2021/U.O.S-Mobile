@@ -59,9 +59,10 @@ public class MovieOrderingActivity extends UosActivity {
 
     private String uosPartnerId;
 
+    private BasketManager basketManager;
+
     @Override
     protected void onDestroy() {
-        Global.basketManager.getOrderingItemArrayList().clear();
         super.onDestroy();
     }
 
@@ -126,7 +127,7 @@ public class MovieOrderingActivity extends UosActivity {
         orderingAdapter.setJson(categoryData);
         rvMovieOrderingProductList.setLayoutManager(new GridLayoutManager(MovieOrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
         rvMovieOrderingProductList.setAdapter(orderingAdapter);
-        Global.basketManager = new BasketManager(tvMovieOrderingCompanyName.getText().toString());
+        basketManager = new BasketManager(tvMovieOrderingCompanyName.getText().toString());
 
         updatePriceInfo();
 
@@ -200,7 +201,7 @@ public class MovieOrderingActivity extends UosActivity {
                 // 선택된 아이템이 단일상품일 경우
                 new SelectProductDialog(MovieOrderingActivity.this, orderingProductItem, (orderingItem) -> {
                     if (orderingItem.getCount() >= 1) {
-                        Global.basketManager.addItem(orderingItem);
+                        basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
                 }).show();
@@ -208,7 +209,7 @@ public class MovieOrderingActivity extends UosActivity {
                 // 선택된 아이템이 세트상품일 경우
                 new SelectSetDialog(MovieOrderingActivity.this, (OrderingSetItem) orderingProductItem, (orderingItem) -> {
                     if (orderingItem.getCount() >= 1) {
-                        Global.basketManager.addItem(orderingItem);
+                        basketManager.addItem(orderingItem);
                         updatePriceInfo();
                     }
                 }).show();
@@ -217,10 +218,10 @@ public class MovieOrderingActivity extends UosActivity {
 
         // 선택정보창 버튼이 눌렸을 경우
         llMovieOrderingSelected.setOnClickListener(view -> {
-            if (Global.basketManager.getOrderCount() == 0) {
+            if (basketManager.getOrderCount() == 0) {
                 Toast.makeText(MovieOrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this, uosPartnerId);
+                BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this, uosPartnerId, basketManager);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -230,11 +231,12 @@ public class MovieOrderingActivity extends UosActivity {
 
         // 결제 버튼이 눌렸을 경우
         llMovieOrderingPay.setOnClickListener(view -> {
-            if (Global.basketManager.getOrderCount() == 0) {
+            if (basketManager.getOrderCount() == 0) {
                 Toast.makeText(MovieOrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(MovieOrderingActivity.this, PayActivity.class);
                 intent.putExtra("uosPartnerId", uosPartnerId);
+                intent.putExtra("basketManager", basketManager);
                 startActivity(intent);
             }
         });
@@ -246,26 +248,26 @@ public class MovieOrderingActivity extends UosActivity {
                 movieOrderingAdapter.setItem(position, updatedMovieItem.clone());
                 basketItem.setMovieItem(movieOrderingAdapter.getItem(position));
 
-                for (BasketItem basketItem1 : Global.basketManager.getOrderingItemArrayList()) {
+                for (BasketItem basketItem1 : basketManager.getOrderingItemArrayList()) {
                     if (basketItem1.getMenu().equals(basketItem.getMenu())) {
-                        Global.basketManager.getOrderingItemArrayList().remove(basketItem1);
+                        basketManager.getOrderingItemArrayList().remove(basketItem1);
                     }
                 }
-                Global.basketManager.getOrderingItemArrayList().add(basketItem);
+                basketManager.getOrderingItemArrayList().add(basketItem);
                 updatePriceInfo();
             }
         }).show());
     }
 
     private void updatePriceInfo() {
-        ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvMovieOrderingTotalPrice.getText().toString().replace(",", "")), Global.basketManager.getOrderPrice());
+        ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvMovieOrderingTotalPrice.getText().toString().replace(",", "")), basketManager.getOrderPrice());
         va.setDuration(1000);
         va.addUpdateListener(va1 -> tvMovieOrderingTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue())));
         va.start();
 
-        tvMovieOrderingProductCount.setText(String.valueOf(Global.basketManager.getOrderCount()));
+        tvMovieOrderingProductCount.setText(String.valueOf(basketManager.getOrderCount()));
 
-        if (Global.basketManager.getOrderCount() == 0) {
+        if (basketManager.getOrderCount() == 0) {
             llMovieOrderingSelected.setEnabled(false);
             llMovieOrderingSelected.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             llMovieOrderingPay.setEnabled(false);

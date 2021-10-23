@@ -19,6 +19,7 @@ import com.uos.uos_mobile.adapter.PayAdapter;
 import com.uos.uos_mobile.dialog.CardDialog;
 import com.uos.uos_mobile.dialog.PaidDialog;
 import com.uos.uos_mobile.item.CardItem;
+import com.uos.uos_mobile.manager.BasketManager;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -51,6 +52,8 @@ public class PayActivity extends UosActivity {
 
     private String uosPartnerId;
 
+    private BasketManager basketManager;
+
     /**
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
      */
@@ -72,12 +75,14 @@ public class PayActivity extends UosActivity {
         tvPayPay = findViewById(com.uos.uos_mobile.R.id.tv_pay_pay);
         pbPayLoading = findViewById(com.uos.uos_mobile.R.id.pb_pay_loading);
 
+        basketManager = (BasketManager) getIntent().getSerializableExtra("basketManager");
+
         tvPayPay.setVisibility(View.VISIBLE);
         pbPayLoading.setVisibility(View.INVISIBLE);
 
-        tvPayCompanyName.setText(Global.basketManager.getCompanyName());
+        tvPayCompanyName.setText(basketManager.getCompanyName());
 
-        tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()) + "원");
+        tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()) + "원");
 
         tvPayUserName.setText(Global.User.name);
 
@@ -87,7 +92,7 @@ public class PayActivity extends UosActivity {
 
         uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
-        payAdapter = new PayAdapter();
+        payAdapter = new PayAdapter(basketManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(PayActivity.this, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
         rvPayOrderList.addItemDecoration(dividerItemDecoration);
@@ -148,7 +153,7 @@ public class PayActivity extends UosActivity {
                     message.accumulate("uospartner_id", uosPartnerId);
                     message.accumulate("customer_id", Global.User.id);
                     message.accumulate("card", cardData);
-                    message.accumulate("order", Global.basketManager.getJson());
+                    message.accumulate("order", basketManager.getJson());
 
                     JSONObject sendData = new JSONObject();
                     sendData.accumulate("request_code", Global.Network.Request.ORDER);
