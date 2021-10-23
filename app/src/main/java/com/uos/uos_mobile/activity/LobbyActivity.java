@@ -21,6 +21,8 @@ import com.uos.uos_mobile.other.Global;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -289,7 +291,15 @@ public class LobbyActivity extends UosActivity {
         int position = 0;
         for (OrderItem orderItem : waitingOrderAdapter.getOrderItemArrayList()) {
             if (orderItem.getOrderCode() == orderCode) {
-                rvLobbyWaitingOrder.smoothScrollToPosition(position);
+                final int target = position;
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(() -> {
+                            rvLobbyWaitingOrder.smoothScrollToPosition(target);
+                        });
+                    }
+                }, 500);
                 break;
             }
             position++;
