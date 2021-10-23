@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.uos.uos_mobile.adapter.OrderAdapter;
 import com.uos.uos_mobile.dialog.OrderDetailDialog;
+import com.uos.uos_mobile.item.OrderItem;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.other.Global;
 
@@ -63,12 +64,7 @@ public class OrderListActivity extends UosActivity {
     }
 
     public void updateList() {
-        new UpdateOrderScreen().start();
-    }
-
-    public class UpdateOrderScreen extends Thread {
-        @Override
-        public void run() {
+        new Thread(() -> {
             runOnUiThread(() -> {
                 if (isFirstLoad) {
                     pbOrderList.setVisibility(View.VISIBLE);
@@ -118,7 +114,6 @@ public class OrderListActivity extends UosActivity {
                                 doneOrderCountDuration = 2000;
                             }
 
-
                             ValueAnimator waitingOrderCountAnimator = ValueAnimator.ofInt(0, waitingOrderCount);
                             waitingOrderCountAnimator.setDuration(waitingOrderCountDuration);
                             waitingOrderCountAnimator.addUpdateListener(valueAnimator -> tvOrderListWaitingOrderCount.setText(String.valueOf(valueAnimator.getAnimatedValue())));
@@ -129,6 +124,7 @@ public class OrderListActivity extends UosActivity {
 
                             waitingOrderCountAnimator.start();
                             doneOrderCountAnimator.start();
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             Toast.makeText(OrderListActivity.this, "주문내역을 불러오지 못했습니다", Toast.LENGTH_SHORT).show();
@@ -158,6 +154,6 @@ public class OrderListActivity extends UosActivity {
                     tvOrderListNoOrderList.setVisibility(View.INVISIBLE);
                 }
             });
-        }
+        }).start();
     }
 }

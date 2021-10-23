@@ -97,6 +97,8 @@ public class UosFcmService extends FirebaseMessagingService {
 
                     /* 주문이 거절되었다는 알림일 경우 */
 
+                    orderCode = -1;
+
                     notificationCompatBuilder
                             .setContentTitle(companyName + "에서 주문을 거절하였습니다")
                             .setContentText("현재 매장이 바쁩니다. 다음에 다시 주문해주세요");
@@ -117,22 +119,21 @@ public class UosFcmService extends FirebaseMessagingService {
 
                     ((LobbyActivity) UosActivity.get(LobbyActivity.class)).updateList(orderCode, false);
 
-                    intent = new Intent(getApplicationContext(), UosActivity.get(-1).getClass());
-
                     if (UosActivity.get(-1).getClass().equals(OrderListActivity.class)) {
 
                         /* OrderListActivity가 최상단에서 실행 중일 경우 */
 
-                        ((OrderListActivity) UosActivity.get(-1)).updateList();
+                        intent = new Intent(getApplicationContext(), OrderListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     } else if (UosActivity.get(-1).getClass().equals(LobbyActivity.class)) {
 
                         /* LobbyActivity가 최상단에서 실행 중일 경우 */
-
+                        intent = new Intent(getApplicationContext(), LobbyActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     } else {
 
                         /* LobbyActivity가 최상단에서 실행 중이 아닐 경우 */
-
+                        intent = new Intent(getApplicationContext(), LobbyActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     }
                 } else {
