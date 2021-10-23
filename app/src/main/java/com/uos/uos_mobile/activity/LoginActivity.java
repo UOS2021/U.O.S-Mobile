@@ -1,7 +1,6 @@
 package com.uos.uos_mobile.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.CheckBox;
@@ -256,7 +255,7 @@ public class LoginActivity extends UosActivity {
 
                     Toast.makeText(LoginActivity.this, "UOS 파트너는 매장 상품 구매가 불가능합니다", Toast.LENGTH_SHORT).show();
                 }
-                startActivity(new Intent(LoginActivity.this, OwnerLobbyActivity.class));
+                startActivity(new Intent(LoginActivity.this, UosPartnerLobbyActivity.class));
                 finish();
             } else if (responseCode.equals(Global.Network.Response.LOGIN_FAIL_ID_NOT_EXIST)) {
 

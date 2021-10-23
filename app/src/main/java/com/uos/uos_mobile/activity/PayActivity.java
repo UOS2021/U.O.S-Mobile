@@ -17,8 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.uos.uos_mobile.adapter.PayAdapter;
 import com.uos.uos_mobile.dialog.CardDialog;
-import com.uos.uos_mobile.dialog.WaitingOrderAcceptDialog;
+import com.uos.uos_mobile.dialog.PayResultDialog;
 import com.uos.uos_mobile.item.CardItem;
+import com.uos.uos_mobile.manager.BasketManager;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
@@ -43,13 +44,15 @@ public class PayActivity extends UosActivity {
     private ConstraintLayout clPayPay;
     private AppCompatTextView tvPayPay;
     private ContentLoadingProgressBar pbPayLoading;
-    private WaitingOrderAcceptDialog waitingOrderAcceptDialog;
+    private PayResultDialog payResultDialog;
 
     private PayAdapter payAdapter;
 
     private CardItem cardItem;
 
     private String uosPartnerId;
+
+    private BasketManager basketManager;
 
     /**
      * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
@@ -72,12 +75,14 @@ public class PayActivity extends UosActivity {
         tvPayPay = findViewById(com.uos.uos_mobile.R.id.tv_pay_pay);
         pbPayLoading = findViewById(com.uos.uos_mobile.R.id.pb_pay_loading);
 
+        basketManager = (BasketManager) getIntent().getSerializableExtra("basketManager");
+
         tvPayPay.setVisibility(View.VISIBLE);
         pbPayLoading.setVisibility(View.INVISIBLE);
 
-        tvPayCompanyName.setText(Global.basketManager.getCompanyName());
+        tvPayCompanyName.setText(basketManager.getCompanyName());
 
-        tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderPrice()) + "원");
+        tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()) + "원");
 
         tvPayUserName.setText(Global.User.name);
 
@@ -87,7 +92,7 @@ public class PayActivity extends UosActivity {
 
         uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
-        payAdapter = new PayAdapter();
+        payAdapter = new PayAdapter(basketManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(PayActivity.this, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getDrawable(com.uos.uos_mobile.R.drawable.recyclerview_divider));
         rvPayOrderList.addItemDecoration(dividerItemDecoration);
@@ -125,18 +130,23 @@ public class PayActivity extends UosActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if(tilPayCardPw.getError().toString().equals("비밀번호가 틀렸습니다")){
+                    tilPayCardPw.setError("null");
+                    tilPayCardPw.setErrorEnabled(false);
+                }
+
                 checkPayEnable();
             }
         });
 
         /* 결제하기 버튼이 눌릴 경우 */
         clPayPay.setOnClickListener(view -> {
-            new Thread(() -> {
-                runOnUiThread(() -> {
-                    tvPayPay.setVisibility(View.INVISIBLE);
-                    pbPayLoading.setVisibility(View.VISIBLE);
-                });
+            clPayPay.setEnabled(false);
+            clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
+            tvPayPay.setVisibility(View.INVISIBLE);
+            pbPayLoading.setVisibility(View.VISIBLE);
 
+            new Thread(() -> {
                 try {
                     JSONObject cardData = new JSONObject();
                     cardData.accumulate("num", cardItem.getNum());
@@ -148,7 +158,7 @@ public class PayActivity extends UosActivity {
                     message.accumulate("uospartner_id", uosPartnerId);
                     message.accumulate("customer_id", Global.User.id);
                     message.accumulate("card", cardData);
-                    message.accumulate("order", Global.basketManager.getJson());
+                    message.accumulate("order", basketManager.getJson());
 
                     JSONObject sendData = new JSONObject();
                     sendData.accumulate("request_code", Global.Network.Request.ORDER);
@@ -156,23 +166,29 @@ public class PayActivity extends UosActivity {
 
                     JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
-                    if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
+                    if (orderResult.getString("response_code").equals(Global.Network.Response.PAY_SUCCESS)) {
 
-                        /* 주문접수 성공 */
+                        /* 결제 성공 */
 
                         runOnUiThread(() -> {
-                            clPayPay.setEnabled(false);
-                            clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
-                            waitingOrderAcceptDialog = new WaitingOrderAcceptDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
-                            waitingOrderAcceptDialog.setOnDismissListener(dialogInterface -> {
+                            payResultDialog = new PayResultDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
+                            payResultDialog.setOnDismissListener(dialogInterface -> {
                                 UosActivity.revertToActivity(LobbyActivity.class);
                                 finish();
                             });
-                            waitingOrderAcceptDialog.show();
+                            payResultDialog.show();
                         });
+                    } else if (orderResult.getString("response_code").equals(Global.Network.Response.PAY_FAIL_WRONG_PASSWORD)) {
+
+                        /* 결제 실패 */
+                        runOnUiThread(() -> {
+                            tilPayCardPw.setError("비밀번호가 틀렸습니다");
+                            tilPayCardPw.setErrorEnabled(true);
+                        });
+
                     } else {
 
-                        /* 주문 접수 실패 */
+                        /* 주문 접수 실패 - 기타 오류 */
 
                         runOnUiThread(() -> {
                             Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
@@ -186,6 +202,8 @@ public class PayActivity extends UosActivity {
                 }
 
                 runOnUiThread(() -> {
+                    clPayPay.setEnabled(true);
+                    clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                     tvPayPay.setVisibility(View.VISIBLE);
                     pbPayLoading.setVisibility(View.INVISIBLE);
                 });
@@ -247,7 +265,7 @@ public class PayActivity extends UosActivity {
                 sendData.accumulate("request_code", Global.Network.Request.CARD_INFO);
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Global.User.id);
+                message.accumulate("customer_id", Global.User.id);
 
                 sendData.accumulate("message", message);
 

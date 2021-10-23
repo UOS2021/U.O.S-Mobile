@@ -38,7 +38,7 @@ public class OrderingSetItem extends OrderingProductItem {
      * @param jsonObject 세트 상품 정보를 담고 있는 JSONObject 객체.
      */
     public OrderingSetItem(JSONObject jsonObject) {
-        super();
+        super(jsonObject);
         this.type = Global.ItemType.SET;
         try {
             this.conf = jsonObject.getString("conf");

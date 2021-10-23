@@ -4,8 +4,6 @@ import android.app.Application;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.uos.uos_mobile.manager.BasketManager;
-
 /**
  * U.O.S-Mobile에서 전역적으로 사용되는 변수, 상수를 모아둔 클래스
  *
@@ -13,7 +11,6 @@ import com.uos.uos_mobile.manager.BasketManager;
  * @since 1.0.0
  */
 public class Global extends Application {
-    public static BasketManager basketManager;
 
     @Override
     public void onCreate() {
@@ -206,6 +203,8 @@ public class Global extends Application {
             public static final String FCM_ORDER_PREPARED = "0028";
             public static final String FCM_QUARANTINE_NOTICE = "0029";
             public static final String CANCEL_ORDER_FAIL_ALREADY_ACCEPT = "0030";
+            public static final String CANCEL_ORDER_FAIL_ALREADY_REFUSE = "0031";
+            public static final String FCM_ORDER_DONE = "0032";
         }
     }
 
@@ -237,6 +236,7 @@ public class Global extends Application {
         public static final int PREPARED = 2;
         public static final int DONE = 3;
         public static final int CANCELED = 4;
+        public static final int REFUSED = 5;
     }
 
     public static class MovieSeat {

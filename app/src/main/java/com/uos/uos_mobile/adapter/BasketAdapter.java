@@ -17,15 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.uos.uos_mobile.dialog.BasketDialog;
+import com.uos.uos_mobile.manager.BasketManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
 public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final BasketDialog basketDialog;
+    private final BasketManager basketManager;
     private BasketAdapter.OnUpdateListener onUpdateListener = null;
 
-    public BasketAdapter(BasketDialog basketDialog) {
+    public BasketAdapter(BasketDialog basketDialog, BasketManager basketManager) {
         this.basketDialog = basketDialog;
+        this.basketManager = basketManager;
     }
 
     @Override
@@ -37,20 +40,20 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        int itemType = Global.basketManager.getOrderingItemArrayList().get(position).getType();
+        int itemType = basketManager.getOrderingItemArrayList().get(position).getType();
         ((BasketItemViewHolder) viewHolder).position = viewHolder.getAdapterPosition();
 
-        ((BasketItemViewHolder) viewHolder).tvBasketItemPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getPrice()) + "원");
-        ((BasketItemViewHolder) viewHolder).tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(Global.basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
-        ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setText(String.valueOf(Global.basketManager.getOrderingItemArrayList().get(position).getCount()));
+        ((BasketItemViewHolder) viewHolder).tvBasketItemPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getPrice()) + "원");
+        ((BasketItemViewHolder) viewHolder).tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderingItemArrayList().get(position).getTotalPrice()) + "원");
+        ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setText(String.valueOf(basketManager.getOrderingItemArrayList().get(position).getCount()));
 
         if (itemType == Global.ItemType.SET || itemType == Global.ItemType.PRODUCT) {
-            ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu());
-            String tempText = Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n");
+            ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(basketManager.getOrderingItemArrayList().get(position).getMenu());
+            String tempText = basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n");
             ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(tempText);
         } else if (itemType == Global.ItemType.MOVIE_TICKET) {
-            ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(Global.basketManager.getOrderingItemArrayList().get(position).getMenu().replace("&", " - "));
-            String tempText = Global.basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", ", ");
+            ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(basketManager.getOrderingItemArrayList().get(position).getMenu().replace("&", " - "));
+            String tempText = basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", ", ");
             ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(tempText);
             ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setEnabled(false);
             ((BasketItemViewHolder) viewHolder).ibtnBasketItemCountDown.setVisibility(View.GONE);
@@ -64,7 +67,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return Global.basketManager.getOrderingItemArrayList().size();
+        return basketManager.getOrderingItemArrayList().size();
     }
 
     @Override
@@ -105,13 +108,13 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             // 삭품 제거 버튼 클릭 시
             ibtnBasketItemRemove.setOnClickListener(v -> {
-                if (Global.basketManager.getOrderingItemArrayList().get(position).getType() == Global.ItemType.MOVIE_TICKET) {
-                    Global.basketManager.getOrderingItemArrayList().get(position).getMovieItem().setAllSeatSelected(false);
+                if (basketManager.getOrderingItemArrayList().get(position).getType() == Global.ItemType.MOVIE_TICKET) {
+                    basketManager.getOrderingItemArrayList().get(position).getMovieItem().setAllSeatSelected(false);
                 }
 
-                Global.basketManager.getOrderingItemArrayList().remove(position);
+                basketManager.getOrderingItemArrayList().remove(position);
                 notifyItemRemoved(position);
-                notifyItemRangeChanged(position, Global.basketManager.getOrderingItemArrayList().size());
+                notifyItemRangeChanged(position, basketManager.getOrderingItemArrayList().size());
 
                 if (position != RecyclerView.NO_POSITION) {
                     if (onUpdateListener != null) {
@@ -119,16 +122,16 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     }
                 }
 
-                if (Global.basketManager.getOrderCount() == 0) {
+                if (basketManager.getOrderCount() == 0) {
                     new Handler().postDelayed(() -> basketDialog.dismiss(), 300);
                 }
             });
 
             // 상품 개수 감소 버튼 클릭 시
             ibtnBasketItemCountDown.setOnClickListener(v -> {
-                int currentCount = Global.basketManager.getOrderingItemArrayList().get(position).getCount();
+                int currentCount = basketManager.getOrderingItemArrayList().get(position).getCount();
                 if (currentCount > 1) {
-                    Global.basketManager.getOrderingItemArrayList().get(position).setCount(currentCount - 1);
+                    basketManager.getOrderingItemArrayList().get(position).setCount(currentCount - 1);
                     updatePriceInfo();
                 }
             });
@@ -148,9 +151,9 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void afterTextChanged(Editable editable) {
                     if (editable.toString().equals("") || Integer.valueOf(editable.toString()) < 1) {
-                        Global.basketManager.getOrderingItemArrayList().get(position).setCount(1);
+                        basketManager.getOrderingItemArrayList().get(position).setCount(1);
                     } else {
-                        Global.basketManager.getOrderingItemArrayList().get(position).setCount(Integer.valueOf(tilBasketItemCount.getEditText().getText().toString()));
+                        basketManager.getOrderingItemArrayList().get(position).setCount(Integer.valueOf(tilBasketItemCount.getEditText().getText().toString()));
                     }
                 }
             });
@@ -166,15 +169,15 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             // 상품 개수 증가 버튼 클릭 시
             ibtnBasketItemCountUp.setOnClickListener(v -> {
-                Global.basketManager.getOrderingItemArrayList().get(position).setCount(Global.basketManager.getOrderingItemArrayList().get(position).getCount() + 1);
+                basketManager.getOrderingItemArrayList().get(position).setCount(basketManager.getOrderingItemArrayList().get(position).getCount() + 1);
                 updatePriceInfo();
             });
         }
 
         private void updatePriceInfo() {
-            tilBasketItemCount.getEditText().setText(String.valueOf(Global.basketManager.getOrderingItemArrayList().get(position).getCount()));
+            tilBasketItemCount.getEditText().setText(String.valueOf(basketManager.getOrderingItemArrayList().get(position).getCount()));
 
-            ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvBasketItemTotalPrice.getText().toString().replace(",", "").replace("원", "")), Global.basketManager.getOrderingItemArrayList().get(position).getTotalPrice());
+            ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvBasketItemTotalPrice.getText().toString().replace(",", "").replace("원", "")), basketManager.getOrderingItemArrayList().get(position).getTotalPrice());
             va.setDuration(1000);
             va.addUpdateListener(va1 -> tvBasketItemTotalPrice.setText(UsefulFuncManager.convertToCommaPattern((Integer) va1.getAnimatedValue())));
             va.start();

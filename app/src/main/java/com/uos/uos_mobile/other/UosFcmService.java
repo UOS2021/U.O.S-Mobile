@@ -13,6 +13,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.uos.uos_mobile.activity.IntroActivity;
 import com.uos.uos_mobile.activity.LobbyActivity;
+import com.uos.uos_mobile.activity.OrderListActivity;
 import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.dialog.OrderDetailDialog;
 import com.uos.uos_mobile.dialog.UosDialog;
@@ -31,6 +32,23 @@ public class UosFcmService extends FirebaseMessagingService {
 
             Map<String, String> recvData = remoteMessage.getData();
             String responseCode = recvData.get("response_code");
+
+            if(responseCode.equals(Global.Network.Response.FCM_ORDER_DONE) && UosActivity.get(LobbyActivity.class) != null){
+
+                /* 수령완료 FCM이 수신되고 LobbyActivity가 실행중일 경우 */
+
+                ((LobbyActivity)UosActivity.get(LobbyActivity.class)).updateList(-1, false);
+
+                if(UosActivity.get(OrderListActivity.class) != null){
+                    
+                    /* OrderListActivity가 실행중일 경우 */
+                    
+                    ((OrderListActivity)UosActivity.get(OrderListActivity.class)).updateList();
+                }
+
+                return;
+            }
+
             String companyName = recvData.get("company_name");
 
             SharedPreferencesManager.open(getApplicationContext(), "");
@@ -43,7 +61,7 @@ public class UosFcmService extends FirebaseMessagingService {
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setAutoCancel(true);
 
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
 
                 /* API Level이 21 ~ 25(Lollipop ~ Nougat)일 경우 Notification에 setVibrate 설정
                  * API Level 26 미만 버전의 경우 Notification에 setVibrate도 함께 설정해야 Headup
@@ -69,7 +87,7 @@ public class UosFcmService extends FirebaseMessagingService {
                     Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
                     PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), notificationId, intent, PendingIntent.FLAG_IMMUTABLE);
                     notificationCompatBuilder.setContentIntent(pendingIntent);
-                }else{
+                } else {
 
                     /* 앱이 실행 중일 경우 */
 
@@ -78,7 +96,7 @@ public class UosFcmService extends FirebaseMessagingService {
                     PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), notificationId, intent, PendingIntent.FLAG_IMMUTABLE);
                     notificationCompatBuilder.setContentIntent(pendingIntent);
                 }
-            } else{
+            } else {
 
                 /* 그 외의 알림일 경우 */
 
@@ -118,23 +136,28 @@ public class UosFcmService extends FirebaseMessagingService {
 
                     ((LobbyActivity) UosActivity.get(LobbyActivity.class)).updateList(orderCode, false);
 
-                    intent = new Intent(getApplicationContext(), LobbyActivity.class);
+                    if (UosActivity.get(-1).getClass().equals(OrderListActivity.class)) {
 
-                    if(UosActivity.get(-1).getClass().equals(LobbyActivity.class)){
+                        /* OrderListActivity가 최상단에서 실행 중일 경우 */
+
+                        ((OrderListActivity)UosActivity.get(OrderListActivity.class)).updateList();
+                    }
+
+                    if (UosActivity.get(-1).getClass().equals(LobbyActivity.class)) {
 
                         /* LobbyActivity가 최상단에서 실행 중일 경우 */
-
+                        intent = new Intent(getApplicationContext(), LobbyActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    }else{
+                    } else {
 
-                        /* LobbyActivity가 최상단에서 실행 중이지 않을 경우 */
-
+                        /* LobbyActivity가 최상단에서 실행 중이 아닐 경우 */
+                        intent = new Intent(getApplicationContext(), LobbyActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     }
-                }else{
-                    
+                } else {
+
                     /* LobbyActivity가 실행 중이지 않을 경우 */
-                    
+
                     intent = new Intent(getApplicationContext(), IntroActivity.class);
                 }
 
@@ -142,7 +165,7 @@ public class UosFcmService extends FirebaseMessagingService {
 
                     /* OrderDetailDialog 실행 중일 경우 */
 
-                    ((OrderDetailDialog)UosDialog.get(OrderDetailDialog.class)).updateOrderState(orderCode, responseCode);
+                    ((OrderDetailDialog) UosDialog.get(OrderDetailDialog.class)).updateOrderState(orderCode, responseCode);
                 }
 
                 intent.putExtra("orderCode", orderCode);

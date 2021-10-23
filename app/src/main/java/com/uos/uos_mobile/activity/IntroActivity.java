@@ -118,7 +118,7 @@ public class IntroActivity extends UosActivity {
              */
 
             int orderCode = getIntent().getIntExtra("orderCode", -1);
-            if(orderCode != -1){
+            if (orderCode != -1) {
                 intent.putExtra("orderCode", orderCode);
             }
         }

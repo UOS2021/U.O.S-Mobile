@@ -28,7 +28,7 @@
             android:name="com.uos.uos_mobile.activity.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name="com.uos.uos_mobile.activity.OwnerLobbyActivity"
+            android:name="com.uos.uos_mobile.activity.UosPartnerLobbyActivity"
             android:exported="true" />
         <activity
             android:name="com.uos.uos_mobile.activity.PayActivity"

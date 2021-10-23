@@ -3,6 +3,8 @@ package com.uos.uos_mobile.item;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * 선택된 상품을 장바구니에서 보관할 형식으로 변환한 클래스.<br><br>
  * OrderingProductItem을 상속받는 상품 객체 및 직접 구현한 상품 객체는 선택 후 장바구니에 추가하기 전 BasketItem
@@ -12,7 +14,7 @@ import org.json.JSONObject;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class BasketItem {
+public class BasketItem implements Serializable {
     /**
      * 상품 종류.
      */
@@ -99,14 +101,14 @@ public class BasketItem {
      *
      * @param productData 한 상품에 대한 주문 데이터.
      */
-    public BasketItem(JSONObject productData){
+    public BasketItem(JSONObject productData) {
         try {
             this.type = productData.getInt("type");
             this.menu = productData.getString("menu");
             this.subMenu = productData.getString("submenu");
             this.count = productData.getInt("count");
             this.price = productData.getInt("price");
-        } catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

@@ -1,7 +1,6 @@
 package com.uos.uos_mobile.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -10,7 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.uos.uos_mobile.dialog.ShowQRDialog;
 import com.uos.uos_mobile.other.Global;
 
-public class OwnerLobbyActivity extends UosActivity {
+public class UosPartnerLobbyActivity extends UosActivity {
     private AppCompatTextView tvOwnerLobbyOwnerName;
     private AppCompatButton btnOwnerLobbyDisplayQr;
     private AppCompatImageButton btnOwnerLobbySetting;
@@ -20,7 +19,7 @@ public class OwnerLobbyActivity extends UosActivity {
      */
     @Override
     protected void init() {
-        setContentView(com.uos.uos_mobile.R.layout.activity_ownerlobby);
+        setContentView(com.uos.uos_mobile.R.layout.activity_uospartnerlobby);
 
         btnOwnerLobbyDisplayQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_displayqr);
         btnOwnerLobbySetting = findViewById(com.uos.uos_mobile.R.id.ibtn_ownerlobby_setting);
@@ -31,12 +30,12 @@ public class OwnerLobbyActivity extends UosActivity {
 
         /* QR 보여주기 버튼 클릭 시 */
         btnOwnerLobbyDisplayQr.setOnClickListener(view -> {
-            new ShowQRDialog(OwnerLobbyActivity.this, false, true).show();
+            new ShowQRDialog(UosPartnerLobbyActivity.this, false, true).show();
         });
 
         /* 설정 버튼 클릭 시 */
         btnOwnerLobbySetting.setOnClickListener(view -> {
-            Intent intent = new Intent(OwnerLobbyActivity.this, SettingActivity.class);
+            Intent intent = new Intent(UosPartnerLobbyActivity.this, SettingActivity.class);
             startActivity(intent);
         });
     }

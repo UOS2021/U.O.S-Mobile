@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uos.uos_mobile.R;
 import com.uos.uos_mobile.activity.LobbyActivity;
 import com.uos.uos_mobile.activity.OrderListActivity;
 import com.uos.uos_mobile.activity.UosActivity;
@@ -109,7 +108,7 @@ public class OrderDetailDialog extends UosDialog {
 
         clDlgOrderDetailCancelOrder.setOnClickListener(view -> {
             clDlgOrderDetailCancelOrder.setEnabled(false);
-            AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogTheme)
+            AlertDialog alertDialog = new AlertDialog.Builder(context, com.uos.uos_mobile.R.style.AlertDialogTheme)
                     .setTitle(tvDlgOrderDetailCompanyName.getText().toString() + " 주문취소")
                     .setMessage("주문(" + tvDlgOrderDetailOrderCode.getText().toString() + ")을 취소하시겠습니까?")
                     .setPositiveButton("예", (dialogInterface, i) -> {
@@ -199,7 +198,7 @@ public class OrderDetailDialog extends UosDialog {
                     /* 주문이 거절되었다는 알림에 관한 업데이트가 필요한 경우 */
 
                     Toast.makeText(context, "주문이 거절되었습니다", Toast.LENGTH_SHORT).show();
-                    dismiss();
+                    clDlgOrderDetailCancelOrder.setVisibility(View.INVISIBLE);
                 }
             });
         }

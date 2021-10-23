@@ -1,7 +1,5 @@
 package com.uos.uos_mobile.activity;
 
-import android.os.Bundle;
-
 import androidx.appcompat.widget.AppCompatImageButton;
 
 public class SettingActivity extends UosActivity {

@@ -1,7 +1,6 @@
 package com.uos.uos_mobile.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;

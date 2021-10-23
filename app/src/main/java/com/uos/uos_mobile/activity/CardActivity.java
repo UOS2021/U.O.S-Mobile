@@ -2,7 +2,6 @@ package com.uos.uos_mobile.activity;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 

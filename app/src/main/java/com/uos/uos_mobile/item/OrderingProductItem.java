@@ -8,6 +8,8 @@ import com.uos.uos_mobile.other.Global;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * 상품 정보를 담고 있는 클래스.<br><br>
  * U.O.S-Mobile에서 사용하는 상품에 대한 최상위 클래스로 추가적인 데이터를 포함한 새로운 상품 클래스를 만들고 싶을
@@ -18,7 +20,7 @@ import org.json.JSONObject;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class OrderingProductItem {
+public class OrderingProductItem implements Serializable {
     /**
      * 상품 종류(단일상품, 세트상품).
      */
