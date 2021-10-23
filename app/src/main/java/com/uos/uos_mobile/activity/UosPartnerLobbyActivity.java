@@ -19,7 +19,7 @@ public class UosPartnerLobbyActivity extends UosActivity {
      */
     @Override
     protected void init() {
-        setContentView(com.uos.uos_mobile.R.layout.activity_ownerlobby);
+        setContentView(com.uos.uos_mobile.R.layout.activity_uospartnerlobby);
 
         btnOwnerLobbyDisplayQr = findViewById(com.uos.uos_mobile.R.id.btn_ownerlobby_displayqr);
         btnOwnerLobbySetting = findViewById(com.uos.uos_mobile.R.id.ibtn_ownerlobby_setting);
