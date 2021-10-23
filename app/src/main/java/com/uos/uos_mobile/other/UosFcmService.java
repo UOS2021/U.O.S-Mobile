@@ -32,6 +32,23 @@ public class UosFcmService extends FirebaseMessagingService {
 
             Map<String, String> recvData = remoteMessage.getData();
             String responseCode = recvData.get("response_code");
+
+            if(responseCode.equals(Global.Network.Response.FCM_ORDER_DONE) && UosActivity.get(LobbyActivity.class) != null){
+
+                /* 수령완료 FCM이 수신되고 LobbyActivity가 실행중일 경우 */
+
+                ((LobbyActivity)UosActivity.get(LobbyActivity.class)).updateList(-1, false);
+
+                if(UosActivity.get(OrderListActivity.class) != null){
+                    
+                    /* OrderListActivity가 실행중일 경우 */
+                    
+                    ((OrderListActivity)UosActivity.get(OrderListActivity.class)).updateList();
+                }
+
+                return;
+            }
+
             String companyName = recvData.get("company_name");
 
             SharedPreferencesManager.open(getApplicationContext(), "");
