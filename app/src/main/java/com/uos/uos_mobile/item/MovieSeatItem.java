@@ -2,7 +2,9 @@ package com.uos.uos_mobile.item;
 
 import org.json.JSONObject;
 
-public class MovieSeatItem implements Cloneable {
+import java.io.Serializable;
+
+public class MovieSeatItem implements Cloneable, Serializable {
     private String code;
     private int price;
     private int state;

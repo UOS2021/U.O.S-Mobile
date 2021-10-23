@@ -5,6 +5,7 @@ import com.uos.uos_mobile.other.Global;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @author Sohn Young Jin
  * @since 1.0.0
  */
-public class MovieItem implements Cloneable {
+public class MovieItem implements Cloneable, Serializable {
     /**
      * 영화 제목.
      */
