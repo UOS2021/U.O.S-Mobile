@@ -203,6 +203,8 @@ public class Global extends Application {
             public static final String FCM_ORDER_PREPARED = "0028";
             public static final String FCM_QUARANTINE_NOTICE = "0029";
             public static final String CANCEL_ORDER_FAIL_ALREADY_ACCEPT = "0030";
+            public static final String CANCEL_ORDER_FAIL_ALREADY_REFUSE = "0031";
+            public static final String FCM_ORDER_DONE = "0032";
         }
     }
 
