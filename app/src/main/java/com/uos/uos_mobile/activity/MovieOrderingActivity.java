@@ -4,7 +4,6 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -100,7 +99,7 @@ public class MovieOrderingActivity extends UosActivity {
 
         try {
             SharedPreferencesManager.open(MovieOrderingActivity.this, Global.SharedPreference.APP_DATA);
-            JSONObject message = new JSONObject((String)SharedPreferencesManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
+            JSONObject message = new JSONObject((String) SharedPreferencesManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
             SharedPreferencesManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
             SharedPreferencesManager.close();
 

@@ -191,7 +191,7 @@ public class LobbyActivity extends UosActivity {
      * 리스트를 스크롤하며 showOrderDetail이 True일 경우 OrderDetailDialog에 전달된 주문코드에 해당하는 주문의
      * 세부정보를 수정합니다.
      *
-     * @param orderCode 주문코드.
+     * @param orderCode       주문코드.
      * @param showOrderDetail 주문에 대한 세부정보 표시 여부.
      */
     public void updateList(int orderCode, boolean showOrderDetail) {

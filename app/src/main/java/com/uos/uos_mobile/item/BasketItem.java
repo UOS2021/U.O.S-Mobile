@@ -99,14 +99,14 @@ public class BasketItem {
      *
      * @param productData 한 상품에 대한 주문 데이터.
      */
-    public BasketItem(JSONObject productData){
+    public BasketItem(JSONObject productData) {
         try {
             this.type = productData.getInt("type");
             this.menu = productData.getString("menu");
             this.subMenu = productData.getString("submenu");
             this.count = productData.getInt("count");
             this.price = productData.getInt("price");
-        } catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

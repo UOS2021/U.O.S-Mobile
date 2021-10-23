@@ -119,17 +119,17 @@ public class UosFcmService extends FirebaseMessagingService {
 
                     intent = new Intent(getApplicationContext(), UosActivity.get(-1).getClass());
 
-                    if (UosActivity.get(-1).getClass().equals(OrderListActivity.class)){
+                    if (UosActivity.get(-1).getClass().equals(OrderListActivity.class)) {
 
                         /* OrderListActivity가 최상단에서 실행 중일 경우 */
 
-                        ((OrderListActivity)UosActivity.get(-1)).updateList();
-                    } else if(UosActivity.get(-1).getClass().equals(LobbyActivity.class)){
+                        ((OrderListActivity) UosActivity.get(-1)).updateList();
+                    } else if (UosActivity.get(-1).getClass().equals(LobbyActivity.class)) {
 
                         /* LobbyActivity가 최상단에서 실행 중일 경우 */
 
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    } else{
+                    } else {
 
                         /* LobbyActivity가 최상단에서 실행 중이 아닐 경우 */
 

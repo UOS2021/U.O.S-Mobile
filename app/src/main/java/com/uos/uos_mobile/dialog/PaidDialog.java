@@ -37,7 +37,7 @@ public class PaidDialog extends UosDialog {
     protected void init() {
         tvDlgWaitingOrderAcceptExplain = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorderaccept_explain);
         clDlgWaitingOrderAcceptOk = findViewById(com.uos.uos_mobile.R.id.cl_dlgwaitingorderaccept_ok);
-        
+
         tvDlgWaitingOrderAcceptExplain.setText(companyName + "에서 주문을 확인하고 있습니다\n잠시만 기다려주세요");
 
         /* 주문취소 버튼이 눌렸을 경우 */

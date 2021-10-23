@@ -1,7 +1,6 @@
 package com.uos.uos_mobile.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;

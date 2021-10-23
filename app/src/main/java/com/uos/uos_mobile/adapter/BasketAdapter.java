@@ -23,7 +23,7 @@ import com.uos.uos_mobile.other.Global;
 
 public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final BasketDialog basketDialog;
-    private BasketManager basketManager;
+    private final BasketManager basketManager;
     private BasketAdapter.OnUpdateListener onUpdateListener = null;
 
     public BasketAdapter(BasketDialog basketDialog, BasketManager basketManager) {

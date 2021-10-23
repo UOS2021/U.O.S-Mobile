@@ -4,8 +4,6 @@ import android.app.Application;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.uos.uos_mobile.manager.BasketManager;
-
 /**
  * U.O.S-Mobile에서 전역적으로 사용되는 변수, 상수를 모아둔 클래스
  *

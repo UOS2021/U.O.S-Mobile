@@ -13,9 +13,9 @@ import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
 public class PayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private BasketManager basketManager;
+    private final BasketManager basketManager;
 
-    public PayAdapter(BasketManager basketManager){
+    public PayAdapter(BasketManager basketManager) {
         this.basketManager = basketManager;
     }
 

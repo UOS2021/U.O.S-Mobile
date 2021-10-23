@@ -24,37 +24,6 @@ public abstract class UosActivity extends AppCompatActivity {
     public static ArrayList<UosActivity> activities = new ArrayList<>();
 
     /**
-     * onDestroy() 호출 시 activities 목록에서 현재 Activity를 제거합니다.
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        activities.remove(this);
-    }
-
-    /**
-     * onCreate() 호출 시 UosActivity.activities에 현재 클래스와 동일한 클래스가 존재할 경우 해당 Activity를
-     * 종료하고 실행중인 Activity 목록에서 제거합니다.그리고 현재 Activity를 실행중인 Activity 목록에 추가합니다.
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        for (UosActivity uosActivity : activities) {
-            if (uosActivity.getClass().equals(this.getClass())) {
-
-                /* 현재 UosActivity와 동일한 클래스의 UosActivity가 존재할 경우 */
-
-                uosActivity.finish();
-            }
-        }
-        activities.add(this);
-
-        super.onCreate(savedInstanceState);
-
-        init();
-    }
-
-    /**
      * 현재 activities 내에 있는 Activity 중 매개변수로 넘어온 클래스의 Activity까지 되돌리는 함수입니다.
      * 실행중인 Activity 목록의 마지막 Activity(가장 최근에 실행된 UosActivity)부터 매개변수로 넘어온 Activity
      * 사이의 모든 Activity는 종료되어 매개변수로 넘어온 Activity가 화면에 표시되도록 합니다.
@@ -132,17 +101,48 @@ public abstract class UosActivity extends AppCompatActivity {
      */
     public static UosActivity get(int index) {
         if (index == -1) {
-            
+
             /* 인덱스 값이 -1일 경우 - 가장 마지막에 추가된 Activity 객체를 반환 */
 
             return activities.get(activities.size() - 1);
         } else if (index > 0 && index < activities.size()) {
 
             /* 인덱스 값이 유효한 값일 경우 */
-            
+
             return activities.get(index);
         }
         return null;
+    }
+
+    /**
+     * onDestroy() 호출 시 activities 목록에서 현재 Activity를 제거합니다.
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        activities.remove(this);
+    }
+
+    /**
+     * onCreate() 호출 시 UosActivity.activities에 현재 클래스와 동일한 클래스가 존재할 경우 해당 Activity를
+     * 종료하고 실행중인 Activity 목록에서 제거합니다.그리고 현재 Activity를 실행중인 Activity 목록에 추가합니다.
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        for (UosActivity uosActivity : activities) {
+            if (uosActivity.getClass().equals(this.getClass())) {
+
+                /* 현재 UosActivity와 동일한 클래스의 UosActivity가 존재할 경우 */
+
+                uosActivity.finish();
+            }
+        }
+        activities.add(this);
+
+        super.onCreate(savedInstanceState);
+
+        init();
     }
 
     /**

@@ -4,7 +4,6 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -72,7 +71,7 @@ public class OrderingActivity extends UosActivity {
 
         try {
             SharedPreferencesManager.open(OrderingActivity.this, Global.SharedPreference.APP_DATA);
-            JSONObject message = new JSONObject((String)SharedPreferencesManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
+            JSONObject message = new JSONObject((String) SharedPreferencesManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
             SharedPreferencesManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
             SharedPreferencesManager.close();
             companyData = message.getJSONObject("company");

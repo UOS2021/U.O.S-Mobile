@@ -4,8 +4,6 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDialog;
 
-import com.uos.uos_mobile.activity.UosActivity;
-
 import java.util.ArrayList;
 
 /**
@@ -35,6 +33,22 @@ public abstract class UosDialog extends AppCompatDialog {
     }
 
     /**
+     * 현재 UosDialog.dialogs에 추가되어있는 UosDialog 중 매개변수로 전달된 클래스와 동일한 클래스를 가
+     * 진 UosDialog를 반환. 만약 동일한 클래스를 가진 UosDialog가 없을 경우 Null 반환
+     *
+     * @param targetUosDialog 가져올 UosDialog의 클래스.
+     * @return UosDialog dialogs에 있는 UosDialog 객체.
+     */
+    public static UosDialog get(Class targetUosDialog) {
+        for (UosDialog uosDialog : dialogs) {
+            if (uosDialog.getClass().equals(targetUosDialog)) {
+                return uosDialog;
+            }
+        }
+        return null;
+    }
+
+    /**
      * dismiss() 호출 시 dialogs 목록에서 현재 UosDialog 제거.
      */
     @Override
@@ -57,21 +71,5 @@ public abstract class UosDialog extends AppCompatDialog {
             }
         }
         dialogs.add(this);
-    }
-
-    /**
-     * 현재 UosDialog.dialogs에 추가되어있는 UosDialog 중 매개변수로 전달된 클래스와 동일한 클래스를 가
-     * 진 UosDialog를 반환. 만약 동일한 클래스를 가진 UosDialog가 없을 경우 Null 반환
-     *
-     * @param targetUosDialog 가져올 UosDialog의 클래스.
-     * @return UosDialog dialogs에 있는 UosDialog 객체.
-     */
-    public static UosDialog get(Class targetUosDialog){
-        for(UosDialog uosDialog : dialogs){
-            if(uosDialog.getClass().equals(targetUosDialog)){
-                return uosDialog;
-            }
-        }
-        return null;
     }
 }

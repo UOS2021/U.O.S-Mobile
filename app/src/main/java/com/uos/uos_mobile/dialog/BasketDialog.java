@@ -18,7 +18,6 @@ import com.uos.uos_mobile.activity.PayActivity;
 import com.uos.uos_mobile.adapter.BasketAdapter;
 import com.uos.uos_mobile.manager.BasketManager;
 import com.uos.uos_mobile.manager.UsefulFuncManager;
-import com.uos.uos_mobile.other.Global;
 
 public class BasketDialog extends UosDialog {
     private final Context context;
@@ -28,9 +27,9 @@ public class BasketDialog extends UosDialog {
     private LinearLayoutCompat llDlgBasketOrder;
     private BasketAdapter basketAdapter;
 
-    private String uosPartnerId;
+    private final String uosPartnerId;
 
-    private BasketManager basketManager;
+    private final BasketManager basketManager;
 
     public BasketDialog(@NonNull Context context, String uosPartnerId, BasketManager basketManager) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
