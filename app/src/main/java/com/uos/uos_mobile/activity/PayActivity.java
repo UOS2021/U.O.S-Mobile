@@ -265,7 +265,7 @@ public class PayActivity extends UosActivity {
                 sendData.accumulate("request_code", Global.Network.Request.CARD_INFO);
 
                 JSONObject message = new JSONObject();
-                message.accumulate("id", Global.User.id);
+                message.accumulate("customer_id", Global.User.id);
 
                 sendData.accumulate("message", message);
 
