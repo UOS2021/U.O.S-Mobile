@@ -130,18 +130,23 @@ public class PayActivity extends UosActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if(tilPayCardPw.getError().toString().equals("비밀번호가 틀렸습니다")){
+                    tilPayCardPw.setError("null");
+                    tilPayCardPw.setErrorEnabled(false);
+                }
+
                 checkPayEnable();
             }
         });
 
         /* 결제하기 버튼이 눌릴 경우 */
         clPayPay.setOnClickListener(view -> {
-            new Thread(() -> {
-                runOnUiThread(() -> {
-                    tvPayPay.setVisibility(View.INVISIBLE);
-                    pbPayLoading.setVisibility(View.VISIBLE);
-                });
+            clPayPay.setEnabled(false);
+            clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
+            tvPayPay.setVisibility(View.INVISIBLE);
+            pbPayLoading.setVisibility(View.VISIBLE);
 
+            new Thread(() -> {
                 try {
                     JSONObject cardData = new JSONObject();
                     cardData.accumulate("num", cardItem.getNum());
@@ -161,13 +166,11 @@ public class PayActivity extends UosActivity {
 
                     JSONObject orderResult = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
 
-                    if (orderResult.getString("response_code").equals(Global.Network.Response.ORDER_SUCCESS)) {
+                    if (orderResult.getString("response_code").equals(Global.Network.Response.PAY_SUCCESS)) {
 
-                        /* 주문접수 성공 */
+                        /* 결제 성공 */
 
                         runOnUiThread(() -> {
-                            clPayPay.setEnabled(false);
-                            clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
                             payResultDialog = new PayResultDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
                             payResultDialog.setOnDismissListener(dialogInterface -> {
                                 UosActivity.revertToActivity(LobbyActivity.class);
@@ -175,9 +178,17 @@ public class PayActivity extends UosActivity {
                             });
                             payResultDialog.show();
                         });
+                    } else if (orderResult.getString("response_code").equals(Global.Network.Response.PAY_FAIL_WRONG_PASSWORD)) {
+
+                        /* 결제 실패 */
+                        runOnUiThread(() -> {
+                            tilPayCardPw.setError("비밀번호가 틀렸습니다");
+                            tilPayCardPw.setErrorEnabled(true);
+                        });
+
                     } else {
 
-                        /* 주문 접수 실패 */
+                        /* 주문 접수 실패 - 기타 오류 */
 
                         runOnUiThread(() -> {
                             Toast.makeText(PayActivity.this, "주문 접수 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
@@ -191,6 +202,8 @@ public class PayActivity extends UosActivity {
                 }
 
                 runOnUiThread(() -> {
+                    clPayPay.setEnabled(true);
+                    clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
                     tvPayPay.setVisibility(View.VISIBLE);
                     pbPayLoading.setVisibility(View.INVISIBLE);
                 });
