@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.uos.uos_mobile.dialog.ShowQRDialog;
 import com.uos.uos_mobile.other.Global;
 
-public class OwnerLobbyActivity extends UosActivity {
+public class UosPartnerLobbyActivity extends UosActivity {
     private AppCompatTextView tvOwnerLobbyOwnerName;
     private AppCompatButton btnOwnerLobbyDisplayQr;
     private AppCompatImageButton btnOwnerLobbySetting;
@@ -30,12 +30,12 @@ public class OwnerLobbyActivity extends UosActivity {
 
         /* QR 보여주기 버튼 클릭 시 */
         btnOwnerLobbyDisplayQr.setOnClickListener(view -> {
-            new ShowQRDialog(OwnerLobbyActivity.this, false, true).show();
+            new ShowQRDialog(UosPartnerLobbyActivity.this, false, true).show();
         });
 
         /* 설정 버튼 클릭 시 */
         btnOwnerLobbySetting.setOnClickListener(view -> {
-            Intent intent = new Intent(OwnerLobbyActivity.this, SettingActivity.class);
+            Intent intent = new Intent(UosPartnerLobbyActivity.this, SettingActivity.class);
             startActivity(intent);
         });
     }
