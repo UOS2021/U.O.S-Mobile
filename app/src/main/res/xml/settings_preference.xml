@@ -12,4 +12,7 @@
     <Preference
         android:key="@string/setting_withdrawal"
         android:title="탈퇴" />
+    <Preference
+        android:key="@string/setting_opensourcelist"
+        android:title="오픈소스 라이선스" />
 </PreferenceScreen>

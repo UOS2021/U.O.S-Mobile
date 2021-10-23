@@ -8,6 +8,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.widget.Toast;
 
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.uos.uos_mobile.activity.LoginActivity;
 import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.dialog.ChangePhoneDialog;
@@ -21,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
+import java.util.function.Predicate;
 
 
 public class SettingPreferenceFragment extends PreferenceFragment {
@@ -37,6 +39,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
         Preference btnChangePhone = findPreference(getString(com.uos.uos_mobile.R.string.setting_change_phone));
         Preference btnLogout = findPreference(getString(com.uos.uos_mobile.R.string.setting_logout));
         Preference btnWithdrawal = findPreference(getString(com.uos.uos_mobile.R.string.setting_withdrawal));
+        Preference btnOpenSourceList = findPreference(getString(com.uos.uos_mobile.R.string.setting_opensourcelist));
 
         /* 비밀번호 변경이 눌렸을 경우 */
         btnChangePw.setOnPreferenceClickListener(preference -> {
@@ -100,13 +103,12 @@ public class SettingPreferenceFragment extends PreferenceFragment {
             new WithdrawalDialog(context, false, true).show();
             return false;
         });
-    }
 
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference.getKey().equals(getString(com.uos.uos_mobile.R.string.setting_account))) {
+        /* 오픈소스 라이선스가 눌렸을 경우 */
+        btnOpenSourceList.setOnPreferenceClickListener(preference -> {
+            startActivity(new Intent(context,OssLicensesMenuActivity.class));
+
             return false;
-        }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
+        });
     }
 }
