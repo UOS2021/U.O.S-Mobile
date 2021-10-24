@@ -5,13 +5,17 @@ import android.app.Application;
 import androidx.appcompat.app.AppCompatDelegate;
 
 /**
- * U.O.S-Mobile에서 전역적으로 사용되는 변수, 상수를 모아둔 클래스
+ * 전역적으로 사용되는 변수, 상수를 모아둔 클래스
  *
  * @author Sohn Young Jin
  * @since 1.0.0
  */
 public class Global extends Application {
 
+    /**
+     * 앱에서 Darkmode를 비활성화하여 사용자 기기의 Darkmode 활성화/비활성화 여부에 상관없이 동일한 Theme가
+     * 표시되도록 합니다.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -230,21 +234,75 @@ public class Global extends Application {
         public static final int MOVIE_TICKET = 2;
     }
 
+    /**
+     * 주문 상태에 관련된 상수들을 모아놓은 클래스.
+     */
     public static class Order {
+
+        /**
+         * 매장의 수락/거절 대기 중인 주문.
+         */
         public static final int WAITING_ACCEPT = 0;
+
+        /**
+         * 상품 준비 중인 주문.
+         */
         public static final int PREPARING = 1;
+
+        /**
+         * 수령 대기 중인 주문.
+         */
         public static final int PREPARED = 2;
+
+        /**
+         * 완료된 주문.
+         */
         public static final int DONE = 3;
+
+        /**
+         * 취소된 주문.
+         */
         public static final int CANCELED = 4;
+
+        /**
+         * 거절된 주문.
+         */
         public static final int REFUSED = 5;
     }
 
+    /**
+     * 영화관 주문 시 자리에 관련된 상수들을 모아놓은 클래스.
+     */
     public static class MovieSeat {
+
+        /**
+         * 자리가 아님.복도와 같은 곳을 표시할 때 사용.
+         */
         public static final int NONE = -1;
+
+        /**
+         * 예약 가능한 자리.
+         */
         public static final int RESERVATION_AVAILABLE = 0;
+
+        /**
+         * 이미 예약된 자리.
+         */
         public static final int ALREADY_RESERVED = 1;
+
+        /**
+         * 예약 불가능한 자리.
+         */
         public static final int UNRESERVED_SEAT = 2;
+
+        /**
+         * 선택된 자리.
+         */
         public static final int SELECTED_SEAT = 3;
+
+        /**
+         * 영화관에서 열 표시 시 사용.
+         */
         public static String[] ROW_ARR = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     }
 }

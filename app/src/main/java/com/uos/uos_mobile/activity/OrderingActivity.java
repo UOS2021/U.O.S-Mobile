@@ -33,10 +33,9 @@ import org.json.JSONObject;
  * 매장에서 주문가능한 상품목록을 보여주는 Activity.<br>
  * xml: activity_ordering.xml<br><br>
  * <p>
- * OrderingActivity는 가장 기본적인 형태의 주문가능 목록을 보여주는 Activity입니다. 본 Activity를 사용할만한
- * 매장으로는 대표적으로 음식점, PC방이 있으며 주로 단일 상품, 세트 상품을 판매하는 매장에서 사용하기에 적절합니다.
- * UOS에서 제공하는 OrderingActivity의 확장으로는 MovieOrderingActivity가 있으며 해당 Activity는 특정 자리를
- * 예매할 수 있는 기능이 추가되어있습니다.
+ * OrderingActivity는 가장 기본적인 형태의 주문가능 목록을 보여주는 Activity입니다. 본 Activity는 음식점,
+ * PC방과 같이 단일 상품, 세트 상품을 판매하는 매장에서 사용하기에 적절합니다. UOS에서 제공하는 OrderingActivity의
+ * 확장으로는 MovieOrderingActivity가 있으며 해당 Activity는 특정 자리를 예매할 수 있는 기능이 추가되어있습니다.
  *
  * @author Sohn Young Jin
  * @since 1.0.0
@@ -124,7 +123,7 @@ public class OrderingActivity extends UosActivity {
             orderingAdapter.setJson(categoryData);
             rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
             rvOrderingProductList.setAdapter(orderingAdapter);
-            basketManager = new BasketManager(tvOrderingCompanyName.getText().toString());
+            basketManager = new BasketManager();
 
             updatePriceInfo();
 
@@ -215,6 +214,7 @@ public class OrderingActivity extends UosActivity {
                 Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
                 intent.putExtra("uosPartnerId", getIntent().getStringExtra("uosPartnerId"));
                 intent.putExtra("basketManager", basketManager);
+                intent.putExtra("companyName", tvOrderingCompanyName.getText().toString());
                 startActivity(intent);
             }
         });

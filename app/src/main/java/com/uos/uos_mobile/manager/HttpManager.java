@@ -17,7 +17,6 @@ import java.net.URL;
 /**
  * Http 통신시 사용하는 Manager 클래스.<br><br>
  * 웹 서버와 Http 통신시 사용되는 클래스이며 AsyncTask를 상속받아 동작합니다.
- * 작합니다.
  *
  * <pre>
  * {@code
@@ -42,9 +41,10 @@ public class HttpManager extends AsyncTask<String, String, String> {
     public static int DEFAULT_READ_TIMEOUT = 2000;
 
     /**
-     * HttpManager를 사용하여 통신하는 함수.<br>
+     * 매개변수로 전달된 서버주소를 이용하여 해당 주소로 Request 요청을 보냅니다. 통신에 실패할 경우 responseCode
+     * -2를 반환하며 그 외의 오류들은 -1을 반환합니다. <br>
      * <p>
-     * 매개변수로 전달되는 String 배열의 값은 다음과 같다.<br>
+     * 매개변수로 전달되는 String 배열의 값은 다음과 같습니다.<br>
      * string[0]: 접속할 URL<br>
      * string[1]: connect timeout<br>
      * string[2]: read timeout<br>

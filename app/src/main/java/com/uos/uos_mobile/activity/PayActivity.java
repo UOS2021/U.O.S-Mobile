@@ -145,7 +145,7 @@ public class PayActivity extends UosActivity {
         tvPayPay.setVisibility(View.VISIBLE);
         pbPayLoading.setVisibility(View.INVISIBLE);
 
-        tvPayCompanyName.setText(basketManager.getCompanyName());
+        tvPayCompanyName.setText(getIntent().getStringExtra("companyName"));
 
         tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()) + "원");
 
