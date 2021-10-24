@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibtn_register_close"
+                android:id="@+id/ibtn_register_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@drawable/icon_btnback"

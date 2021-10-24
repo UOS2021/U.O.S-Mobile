@@ -17,29 +17,74 @@ import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONObject;
 
+/**
+ * 사용자의 카드정보를 관리하는 Activity.<br>
+ * xml: activity_card.xml<br><br>
+ *
+ * 사용자가 결제 시 사용할 카드정보를 관리하는 Activity입니다. 카드영역 터치 시 카드정보를 수정할 수 있는
+ * CardDialog가 표시됩니다.
+ *
+ * @author Sohn Young Jin
+ * @since 1.0.0
+ */
 public class CardActivity extends UosActivity {
-    private AppCompatImageButton ibtnCardClose;
-    private AppCompatImageButton ibtnCardDelete;
-    private AppCompatImageView ivCardBackground;
-    private AppCompatTextView tvCardNoCard;
-    private ConstraintLayout clCardUiGroup;
-    private AppCompatTextView tvCardUserName;
-    private AppCompatTextView tvCardCardNum;
-    private CardItem cardItem;
 
     /**
-     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     * CardActivity를 종료하는 AppCompatImageButton.
      */
+    private AppCompatImageButton ibtnCardBack;
+
+    /**
+     * 등록된 카드정보를 제거하는 AppCompatImageButton.
+     */
+    private AppCompatImageButton ibtnCardDelete;
+
+    /**
+     * 카드 배경 표시 AppCompatImageView.
+     */
+    private AppCompatImageView ivCardBackground;
+
+    /**
+     * 등록된 카드 없음을 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvCardNoCard;
+
+    /**
+     * 카드정보(사용자명, 카드번호, 만료날짜)를 표시하는 AppCompatTextView들을 묶어둔 ConstraintLayout.
+     */
+    private ConstraintLayout clCardUiGroup;
+
+    /**
+     * 사용자 이름을 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvCardUserName;
+
+    /**
+     * 만료날짜를 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvCardExpireDate;
+
+    /**
+     * 카드번호를 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvCardCardNum;
+
+    /**
+     * 카드정보를 담고 있는 CardItem 객체.
+     */
+    private CardItem cardItem;
+
     @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_card);
 
-        ibtnCardClose = findViewById(com.uos.uos_mobile.R.id.ibtn_card_back);
+        ibtnCardBack = findViewById(com.uos.uos_mobile.R.id.ibtn_card_back);
         ibtnCardDelete = findViewById(com.uos.uos_mobile.R.id.ibtn_card_delete);
         ivCardBackground = findViewById(com.uos.uos_mobile.R.id.iv_card_background);
         tvCardNoCard = findViewById(com.uos.uos_mobile.R.id.tv_card_nocard);
         clCardUiGroup = findViewById(com.uos.uos_mobile.R.id.cl_card_uigroup);
         tvCardUserName = findViewById(com.uos.uos_mobile.R.id.tv_card_username);
+        tvCardExpireDate = findViewById(com.uos.uos_mobile.R.id.tv_card_expiredate);
         tvCardCardNum = findViewById(com.uos.uos_mobile.R.id.tv_card_cardnum);
 
         cardItem = new CardItem();
@@ -49,7 +94,7 @@ public class CardActivity extends UosActivity {
         new GetCard().start();
 
         /* 종료 버튼이 눌렸을 경우 */
-        ibtnCardClose.setOnClickListener(view -> {
+        ibtnCardBack.setOnClickListener(view -> {
             finish();
         });
 
@@ -81,6 +126,9 @@ public class CardActivity extends UosActivity {
         });
     }
 
+    /**
+     * cardItem 객체에 저장된 정보를 토대로 UI를 업데이트합니다.
+     */
     private void setCardData() {
         tvCardNoCard.setVisibility(View.GONE);
         clCardUiGroup.setVisibility(View.VISIBLE);
@@ -88,9 +136,13 @@ public class CardActivity extends UosActivity {
         ibtnCardDelete.setEnabled(true);
 
         tvCardUserName.setText(Global.User.name);
+        tvCardExpireDate.setText(cardItem.getDueDate());
         tvCardCardNum.setText(cardItem.getNum());
     }
 
+    /**
+     * cardItem 객체에 저장된 카드정보를 초기화하고 UI를 업데이트합니다.
+     */
     private void removeCardData() {
         tvCardNoCard.setText("터치하여 카드를 등록하세요");
         clCardUiGroup.setVisibility(View.GONE);
@@ -98,11 +150,6 @@ public class CardActivity extends UosActivity {
         ibtnCardDelete.setVisibility(View.INVISIBLE);
         ibtnCardDelete.setEnabled(false);
         cardItem.clear();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     /**
@@ -155,7 +202,6 @@ public class CardActivity extends UosActivity {
                         /* 서버 연결 실패 */
 
                         runOnUiThread(() -> {
-                            removeCardData();
                             Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                         });
                     } else {
@@ -207,14 +253,6 @@ public class CardActivity extends UosActivity {
 
                     runOnUiThread(() -> {
                         removeCardData();
-                    });
-                } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-
-                    /* 서버 연결 실패 */
-
-                    runOnUiThread(() -> {
-                        removeCardData();
-                        Toast.makeText(CardActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                     });
                 }
             } catch (Exception e) {

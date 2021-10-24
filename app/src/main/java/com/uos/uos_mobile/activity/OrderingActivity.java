@@ -26,34 +26,78 @@ import com.uos.uos_mobile.manager.UsefulFuncManager;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 매장에서 주문가능한 상품목록을 보여주는 Activity.<br>
+ * xml: activity_ordering.xml<br><br>
+ * <p>
+ * OrderingActivity는 가장 기본적인 형태의 주문가능 목록을 보여주는 Activity입니다. 본 Activity를 사용할만한
+ * 매장으로는 대표적으로 음식점, PC방이 있으며 주로 단일 상품, 세트 상품을 판매하는 매장에서 사용하기에 적절합니다.
+ * UOS에서 제공하는 OrderingActivity의 확장으로는 MovieOrderingActivity가 있으며 해당 Activity는 특정 자리를
+ * 예매할 수 있는 기능이 추가되어있습니다.
+ *
+ * @author Sohn Young Jin
+ * @since 1.0.0
+ */
 public class OrderingActivity extends UosActivity {
-    private AppCompatImageButton ibtnOrderingBack;
-    private AppCompatTextView tvOrderingCompanyName;
-    private ChipGroup cgOrderingCategoryList;
-    private RecyclerView rvOrderingProductList;
-    private LinearLayoutCompat llOrderingSelected;
-    private AppCompatTextView tvOrderingTotalPrice;
-    private AppCompatTextView tvOrderingProductCount;
-    private LinearLayoutCompat llOrderingPay;
-    private JSONObject companyData;
-    private JSONArray categoryData;
-    private OrderingAdapter orderingAdapter;
-    private String selectedCategory;
-
-    private String uosPartnerId;
-
-    private BasketManager basketManager;
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     /**
-     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     * OrderingActivity를 종료하는 AppCompatImageButton.
      */
+    private AppCompatImageButton ibtnOrderingBack;
+
+    /**
+     * 매장명(회사명)을 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvOrderingCompanyName;
+
+    /**
+     * 카테고리를 목록이 표시되어있는 ChipGroup.
+     */
+    private ChipGroup cgOrderingCategoryList;
+
+    /**
+     * 상품목록이 표시되는 RecyclerView.
+     */
+    private RecyclerView rvOrderingProductList;
+
+    /**
+     * 터치 시 장바구니 화면으로 이동하는 LinearLayoutCompat.
+     */
+    private LinearLayoutCompat llOrderingBasket;
+
+    /**
+     * 선택한 상품의 총 금액을 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvOrderingTotalPrice;
+
+    /**
+     * 선택한 상품의 총 개수를 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvOrderingProductCount;
+
+    /**
+     * 터치 시 PayActivity로 넘어가는 LinearLayoutCompat.
+     */
+    private LinearLayoutCompat llOrderingPay;
+
+    /**
+     * 주문가능한 상품목록에 대한 정보를 관리하는 OrderingAdapter.
+     */
+    private OrderingAdapter orderingAdapter;
+
+    /**
+     * 현재 선택된 카테고리명을 저장하는 변수.
+     */
+    private String selectedCategory;
+
+    /**
+     * 선택한 상품들을 저장하고 관리하는 BasketManager.
+     */
+    private BasketManager basketManager;
+
     @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_ordering);
@@ -62,55 +106,51 @@ public class OrderingActivity extends UosActivity {
         tvOrderingCompanyName = findViewById(com.uos.uos_mobile.R.id.tv_ordering_companyname);
         cgOrderingCategoryList = findViewById(com.uos.uos_mobile.R.id.cg_ordering_categorylist);
         rvOrderingProductList = findViewById(com.uos.uos_mobile.R.id.rv_ordering_productlist);
-        llOrderingSelected = findViewById(com.uos.uos_mobile.R.id.ll_ordering_selected);
+        llOrderingBasket = findViewById(com.uos.uos_mobile.R.id.ll_ordering_basket);
         tvOrderingTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_ordering_totalprice);
         tvOrderingProductCount = findViewById(com.uos.uos_mobile.R.id.tv_ordering_productcount);
         llOrderingPay = findViewById(com.uos.uos_mobile.R.id.ll_ordering_order);
-
-        uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
         try {
             SharedPreferencesManager.open(OrderingActivity.this, Global.SharedPreference.APP_DATA);
             JSONObject message = new JSONObject((String) SharedPreferencesManager.load(Global.SharedPreference.TEMP_MESSAGE, ""));
             SharedPreferencesManager.save(Global.SharedPreference.TEMP_MESSAGE, "");
             SharedPreferencesManager.close();
-            companyData = message.getJSONObject("company");
-            categoryData = message.getJSONArray("category_list");
-            tvOrderingCompanyName.setText(companyData.getString("name"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(OrderingActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-        }
+            JSONArray categoryData = message.getJSONArray("category_list");
+            tvOrderingCompanyName.setText(message.getJSONObject("company").getString("name"));
 
-        // 상품 목록 Adapter 설정
-        orderingAdapter = new OrderingAdapter();
-        orderingAdapter.setJson(categoryData);
-        rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
-        rvOrderingProductList.setAdapter(orderingAdapter);
-        basketManager = new BasketManager(tvOrderingCompanyName.getText().toString());
+            // 상품 목록 Adapter 설정
+            orderingAdapter = new OrderingAdapter();
+            orderingAdapter.setJson(categoryData);
+            rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
+            rvOrderingProductList.setAdapter(orderingAdapter);
+            basketManager = new BasketManager(tvOrderingCompanyName.getText().toString());
 
-        updatePriceInfo();
+            updatePriceInfo();
 
-        // 카테고리를 chipgroup에 추가
-        for (int loop = 0; loop < categoryData.length(); loop++) {
-            Chip chip = (Chip) OrderingActivity.this.getLayoutInflater().inflate(com.uos.uos_mobile.R.layout.chip_category, cgOrderingCategoryList, false);
-            try {
+            // 카테고리를 chipgroup에 추가
+            for (int loop = 0; loop < categoryData.length(); loop++) {
+                Chip chip = (Chip) OrderingActivity.this.getLayoutInflater().inflate(com.uos.uos_mobile.R.layout.chip_category, cgOrderingCategoryList, false);
+
                 chip.setText(categoryData.getJSONObject(loop).getString("category"));
                 chip.setOnClickListener(view -> {
                     selectedCategory = chip.getText().toString();
                     orderingAdapter.setSelectedCategory(selectedCategory);
                     rvOrderingProductList.setAdapter(orderingAdapter);
                 });
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                if (loop == 0) {
+                    selectedCategory = chip.getText().toString();
+                    orderingAdapter.setSelectedCategory(selectedCategory);
+                    rvOrderingProductList.setAdapter(orderingAdapter);
+                    chip.setChecked(true);
+                }
+                cgOrderingCategoryList.addView(chip);
             }
-            if (loop == 0) {
-                selectedCategory = chip.getText().toString();
-                orderingAdapter.setSelectedCategory(selectedCategory);
-                rvOrderingProductList.setAdapter(orderingAdapter);
-                chip.setChecked(true);
-            }
-            cgOrderingCategoryList.addView(chip);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(OrderingActivity.this, "상품목록을 불러오는 도중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         // 뒤로가기 버튼이 눌렸을 경우
@@ -155,11 +195,11 @@ public class OrderingActivity extends UosActivity {
         });
 
         // 선택정보창 버튼이 눌렸을 경우
-        llOrderingSelected.setOnClickListener(view -> {
+        llOrderingBasket.setOnClickListener(view -> {
             if (basketManager.getOrderCount() == 0) {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
-                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, uosPartnerId, basketManager);
+                BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, getIntent().getStringExtra("uosPartnerId"), basketManager);
                 basketDialog.setOnDismissListener(dialogInterface -> {
                     updatePriceInfo();
                 });
@@ -173,13 +213,16 @@ public class OrderingActivity extends UosActivity {
                 Toast.makeText(OrderingActivity.this, "장바구니가 비어있습니다", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
-                intent.putExtra("uosPartnerId", uosPartnerId);
+                intent.putExtra("uosPartnerId", getIntent().getStringExtra("uosPartnerId"));
                 intent.putExtra("basketManager", basketManager);
                 startActivity(intent);
             }
         });
     }
 
+    /**
+     * 상품 선택 또는 선택해제 시 선택 상품 정보(가격 및 개수)를 갱신합니다.
+     */
     private void updatePriceInfo() {
         ValueAnimator va = ValueAnimator.ofInt(Integer.valueOf(tvOrderingTotalPrice.getText().toString().replace(",", "")), basketManager.getOrderPrice());
         va.setDuration(1000);
@@ -189,13 +232,13 @@ public class OrderingActivity extends UosActivity {
         tvOrderingProductCount.setText(String.valueOf(basketManager.getOrderCount()));
 
         if (basketManager.getOrderCount() == 0) {
-            llOrderingSelected.setEnabled(false);
-            llOrderingSelected.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
+            llOrderingBasket.setEnabled(false);
+            llOrderingBasket.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             llOrderingPay.setEnabled(false);
             llOrderingPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
         } else {
-            llOrderingSelected.setEnabled(true);
-            llOrderingSelected.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
+            llOrderingBasket.setEnabled(true);
+            llOrderingBasket.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
             llOrderingPay.setEnabled(true);
             llOrderingPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
         }

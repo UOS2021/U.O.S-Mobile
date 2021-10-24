@@ -90,7 +90,7 @@
             android:weightSum="7">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/ll_ordering_selected"
+                android:id="@+id/ll_ordering_basket"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"

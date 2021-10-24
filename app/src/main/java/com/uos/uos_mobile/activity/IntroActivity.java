@@ -17,25 +17,29 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * U.O.S-Mobile 실행 시 가장 먼저 호출되는 Activity.<br>
+ * 가장 먼저 호출되는 Launcher Activity.<br>
  * xml: activity_intro.xml<br><br>
- * 인트로 화면을 표시하는 역할을 맡고 있으며 추가적으로 외부에서 QR코드를 통해 접속 시 이에 대한 처리를 담당하고 있습
- * 니다.
+ *
+ * 인트로 화면을 표시하는 역할을 맡고 있으며 추가적으로 외부에서 QR코드를 통해 접속 시 이에 대한 처리를 담당하고
+ * 있습니다.
  *
  * @author Sohn Young Jin
  * @since 1.0.0
  */
 public class IntroActivity extends UosActivity {
 
+    /**
+     * IntroActivity는 예외적으로 onCreate() 내에서 clear() 함수를 실행합니다. 이는 기존에 실행 중인
+     * Activity가 있을 경우 모든 Activity를 종료하여 불필요한 Activity가 스택에 쌓여있는 것을 방지해줍니다.
+     *
+     * @param savedInstanceState null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         clear();
         super.onCreate(savedInstanceState);
     }
 
-    /**
-     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수입니다.
-     */
     @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_intro);

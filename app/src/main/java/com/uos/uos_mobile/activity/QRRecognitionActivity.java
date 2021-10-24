@@ -9,15 +9,19 @@ import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * QR코드를 인식 후 데이터를 추출하는 Activity.<br>
  * xml: activity_qrrecognition.xml<br><br>
- * Intent로 넘어온 U.O.S 파트너 아이디가 있을 경우 QR코드를 인식하지 않고 바로 해당 U.O.S 파트너의 매장 상품 목록
- * 을 불러옵니다. 넘어온 아이디가 없을 경우에는 QR코드 인식화면을 표시합니다.
  *
- * @author Sohn Young Jin
+ * Intent로 넘어온 U.O.S 파트너 아이디가 있을 경우 QR코드를 인식하지 않고 바로 해당 U.O.S 파트너의 매장 상품 목록
+ * 을 불러옵니다. 추출된 아이디가 없을 경우에는 QR코드 인식화면을 표시합니다.
+ *
+ * @author Yoon Jong Beom
  * @since 1.0.0
  */
 public class QRRecognitionActivity extends UosActivity {
@@ -46,6 +50,13 @@ public class QRRecognitionActivity extends UosActivity {
         }
     }
 
+    /**
+     * QR코드 인식 화면이 종료된 후 처리를 구현하기 위해 오버라이딩한 함수입니다.
+     *
+     * @param requestCode Activity를 호출한 requestCode.
+     * @param resultCode 호출한 Activity에서 설정한 값.
+     * @param data 호출된 Activity에서 저장된 값.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -93,7 +104,7 @@ public class QRRecognitionActivity extends UosActivity {
                 message.accumulate("uospartner_id", uosPartnerId);
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(5000), sendData.toString()}).get());
 
                 if (recvData == null) {
 
@@ -111,9 +122,9 @@ public class QRRecognitionActivity extends UosActivity {
                     SharedPreferencesManager.close();
 
                     /*
-                     * 아래 if구문은 어떠한 매장에서 불러왔는지를 구분하기 위함. 만약 새로운 형태의 상품 데이터를
-                     * 가지고 있는 매장을 추가했을 경우 Global.Response에서 해당 매장에 대한 코드를 추가하고 아
-                     * 래 if문에 else-if로 추가하여 구분하면 됨.
+                     * 아래 if구문은 어떠한 매장에서 불러왔는지를 구분. 만약 새로운 형태의 상품 데이터를 가지고
+                     * 있는 매장을 추가했을 경우 Global.Response에서 해당 매장에 대한 코드를 추가하고 아래
+                     * if문에 else-if로 추가하여 구분.
                      */
                     Class targetClass = null;
                     if (responseCode.equals(Global.Network.Response.STORE_PRODUCT_INFO)) {
@@ -126,6 +137,13 @@ public class QRRecognitionActivity extends UosActivity {
                         /* 영화관일 경우 */
 
                         targetClass = MovieOrderingActivity.class;
+                    } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
+
+                        /* 서버 연결 실패 */
+
+                        runOnUiThread(() -> {
+                            Toast.makeText(QRRecognitionActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                        });
                     } else {
 
                         /* 등록된 ResponseCode가 없을 경우 */
@@ -142,7 +160,7 @@ public class QRRecognitionActivity extends UosActivity {
                     startActivity(intent);
                 }
                 finish();
-            } catch (Exception e) {
+            } catch (JSONException | ExecutionException | InterruptedException e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {
                     Toast.makeText(QRRecognitionActivity.this, "매장 연결 중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
