@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'com.google.android.gms.oss-licenses-plugin'
+    id 'com.jaredsburrows.license'
 }
 
 android {
@@ -47,4 +48,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+}
+
+licenseReport {
+    generateCsvReport = true
+    generateHtmlReport = true
+    generateJsonReport = true
 }
