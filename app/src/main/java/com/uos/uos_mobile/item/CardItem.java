@@ -13,14 +13,14 @@ public class CardItem {
     private String dueDate;
 
     /**
-     * CardItem의 기본 생성자.
+     * CardItem의 기본 생성자입니다.
      */
     public CardItem() {
 
     }
 
     /**
-     * CardItem의 명시적 생성자.<br><br>
+     * CardItem의 명시적 생성자입니다.<br><br>
      *
      * @param num     카드번호
      * @param cvc     CVC
@@ -33,7 +33,7 @@ public class CardItem {
     }
 
     /**
-     * 객체에 등록된 카드 정보를 초기화하는 함수.
+     * 객체에 등록된 카드 정보를 초기화합니다.
      */
     public void clear() {
         num = "";

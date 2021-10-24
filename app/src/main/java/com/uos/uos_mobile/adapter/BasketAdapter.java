@@ -49,12 +49,10 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if (itemType == Global.ItemType.SET || itemType == Global.ItemType.PRODUCT) {
             ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(basketManager.getOrderingItemArrayList().get(position).getMenu());
-            String tempText = basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n");
-            ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(tempText);
+            ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", "\n"));
         } else if (itemType == Global.ItemType.MOVIE_TICKET) {
             ((BasketItemViewHolder) viewHolder).tvBasketItemMenu.setText(basketManager.getOrderingItemArrayList().get(position).getMenu().replace("&", " - "));
-            String tempText = basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", ", ");
-            ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(tempText);
+            ((BasketItemViewHolder) viewHolder).tvBasketItemSubMenu.setText(basketManager.getOrderingItemArrayList().get(position).getSubMenu().replace("&", ", "));
             ((BasketItemViewHolder) viewHolder).tilBasketItemCount.getEditText().setEnabled(false);
             ((BasketItemViewHolder) viewHolder).ibtnBasketItemCountDown.setVisibility(View.GONE);
             ((BasketItemViewHolder) viewHolder).ibtnBasketItemCountUp.setVisibility(View.GONE);
