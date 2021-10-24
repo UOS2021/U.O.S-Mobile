@@ -44,7 +44,7 @@ public class WaitingOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             /* 상품이 준비 중일 경우 */
 
             ((WaitingOrderViewHolder) viewHolder).tvWaitingOrderMessage.setText("상품이 준비 중입니다");
-            ((WaitingOrderViewHolder) viewHolder).clWaitingOrder.setBackgroundColor(context.getResources().getColor(com.uos.uos_mobile.R.color.gray));
+            ((WaitingOrderViewHolder) viewHolder).clWaitingOrder.setBackgroundResource(com.uos.uos_mobile.R.drawable.border_waitingorder_preparing);
         } else if (orderItemArrayList.get(position).getState() == Global.Order.PREPARED) {
 
             /* 상품이 준비되었을 경우 */

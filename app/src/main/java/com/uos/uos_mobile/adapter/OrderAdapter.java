@@ -26,7 +26,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = ((LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-        return new OrderViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_order, parent, false));
+        return new OrderViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_orderlist, parent, false));
     }
 
     public OrderItem getItem(int position) {

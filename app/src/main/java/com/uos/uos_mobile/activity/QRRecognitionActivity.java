@@ -104,7 +104,8 @@ public class QRRecognitionActivity extends UosActivity {
                 message.accumulate("uospartner_id", uosPartnerId);
                 sendData.accumulate("message", message);
 
-                JSONObject recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(5000), sendData.toString()}).get());
+                String temp = new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(5000), sendData.toString()}).get();
+                JSONObject recvData = new JSONObject(temp);
 
                 if (recvData == null) {
 

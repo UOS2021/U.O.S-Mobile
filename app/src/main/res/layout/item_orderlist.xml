@@ -8,9 +8,8 @@
     android:layout_marginTop="4dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="4dp"
-    android:background="@drawable/border_orderlistitem"
+    android:background="@drawable/ripple_orderlistitem"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="8dp">

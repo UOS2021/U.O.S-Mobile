@@ -123,7 +123,6 @@ public class UosFcmService extends FirebaseMessagingService {
                     notificationCompatBuilder
                             .setContentTitle(companyName + "에서 주문을 수락하였습니다")
                             .setContentText("상품이 준비되는 동안 기다려주세요 (주문코드: " + orderCode + ")");
-
                 } else if (responseCode.equals(Global.Network.Response.FCM_ORDER_REFUSE)) {
 
                     /* 주문이 거절되었다는 알림일 경우 */

@@ -35,9 +35,9 @@ public class BasketManager implements Serializable {
 
     /**
      * 매개변수로 전달된 BasketItem을 basketItemArrayList에 추가합니다. 만약 동일한 상품이 이미 장바구니에
-     * 존재할 경우 해당 상품의 개수를 증가시깁니다.
+     * 존재할 경우 해당 상품의 개수를 증가시킵니다.
      *
-     * @param basketItem
+     * @param basketItem 추가할 BasketItem.
      */
     public void addItem(BasketItem basketItem) {
         boolean isExist = false;
