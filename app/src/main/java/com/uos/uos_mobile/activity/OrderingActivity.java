@@ -228,11 +228,17 @@ public class OrderingActivity extends UosActivity {
         tvOrderingProductCount.setText(String.valueOf(basketManager.getOrderCount()));
 
         if (basketManager.getOrderCount() == 0) {
+
+            /* 장바구니에 담긴 상품이 없을 경우 */
+
             llOrderingBasket.setEnabled(false);
             llOrderingBasket.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             llOrderingPay.setEnabled(false);
             llOrderingPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
         } else {
+
+            /* 장바구니에 담긴 상품이 있을 경우 */
+
             llOrderingBasket.setEnabled(true);
             llOrderingBasket.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
             llOrderingPay.setEnabled(true);
