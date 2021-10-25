@@ -769,7 +769,7 @@ public class RegisterActivity extends UosActivity {
                     runOnUiThread(() -> {
                         Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                     });
-                }  {
+                } else {
 
                     /* 회원가입 실패 - 기타 오류 */
 
