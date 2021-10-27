@@ -30,33 +30,98 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
+/**
+ * QR코드를 인식 후 데이터를 추출하는 Activity.<br>
+ * xml: activity_qrrecognition.xml<br><br>
+ *
+ * Intent로 전달된 BasketManager로 결제될 상품들에 대한 정보를 표시합니다. 장바구니 목록 아래에는 카드정보를
+ * 입력하는 란이 있으며 하단에 있는 결제하기 버튼을 누를 시 주문이 진행됩니다.
+ *
+ * @author Sohn Young Jin
+ * @since 1.0.0
+ */
 public class PayActivity extends UosActivity {
-    private AppCompatImageButton ibtnPayBack;
-    private AppCompatTextView tvPayCompanyName;
-    private RecyclerView rvPayOrderList;
-    private AppCompatTextView tvPayTotalPrice;
-    private AppCompatTextView tvPayNoCard;
-    private ConstraintLayout clPayCard;
-    private AppCompatImageView ivPayCardBackground;
-    private AppCompatTextView tvPayUserName;
-    private AppCompatTextView tvPayCardNum;
-    private TextInputLayout tilPayCardPw;
-    private ConstraintLayout clPayPay;
-    private AppCompatTextView tvPayPay;
-    private ContentLoadingProgressBar pbPayLoading;
-    private PayResultDialog payResultDialog;
-
-    private PayAdapter payAdapter;
-
-    private CardItem cardItem;
-
-    private String uosPartnerId;
-
-    private BasketManager basketManager;
 
     /**
-     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     * 결제 Activity를 종료하는 AppCompatImageButton.
      */
+    private AppCompatImageButton ibtnPayBack;
+
+    /**
+     * 주문하려는 매장명(회사명)을 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvPayCompanyName;
+
+    /**
+     * 장바구니에 있는 목록을 보여주는 RecyclerView.
+     */
+    private RecyclerView rvPayOrderList;
+
+    /**
+     * 결제할 총 금액을 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvPayTotalPrice;
+
+    /**
+     * 카드가 없을 때 보일 문자열을 담고 있는 AppCompatTextView.
+     */
+    private AppCompatTextView tvPayNoCard;
+
+    /**
+     * 터치 시 카드정보를 수정할 수 있는 ConstraintLayout.
+     */
+    private ConstraintLayout clPayCard;
+
+    /**
+     * 카드 배경을 표시하는 AppCompatImageView.
+     */
+    private AppCompatImageView ivPayCardBackground;
+
+    /**
+     * 사용자 이름을 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvPayUserName;
+
+    /**
+     * 카드번호를 표시하는 AppCompatTextView.
+     */
+    private AppCompatTextView tvPayCardNum;
+
+    /**
+     * 카드 비밀번호 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilPayCardPw;
+
+    /**
+     * 터치 시 결제를 진행하는 ConstraintLayout.
+     */
+    private ConstraintLayout clPayPay;
+
+    /**
+     * 결제 전 버튼에 표시할 AppCompatTextView.
+     */
+    private AppCompatTextView tvPayPay;
+
+    /**
+     * 결제 진행 시 표시할 ContentLoadingProgressBar.
+     */
+    private ContentLoadingProgressBar pbPayLoading;
+
+    /**
+     * 결제할 장바구니 목록을 관리하는 PayAdapter.
+     */
+    private PayAdapter payAdapter;
+
+    /**
+     * 카드정보를 담고 있는 CardItem.
+     */
+    private CardItem cardItem;
+
+    /**
+     * Intent로 전달된 BasketManager.
+     */
+    private BasketManager basketManager;
+
     @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_pay);
@@ -80,7 +145,7 @@ public class PayActivity extends UosActivity {
         tvPayPay.setVisibility(View.VISIBLE);
         pbPayLoading.setVisibility(View.INVISIBLE);
 
-        tvPayCompanyName.setText(basketManager.getCompanyName());
+        tvPayCompanyName.setText(getIntent().getStringExtra("companyName"));
 
         tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()) + "원");
 
@@ -89,8 +154,6 @@ public class PayActivity extends UosActivity {
         cardItem = new CardItem();
         removeCardData();
         new PayActivity.GetCard().start();
-
-        uosPartnerId = getIntent().getStringExtra("uosPartnerId");
 
         payAdapter = new PayAdapter(basketManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(PayActivity.this, DividerItemDecoration.VERTICAL);
@@ -155,7 +218,7 @@ public class PayActivity extends UosActivity {
                     cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
 
                     JSONObject message = new JSONObject();
-                    message.accumulate("uospartner_id", uosPartnerId);
+                    message.accumulate("uospartner_id", getIntent().getStringExtra("uosPartnerId"));
                     message.accumulate("customer_id", Global.User.id);
                     message.accumulate("card", cardData);
                     message.accumulate("order", basketManager.getJson());
@@ -171,7 +234,7 @@ public class PayActivity extends UosActivity {
                         /* 결제 성공 */
 
                         runOnUiThread(() -> {
-                            payResultDialog = new PayResultDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
+                            PayResultDialog payResultDialog = new PayResultDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
                             payResultDialog.setOnDismissListener(dialogInterface -> {
                                 UosActivity.revertToActivity(LobbyActivity.class);
                                 finish();
@@ -211,25 +274,45 @@ public class PayActivity extends UosActivity {
         });
     }
 
+    /**
+     * 결제가 가능한 상태인지 확인합니다. 카드정보가 등록되어있는지, 카드 비밀번호가 입력 패턴에 맞는지 확인하며
+     * 조건을 모두 만족시킬 경우 결제버튼을 활성화, 그렇지 않을 경우 비활성화시킵니다.
+     */
     public void checkPayEnable() {
         int result = PatternManager.checkCardPw(tilPayCardPw.getEditText().getText().toString());
 
         if (result == PatternManager.OK) {
+
+            /* 입력된 비밀번호가 조건에 맞을 경우 */
+
             tilPayCardPw.setError(null);
             tilPayCardPw.setErrorEnabled(false);
+
             if (tvPayNoCard.getVisibility() == View.GONE) {
+
+                /* 카드정보가 등록되어있을 경우 */
+
                 clPayPay.setEnabled(true);
                 clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.color_primary));
             } else {
+                
+                /* 카드정보가 등록되어있지 않을 경우 */
+
                 clPayPay.setEnabled(false);
                 clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             }
         } else if (result == PatternManager.LENGTH_SHORT) {
+
+            /* 입력된 비밀번호가 조건에 맞지 않을 경우 - 비밀번호가 짧을 경우*/
+
             clPayPay.setEnabled(false);
             clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             tilPayCardPw.setError("카드 비밀번호는 네 자리 숫자입니다");
             tilPayCardPw.setErrorEnabled(true);
         } else if (result == PatternManager.NOT_ALLOWED_CHARACTER) {
+
+            /* 입력된 비밀번호가 조건에 맞지 않을 경우 - 허용되지 않은 문자가 포함되어있을 경우 */
+            
             clPayPay.setEnabled(false);
             clPayPay.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
             tilPayCardPw.setError("숫자만 입력가능합니다");
@@ -237,6 +320,11 @@ public class PayActivity extends UosActivity {
         }
     }
 
+    /**
+     * 카드정보를 PayActivity에 표시합니다. 카드정보를 성공적으로 불러왔을 때 사용합니다.
+     *
+     * @param cardNum 카드번호.
+     */
     private void setCardData(String cardNum) {
         tvPayNoCard.setVisibility(View.GONE);
         clPayCard.setVisibility(View.VISIBLE);
@@ -245,6 +333,10 @@ public class PayActivity extends UosActivity {
         checkPayEnable();
     }
 
+    /**
+     * 카드정보를 PayActivity에서 표시하지 않습니다. 등록된 카드정보가 없거나 카드정보를 불러오는 도중 오류가
+     * 발생했을 때 사용합니다.
+     */
     private void removeCardData() {
         tvPayNoCard.setText("터치하여 카드를 등록하세요");
         clPayCard.setVisibility(View.GONE);
@@ -253,6 +345,9 @@ public class PayActivity extends UosActivity {
         checkPayEnable();
     }
 
+    /**
+     * 카드정보를 외부서버로부터 불러옵니다.
+     */
     private class GetCard extends Thread {
         @Override
         public void run() {
@@ -276,14 +371,16 @@ public class PayActivity extends UosActivity {
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.CARD_INFO)) {
-                    // 카드 불러오기 성공
+
+                    /* 카드 불러오기 성공 */
+
                     runOnUiThread(() -> {
                         try {
                             cardItem.setNum(recvData.getJSONObject("message").getString("num"));
                             cardItem.setCvc(recvData.getJSONObject("message").getString("cvc"));
                             cardItem.setDueDate(recvData.getJSONObject("message").getString("due_date"));
                             setCardData(cardItem.getNum());
-                        } catch (Exception e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     });
@@ -299,7 +396,6 @@ public class PayActivity extends UosActivity {
                     /* 서버 연결 실패 */
 
                     runOnUiThread(() -> {
-                        removeCardData();
                         Toast.makeText(PayActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                     });
                 } else {
@@ -311,7 +407,7 @@ public class PayActivity extends UosActivity {
                         tvPayNoCard.setText("카드를 불러오는 도중 오류가 발생했습니다");
                     });
                 }
-            } catch (Exception e) {
+            } catch (JSONException | ExecutionException | InterruptedException e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {
                     Toast.makeText(PayActivity.this, e.toString(), Toast.LENGTH_SHORT).show();

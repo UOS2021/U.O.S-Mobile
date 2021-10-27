@@ -17,7 +17,10 @@ import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
 import com.uos.uos_mobile.other.Global;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class ChangePhoneDialog extends UosDialog {
     private final Context context;
@@ -43,9 +46,6 @@ public class ChangePhoneDialog extends UosDialog {
         init();
     }
 
-    /**
-     * Dialog 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
-     */
     protected void init() {
         ibtnDlgChangePhoneClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgchangephone_close);
         tvDlgChangePhoneCurrentPhone = findViewById(com.uos.uos_mobile.R.id.tv_dlgchangephone_currentphone);
@@ -74,11 +74,17 @@ public class ChangePhoneDialog extends UosDialog {
                 int result = PatternManager.checkPhoneNumber(editable.toString());
 
                 if (result == PatternManager.LENGTH_SHORT || result == PatternManager.NOT_ALLOWED_CHARACTER) {
+                    
+                    /* 입력된 값이 전화번호 형식에 맞지 않을 경우 */
+                    
                     tilDlgChangePhoneChangePhone.setError("전화번호 형식이 맞지 않습니다");
                     tilDlgChangePhoneChangePhone.setErrorEnabled(true);
                     tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.color_light));
                     tvDlgChangePhoneApply.setEnabled(false);
                 } else {
+
+                    /* 입력된 값이 전화번호 형식에 맞을 경우 */
+
                     tilDlgChangePhoneChangePhone.setError(null);
                     tilDlgChangePhoneChangePhone.setErrorEnabled(false);
                     tvDlgChangePhoneApply.setTextColor(context.getResources().getColor(com.uos.uos_mobile.R.color.black));
@@ -86,6 +92,7 @@ public class ChangePhoneDialog extends UosDialog {
                 }
             }
         });
+        
         tvDlgChangePhoneApply.setOnClickListener(view -> {
             try {
                 JSONObject message = new JSONObject();
@@ -102,19 +109,24 @@ public class ChangePhoneDialog extends UosDialog {
                 String responseCode = recvData.getString("response_code");
 
                 if (responseCode.equals(Global.Network.Response.CHANGE_PHONE_SUCCESS)) {
-                    // 전화번호 변경 성공
+
+                    /* 전화번호 변경 성공 */
                     Global.User.phone = tilDlgChangePhoneChangePhone.getEditText().getText().toString();
                     Toast.makeText(context, "변경되었습니다", Toast.LENGTH_SHORT).show();
                 } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
-                    // 서버 연결 실패
+
+                    /* 서버 연결 실패 */
+
                     Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    // 전화번호 변경 실패 - 기타 오류
-                    Toast.makeText(context, "전화번호 변경 실패(기타): " + recvData.getString("message"), Toast.LENGTH_SHORT).show();
+
+                    /* 전화번호 변경 실패 - 기타 오류 */
+
+                    Toast.makeText(context, "전화번호 변경 도중 문제가 발생했습니다", Toast.LENGTH_SHORT).show();
                 }
-            } catch (Exception e) {
+            } catch (JSONException | ExecutionException | InterruptedException e) {
                 e.printStackTrace();
-                Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "전화번호 변경 도중 문제가 발생했습니다", Toast.LENGTH_LONG).show();
             }
 
             dismiss();

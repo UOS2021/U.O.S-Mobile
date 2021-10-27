@@ -3,6 +3,7 @@ package com.uos.uos_mobile.item;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -155,7 +156,7 @@ public class MovieItem implements Cloneable, Serializable {
                     movieSeatItemArrayList.add(movieSeatItem);
                 }
             }
-        } catch (Exception e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

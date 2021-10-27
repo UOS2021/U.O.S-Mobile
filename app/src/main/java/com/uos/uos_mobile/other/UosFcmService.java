@@ -21,11 +21,25 @@ import com.uos.uos_mobile.manager.SharedPreferencesManager;
 
 import java.util.Map;
 
+/**
+ * Firebase Cloud Messaging 수신에 대한 처리를 위한 서비스 클래스.
+ *
+ * 본 클래스는 서비스로 등록되며 앱의 실행 여부와 상관없이 Firebase Cloud Messaging에서 메세지 수신 시 실행됩니다.
+ * 주문 수락, 상품 준비에 대한 FCM 수신 시에는 Notification 클릭 시 해당 주문의 상세 정보를 OrderDetailDialog에
+ * 표시합니다.
+ *
+ * @author Sohn Young Jin
+ * @since 1.0.0
+ */
 public class UosFcmService extends FirebaseMessagingService {
+
+    /**
+     * Firebase Cloud Messaging에서 메세지가 수신되었을 경우에 실행됩니다.
+     *
+     * @param remoteMessage 수신된 메세지 정보.
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d("UOS_MOBILE_FCM", "From: " + remoteMessage.getFrom());
-
         if (remoteMessage.getData().size() > 0) {
 
             /* FCM이 data 형식으로 왔을 경우 */
@@ -109,7 +123,6 @@ public class UosFcmService extends FirebaseMessagingService {
                     notificationCompatBuilder
                             .setContentTitle(companyName + "에서 주문을 수락하였습니다")
                             .setContentText("상품이 준비되는 동안 기다려주세요 (주문코드: " + orderCode + ")");
-
                 } else if (responseCode.equals(Global.Network.Response.FCM_ORDER_REFUSE)) {
 
                     /* 주문이 거절되었다는 알림일 경우 */
@@ -180,9 +193,6 @@ public class UosFcmService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
 
             /* FCM이 notification 형식으로 왔을 경우 */
-
-            Log.d("UOS_MOBILE_FCM", "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            Toast.makeText(getApplicationContext(), remoteMessage.getNotification().getBody(), Toast.LENGTH_SHORT).show();
         }
     }
 }

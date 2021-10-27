@@ -9,13 +9,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -32,37 +32,138 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
+/**
+ * UOS에 회원가입하는 Activity.<br>
+ * xml: activity_register.xml<br><br>
+ *
+ * UOS에 가입 시 사용하는 Activity입니다. RegisterTypeDialog에서 선택한 사용자 종류에 따라 일반고객 또는
+ * UOS 파트너 회원가입 화면을 표시합니다.
+ *
+ * @author Sohn Young Jin
+ * @since 1.0.0
+ */
 public class RegisterActivity extends UosActivity {
-    private ImageButton ibtnRegisterClose;
-    private LinearLayoutCompat llRegisterCustomer;
-    private LinearLayoutCompat llRegisterUosPartner;
-    private TextInputLayout tilRegisterCustomerId;
-    private TextInputLayout tilRegisterCustomerPw;
-    private TextInputLayout tilRegisterCustomerPwChk;
-    private TextInputLayout tilRegisterCustomerName;
-    private TextInputLayout tilRegisterCustomerPhoneNumber;
-    private LinearLayoutCompat llRegisterCustomerRegister;
-
-    private TextInputLayout tilRegisterUosPartnerId;
-    private TextInputLayout tilRegisterUosPartnerPw;
-    private TextInputLayout tilRegisterUosPartnerPwChk;
-    private TextInputLayout tilRegisterUosPartnerName;
-    private TextInputLayout tilRegisterUosPartnerPhoneNumber;
-    private TextInputLayout tilRegisterCompanyName;
-    private TextInputLayout tilRegisterLicenseNumber;
-    private Spinner spRegisterCompanyType;
-    private TextInputLayout tilRegisterCompanyAddress;
-    private LinearLayoutCompat llRegisterUosPartnerRegister;
-    private AppCompatImageView ivRegisterLicenseImage;
-    private AppCompatTextView tvRegisterImageMessage;
-    private ExtendedFloatingActionButton efRegisterGotoCompanyInfo;
-    private ScrollView svRegisterScrollView;
-    private TextView tvRegisterCompanyInfo;
-    private LinearLayoutCompat llRegisterCompany;
 
     /**
-     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
+     * RegisterActivity를 종료하는 AppCompatImageButton.
      */
+    private AppCompatImageButton ibtnRegisterBack;
+
+    /**
+     * 일반고객 회원가입 UI를 묶어둔 LinearLayoutCompat.
+     */
+    private LinearLayoutCompat llRegisterCustomer;
+
+    /**
+     * UOS 파트너 회원가입 UI를 묶어둔 LinearLayoutCompat.
+     */
+    private LinearLayoutCompat llRegisterUosPartner;
+
+    /**
+     * 일반고객 아이디 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterCustomerId;
+
+    /**
+     * 일반고객 비밀번호 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterCustomerPw;
+
+    /**
+     * 일반고객 비밀번호 재확인 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterCustomerPwChk;
+
+    /**
+     * 일반고객 이름 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterCustomerName;
+
+    /**
+     * 일반고객 전화번호 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterCustomerPhoneNumber;
+
+    /**
+     * 일반고객 회원가입 실행 LinearLayoutCompat.
+     */
+    private LinearLayoutCompat llRegisterCustomerRegister;
+
+    /**
+     * UOS 파트너 아이디 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterUosPartnerId;
+
+    /**
+     * UOS 파트너 비밀번호 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterUosPartnerPw;
+
+    /**
+     * UOS 파트너 비밀번호 재확인 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterUosPartnerPwChk;
+
+    /**
+     * UOS 파트너 이름 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterUosPartnerName;
+
+    /**
+     * UOS 파트너 전화번호 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterUosPartnerPhoneNumber;
+
+    /**
+     * UOS 파트너 회사명 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterCompanyName;
+
+    /**
+     * UOS 파트너 사업자등록번호 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterLicenseNumber;
+
+    /**
+     * UOS 파트너 회사종류 선택란 Spinner.
+     */
+    private Spinner spRegisterCompanyType;
+
+    /**
+     * UOS 파트너 회사 주소 입력란 TextInputLayout.
+     */
+    private TextInputLayout tilRegisterCompanyAddress;
+
+    /**
+     * UOS 파트너 회원가입 실행 LinearLayoutCompat.
+     */
+    private LinearLayoutCompat llRegisterUosPartnerRegister;
+
+    /**
+     * UOS 파트너 사업자등록증 표시 AppCompatImageView.
+     */
+    private AppCompatImageView ivRegisterLicenseImage;
+
+    /**
+     * UOS 파트너 사업자등록증 영역에 표시할 AppCompatTextView.
+     */
+    private AppCompatTextView tvRegisterImageMessage;
+
+    /**
+     * 화사정보 입력란이 보이도록 확장시켜주는 ExtendedFloatingActionButton.
+     */
+    private ExtendedFloatingActionButton efRegisterGotoCompanyInfo;
+
+    /**
+     * 회원가입 관련 UI들을 포함하고 있는 ScrollView.
+     */
+    private ScrollView svRegisterScrollView;
+
+    /**
+     * 회사정보 관련 UI들을 포함하고 있는 LinearLayoutCompat.
+     */
+    private LinearLayoutCompat llRegisterCompany;
+
     @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_register);
@@ -70,7 +171,7 @@ public class RegisterActivity extends UosActivity {
         /* 데이터 받아오기 */
         int registerType = getIntent().getExtras().getInt("RegisterType");
 
-        ibtnRegisterClose = findViewById(com.uos.uos_mobile.R.id.ibtn_register_close);
+        ibtnRegisterBack = findViewById(com.uos.uos_mobile.R.id.ibtn_register_back);
 
         llRegisterCustomer = findViewById(com.uos.uos_mobile.R.id.ll_register_customer);
         llRegisterUosPartner = findViewById(com.uos.uos_mobile.R.id.ll_register_uospartner);
@@ -97,7 +198,6 @@ public class RegisterActivity extends UosActivity {
 
         efRegisterGotoCompanyInfo = findViewById(com.uos.uos_mobile.R.id.ef_register_gotocompanyinfo);
         svRegisterScrollView = findViewById(com.uos.uos_mobile.R.id.sv_register_scrollview);
-        tvRegisterCompanyInfo = findViewById(com.uos.uos_mobile.R.id.tv_register_companyinfo);
         llRegisterCompany = findViewById(com.uos.uos_mobile.R.id.ll_register_company);
 
         /* 회원가입 유형 확인 */
@@ -128,7 +228,7 @@ public class RegisterActivity extends UosActivity {
         llRegisterUosPartnerRegister.setEnabled(false);
         llRegisterUosPartnerRegister.setBackgroundColor(getResources().getColor(com.uos.uos_mobile.R.color.gray));
 
-        ibtnRegisterClose.setOnClickListener(view -> {
+        ibtnRegisterBack.setOnClickListener(view -> {
             finish();
         });
 
@@ -666,7 +766,9 @@ public class RegisterActivity extends UosActivity {
 
                     /* 서버 연결 실패 */
 
-                    Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> {
+                        Toast.makeText(RegisterActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                    });
                 } else {
 
                     /* 회원가입 실패 - 기타 오류 */
@@ -680,6 +782,13 @@ public class RegisterActivity extends UosActivity {
         });
     }
 
+    /**
+     * 사업자등록증 선택 화면이 종료된 후 처리를 구현하기 위해 오버라이딩한 함수입니다.
+     *
+     * @param requestCode Activity를 호출한 requestCode.
+     * @param resultCode 호출한 Activity에서 설정한 값.
+     * @param data 호출된 Activity에서 저장된 값.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

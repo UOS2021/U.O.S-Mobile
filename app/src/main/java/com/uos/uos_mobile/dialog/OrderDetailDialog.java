@@ -180,7 +180,7 @@ public class OrderDetailDialog extends UosDialog {
             /* OrderDetailDialog에서 표시되고 있는 주문과 FCM으로 수신된 주문의 주문코드가 동일할 경우 */
 
             AppCompatActivity activity = UosActivity.get(OrderListActivity.class);
-            if (activity != null) {
+            if (activity == null) {
 
                 /* OrderListActivity에서 호출된 OrderDetailDialog가 아닐 경우 */
 

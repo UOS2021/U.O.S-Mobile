@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 /**
  * 선택된 상품을 장바구니에서 보관할 형식으로 변환한 클래스.<br><br>
- * OrderingProductItem을 상속받는 상품 객체 및 직접 구현한 상품 객체는 선택 후 장바구니에 추가하기 전 BasketItem
- * 의 형태에 맞게 변환해주어야 합니다. BasketItem은 장바구니에서 선택된 상품의 데이터를 표시할 때 일관된 형식으로 보
- * 여주기 위해서 사용됩니다.
+ * OrderingProductItem을 상속받는 상품 객체 및 직접 구현한 상품 객체는 선택 후 장바구니에 추가하기 전
+ * BasketItem의 형태에 맞게 변환해주어야 합니다. BasketItem은 장바구니에서 선택된 상품의 데이터를 표시할 때 일관된
+ * 형식으로 보여주기 위해서 사용됩니다.
  *
  * @author Sohn Young Jin
  * @since 1.0.0
@@ -31,8 +31,8 @@ public class BasketItem implements Serializable {
     /**
      * 하위상품.<br>
      * 단일상품일 경우에는 추가할 하위메뉴가 없습니다. 하지만 세트와 같이 하위에 또 다른 상품이 포함되어있는 형태라면
-     * 하위상품에 해당 데이터를 추가합니다. 예를 들어, 동일한 상품명을 가진 세트에서 하위상품이 다른 상품들을 장바구
-     * 니에서 구분하고자 할 때 사용할 수 있습니다.
+     * 하위상품에 해당 데이터를 추가합니다. 예를 들어, 동일한 상품명을 가진 세트에서 하위상품이 다른 상품들을
+     * 장바구니에서 구분하고자 할 때 사용할 수 있습니다.
      */
     private String subMenu;
 
@@ -54,14 +54,14 @@ public class BasketItem implements Serializable {
     private MovieItem movieItem;    // 영화 타입일 경우 사용하는 객체
 
     /**
-     * BasketItem의 기본 생성자.
+     * BasketItem의 기본 생성자입니다.
      */
     public BasketItem() {
 
     }
 
     /**
-     * BasketItem의 명시적 생성자.
+     * BasketItem의 명시적 생성자입니다.
      *
      * @param type    상품 종류
      * @param menu    상품 대표명
@@ -78,7 +78,7 @@ public class BasketItem implements Serializable {
     }
 
     /**
-     * BasketItem의 명시적 생성자.
+     * BasketItem의 명시적 생성자입니다.
      *
      * @param type      상품 종류
      * @param menu      상품 대표명
@@ -97,7 +97,7 @@ public class BasketItem implements Serializable {
     }
 
     /**
-     * BasketItem의 명시적 생성자.
+     * BasketItem의 명시적 생성자입니다.
      *
      * @param productData 한 상품에 대한 주문 데이터.
      */
@@ -162,7 +162,7 @@ public class BasketItem implements Serializable {
     }
 
     /**
-     * 선택한 상품의 개당 가격과 개수를 곱한 총 금액 반환.
+     * 선택한 상품의 개당 가격과 개수를 곱한 총 금액 반환합니다.
      *
      * @return 상품의 총 금액
      */

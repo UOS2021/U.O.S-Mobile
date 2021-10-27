@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,18 +24,21 @@ public class BasketDialog extends UosDialog {
     private AppCompatImageButton ibtnDlgBasketClose;
     private RecyclerView rvDlgBasket;
     private AppCompatTextView tvDlgBasketTotalPrice;
-    private LinearLayoutCompat llDlgBasketOrder;
+    private ConstraintLayout clDlgBasketOrder;
     private BasketAdapter basketAdapter;
 
     private final String uosPartnerId;
 
     private final BasketManager basketManager;
 
-    public BasketDialog(@NonNull Context context, String uosPartnerId, BasketManager basketManager) {
+    private final String companyName;
+
+    public BasketDialog(@NonNull Context context, String uosPartnerId, BasketManager basketManager, String companyName) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
         this.uosPartnerId = uosPartnerId;
         this.basketManager = basketManager;
+        this.companyName = companyName;
 
         setCanceledOnTouchOutside(false);
         setCancelable(true);
@@ -58,7 +61,7 @@ public class BasketDialog extends UosDialog {
         ibtnDlgBasketClose = findViewById(com.uos.uos_mobile.R.id.ibtn_dlgbasket_close);
         rvDlgBasket = findViewById(com.uos.uos_mobile.R.id.rv_dlgbasket);
         tvDlgBasketTotalPrice = findViewById(com.uos.uos_mobile.R.id.tv_dlgbasket_totalprice);
-        llDlgBasketOrder = findViewById(com.uos.uos_mobile.R.id.ll_dlgbasket_order);
+        clDlgBasketOrder = findViewById(com.uos.uos_mobile.R.id.cl_dlgbasket_order);
 
         tvDlgBasketTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()));
 
@@ -83,11 +86,12 @@ public class BasketDialog extends UosDialog {
         });
 
         // 주문하기 버튼 클릭 시
-        llDlgBasketOrder.setOnClickListener(view -> {
+        clDlgBasketOrder.setOnClickListener(view -> {
             Intent intent = new Intent(context, PayActivity.class);
             intent.putExtra("uosPartnerId", uosPartnerId);
             intent.putExtra("basketManager", basketManager);
-            context.startActivity(new Intent(context, PayActivity.class));
+            intent.putExtra("companyName", companyName);
+            context.startActivity(intent);
         });
     }
 }

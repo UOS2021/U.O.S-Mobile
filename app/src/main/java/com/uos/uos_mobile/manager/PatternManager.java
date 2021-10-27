@@ -3,8 +3,8 @@ package com.uos.uos_mobile.manager;
 /**
  * 문자열의 패턴을 확인하기 위한 클래스.<br><br>
  * <p>
- * 아이디, 비밀번호, 전화번호와 같은 입력값에 대한 조건을 설정, 해당 조건을 만족하는지에 대해 검사 후 결과를 반환해주
- * 는 함수들이 포함되어있습니다.
+ * 아이디, 비밀번호, 전화번호와 같은 입력값에 대한 조건을 설정, 해당 조건을 만족하는지에 대해 검사 후 결과를
+ * 반환해주는 함수들이 포함되어있습니다.
  *
  * @author Sohn Young Jin
  * @since 1.0.0
@@ -31,7 +31,7 @@ public class PatternManager {
     public static final int NOT_ALLOWED_CHARACTER = 3;
 
     /**
-     * 아이디 입력 조건을 검사하는 함수.
+     * 아이디 입력 조건을 검사합니다.
      *
      * @param id 입력 조건을 검사할 아이디.
      * @return int 입력 조건 검사 결과 값.
@@ -47,7 +47,7 @@ public class PatternManager {
     }
 
     /**
-     * 비밀번호 입력 조건을 검사하는 함수.
+     * 비밀번호 입력 조건을 검사합니다.
      *
      * @param pw 입력 조건을 검사할 비밀번호.
      * @return int 입력 조건 검사 결과 값.
@@ -63,7 +63,7 @@ public class PatternManager {
     }
 
     /**
-     * 이름 입력 조건을 검사하는 함수.
+     * 이름 입력 조건을 검사합니다.
      *
      * @param name 입력 조건을 검사할 이름.
      * @return int 입력 조건 검사 결과 값.
@@ -79,7 +79,7 @@ public class PatternManager {
     }
 
     /**
-     * 전화번호 입력 조건을 검사하는 함수.
+     * 전화번호 입력 조건을 검사합니다.
      *
      * @param phoneNumber 입력 조건을 검사할 전화번호.
      * @return int 입력 조건 검사 결과 값.
@@ -95,7 +95,7 @@ public class PatternManager {
     }
 
     /**
-     * 사업자등록번호 입력 조건을 검사하는 함수.
+     * 사업자등록번호 입력 조건을 검사합니다.
      *
      * @param licenseNumber 입력 조건을 검사할 사업자등록번호.
      * @return int 입력 조건 검사 결과 값.
@@ -111,7 +111,7 @@ public class PatternManager {
     }
 
     /**
-     * 카드번호 입력 조건을 검사하는 함수.
+     * 카드번호 입력 조건을 검사합니다.
      *
      * @param cardNumber 입력 조건을 검사할 카드번호.
      * @return int 입력 조건 검사 결과 값.
@@ -127,7 +127,7 @@ public class PatternManager {
     }
 
     /**
-     * 카드 비밀번호 입력 조건을 검사하는 함수.
+     * 카드 비밀번호 입력 조건을 검사합니다.
      *
      * @param cardPw 입력 조건을 검사할 카드 비밀번호.
      * @return int 입력 조건 검사 결과 값.
@@ -143,7 +143,7 @@ public class PatternManager {
     }
 
     /**
-     * 카드 CVC 입력 조건을 검사하는 함수.
+     * 카드 CVC 입력 조건을 검사합니다.
      *
      * @param cvc 입력 조건을 검사할 카드 CVC.
      * @return int 입력 조건 검사 결과 값.
@@ -159,15 +159,15 @@ public class PatternManager {
     }
 
     /**
-     * 카드 유효기간(월) 입력 조건을 검사하는 함수.
+     * 카드 유효기간(월) 입력 조건을 검사합니다.
      *
-     * @param dueDate 입력 조건을 검사할 카드 유효기간(월).
+     * @param month 입력 조건을 검사할 카드 유효기간(월).
      * @return int 입력 조건 검사 결과 값.
      */
-    public static int checkCardDueDateMonth(String dueDate) {
-        if (dueDate.length() < 2) {
+    public static int checkCardDueDateMonth(String month) {
+        if (month.length() < 2) {
             return LENGTH_SHORT;
-        } else if (!java.util.regex.Pattern.matches("^[0-9]+$", dueDate)) {
+        } else if (!java.util.regex.Pattern.matches("^[0-9]+$", month)) {
             return NOT_ALLOWED_CHARACTER;
         } else {
             return OK;
@@ -175,15 +175,15 @@ public class PatternManager {
     }
 
     /**
-     * 카드 유효기간(년) 입력 조건을 검사하는 함수.
+     * 카드 유효기간(년) 입력 조건을 검사합니다.
      *
-     * @param dueDate 입력 조건을 검사할 카드 유효기간(년).
+     * @param year 입력 조건을 검사할 카드 유효기간(년).
      * @return int 입력 조건 검사 결과 값.
      */
-    public static int checkCardDueDateYear(String dueDate) {
-        if (dueDate.length() < 2) {
+    public static int checkCardDueDateYear(String year) {
+        if (year.length() < 2) {
             return LENGTH_SHORT;
-        } else if (!java.util.regex.Pattern.matches("^[0-9]+$", dueDate)) {
+        } else if (!java.util.regex.Pattern.matches("^[0-9]+$", year)) {
             return NOT_ALLOWED_CHARACTER;
         } else {
             return OK;

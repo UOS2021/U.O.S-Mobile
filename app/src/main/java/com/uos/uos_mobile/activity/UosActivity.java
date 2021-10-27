@@ -75,7 +75,7 @@ public abstract class UosActivity extends AppCompatActivity {
 
     /**
      * 실행중인 Activity 목록에 추가되어있는 Activity 중 매개변수로 전달된 클래스와 동일한 클래스를 가진
-     * Activity를 반환합니다. 만약 동일한 클래스를 가진 UosActivity가 없을 경우 Null 반환합니다.
+     * Activity를 반환합니다. 만약 동일한 클래스를 가진 UosActivity가 없을 경우 null 반환합니다.
      *
      * @param targetUosActivity 가져올 UosActivity의 클래스.
      * @return UosActivity activities에 있는 UosActivity 객체.
@@ -119,9 +119,9 @@ public abstract class UosActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-
         activities.remove(this);
+
+        super.onDestroy();
     }
 
     /**

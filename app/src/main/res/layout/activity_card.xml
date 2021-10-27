@@ -117,6 +117,17 @@
                     app:layout_constraintLeft_toLeftOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_card_expiredate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:text="00/00"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#60000000"
+                    app:layout_constraintBottom_toTopOf="@id/tv_card_cardnum"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_card_cardnum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.uos.uos_mobile.dialog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,8 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.uos.uos_mobile.activity.LoginActivity;
+import com.uos.uos_mobile.activity.UosActivity;
 import com.uos.uos_mobile.manager.HttpManager;
 import com.uos.uos_mobile.manager.PatternManager;
+import com.uos.uos_mobile.manager.SharedPreferencesManager;
 import com.uos.uos_mobile.other.Global;
 
 import org.json.JSONException;
@@ -188,7 +192,48 @@ public class ChangePwDialog extends UosDialog {
 
                     /* 비밀번호 변경 성공 */
 
-                    Toast.makeText(context, "변경되었습니다", Toast.LENGTH_SHORT).show();
+                    if (Global.User.type.equals("customer")) {
+                        try {
+                            message = new JSONObject();
+                            message.accumulate("customer_id", Global.User.id);
+
+                            sendData = new JSONObject();
+                            sendData.accumulate("request_code", Global.Network.Request.CUSTOMER_LOGOUT);
+                            sendData.accumulate("message", message);
+
+                            recvData = new JSONObject(new HttpManager().execute(new String[]{Global.Network.EXTERNAL_SERVER_URL, String.valueOf(HttpManager.DEFAULT_CONNECTION_TIMEOUT), String.valueOf(HttpManager.DEFAULT_READ_TIMEOUT), sendData.toString()}).get());
+                            responseCode = recvData.getString("response_code");
+
+                            if (responseCode.equals(Global.Network.Response.CUSTOMER_LOGOUT_SUCCESS)) {
+
+                                /* 로그아웃 성공 시 */
+
+                                Toast.makeText(context, "비밀번호가 변경되었습니다. 다시 로그인해주세요.", Toast.LENGTH_SHORT).show();
+                            } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
+
+                                /* 서버 연결 실패 */
+
+                                Toast.makeText(context, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
+                            } else {
+
+                                /* 로그아웃 실패 시 */
+
+                                Toast.makeText(context, "비밀번호 변경 중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException | InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                            Toast.makeText(context, "비밀번호 변경 중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    SharedPreferencesManager.open(context, Global.SharedPreference.APP_DATA);
+                    SharedPreferencesManager.save(Global.SharedPreference.IS_LOGINED, false);
+                    SharedPreferencesManager.save(Global.SharedPreference.USER_ID, "");
+                    SharedPreferencesManager.save(Global.SharedPreference.USER_PW, "");
+                    SharedPreferencesManager.save(Global.SharedPreference.USER_TYPE, "");
+                    SharedPreferencesManager.close();
+
+                    UosActivity.startFromActivity(new Intent(context.getApplicationContext(), LoginActivity.class));
 
                     dismiss();
                 } else if (responseCode.equals(Global.Network.Response.CHANGE_PW_FAIL_PW_NOT_CORRECT)) {

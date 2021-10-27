@@ -23,8 +23,9 @@ import java.util.concurrent.ExecutionException;
 /**
  * U.O.S-Mobile의 로그인을 담당하고 있는 Activity.<br>
  * xml: activity_login.xml<br><br>
- * 일반고객과 U.O.S 파트너의 로그인을 위한 Activity이며 로그인 성공시 앱 내에서 로그아웃, 또는 회원탈퇴를 하기 전까
- * 지 마지막에 로그인에 성공한 계정으로 자동 로그인됩니다.
+ *
+ * 일반고객과 U.O.S 파트너의 로그인을 위한 Activity이며 로그인 성공시 앱 내에서 로그아웃, 또는 회원탈퇴를 하기
+ * 전까지 마지막에 로그인에 성공한 계정으로 자동 로그인됩니다.
  *
  * @author Sohn Young Jin
  * @since 1.0.0
@@ -42,12 +43,12 @@ public class LoginActivity extends UosActivity {
     private TextInputLayout tilLoginPw;
 
     /**
-     * 로그인 Button.
+     * 로그인 AppCompatButton.
      */
     private AppCompatButton btnLoginLogin;
 
     /**
-     * 회원가입 다이얼로그를 표시하는 TextView.
+     * 회원가입 다이얼로그를 표시하는 AppCompatTextView.
      */
     private AppCompatTextView tvLoginRegister;
 
@@ -56,9 +57,6 @@ public class LoginActivity extends UosActivity {
      */
     private CheckBox cbLoginIsPartner;
 
-    /**
-     * Activity 실행 시 최초 실행해야하는 코드 및 변수 초기화를 담당하고 있는 함수.
-     */
     @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_login);
@@ -160,8 +158,9 @@ public class LoginActivity extends UosActivity {
     }
 
     /**
-     * 전체적인 로그인 과정을 모아놓은 함수. 아이디, 비밀번호 입력란에 입력된 데이터와 사용자 구분 체크박스의 데이터
-     * 로 송신 데이터를 만들어 외부서버로 전송하고 반환된 결과에 따라 각각 처리하는 역할을 담당하고 있습니다.
+     * 로그인 과정이 구현되어있으며 아이디, 비밀번호 입력란에 입력된 데이터와 사용자 구분 체크박스의 데이터로 송신할
+     * JSONObject를 생성합니다. 해당 JSONObject를 외부서버로 전송하고 반환된 결과에 따라 각각 처리하는 역할을
+     * 담당하고 있습니다.
      */
     private void login() {
         btnLoginLogin.setEnabled(false);
@@ -269,9 +268,9 @@ public class LoginActivity extends UosActivity {
 
                 tilLoginPw.setError("비밀번호가 일치하지 않습니다");
                 tilLoginPw.setErrorEnabled(true);
-            } else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
+            }  else if (responseCode.equals(Global.Network.Response.SERVER_NOT_ONLINE)) {
 
-                /* 로그인 실패 - 서버 연결 실패 */
+                /* 서버 연결 실패 */
 
                 Toast.makeText(LoginActivity.this, "서버 점검 중입니다", Toast.LENGTH_SHORT).show();
             } else {
@@ -290,7 +289,7 @@ public class LoginActivity extends UosActivity {
 
     /**
      * 로그인 가능한 조건을 만족시켰는지 확인 후 버튼 활성화 여부를 설정하는 함수. 실행 시 아이디, 비밀번호 입력란의
-     * 오류 메세지 상태를 초기화시켜주며 입력란에 입력된 값이 있는지에 따라 로그인 버튼을 활성화/비활성화 시킵니다.
+     * 오류 메세지 상태를 초기화시켜주며 입력란에 입력된 값이 있는지에 따라 로그인 버튼을 활성화/비활성화시킵니다.
      */
     private void checkLoginable() {
 

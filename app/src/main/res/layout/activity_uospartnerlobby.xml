@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_ownerlobby_companyname"
+            android:id="@+id/tv_uospartnerlobby_companyname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
@@ -45,13 +45,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/ibtn_ownerlobby_setting"
+        app:layout_constraintBottom_toTopOf="@id/ibtn_uospartnerlobby_setting"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_ownerlobby_1">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_ownerlobby_displayqr"
+            android:id="@+id/btn_uospartnerlobby_displayqr"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="32dp"
@@ -67,7 +67,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/ibtn_ownerlobby_setting"
+        android:id="@+id/ibtn_uospartnerlobby_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00ff0000"

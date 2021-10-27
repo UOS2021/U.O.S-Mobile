@@ -4,9 +4,10 @@
     android:id="@+id/cl_waitingorder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:background="@color/gray"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
     android:padding="8dp">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -41,7 +42,7 @@
         android:id="@+id/tv_waitingorder_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="8dp"
         android:text="상품이 준비 중입니다"
         android:textColor="@color/black"
         android:textSize="20sp"
