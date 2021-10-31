@@ -114,6 +114,10 @@ public class OrderingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
+        if(getCategoryItems() == null){
+            return 0;
+        }
+
         return getCategoryItems().size();
     }
 
