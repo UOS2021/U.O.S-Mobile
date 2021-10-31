@@ -245,6 +245,7 @@ public class MovieOrderingActivity extends UosActivity {
             for (BasketItem basketItem1 : basketManager.getOrderingItemArrayList()) {
                 if (basketItem1.getMenu().equals(basketItem.getMenu())) {
                     basketManager.getOrderingItemArrayList().remove(basketItem1);
+                    break;
                 }
             }
             basketManager.getOrderingItemArrayList().add(basketItem);
