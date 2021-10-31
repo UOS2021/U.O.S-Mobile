@@ -34,6 +34,8 @@ public class MovieSeatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return new MovieSeatAdapter.UnreservedSeatViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_unreservedseat, parent, false));
         } else if (viewType == Global.MovieSeat.SELECTED_SEAT) {
             return new MovieSeatAdapter.SelectedSeatViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_selectedseat, parent, false));
+        } else if (viewType == Global.MovieSeat.NONE) {
+            return new MovieSeatAdapter.NoneSeatViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_none, parent, false));
         } else {
             return new MovieSeatAdapter.NoneSeatViewHolder(layoutInflater.inflate(com.uos.uos_mobile.R.layout.item_seat_none, parent, false));
         }
