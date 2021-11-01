@@ -23,6 +23,7 @@ import com.uos.uos_mobile.dialog.BasketDialog;
 import com.uos.uos_mobile.dialog.SelectProductDialog;
 import com.uos.uos_mobile.dialog.SelectSeatDialog;
 import com.uos.uos_mobile.dialog.SelectSetDialog;
+import com.uos.uos_mobile.dialog.UosDialog;
 import com.uos.uos_mobile.item.BasketItem;
 import com.uos.uos_mobile.item.MovieItem;
 import com.uos.uos_mobile.item.OrderingProductItem;
@@ -68,6 +69,14 @@ public class MovieOrderingActivity extends UosActivity {
     private String uosPartnerId;
 
     private BasketManager basketManager;
+
+    @Override
+    protected void onDestroy() {
+        if(UosDialog.get(BasketDialog.class) != null){
+            UosDialog.get(BasketDialog.class).dismiss();
+        }
+        super.onDestroy();
+    }
 
     @Override
     public void onBackPressed() {

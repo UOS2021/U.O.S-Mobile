@@ -18,6 +18,7 @@ import com.uos.uos_mobile.adapter.OrderingAdapter;
 import com.uos.uos_mobile.dialog.BasketDialog;
 import com.uos.uos_mobile.dialog.SelectProductDialog;
 import com.uos.uos_mobile.dialog.SelectSetDialog;
+import com.uos.uos_mobile.dialog.UosDialog;
 import com.uos.uos_mobile.item.OrderingProductItem;
 import com.uos.uos_mobile.item.OrderingSetItem;
 import com.uos.uos_mobile.manager.BasketManager;
@@ -96,6 +97,14 @@ public class OrderingActivity extends UosActivity {
      * 선택한 상품들을 저장하고 관리하는 BasketManager.
      */
     private BasketManager basketManager;
+
+    @Override
+    protected void onDestroy() {
+        if(UosDialog.get(BasketDialog.class) != null){
+            UosDialog.get(BasketDialog.class).dismiss();
+        }
+        super.onDestroy();
+    }
 
     @Override
     public void onBackPressed() {
