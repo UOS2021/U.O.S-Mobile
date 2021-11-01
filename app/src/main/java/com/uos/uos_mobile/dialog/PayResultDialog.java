@@ -8,16 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.uos.uos_mobile.manager.BasketManager;
+
 public class PayResultDialog extends UosDialog {
     private final Context context;
-    private final String companyName;
     private AppCompatTextView tvDlgWaitingOrderAcceptExplain;
     private ConstraintLayout clDlgWaitingOrderAcceptOk;
+    private BasketManager basketManager;
 
-    public PayResultDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, String companyName) {
+    public PayResultDialog(@NonNull Context context, boolean canceledOnTouchOutside, boolean cancelable, BasketManager basketManager) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
-        this.companyName = companyName;
+        this.basketManager = basketManager;
         setCanceledOnTouchOutside(canceledOnTouchOutside);
         setCancelable(cancelable);
     }
@@ -38,9 +40,13 @@ public class PayResultDialog extends UosDialog {
         tvDlgWaitingOrderAcceptExplain = findViewById(com.uos.uos_mobile.R.id.tv_dlgwaitingorderaccept_explain);
         clDlgWaitingOrderAcceptOk = findViewById(com.uos.uos_mobile.R.id.cl_dlgwaitingorderaccept_ok);
 
-        tvDlgWaitingOrderAcceptExplain.setText(companyName + "에서 주문을 확인하고 있습니다\n잠시만 기다려주세요");
+        if(basketManager.getCompanyType().equals("restaurant/pc")){
+            tvDlgWaitingOrderAcceptExplain.setText(basketManager.getCompanyName() + "에서 주문을 확인하고 있습니다\n잠시만 기다려주세요");
+        }else if(basketManager.getCompanyType().equals("theater")){
+            tvDlgWaitingOrderAcceptExplain.setText("결제가 완료되었습니다");
+        }
 
-        /* 주문취소 버튼이 눌렸을 경우 */
+        /* 확인 버튼이 눌렸을 경우 */
         clDlgWaitingOrderAcceptOk.setOnClickListener(view -> {
             dismiss();
         });

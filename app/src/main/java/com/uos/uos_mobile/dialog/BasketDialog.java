@@ -27,18 +27,12 @@ public class BasketDialog extends UosDialog {
     private ConstraintLayout clDlgBasketOrder;
     private BasketAdapter basketAdapter;
 
-    private final String uosPartnerId;
-
     private final BasketManager basketManager;
 
-    private final String companyName;
-
-    public BasketDialog(@NonNull Context context, String uosPartnerId, BasketManager basketManager, String companyName) {
+    public BasketDialog(@NonNull Context context, BasketManager basketManager) {
         super(context, com.uos.uos_mobile.R.style.DialogTheme_FullScreenDialog);
         this.context = context;
-        this.uosPartnerId = uosPartnerId;
         this.basketManager = basketManager;
-        this.companyName = companyName;
 
         setCanceledOnTouchOutside(false);
         setCancelable(true);
@@ -88,9 +82,7 @@ public class BasketDialog extends UosDialog {
         // 주문하기 버튼 클릭 시
         clDlgBasketOrder.setOnClickListener(view -> {
             Intent intent = new Intent(context, PayActivity.class);
-            intent.putExtra("uosPartnerId", uosPartnerId);
             intent.putExtra("basketManager", basketManager);
-            intent.putExtra("companyName", companyName);
             context.startActivity(intent);
         });
     }

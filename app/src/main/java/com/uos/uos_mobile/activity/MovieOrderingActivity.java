@@ -70,6 +70,24 @@ public class MovieOrderingActivity extends UosActivity {
     private BasketManager basketManager;
 
     @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(MovieOrderingActivity.this, com.uos.uos_mobile.R.style.AlertDialogTheme)
+                .setTitle("주문 취소")
+                .setMessage("주문창에서 나가시겠습니까?")
+                .setPositiveButton("확인", (dialogInterface, i) -> {
+                    super.onBackPressed();
+                })
+                .setNegativeButton("취소", (dialogInterface, i) -> {
+                }).create();
+
+        alertDialog.setOnShowListener(dialogInterface -> {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+        });
+        alertDialog.show();
+    }
+
+    @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_movieordering);
 
@@ -123,7 +141,7 @@ public class MovieOrderingActivity extends UosActivity {
             orderingAdapter.setJson(categoryData);
             rvMovieOrderingProductList.setLayoutManager(new GridLayoutManager(MovieOrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
             rvMovieOrderingProductList.setAdapter(orderingAdapter);
-            basketManager = new BasketManager();
+            basketManager = new BasketManager(uosPartnerId, companyData.getString("name"), "theater");
 
             updatePriceInfo();
 
@@ -221,7 +239,7 @@ public class MovieOrderingActivity extends UosActivity {
 
         /* 선택정보창 버튼이 눌렸을 경우 */
         llMovieOrderingSelected.setOnClickListener(view -> {
-            BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this, uosPartnerId, basketManager, tvMovieOrderingCompanyName.getText().toString());
+            BasketDialog basketDialog = new BasketDialog(MovieOrderingActivity.this, basketManager);
             basketDialog.setOnDismissListener(dialogInterface -> {
                 updatePriceInfo();
             });
@@ -231,9 +249,7 @@ public class MovieOrderingActivity extends UosActivity {
         /* 결제 버튼이 눌렸을 경우 */
         llMovieOrderingPay.setOnClickListener(view -> {
             Intent intent = new Intent(MovieOrderingActivity.this, PayActivity.class);
-            intent.putExtra("uosPartnerId", uosPartnerId);
             intent.putExtra("basketManager", basketManager);
-            intent.putExtra("companyName", tvMovieOrderingCompanyName.getText().toString());
             startActivity(intent);
         });
 
@@ -245,6 +261,7 @@ public class MovieOrderingActivity extends UosActivity {
             for (BasketItem basketItem1 : basketManager.getOrderingItemArrayList()) {
                 if (basketItem1.getMenu().equals(basketItem.getMenu())) {
                     basketManager.getOrderingItemArrayList().remove(basketItem1);
+                    break;
                 }
             }
             basketManager.getOrderingItemArrayList().add(basketItem);

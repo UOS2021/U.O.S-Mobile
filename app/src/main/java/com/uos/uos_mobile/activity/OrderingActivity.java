@@ -98,6 +98,24 @@ public class OrderingActivity extends UosActivity {
     private BasketManager basketManager;
 
     @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(OrderingActivity.this, com.uos.uos_mobile.R.style.AlertDialogTheme)
+                .setTitle("주문 취소")
+                .setMessage("주문창에서 나가시겠습니까?")
+                .setPositiveButton("확인", (dialogInterface, i) -> {
+                    super.onBackPressed();
+                })
+                .setNegativeButton("취소", (dialogInterface, i) -> {
+                }).create();
+
+        alertDialog.setOnShowListener(dialogInterface -> {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+        });
+        alertDialog.show();
+    }
+
+    @Override
     protected void init() {
         setContentView(com.uos.uos_mobile.R.layout.activity_ordering);
 
@@ -123,7 +141,7 @@ public class OrderingActivity extends UosActivity {
             orderingAdapter.setJson(categoryData);
             rvOrderingProductList.setLayoutManager(new GridLayoutManager(OrderingActivity.this, 2, GridLayoutManager.VERTICAL, false));
             rvOrderingProductList.setAdapter(orderingAdapter);
-            basketManager = new BasketManager();
+            basketManager = new BasketManager(getIntent().getStringExtra("uosPartnerId"), message.getJSONObject("company").getString("name"), "restaurant/pc");
 
             updatePriceInfo();
 
@@ -199,7 +217,7 @@ public class OrderingActivity extends UosActivity {
 
         /* 선택정보창 버튼이 눌렸을 경우 */
         llOrderingBasket.setOnClickListener(view -> {
-            BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, getIntent().getStringExtra("uosPartnerId"), basketManager, tvOrderingCompanyName.getText().toString());
+            BasketDialog basketDialog = new BasketDialog(OrderingActivity.this, basketManager);
             basketDialog.setOnDismissListener(dialogInterface -> {
                 updatePriceInfo();
             });
@@ -209,9 +227,7 @@ public class OrderingActivity extends UosActivity {
         /* 결제 버튼이 눌렸을 경우 */
         llOrderingPay.setOnClickListener(view -> {
             Intent intent = new Intent(OrderingActivity.this, PayActivity.class);
-            intent.putExtra("uosPartnerId", getIntent().getStringExtra("uosPartnerId"));
             intent.putExtra("basketManager", basketManager);
-            intent.putExtra("companyName", tvOrderingCompanyName.getText().toString());
             startActivity(intent);
         });
     }

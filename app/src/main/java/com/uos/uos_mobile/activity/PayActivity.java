@@ -145,7 +145,7 @@ public class PayActivity extends UosActivity {
         tvPayPay.setVisibility(View.VISIBLE);
         pbPayLoading.setVisibility(View.INVISIBLE);
 
-        tvPayCompanyName.setText(getIntent().getStringExtra("companyName"));
+        tvPayCompanyName.setText(basketManager.getCompanyName());
 
         tvPayTotalPrice.setText(UsefulFuncManager.convertToCommaPattern(basketManager.getOrderPrice()) + "원");
 
@@ -218,7 +218,7 @@ public class PayActivity extends UosActivity {
                     cardData.accumulate("pw", tilPayCardPw.getEditText().getText().toString());
 
                     JSONObject message = new JSONObject();
-                    message.accumulate("uospartner_id", getIntent().getStringExtra("uosPartnerId"));
+                    message.accumulate("uospartner_id", basketManager.getUosPartnerId());
                     message.accumulate("customer_id", Global.User.id);
                     message.accumulate("card", cardData);
                     message.accumulate("order", basketManager.getJson());
@@ -234,7 +234,7 @@ public class PayActivity extends UosActivity {
                         /* 결제 성공 */
 
                         runOnUiThread(() -> {
-                            PayResultDialog payResultDialog = new PayResultDialog(PayActivity.this, true, false, tvPayCompanyName.getText().toString());
+                            PayResultDialog payResultDialog = new PayResultDialog(PayActivity.this, true, false, basketManager);
                             payResultDialog.setOnDismissListener(dialogInterface -> {
                                 UosActivity.revertToActivity(LobbyActivity.class);
                                 finish();
@@ -244,6 +244,7 @@ public class PayActivity extends UosActivity {
                     } else if (orderResult.getString("response_code").equals(Global.Network.Response.PAY_FAIL_WRONG_PASSWORD)) {
 
                         /* 결제 실패 */
+
                         runOnUiThread(() -> {
                             tilPayCardPw.setError("비밀번호가 틀렸습니다");
                             tilPayCardPw.setErrorEnabled(true);
