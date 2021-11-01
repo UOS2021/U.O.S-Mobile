@@ -101,7 +101,7 @@ public class OrderItem {
 
         if (totalItemCount > 1) {
             if (basketItemArrayList.size() == 1) {
-                result += " " + (totalItemCount - 1) + "개";
+                result += " " + totalItemCount + "개";
             } else {
                 result += " 외 " + (totalItemCount - 1) + "개";
             }
