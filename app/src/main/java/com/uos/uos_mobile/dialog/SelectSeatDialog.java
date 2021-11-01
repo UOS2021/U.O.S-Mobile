@@ -117,7 +117,7 @@ public class SelectSeatDialog extends UosDialog {
 
         // 선택 버튼 클릭 시
         llDlgSelectSeatSelect.setOnClickListener(view -> {
-            this.selectSeatDialogListener.onAddProductClicked(movieItem, new BasketItem(Global.ItemType.MOVIE_TICKET, movieItem.getMovie() + "&" + movieItem.getTime(), movieItem.getSelectSeatListToString(), movieItem.getMovieSeatItemArrayList().get(0).getPrice(), movieItem.getSelectSeatCount()));
+            this.selectSeatDialogListener.onAddProductClicked(movieItem, new BasketItem(Global.ItemType.MOVIE_TICKET, movieItem.getMovie() + "&" + movieItem.getTime() + "&" + movieItem.getTheater(), movieItem.getSelectSeatListToString(), movieItem.getMovieSeatItemArrayList().get(0).getPrice(), movieItem.getSelectSeatCount()));
             dismiss();
         });
     }
