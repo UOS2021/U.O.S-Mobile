@@ -25,12 +25,20 @@ public class BasketManager implements Serializable {
      */
     private ArrayList<BasketItem> basketItemArrayList = new ArrayList<>();
 
+    private String uosPartnerId;
+
+    private String companyName;
+
+    private String companyType;
+
     public ArrayList<BasketItem> getOrderingItemArrayList() {
         return basketItemArrayList;
     }
 
-    public void setOrderingItemArrayList(ArrayList<BasketItem> basketItemArrayList) {
-        this.basketItemArrayList = basketItemArrayList;
+    public BasketManager(String uosPartnerId, String companyName, String companyType){
+        this.uosPartnerId = uosPartnerId;
+        this.companyName = companyName;
+        this.companyType = companyType;
     }
 
     /**
@@ -112,5 +120,37 @@ public class BasketManager implements Serializable {
         }
 
         return price;
+    }
+
+    public String getUosPartnerId() {
+        return uosPartnerId;
+    }
+
+    public void setUosPartnerId(String uosPartnerId) {
+        this.uosPartnerId = uosPartnerId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(String companyType) {
+        this.companyType = companyType;
+    }
+
+    public ArrayList<BasketItem> getBasketItemArrayList() {
+        return basketItemArrayList;
+    }
+
+    public void setBasketItemArrayList(ArrayList<BasketItem> basketItemArrayList) {
+        this.basketItemArrayList = basketItemArrayList;
     }
 }
