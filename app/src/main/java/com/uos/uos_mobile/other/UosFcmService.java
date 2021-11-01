@@ -91,7 +91,7 @@ public class UosFcmService extends FirebaseMessagingService {
 
                 notificationCompatBuilder
                         .setContentTitle("UOS 재난 알리미")
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText("고객님께서 방문하셨던 " + companyName + "매장에서 확진자가 발생했습니다. " + recvData.get("message")))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(recvData.get("message")))
                         .setContentText(companyName + "에서 확진자 발생");
 
                 if (UosActivity.activities.size() == 0) {
