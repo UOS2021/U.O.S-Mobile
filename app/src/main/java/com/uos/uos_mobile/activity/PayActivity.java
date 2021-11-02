@@ -193,7 +193,7 @@ public class PayActivity extends UosActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(tilPayCardPw.getError().toString().equals("비밀번호가 틀렸습니다")){
+                if(tilPayCardPw.getError() != null && tilPayCardPw.getError().toString().equals("비밀번호가 틀렸습니다")){
                     tilPayCardPw.setError("null");
                     tilPayCardPw.setErrorEnabled(false);
                 }
