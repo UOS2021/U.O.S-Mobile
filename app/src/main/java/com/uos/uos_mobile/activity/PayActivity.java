@@ -237,7 +237,6 @@ public class PayActivity extends UosActivity {
                             PayResultDialog payResultDialog = new PayResultDialog(PayActivity.this, true, false, basketManager);
                             payResultDialog.setOnDismissListener(dialogInterface -> {
                                 UosActivity.revertToActivity(LobbyActivity.class);
-                                finish();
                             });
                             payResultDialog.show();
                         });
