@@ -16,7 +16,7 @@
   <a href = "https://github.com/UOS2021/U.O.S-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a>
 </p>
 <br>
-  <a href = "https://ilovegamecoding.github.io/U.O.S-Mobile">API 가이드</a>
+  <a href = "https://uos2021.github.io/U.O.S-Mobile/">API 가이드</a>
 <br>
 <br>
 
