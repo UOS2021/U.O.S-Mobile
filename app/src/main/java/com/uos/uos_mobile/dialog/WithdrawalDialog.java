@@ -120,7 +120,9 @@ public class WithdrawalDialog extends UosDialog {
 
                     /* 회원탈퇴 실패 - 비밀번호 불일치 */
 
-                    Toast.makeText(context, "탈퇴되었습니다", Toast.LENGTH_SHORT).show();
+                    tilDlgWithdrawalPw.setError("비밀번호가 일치하지 않습니다");
+                    tilDlgWithdrawalPw.setErrorEnabled(true);
+
                 } else {
 
                     /* 회원탈퇴 실패 - 기타 오류 */
