@@ -97,7 +97,7 @@ public class HttpManager extends AsyncTask<String, String, String> {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return "{ response_code: \"-1\", message: \"" + e.toString() + "\" }";
+            return "{ response_code: \"" + Global.Network.Response.UNKNOWN_ERROR + "\", message: \"" + e.toString() + "\" }";
         }
     }
 }
