@@ -13,10 +13,11 @@
   <img src="https://img.shields.io/github/repo-size/UOS2021/U.O.S-Mobile?style=for-the-badge"/>
   <img src="https://img.shields.io/github/license/UOS2021/U.O.S-Mobile?style=for-the-badge"/>
   <a href = "https://github.com/UOS2021/U.O.S-POS"><img src="https://img.shields.io/badge/REPO-UOS_POS-informatoinal?style=for-the-badge"/></a>
-  <a href = "https://github.com/UOS2021/U.O.S-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a>
+  <a href = "https://github.com/UOS2021/U.O.S-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a><br>
+  <a href = "https://2021uos.gitbook.io/"><img src="https://img.shields.io/badge/-GITBOOK-red"/></a>
+  <a href = "https://uos2021.github.io/U.O.S-Mobile/"><img src="https://img.shields.io/badge/-GITBOOK-informational"/></a>
+  
 </p>
-<br>
-  <a href = "https://uos2021.github.io/U.O.S-Mobile/">API 가이드</a>
 <br>
 <br>
 
@@ -55,7 +56,7 @@
     <tr>
         <td width="100" align="center"><img src="/image/sungjoon.PNG" width="60" height="60"></td>
         <td width="100" align="center">배성준</td>
-        <td width="150">U.O.S-Mobile 개발<br>U.O.S-Pos Design<br>문서화 작업 등</td>
+        <td width="150">U.O.S-Server 개발<br>U.O.S-Mobile 개발<br>U.O.S-Pos Design 등</td>
         <td width="100" align="center">
           <a href="https://github.com/westofsky">
             <img src="http://img.shields.io/badge/westofsky-655ced?style=social&logo=github"/>
@@ -94,7 +95,7 @@
     <tr>
         <td width="100" align="center"><img src="/image/hyunseung.PNG" width="60" height="60"></td>
         <td width="100" align="center">유현승</td>
-        <td width="150">U.O.S-Pos 개발<br>통신 소켓 구축<br서버 제공 등</td>
+        <td width="150">U.O.S-Server 개발<br>U.O.S-Pos 개발<br>통신 소켓 구축 등</td>
         <td width="100" align="center">
           <a href="https://github.com/UDADDY">
             <img src="http://img.shields.io/badge/UDADDY-655ced?style=social&logo=github"/>
