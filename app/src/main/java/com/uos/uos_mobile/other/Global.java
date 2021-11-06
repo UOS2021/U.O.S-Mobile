@@ -142,6 +142,7 @@ public class Global extends Application {
          * 외부서버 주소.
          */
         public static final String EXTERNAL_SERVER_URL = "http://211.217.202.39:8080/post";
+        //public static final String EXTERNAL_SERVER_URL = "https://uos-server.run.goorm.io/post";
 
         /**
          * Pos, 외부서버로 보내는 요청 코드를 모아놓은 클래스.<br><br>
