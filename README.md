@@ -12,8 +12,9 @@
 <p align="center">
   <img src="https://img.shields.io/github/repo-size/UOS2021/U.O.S-Mobile?style=for-the-badge"/>
   <a href = "https://2021uos.gitbook.io/u-o-f/license/app-license"><img src="https://img.shields.io/github/license/UOS2021/U.O.S-Mobile?style=for-the-badge"/></a>
-  <a href = "https://github.com/UOS2021/U.O.S-POS"><img src="https://img.shields.io/badge/REPO-UOS_POS-informatoinal?style=for-the-badge"/></a>
   <a href = "https://github.com/UOS2021/U.O.S-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a><br>
+  <a href = "https://github.com/UOS2021/U.O.S-POS"><img src="https://img.shields.io/badge/REPO-UOS_POS-informatoinal?style=for-the-badge"/></a>
+  
   
 </p>
 <br>
