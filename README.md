@@ -14,6 +14,7 @@
   <a href = "https://2021uos.gitbook.io/u-o-f/license/app-license"><img src="https://img.shields.io/github/license/UOS2021/U.O.S-Mobile?style=for-the-badge"/></a>
   <a href = "https://github.com/UOS2021/U.O.S-Server"><img src="https://img.shields.io/badge/REPO-UOS_SERVER-informatoinal?style=for-the-badge"/></a>
   <a href = "https://github.com/UOS2021/U.O.S-POS"><img src="https://img.shields.io/badge/REPO-UOS_POS-informatoinal?style=for-the-badge"/></a>
+  <a href = "https://youtu.be/OUvp6gjL64s"><img src="https://img.shields.io/badge/Video-Link-informatoinal?style=for-the-badge&color=C00"/></a>
   <br>
   
 </p>
